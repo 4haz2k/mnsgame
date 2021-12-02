@@ -17,12 +17,15 @@ class CreateUsersTable extends Migration
             $table->id()->autoIncrement()->comment("ID пользователя");
             $table->string("name")->comment("Имя");
             $table->string("surname")->comment("Фамилия");
-            $table->string("login")->comment("Логин пользователя");
+            $table->string("login")->unique()->comment("Логин пользователя");
             $table->string("password")->comment("Пароль пользователя");
-            $table->string("email")->comment("E-mail пользователя");
-            $table->dateTime("registration_date")->comment("Дата регистрации");
-            $table->dateTime("login_date")->comment("Дата регистрации");
-            $table->double("balance")->comment("Баланс");
+            $table->string("email")->unique()->comment("E-mail пользователя");
+            $table->timestamp('email_verified_at')->nullable()->comment("Дата подтверждения E-mail");
+            $table->timestamp("registration_date")->comment("Дата регистрации");
+            $table->timestamp("login_date")->nullable()->comment("Дата входа");
+            $table->double("balance")->default(0)->comment("Баланс");
+            $table->rememberToken()->nullable()->comment("rememberToken");
+            $table->timestamps();
         });
     }
 
