@@ -21,5 +21,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/createserver', [\App\Http\Controllers\Server\ServerController::class, 'createServer']);
+Route::post('/addserver', [\App\Http\Controllers\Server\ServerController::class, 'createServer'])->name("addserver");
+Route::get('/addserver', [\App\Http\Controllers\Server\ServerController::class, 'index']);
 

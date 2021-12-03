@@ -16,7 +16,11 @@ class ServerController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('auth');
+    }
+
+    public function index(){
+        return view("account.addserver");
     }
 
     /**
@@ -28,7 +32,7 @@ class ServerController extends Controller
         $validator = Validator::make($request->all(), Server::rules());
 
         if ($validator->fails()) {
-            return response()->json(['errors'=>$validator->errors()]);
+            return view()->json(['errors'=>$validator->errors()]);
         }
         else{
             Server::create($request->all());
