@@ -8,6 +8,13 @@
                     <div class="card-header">{{ __('Server add') }}</div>
 
                     <div class="card-body">
+
+                        @if(session()->has('Status'))
+                            <div class="alert alert-success" role="alert">
+                                Server added success!
+                            </div>
+                        @endif
+
                         <form method="POST" action="{{ route('addserver') }}">
                             @csrf
 

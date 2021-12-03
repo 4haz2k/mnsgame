@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Server;
 use App\Http\Controllers\Controller;
 use App\Models\Server;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
 class ServerController extends Controller
@@ -25,18 +26,18 @@ class ServerController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function createServer(Request $request): \Illuminate\Http\JsonResponse
+    public function createServer(Request $request): \Illuminate\Http\RedirectResponse
     {
         $validator = Validator::make($request->all(), Server::rules());
 
         if ($validator->fails()) {
-            return view()->json(['errors'=>$validator->errors()]);
+            return Redirect::back()->withErrors($validator);
         }
         else{
             Server::create($request->all());
-            return response()->json(['Success' => true]);
+            return Redirect::back()->with("Status", true);
         }
     }
 }
