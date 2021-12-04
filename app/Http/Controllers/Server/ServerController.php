@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Server;
 
 use App\Http\Controllers\Controller;
 use App\Models\Server;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
@@ -30,14 +33,22 @@ class ServerController extends Controller
      */
     public function createServer(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $validator = Validator::make($request->all(), Server::rules());
+        $request_data = $request->all();
+        $request_data["game_id"] = DB::table('games')->where("title", "=", $request_data["game"])->value("id");
+        $request_data = array_merge($request_data, ['owner_id' => Auth::id()]);
+        unset($request_data["game"]);
+        $validator = Validator::make($request_data, Server::rules());
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator);
         }
         else{
-            Server::create($request->all());
+            Server::create(array_merge($request_data, ['owner_id' => Auth::id()]));
             return Redirect::back()->with("Status", true);
         }
+    }
+
+    public function editServer(Request $request){
+        dd(Server::find($request->id));
     }
 }

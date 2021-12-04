@@ -16,7 +16,7 @@ class CreateFiltersTable extends Migration
         Schema::create('filters', function (Blueprint $table) {
             $table->id()->comment("filter ID");
             $table->string("filter")->comment("filter title");
-            $table->string("game")->comment("game type");
+            $table->string("game_id")->comment("game type ID");
             $table->timestamps();
         });
     }

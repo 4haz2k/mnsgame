@@ -22,8 +22,8 @@ class Server extends Model
         "banner_img",
         "logo_img",
         "callback",
-        "filters",
-        "game"
+        "owner_id",
+        "game_id"
     ];
 
     public static function rules(): array
@@ -36,9 +36,8 @@ class Server extends Model
             'logo_img' => 'image|mimes:jpg,png,jpeg,gif|max:2048|dimensions:min_width=128,min_height=128,max_width=128,max_height=128',
             'server_data' => 'required|string|unique:servers,server_data',
             'callback' => 'string',
-//            'filters' => 'required|json',
-            'filters' => 'json',
-            'game' => 'required|string|exists:games,title'
+            "owner_id" => "required|integer",
+            'game_id' => 'required|integer|exists:games,id'
         ];
     }
 }

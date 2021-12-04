@@ -23,4 +23,5 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/addserver', [\App\Http\Controllers\Server\ServerController::class, 'createServer'])->name("addserver");
 Route::get('/addserver', [\App\Http\Controllers\Server\ServerController::class, 'index']);
+Route::get('/editserver/{id}', [\App\Http\Controllers\Server\ServerController::class, 'editServer']);
 

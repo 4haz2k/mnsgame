@@ -21,10 +21,13 @@ class CreateServersTable extends Migration
             $table->string("server_data")->comment("Данные сервера / лаунчера");
             $table->string("banner_img")->default("/storage/default_banner.png")->comment("Изображение баннера");
             $table->string("logo_img")->default("/storage/default_logo.png")->comment("Логотип");
-            $table->string("callback")->default(null)->comment("Ссылка для callback от сайта о том, что за сервер проголосовали");
-            $table->json("filters")->default(null)->comment("Фильтры, к которым относится сервер");
-            $table->string("game")->comment("Игра");
+            $table->string("callback")->default("")->comment("Ссылка для callback от сайта о том, что за сервер проголосовали");
+            $table->unsignedBigInteger("game_id")->comment("Игра");
+            $table->unsignedBigInteger("owner_id")->comment("Владелец сервера");
             $table->timestamps();
+
+            $table->foreign("owner_id")->references("id")->on("users");
+            $table->foreign("game_id")->references("id")->on("games");
         });
     }
 
