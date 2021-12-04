@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFilterOfServerTable extends Migration
+class CreateFilterOfGameTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateFilterOfServerTable extends Migration
      */
     public function up()
     {
-        Schema::create('filter_of_server', function (Blueprint $table) {
+        Schema::create('filter_of_game', function (Blueprint $table) {
             $table->unsignedBigInteger("game_id")->comment("ID игры");
             $table->unsignedBigInteger("filter_id")->comment("ID фильтра");
 
@@ -29,6 +29,6 @@ class CreateFilterOfServerTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_filter_of_server');
+        Schema::dropIfExists('filter_of_game');
     }
 }

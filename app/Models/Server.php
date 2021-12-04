@@ -40,4 +40,12 @@ class Server extends Model
             'game_id' => 'required|integer|exists:games,id'
         ];
     }
+
+    public function user(){
+        return $this->belongsTo("App\Models\User", "owner_id");
+    }
+
+    public function game(){
+        return $this->belongsTo("App\Models\Game", "game_id");
+    }
 }
