@@ -46,6 +46,10 @@ class Server extends Model
     }
 
     public function game(){
-        return $this->belongsTo("App\Models\Game", "game_id");
+        return $this->belongsTo("App\Models\Game", "id");
+    }
+
+    public function filters(){
+        return $this->belongsToMany("App\Models\FilterOfGame", "filter_of_servers");
     }
 }

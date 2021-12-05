@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Server;
 
 use App\Http\Controllers\Controller;
+use App\Models\Filter;
+use App\Models\Game;
 use App\Models\Server;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -49,8 +51,11 @@ class ServerController extends Controller
     }
 
     public function editServer(Request $request){
-        $server = Server::find($request->id);
-        dd($server->user, $server->game->filters);
-        //dd(Server::where("id", $request->id)->where("owner_id", Auth::id())->firstOrFail());
+//        $server = Server::find($request->id);
+//        dd($server->user);
+//        $server = Server::where("id", $request->id)->where("owner_id", Auth::id())->firstOrFail();
+//        dd($server->game->filters);
+        $game = Game::find($request->id);
+        dd($game->filters);
     }
 }

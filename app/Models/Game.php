@@ -10,6 +10,10 @@ class Game extends Model
     use HasFactory;
 
     public function filters(){
-        return $this->hasMany("App\Models\FilterOfGame");
+        return $this->belongsToMany("App\Models\Filter", "filter_of_game");
+    }
+
+    public function servers(){
+        return $this->belongsTo("App\Models\Server", "id");
     }
 }
