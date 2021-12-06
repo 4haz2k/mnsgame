@@ -51,11 +51,10 @@ class ServerController extends Controller
     }
 
     public function editServer(Request $request){
-//        $server = Server::find($request->id);
+        $server = Server::find($request->id)->with('filters')->first();
 //        dd($server->user);
 //        $server = Server::where("id", $request->id)->where("owner_id", Auth::id())->firstOrFail();
 //        dd($server->game->filters);
-        $game = Game::find($request->id);
-        dd($game->filters);
+        dd($server->onDelete('cascade'));
     }
 }

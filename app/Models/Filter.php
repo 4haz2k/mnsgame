@@ -9,6 +9,10 @@ class Filter extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+      "filter"
+    ];
+
     public function game(){
         return $this->belongsToMany("App\Models\Game", "filter_of_game");
     }

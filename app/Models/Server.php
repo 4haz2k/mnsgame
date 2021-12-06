@@ -50,6 +50,15 @@ class Server extends Model
     }
 
     public function filters(){
-        return $this->belongsToMany("App\Models\FilterOfGame", "filter_of_servers");
+        return $this->belongsToMany("App\Models\Filter", "filter_of_servers");
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($server){
+            $server->filters()->delete();
+        });
     }
 }
