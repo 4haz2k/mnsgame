@@ -26,7 +26,7 @@ class CreateServersTable extends Migration
             $table->unsignedBigInteger("owner_id")->comment("Владелец сервера");
             $table->timestamps();
 
-            $table->foreign("owner_id")->references("id")->on("users");
+            $table->foreign("owner_id")->references("id")->on("users")->onDelete('cascade');
             $table->foreign("game_id")->references("id")->on("games");
         });
     }

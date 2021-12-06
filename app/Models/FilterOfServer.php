@@ -10,6 +10,4 @@ class FilterOfServer extends Model
     use HasFactory;
 
     protected $table = "filter_of_servers";
-    protected $primaryKey = "filter_id";
-
 }

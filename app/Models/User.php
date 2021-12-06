@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -11,8 +13,6 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-
-
 
     /**
      * The attributes that are mass assignable.
@@ -49,4 +49,25 @@ class User extends Authenticatable
         'registration_date' => 'datetime',
         'login_date' => 'datetime',
     ];
+
+    /**
+     * @return HasMany
+     */
+    public function server(): HasMany
+    {
+        return $this->hasMany("App\Models\Server", "owner_id");
+    }
+
+    /**
+     * событие удаления
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        // при удалении сервера, удаляем ссылки на фильтры, указанные у сервера
+        static::deleting(function ($user){
+            $user->server()->delete();
+        });
+    }
 }
