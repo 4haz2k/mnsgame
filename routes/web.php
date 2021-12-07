@@ -25,4 +25,5 @@ Route::post('/addserver', [\App\Http\Controllers\Server\ServerController::class,
 Route::get('/addserver', [\App\Http\Controllers\Server\ServerController::class, 'index']);
 Route::get('/editserver/{id}', [\App\Http\Controllers\Server\ServerController::class, 'editServer']);
 Route::post('/editserver/{id}', [\App\Http\Controllers\Server\ServerController::class, 'editServer']);
+Route::get('/myservers', [\App\Http\Controllers\Server\ServerController::class, 'myServers']);
 

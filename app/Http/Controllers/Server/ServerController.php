@@ -57,4 +57,13 @@ class ServerController extends Controller
 //        dd($server->game->filters);
         dd($user->delete());
     }
+
+    public function myServers(){
+        $servers = User::find(Auth::id())->server;
+
+        if($servers == null)
+            return view('account.myservers');
+        else
+            return view('account.myservers', compact("servers"));
+    }
 }
