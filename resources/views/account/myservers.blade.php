@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                @if(isset($servers))
+                @if(!$servers->isEmpty())
                     <div class="card">
                         <table class="table text-center">
                             <thead>

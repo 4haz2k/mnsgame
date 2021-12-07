@@ -51,19 +51,46 @@ class ServerController extends Controller
     }
 
     public function editServer(Request $request){
-        $user = User::findOrFail($request->id)->first();
-//        dd($server->user);
-//        $server = Server::where("id", $request->id)->where("owner_id", Auth::id())->firstOrFail();
-//        dd($server->game->filters);
-        dd($user->delete());
+        $server = Server::where("id", $request->id)->where("owner_id", Auth::id())->firstOrFail();
+        return view('account.editserver', compact("server"));
+    }
+
+    public function saveServer(Request $request): \Illuminate\Http\RedirectResponse
+    {
+        $server = Server::where("id", $request->id)->where("owner_id", Auth::id())->firstOrFail();
+
+        $request_data = $request->all();
+        $request_data["game_id"] = DB::table('games')->where("title", "=", $request_data["game"])->value("id");
+        $request_data = array_merge($request_data, ['owner_id' => Auth::id()]);
+        unset($request_data["game"]);
+
+        $rules = Server::rules();
+
+        $server_data_check = DB::table('servers')->where("owner_id", "=", Auth::id())->where("server_data", "=",  $request->server_data)->value("id");
+
+        if($server_data_check == $server->id){
+            unset($rules["server_data"]);
+            $validator = Validator::make($request_data, $rules);
+        }
+        else{
+            $validator = Validator::make($request_data, $rules);
+        }
+
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator);
+        }
+        else{
+            $server->title = $request_data["title"];
+            $server->description = $request_data["description"];
+            $server->server_data = $request_data["server_data"];
+            $server->game_id = $request_data["game_id"];
+            $server->save();
+            return Redirect::back()->with("Status", true);
+        }
     }
 
     public function myServers(){
         $servers = User::find(Auth::id())->server;
-
-        if($servers == null)
-            return view('account.myservers');
-        else
-            return view('account.myservers', compact("servers"));
+        return view('account.myservers', compact("servers"));
     }
 }
