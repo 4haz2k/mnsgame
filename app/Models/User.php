@@ -59,6 +59,14 @@ class User extends Authenticatable
     }
 
     /**
+     * @return HasMany
+     */
+    public function payments(): HasMany
+    {
+        return $this->hasMany("App\Models\PaymentHistory", "user_id");
+    }
+
+    /**
      * событие удаления
      */
     public static function boot()
