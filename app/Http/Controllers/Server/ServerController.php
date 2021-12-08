@@ -26,7 +26,8 @@ class ServerController extends Controller
     }
 
     public function index(){
-        return view("account.addserver");
+        $games = \App\Models\Game::all();
+        return view("account.addserver", compact("games"));
     }
 
     /**

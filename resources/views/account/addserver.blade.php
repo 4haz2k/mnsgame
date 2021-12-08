@@ -49,12 +49,16 @@
                                 <label for="game" class="col-md-4 col-form-label text-md-right">{{ __('Game') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="game" type="text" class="form-control @error('game') is-invalid @enderror" name="game" value="{{ old('game') }}" required autocomplete="game" autofocus>
+                                    <select class="form-select @error('game') is-invalid @enderror" name="game" required>
+                                        @foreach($games as $game)
+                                        <option value="{{ $game->title }}">{{ $game->title }}</option>
+                                        @endforeach
+                                    </select>
 
                                     @error('game')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
-                                </span>
+                                    </span>
                                     @enderror
                                 </div>
                             </div>
