@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [demoexam_test]    Script Date: 13.12.2021 20:17:51 ******/
+/****** Object:  Database [demoexam_test]    Script Date: 14.12.2021 0:19:18 ******/
 CREATE DATABASE [demoexam_test]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -78,14 +78,14 @@ ALTER DATABASE [demoexam_test] SET QUERY_STORE = OFF
 GO
 USE [demoexam_test]
 GO
-/****** Object:  Table [dbo].[Attestation]    Script Date: 13.12.2021 20:17:51 ******/
+/****** Object:  Table [dbo].[Attestation]    Script Date: 14.12.2021 0:19:18 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Attestation](
-	[attestationStudent_ID] [float] NOT NULL,
-	[teacher_ID] [float] NOT NULL,
+	[attestationStudent_ID] [int] NOT NULL,
+	[teacher_ID] [int] NOT NULL,
  CONSTRAINT [PK_Attestation] PRIMARY KEY CLUSTERED 
 (
 	[attestationStudent_ID] ASC,
@@ -93,65 +93,65 @@ CREATE TABLE [dbo].[Attestation](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[AttestationStudent]    Script Date: 13.12.2021 20:17:51 ******/
+/****** Object:  Table [dbo].[AttestationStudent]    Script Date: 14.12.2021 0:19:18 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[AttestationStudent](
-	[attestationStudent_ID] [float] NOT NULL,
-	[student_id] [float] NULL,
-	[subject_id] [float] NULL,
-	[Аттестация 1] [float] NULL,
-	[Аттестация 2] [float] NULL,
-	[Аттестация 3] [float] NULL,
-	[Итого] [float] NULL,
-	[Оценка] [nvarchar](255) NULL,
+	[attestationStudent_ID] [int] IDENTITY(1,1) NOT NULL,
+	[student_id] [int] NOT NULL,
+	[subject_id] [int] NOT NULL,
+	[Аттестация 1] [float] NOT NULL,
+	[Аттестация 2] [float] NOT NULL,
+	[Аттестация 3] [float] NOT NULL,
+	[Итого] [float] NOT NULL,
+	[Оценка] [nvarchar](255) NOT NULL,
  CONSTRAINT [PK_AttestationStudent] PRIMARY KEY CLUSTERED 
 (
 	[attestationStudent_ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Groups]    Script Date: 13.12.2021 20:17:51 ******/
+/****** Object:  Table [dbo].[Groups]    Script Date: 14.12.2021 0:19:18 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Groups](
-	[group_ID] [float] NOT NULL,
-	[Группа] [float] NULL,
-	[Год поступления] [float] NULL,
-	[Специальность] [int] NULL,
+	[group_ID] [int] IDENTITY(1,1) NOT NULL,
+	[Группа] [nvarchar](max) NOT NULL,
+	[Год поступления] [float] NOT NULL,
+	[Специальность] [nvarchar](max) NULL,
  CONSTRAINT [PK_Groups] PRIMARY KEY CLUSTERED 
 (
 	[group_ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Students]    Script Date: 13.12.2021 20:17:51 ******/
+/****** Object:  Table [dbo].[Students]    Script Date: 14.12.2021 0:19:18 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Students](
-	[student_ID] [float] NOT NULL,
-	[ФИО] [nvarchar](255) NULL,
-	[group_ID] [float] NULL,
+	[student_ID] [int] IDENTITY(1,1) NOT NULL,
+	[ФИО] [nvarchar](255) NOT NULL,
+	[group_ID] [int] NOT NULL,
  CONSTRAINT [PK_Students] PRIMARY KEY CLUSTERED 
 (
 	[student_ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[SubjectGroup]    Script Date: 13.12.2021 20:17:51 ******/
+/****** Object:  Table [dbo].[SubjectGroup]    Script Date: 14.12.2021 0:19:18 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[SubjectGroup](
-	[subject_ID] [float] NOT NULL,
-	[group_ID] [float] NOT NULL,
+	[subject_ID] [int] NOT NULL,
+	[group_ID] [int] NOT NULL,
  CONSTRAINT [PK_SubjectGroup] PRIMARY KEY CLUSTERED 
 (
 	[subject_ID] ASC,
@@ -159,29 +159,29 @@ CREATE TABLE [dbo].[SubjectGroup](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Subjects]    Script Date: 13.12.2021 20:17:51 ******/
+/****** Object:  Table [dbo].[Subjects]    Script Date: 14.12.2021 0:19:18 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Subjects](
-	[subject_ID] [float] NOT NULL,
-	[Название] [nvarchar](255) NULL,
-	[Форма аттестации] [nvarchar](255) NULL,
+	[subject_ID] [int] IDENTITY(1,1) NOT NULL,
+	[Название] [nvarchar](255) NOT NULL,
+	[Форма аттестации] [nvarchar](255) NOT NULL,
  CONSTRAINT [PK_Subjects] PRIMARY KEY CLUSTERED 
 (
 	[subject_ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[SubjectTeachers]    Script Date: 13.12.2021 20:17:51 ******/
+/****** Object:  Table [dbo].[SubjectTeachers]    Script Date: 14.12.2021 0:19:18 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[SubjectTeachers](
-	[subject_ID] [float] NOT NULL,
-	[teacher_ID] [float] NOT NULL,
+	[subject_ID] [int] NOT NULL,
+	[teacher_ID] [int] NOT NULL,
  CONSTRAINT [PK_SubjectTeachers] PRIMARY KEY CLUSTERED 
 (
 	[subject_ID] ASC,
@@ -189,31 +189,31 @@ CREATE TABLE [dbo].[SubjectTeachers](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Teachers]    Script Date: 13.12.2021 20:17:51 ******/
+/****** Object:  Table [dbo].[Teachers]    Script Date: 14.12.2021 0:19:18 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Teachers](
-	[teacher_ID] [float] NOT NULL,
-	[ФИО] [nvarchar](255) NULL,
+	[teacher_ID] [int] IDENTITY(1,1) NOT NULL,
+	[ФИО] [nvarchar](255) NOT NULL,
  CONSTRAINT [PK_Teachers] PRIMARY KEY CLUSTERED 
 (
 	[teacher_ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Users]    Script Date: 13.12.2021 20:17:51 ******/
+/****** Object:  Table [dbo].[Users]    Script Date: 14.12.2021 0:19:18 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Users](
-	[user_ID] [float] NOT NULL,
-	[Логин] [nvarchar](255) NULL,
-	[Пароль] [nvarchar](255) NULL,
-	[Адрес электронной почты] [nvarchar](255) NULL,
-	[Роль] [nvarchar](255) NULL,
+	[user_ID] [int] IDENTITY(1,1) NOT NULL,
+	[Логин] [nvarchar](255) NOT NULL,
+	[Пароль] [nvarchar](255) NOT NULL,
+	[Адрес электронной почты] [nvarchar](255) NOT NULL,
+	[Роль] [nvarchar](255) NOT NULL,
  CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
 (
 	[user_ID] ASC
@@ -235,6 +235,8 @@ INSERT [dbo].[Attestation] ([attestationStudent_ID], [teacher_ID]) VALUES (12, 2
 INSERT [dbo].[Attestation] ([attestationStudent_ID], [teacher_ID]) VALUES (13, 3)
 INSERT [dbo].[Attestation] ([attestationStudent_ID], [teacher_ID]) VALUES (14, 4)
 GO
+SET IDENTITY_INSERT [dbo].[AttestationStudent] ON 
+
 INSERT [dbo].[AttestationStudent] ([attestationStudent_ID], [student_id], [subject_id], [Аттестация 1], [Аттестация 2], [Аттестация 3], [Итого], [Оценка]) VALUES (1, 1, 1, 20, 20, 40, 80, N'хорошо')
 INSERT [dbo].[AttestationStudent] ([attestationStudent_ID], [student_id], [subject_id], [Аттестация 1], [Аттестация 2], [Аттестация 3], [Итого], [Оценка]) VALUES (2, 1, 2, 20, 20, 20, 60, N'зачтено')
 INSERT [dbo].[AttestationStudent] ([attestationStudent_ID], [student_id], [subject_id], [Аттестация 1], [Аттестация 2], [Аттестация 3], [Итого], [Оценка]) VALUES (3, 1, 3, 20, 30, 35, 85, N'хорошо')
@@ -249,18 +251,27 @@ INSERT [dbo].[AttestationStudent] ([attestationStudent_ID], [student_id], [subje
 INSERT [dbo].[AttestationStudent] ([attestationStudent_ID], [student_id], [subject_id], [Аттестация 1], [Аттестация 2], [Аттестация 3], [Итого], [Оценка]) VALUES (12, 4, 3, 20, 30, 50, 100, N'отлично')
 INSERT [dbo].[AttestationStudent] ([attestationStudent_ID], [student_id], [subject_id], [Аттестация 1], [Аттестация 2], [Аттестация 3], [Итого], [Оценка]) VALUES (13, 5, 4, 20, 25, 30, 75, N'хорошо')
 INSERT [dbo].[AttestationStudent] ([attestationStudent_ID], [student_id], [subject_id], [Аттестация 1], [Аттестация 2], [Аттестация 3], [Итого], [Оценка]) VALUES (14, 5, 5, 20, 30, 40, 90, N'отлично')
+SET IDENTITY_INSERT [dbo].[AttestationStudent] OFF
 GO
-INSERT [dbo].[Groups] ([group_ID], [Группа], [Год поступления], [Специальность]) VALUES (1, 4431, 2018, NULL)
-INSERT [dbo].[Groups] ([group_ID], [Группа], [Год поступления], [Специальность]) VALUES (2, 4432, 2018, NULL)
-INSERT [dbo].[Groups] ([group_ID], [Группа], [Год поступления], [Специальность]) VALUES (3, 4433, 2018, NULL)
-INSERT [dbo].[Groups] ([group_ID], [Группа], [Год поступления], [Специальность]) VALUES (4, 4434, 2018, NULL)
-INSERT [dbo].[Groups] ([group_ID], [Группа], [Год поступления], [Специальность]) VALUES (5, 4435, 2018, NULL)
+SET IDENTITY_INSERT [dbo].[Groups] ON 
+
+INSERT [dbo].[Groups] ([group_ID], [Группа], [Год поступления], [Специальность]) VALUES (0, N'4441', 2018, NULL)
+INSERT [dbo].[Groups] ([group_ID], [Группа], [Год поступления], [Специальность]) VALUES (1, N'4431', 2018, NULL)
+INSERT [dbo].[Groups] ([group_ID], [Группа], [Год поступления], [Специальность]) VALUES (2, N'4432', 2018, NULL)
+INSERT [dbo].[Groups] ([group_ID], [Группа], [Год поступления], [Специальность]) VALUES (3, N'4433', 2018, NULL)
+INSERT [dbo].[Groups] ([group_ID], [Группа], [Год поступления], [Специальность]) VALUES (4, N'4434', 2018, NULL)
+INSERT [dbo].[Groups] ([group_ID], [Группа], [Год поступления], [Специальность]) VALUES (5, N'4435', 2018, NULL)
+INSERT [dbo].[Groups] ([group_ID], [Группа], [Год поступления], [Специальность]) VALUES (6, N'4440', 2018, NULL)
+SET IDENTITY_INSERT [dbo].[Groups] OFF
 GO
+SET IDENTITY_INSERT [dbo].[Students] ON 
+
 INSERT [dbo].[Students] ([student_ID], [ФИО], [group_ID]) VALUES (1, N'Валиева Гулия Рифатовна', 2)
 INSERT [dbo].[Students] ([student_ID], [ФИО], [group_ID]) VALUES (2, N'Сунгатуллина Лейсан Марселевна', 3)
 INSERT [dbo].[Students] ([student_ID], [ФИО], [group_ID]) VALUES (3, N'Мингалиев Заид Зульфатович', 3)
 INSERT [dbo].[Students] ([student_ID], [ФИО], [group_ID]) VALUES (4, N'Лоповок Елена Евгеньевна', 5)
 INSERT [dbo].[Students] ([student_ID], [ФИО], [group_ID]) VALUES (5, N'Сабирова Евгения Викторовна', 1)
+SET IDENTITY_INSERT [dbo].[Students] OFF
 GO
 INSERT [dbo].[SubjectGroup] ([subject_ID], [group_ID]) VALUES (1, 2)
 INSERT [dbo].[SubjectGroup] ([subject_ID], [group_ID]) VALUES (1, 3)
@@ -274,11 +285,14 @@ INSERT [dbo].[SubjectGroup] ([subject_ID], [group_ID]) VALUES (3, 5)
 INSERT [dbo].[SubjectGroup] ([subject_ID], [group_ID]) VALUES (4, 1)
 INSERT [dbo].[SubjectGroup] ([subject_ID], [group_ID]) VALUES (5, 1)
 GO
+SET IDENTITY_INSERT [dbo].[Subjects] ON 
+
 INSERT [dbo].[Subjects] ([subject_ID], [Название], [Форма аттестации]) VALUES (1, N'Внедрение и поддержка компьютерных систем', N'Экзамен')
 INSERT [dbo].[Subjects] ([subject_ID], [Название], [Форма аттестации]) VALUES (2, N'Математическое моделирование', N'Зачет')
 INSERT [dbo].[Subjects] ([subject_ID], [Название], [Форма аттестации]) VALUES (3, N'Инструментальные средства разработки программного обеспечения', N'Зачет с оценкой')
 INSERT [dbo].[Subjects] ([subject_ID], [Название], [Форма аттестации]) VALUES (4, N'Администрирование сетевых операционных систем', N'Зачет с оценкой')
 INSERT [dbo].[Subjects] ([subject_ID], [Название], [Форма аттестации]) VALUES (5, N'Организация администрирования компьютерных систем', N'Экзамен')
+SET IDENTITY_INSERT [dbo].[Subjects] OFF
 GO
 INSERT [dbo].[SubjectTeachers] ([subject_ID], [teacher_ID]) VALUES (1, 1)
 INSERT [dbo].[SubjectTeachers] ([subject_ID], [teacher_ID]) VALUES (2, 1)
@@ -287,12 +301,17 @@ INSERT [dbo].[SubjectTeachers] ([subject_ID], [teacher_ID]) VALUES (3, 2)
 INSERT [dbo].[SubjectTeachers] ([subject_ID], [teacher_ID]) VALUES (4, 3)
 INSERT [dbo].[SubjectTeachers] ([subject_ID], [teacher_ID]) VALUES (5, 4)
 GO
+SET IDENTITY_INSERT [dbo].[Teachers] ON 
+
 INSERT [dbo].[Teachers] ([teacher_ID], [ФИО]) VALUES (1, N'Валова Полина Александровна')
 INSERT [dbo].[Teachers] ([teacher_ID], [ФИО]) VALUES (2, N'Иванов Иван Иванович')
 INSERT [dbo].[Teachers] ([teacher_ID], [ФИО]) VALUES (3, N'Петров Петр Петрович')
 INSERT [dbo].[Teachers] ([teacher_ID], [ФИО]) VALUES (4, N'Ибрагимов Ибрагим Ибрагимович')
 INSERT [dbo].[Teachers] ([teacher_ID], [ФИО]) VALUES (5, N'Валиев Валиулла Валиевич')
+SET IDENTITY_INSERT [dbo].[Teachers] OFF
 GO
+SET IDENTITY_INSERT [dbo].[Users] ON 
+
 INSERT [dbo].[Users] ([user_ID], [Логин], [Пароль], [Адрес электронной почты], [Роль]) VALUES (1, N'user01', N'qwerty', N'user01@mail.ru', N'Студент')
 INSERT [dbo].[Users] ([user_ID], [Логин], [Пароль], [Адрес электронной почты], [Роль]) VALUES (2, N'user02', N'wertyu', N'user02@mail.ru', N'Студент')
 INSERT [dbo].[Users] ([user_ID], [Логин], [Пароль], [Адрес электронной почты], [Роль]) VALUES (3, N'user03', N'ertyui', N'user03@mail.ru', N'Студент')
@@ -304,6 +323,8 @@ INSERT [dbo].[Users] ([user_ID], [Логин], [Пароль], [Адрес эл�
 INSERT [dbo].[Users] ([user_ID], [Логин], [Пароль], [Адрес электронной почты], [Роль]) VALUES (9, N'user09', N'zxcvbn', N'user09@mail.ru', N'Преподаватель')
 INSERT [dbo].[Users] ([user_ID], [Логин], [Пароль], [Адрес электронной почты], [Роль]) VALUES (10, N'user10', N'xcvbnm', N'user10@mail.ru', N'Преподаватель')
 INSERT [dbo].[Users] ([user_ID], [Логин], [Пароль], [Адрес электронной почты], [Роль]) VALUES (11, N'user11', N'poiuyt', N'user11@mail.ru', N'Студент')
+INSERT [dbo].[Users] ([user_ID], [Логин], [Пароль], [Адрес электронной почты], [Роль]) VALUES (12, N'user12', N'qwerty', N'user12@mail.ru', N'Студент')
+SET IDENTITY_INSERT [dbo].[Users] OFF
 GO
 ALTER TABLE [dbo].[Attestation]  WITH CHECK ADD  CONSTRAINT [FK_Attestation_AttestationStudent] FOREIGN KEY([attestationStudent_ID])
 REFERENCES [dbo].[AttestationStudent] ([attestationStudent_ID])
