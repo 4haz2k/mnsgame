@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Carbon\Carbon;
+use Carbon\Traits\Date;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {
@@ -53,5 +57,17 @@ class LoginController extends Controller
     protected function credentials(Request $request)
     {
         return $request->only($this->username(), 'password');
+    }
+
+    /**
+     *
+     * authenticated user
+     *
+     * @param Request $request
+     * @param $user
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        User::where('id', $user->id)->update(['login_date' =>  Carbon::now()]);
     }
 }

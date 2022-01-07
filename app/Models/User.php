@@ -73,7 +73,7 @@ class User extends Authenticatable
     {
         parent::boot();
 
-        // при удалении сервера, удаляем ссылки на фильтры, указанные у сервера
+        // при удалении пользователя, удаляем ссылки на сервера, указанные у пользователя
         static::deleting(function ($user){
             $user->server()->delete();
         });
