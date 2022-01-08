@@ -74,6 +74,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'registration_date' => Carbon::now()->timestamp,
             'login_date' => Carbon::now()->timestamp,
+            'role' => "user",
             'password' => Hash::make($data['password']),
         ]);
     }
