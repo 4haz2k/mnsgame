@@ -11286,3 +11286,7 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+

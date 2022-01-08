@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Alexusmai\YandexMetrika\YandexMetrika;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminPanel extends Controller
 {
@@ -12,6 +14,11 @@ class AdminPanel extends Controller
     }
 
     public function index(){
-        return view('admin.home');
+        $metrika = new YandexMetrika;
+        $metrika->getTopPageViews()->adapt();
+        $page_views = $metrika->adaptData;
+        $metrika->getVisitsViewsUsers()->adapt();
+        $name = Auth::user()->name. " " . Auth::user()->surname;
+        return view('admin.home', compact("name", "page_views"));
     }
 }

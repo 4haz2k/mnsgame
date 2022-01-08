@@ -4,8 +4,66 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "75c1540e2587d77e3a53685c5bbca54c",
+    "content-hash": "38657e82a4108517a06ac76cbda67cd4",
     "packages": [
+        {
+            "name": "alexusmai/yandex-metrika",
+            "version": "v1.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alexusmai/yandex-metrika.git",
+                "reference": "8378b44789e4435628a2c36a5a882c261edd600a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alexusmai/yandex-metrika/zipball/8378b44789e4435628a2c36a5a882c261edd600a",
+                "reference": "8378b44789e4435628a2c36a5a882c261edd600a",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.2",
+                "illuminate/support": "^5.0|^6.0|^7.0|^8.0",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Alexusmai\\YandexMetrika\\YandexMetrikaServiceProvider"
+                    ],
+                    "aliases": {
+                        "YandexMetrika": "Alexusmai\\YandexMetrika\\YandexMetrikaFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Alexusmai\\YandexMetrika\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alex Manekin",
+                    "email": "alexusmai@gmail.com"
+                }
+            ],
+            "description": "Laravel - Yandex Metrika",
+            "homepage": "https://github.com/alexusami/yandex-metrika",
+            "keywords": [
+                "laravel",
+                "metrika",
+                "yandex"
+            ],
+            "support": {
+                "issues": "https://github.com/alexusmai/yandex-metrika/issues",
+                "source": "https://github.com/alexusmai/yandex-metrika/tree/v1.7"
+            },
+            "time": "2020-10-30T17:43:27+00:00"
+        },
         {
             "name": "asm89/stack-cors",
             "version": "v2.0.3",
