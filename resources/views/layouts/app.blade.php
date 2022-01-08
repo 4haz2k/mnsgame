@@ -58,6 +58,9 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    @if(\Illuminate\Support\Facades\Auth::user()->role == "admin")
+                                        <a class="dropdown-item" style="font-weight: bold" href="{{ url('adminpanel') }}">{{ __('Admin panel') }}</a>
+                                    @endif
                                     <a class="dropdown-item" href="{{ url('myservers') }}">{{ __('My servers') }}</a>
                                     <a class="dropdown-item" href="{{ url('addserver') }}">{{ __('Add server') }}</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
@@ -65,7 +68,6 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
