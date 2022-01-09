@@ -134,28 +134,32 @@
             type: "line",
             data: {
                 labels: [
-                    "January",
-                    "February",
-                    "March",
-                    "April",
-                    "May",
-                    "June",
-                    "July",
+                    @foreach($statistic["visits"] as $date)
+                    {{$date["date"].","}}
+                    @endforeach
                 ],
                 datasets: [
                     {
-                        label: new Date().getFullYear(),
+                        label: "Визиты",
                         backgroundColor: "#4c51bf",
                         borderColor: "#4c51bf",
-                        data: [65, 78, 66, 44, 56, 67, 75],
+                        data: [
+                            @foreach($statistic["visits"] as $data)
+                            {{$data["data"].","}}
+                            @endforeach
+                        ],
                         fill: false,
                     },
                     {
-                        label: new Date().getFullYear() - 1,
+                        label: "Новые пользователи",
                         fill: false,
                         backgroundColor: "#fff",
                         borderColor: "#fff",
-                        data: [40, 68, 86, 74, 56, 60, 87],
+                        data: [
+                            @foreach($statistic["users"] as $data)
+                            {{$data["data"].","}}
+                            @endforeach
+                        ],
                     },
                 ],
             },
@@ -164,7 +168,7 @@
                 responsive: true,
                 title: {
                     display: false,
-                    text: "Sales Charts",
+                    text: "Статистика",
                     fontColor: "white",
                 },
                 legend: {

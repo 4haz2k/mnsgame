@@ -35,9 +35,9 @@
                                 <div class="flex flex-wrap">
                                     <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
                                         <h5 class="text-blueGray-400 uppercase font-bold text-xs">
-                                            Traffic
+                                            Трафик визитов
                                         </h5>
-                                        <span class="font-semibold text-xl text-blueGray-700">350,897</span>
+                                        <span class="font-semibold text-xl text-blueGray-700">{{ $statistic["visits_sum"] }}</span>
                                     </div>
                                     <div class="relative w-auto pl-4 flex-initial">
                                         <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-red-500">
@@ -46,12 +46,19 @@
                                     </div>
                                 </div>
                                 <p class="text-sm text-blueGray-400 mt-4">
+                                    @if($statistic["visits_percent"] <= 0)
+                                        <span class="text-red-500 mr-2">
+                                            <i class="fas fa-arrow-down"></i>
+                                            {{$statistic["visits_percent"] * -1}}%
+                                        </span>
+                                    @else
                                         <span class="text-emerald-500 mr-2">
                                             <i class="fas fa-arrow-up"></i>
-                                            3.48%
+                                            {{$statistic["visits_percent"]}}%
                                         </span>
-                                    <span class="whitespace-nowrap">
-                                            Since last month
+                                    @endif
+                                        <span class="whitespace-nowrap">
+                                            С прошлого месяца
                                         </span>
                                 </p>
                             </div>
@@ -63,11 +70,11 @@
                                 <div class="flex flex-wrap">
                                     <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
                                         <h5 class="text-blueGray-400 uppercase font-bold text-xs">
-                                            New users
+                                            Уникальные пользователи
                                         </h5>
                                         <span class="font-semibold text-xl text-blueGray-700">
-                                                2,356
-                                            </span>
+                                            {{ $statistic["users_sum"] }}
+                                        </span>
                                     </div>
                                     <div class="relative w-auto pl-4 flex-initial">
                                         <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-orange-500">
@@ -76,11 +83,20 @@
                                     </div>
                                 </div>
                                 <p class="text-sm text-blueGray-400 mt-4">
+                                    @if($statistic["users_percent"] <= 0)
                                         <span class="text-red-500 mr-2">
                                             <i class="fas fa-arrow-down"></i>
-                                            3.48%
+                                            {{$statistic["users_percent"] * -1}}%
                                         </span>
-                                    <span class="whitespace-nowrap"> Since last week </span>
+                                    @else
+                                        <span class="text-emerald-500 mr-2">
+                                            <i class="fas fa-arrow-up"></i>
+                                            {{$statistic["users_percent"]}}%
+                                        </span>
+                                    @endif
+                                    <span class="whitespace-nowrap">
+                                            С прошлого месяца
+                                        </span>
                                 </p>
                             </div>
                         </div>
@@ -115,8 +131,8 @@
                             <div class="flex-auto p-4">
                                 <div class="flex flex-wrap">
                                     <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-                                        <h5 class="text-blueGray-400 uppercase font-bold text-xs">Performance</h5>
-                                        <span class="font-semibold text-xl text-blueGray-700">49,65%</span>
+                                        <h5 class="text-blueGray-400 uppercase font-bold text-xs">Отказы</h5>
+                                        <span class="font-semibold text-xl text-blueGray-700">{{ $refusal["data"] }}%</span>
                                     </div>
                                     <div class="relative w-auto pl-4 flex-initial">
                                         <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-lightBlue-500">
@@ -125,10 +141,18 @@
                                     </div>
                                 </div>
                                 <p class="text-sm text-blueGray-400 mt-4">
-                                        <span class="text-emerald-500 mr-2">
-                                            <i class="fas fa-arrow-up"></i> 12%
+                                    @if($refusal["percent"] >= 0)
+                                        <span class="text-red-500 mr-2">
+                                            <i class="fas fa-arrow-down"></i>
+                                            {{$refusal["percent"]}}%
                                         </span>
-                                    <span class="whitespace-nowrap">Since last month</span>
+                                    @else
+                                        <span class="text-emerald-500 mr-2">
+                                            <i class="fas fa-arrow-up"></i>
+                                            {{$refusal["percent"] * -1}}%
+                                        </span>
+                                    @endif
+                                    <span class="whitespace-nowrap">С прошлой недели</span>
                                 </p>
                             </div>
                         </div>
@@ -145,10 +169,10 @@
                         <div class="flex flex-wrap items-center">
                             <div class="relative w-full max-w-full flex-grow flex-1">
                                 <h6 class="uppercase text-blueGray-100 mb-1 text-xs font-semibold">
-                                    Overview
+                                    Статистика
                                 </h6>
                                 <h2 class="text-white text-xl font-semibold">
-                                    Sales value
+                                    Визиты и новые пользователи
                                 </h2>
                             </div>
                         </div>
