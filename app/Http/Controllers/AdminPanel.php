@@ -31,10 +31,9 @@ class AdminPanel extends Controller
         $statistic = $this->getViewsData();
         $page_views = $this->getTopPageViews();
         $refusal = $this->getRefusal();
+        $geo_data = $this->getGeoArea();
 
         $name = Auth::user()->name. " " . Auth::user()->surname;
-
-        $this->getRefusal();
 
         return view(
             'admin.home',
@@ -42,9 +41,24 @@ class AdminPanel extends Controller
                 "name",
                 "page_views",
                 "statistic",
-                "refusal"
+                "refusal",
+                "geo_data"
             )
         );
+    }
+
+    /**
+     *
+     * Получение данных о регионах
+     *
+     * @return array|null
+     */
+    private function getGeoArea() : ?array {
+        $this->metric->getGeoArea()->adapt();
+
+        $data = json_decode($this->metric->adaptData["dataArray"]);
+
+        return $data;
     }
 
     /**
@@ -58,6 +72,12 @@ class AdminPanel extends Controller
         return $this->metric->adaptData;
     }
 
+    /**
+     *
+     * Получение статистики отказов
+     *
+     * @return array|null
+     */
     private function getRefusal(): ?array {
         $urlParams = [
             'ids'           => config('yandex-metrika.counter_id'),                        //id счетчика
