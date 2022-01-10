@@ -35,6 +35,7 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- Heading -->
                 <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
                     Управление
@@ -43,22 +44,37 @@
 
                 <ul class="md:flex-col md:min-w-full flex flex-col list-none">
                     <li class="items-center">
-                        <a href="{{ url('/adminpanel') }}" class="text-xs uppercase py-3 font-bold block text-pink-500 hover:text-pink-600">
-                            <i class="fas fa-tv mr-2 text-sm opacity-75"></i>
-                            Панель управления
-                        </a>
+                        @if(\Illuminate\Support\Facades\Request::route()->getName() == "admin_main")
+                            <a href="{{ url('/adminpanel') }}" class="text-xs uppercase py-3 font-bold block text-pink-500 hover:text-pink-600">
+                                <i class="fas fa-tv mr-2 text-sm opacity-75"></i>
+                                Мониторинг данных
+                            </a>
+                        @else
+                            <a href="{{ url('/adminpanel') }}" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500">
+                                <i class="fas fa-tv mr-2 text-sm text-blueGray-300"></i>
+                                Мониторинг данных
+                            </a>
+                        @endif
+
                     </li>
 
                     <li class="items-center">
-                        <a href="{{url('adminpanel/settings')}}" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500">
-                            <i class="fas fa-tools mr-2 text-sm text-blueGray-300"></i>
-                            Настройки
-                        </a>
+                        @if(\Illuminate\Support\Facades\Request::route()->getName() == "admin_settings")
+                            <a href="{{url('adminpanel/settings')}}" class="text-xs uppercase py-3 font-bold block text-pink-500 hover:text-pink-600">
+                                <i class="fas fa-tools mr-2 text-sm opacity-75"></i>
+                                Настройки
+                            </a>
+                        @else
+                            <a href="{{url('adminpanel/settings')}}" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500">
+                                <i class="fas fa-tools mr-2 text-sm text-blueGray-300"></i>
+                                Настройки
+                            </a>
+                        @endif
                     </li>
 
                     <li class="items-center">
                         <a href="{{url('adminpanel/tables')}}" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500">
-                            <i class="fas fa-table mr-2 text-sm text-blueGray-300"></i>
+                            <i class="fas fa-server mr-2 text-sm text-blueGray-300"></i>
                             Сервера
                         </a>
                     </li>
@@ -75,16 +91,43 @@
                 <ul class="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
                     <li class="items-center">
                         <a href="../auth/login.html" class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block">
-                            <i class="fas fa-fingerprint text-blueGray-300 mr-2 text-sm"></i>
+                            <i class="fas fa-users text-blueGray-300 mr-2 text-sm"></i>
                             Пользователи
                         </a>
                     </li>
 
                     <li class="items-center">
                         <a href="../auth/register.html" class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block">
-                            <i class="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"></i>
+                            <i class="fas fa-users-cog text-blueGray-300 mr-2 text-sm"></i>
                             Администраторы
                         </a>
+                    </li>
+                </ul>
+
+                <!-- Divider -->
+                <hr class="my-4 md:min-w-full block md:hidden" />
+                <!-- Heading -->
+                <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline block md:hidden">
+                    Меню
+                </h6>
+                <!-- Navigation -->
+
+                <ul class="md:flex-col md:min-w-full flex flex-col list-none md:mb-4 block md:hidden">
+                    <li class="items-center">
+                        <a href="{{ url("home") }}" class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block">
+                            <i class="fas fa-house-user text-blueGray-300 mr-2 text-sm"></i>
+                            User panel
+                        </a>
+                    </li>
+
+                    <li class="items-center">
+                        <a href="{{ route("logout") }}" class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="fas fa-sign-out-alt text-blueGray-300 mr-2 text-sm"></i>
+                            Выход
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
                     </li>
                 </ul>
             </div>

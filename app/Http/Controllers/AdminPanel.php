@@ -25,6 +25,9 @@ class AdminPanel extends Controller
     }
 
     /**
+     *
+     *
+     *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index(){
@@ -37,6 +40,32 @@ class AdminPanel extends Controller
 
         return view(
             'admin.home',
+            compact(
+                "name",
+                "page_views",
+                "statistic",
+                "refusal",
+                "geo_data"
+            )
+        );
+    }
+
+    /**
+     *
+     *
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function settingPage(){
+        $statistic = $this->getViewsData();
+        $page_views = $this->getTopPageViews();
+        $refusal = $this->getRefusal();
+        $geo_data = $this->getGeoArea();
+
+        $name = Auth::user()->name. " " . Auth::user()->surname;
+
+        return view(
+            'admin.settings',
             compact(
                 "name",
                 "page_views",

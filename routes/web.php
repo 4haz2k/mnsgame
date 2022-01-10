@@ -26,5 +26,6 @@ Route::get('/addserver', [\App\Http\Controllers\Server\ServerController::class, 
 Route::get('/editserver/{id}', [\App\Http\Controllers\Server\ServerController::class, 'editServer']);
 Route::post('/editserver', [\App\Http\Controllers\Server\ServerController::class, 'saveServer'])->name("saveserver");
 Route::get('/myservers', [\App\Http\Controllers\Server\ServerController::class, 'myServers']);
-Route::get('/adminpanel', [\App\Http\Controllers\AdminPanel::class, 'index']);
+Route::get('/adminpanel', [\App\Http\Controllers\AdminPanel::class, 'index'])->name("admin_main");
+Route::get('/adminpanel/settings', [\App\Http\Controllers\AdminPanel::class, 'settingPage'])->name("admin_settings");
 

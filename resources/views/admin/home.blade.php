@@ -6,20 +6,28 @@
 <div class="relative md:ml-64 bg-blueGray-50">
     <nav class="absolute top-0 left-0 w-full z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-4">
         <div class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4">
-            <a class="text-white text-sm uppercase hidden lg:inline-block font-semibold" href="{{url('adminpanel')}}">Панель управления</a>
+            <a class="text-white text-sm uppercase hidden lg:inline-block font-semibold" href="{{url('adminpanel')}}">Мониторинг данных</a>
             <div class="text-white text-sm uppercase hidden lg:inline-block lg:ml-auto font-semibold mr-3">
                 <div class="relative flex w-full flex-wrap items-stretch">
                     {{ $name }}
                 </div>
             </div>
             <ul class="flex-col md:flex-row list-none items-center hidden md:flex">
-                <a class="text-blueGray-500 block">
+                <a class="text-blueGray-500 block" onclick="openDropdown(event,'user-dropdown')">
                     <div class="items-center flex">
                         <span class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full">
-                            <img alt="" class="w-full rounded-full align-middle border-none shadow-lg" src="{{ asset("img/user_default.png") }}"/>
+                            <img alt="..." class="w-full rounded-full align-middle border-none shadow-lg" src="{{ asset("img/user_default.png") }}"/>
                         </span>
                     </div>
                 </a>
+                <div class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48" id="user-dropdown">
+                    <a href="{{ url("home") }}" class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">User panel</a>
+                    <div class="h-0 my-2 border border-solid border-blueGray-100"></div>
+                    <a href="{{ route("logout") }}" class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Выход</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </div>
             </ul>
         </div>
     </nav>
@@ -94,7 +102,7 @@
                                             {{$statistic["users_percent"]}}%
                                         </span>
                                     @endif
-                                    <span class="whitespace-nowrap">
+                                        <span class="whitespace-nowrap">
                                             С прошлого месяца
                                         </span>
                                 </p>
@@ -143,12 +151,12 @@
                                 <p class="text-sm text-blueGray-400 mt-4">
                                     @if($refusal["percent"] >= 0)
                                         <span class="text-red-500 mr-2">
-                                            <i class="fas fa-arrow-down"></i>
+                                            <i class="fas fa-arrow-up"></i>
                                             {{$refusal["percent"]}}%
                                         </span>
                                     @else
                                         <span class="text-emerald-500 mr-2">
-                                            <i class="fas fa-arrow-up"></i>
+                                            <i class="fas fa-arrow-down"></i>
                                             {{$refusal["percent"] * -1}}%
                                         </span>
                                     @endif
@@ -256,9 +264,7 @@
                 </div>
             </div>
             <div class="w-full xl:w-4/12 px-4">
-                <div
-                    class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
-                >
+                <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
                     <div class="rounded-t mb-0 px-4 py-3 border-0">
                         <div class="flex flex-wrap items-center">
                             <div class="relative w-full px-4 max-w-full flex-grow flex-1">
@@ -266,11 +272,6 @@
                                     Показы в городах и регионах
                                 </h3>
                             </div>
-{{--                            <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">--}}
-{{--                                <button class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">--}}
-{{--                                    See all--}}
-{{--                                </button>--}}
-{{--                            </div>--}}
                         </div>
                     </div>
                     <div class="block w-full overflow-x-auto">
