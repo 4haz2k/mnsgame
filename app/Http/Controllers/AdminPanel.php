@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Alexusmai\YandexMetrika\YandexMetrika;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -61,6 +62,12 @@ class AdminPanel extends Controller
         $page_views = $this->getTopPageViews();
         $refusal = $this->getRefusal();
         $geo_data = $this->getGeoArea();
+        $userdata = [
+            "name" => Auth::user()->name,
+            "surname" => Auth::user()->surname,
+            "email" => Auth::user()->email,
+            "login" => Auth::user()->login
+        ];
 
         $name = Auth::user()->name. " " . Auth::user()->surname;
 
@@ -71,7 +78,8 @@ class AdminPanel extends Controller
                 "page_views",
                 "statistic",
                 "refusal",
-                "geo_data"
+                "geo_data",
+                "userdata",
             )
         );
     }
@@ -175,5 +183,11 @@ class AdminPanel extends Controller
             "visits_percent" => $visits_percent, // процент разницы визитов по сравнению с предыдущим месяцем
             "users_percent" => $users_percent, // процент разницы уникальных пользователей по сравнению с предыдущим месяцем
         ];
+    }
+
+    // События
+
+    public function updateSettings(Request $request){
+        $user = User::find(Auth::id());
     }
 }

@@ -14,18 +14,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Open pages
 Route::get('/', function () {
-    return view('welcome');
+    return view('mainpage');
 });
 
+// Authentication
 Auth::routes();
 
+// User panel
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/addserver', [\App\Http\Controllers\Server\ServerController::class, 'createServer'])->name("addserver");
 Route::get('/addserver', [\App\Http\Controllers\Server\ServerController::class, 'index']);
 Route::get('/editserver/{id}', [\App\Http\Controllers\Server\ServerController::class, 'editServer']);
 Route::post('/editserver', [\App\Http\Controllers\Server\ServerController::class, 'saveServer'])->name("saveserver");
 Route::get('/myservers', [\App\Http\Controllers\Server\ServerController::class, 'myServers']);
+
+// Admin panel
 Route::get('/adminpanel', [\App\Http\Controllers\AdminPanel::class, 'index'])->name("admin_main");
 Route::get('/adminpanel/settings', [\App\Http\Controllers\AdminPanel::class, 'settingPage'])->name("admin_settings");
+Route::post('/adminpanel/updatesettings', [\App\Http\Controllers\AdminPanel::class, "updateSettings"])->name("update_admin_settings");
+
 
