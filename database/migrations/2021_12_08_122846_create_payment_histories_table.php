@@ -16,7 +16,7 @@ class CreatePaymentHistoriesTable extends Migration
         Schema::create('payment_histories', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("user_id")->comment("ID пользователя");
-            $table->integer("balance_change")->comment("Сумма изменения баланса");
+            $table->double("balance_change")->comment("Сумма изменения баланса");
             $table->timestamps();
 
             $table->foreign("user_id")->references("id")->on("users")->onDelete('cascade');

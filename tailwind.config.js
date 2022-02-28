@@ -1,11 +1,16 @@
 module.exports = {
-  content: [
+    content: [
       "./resources/**/*.blade.php",
       "./resources/**/*.js",
-      "./resources/**/*.vue",
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
+      "./resources/**/*.vue"
+    ],
+    theme: {
+        extend: {},
+    },
+    plugins: [
+        require('@tailwindcss/typography'),
+    ],
+    variants: {
+        display: ["group-hover"]
+    },
 }

@@ -16,8 +16,13 @@ use Illuminate\Support\Facades\Route;
 
 // Open pages
 Route::get('/', function () {
-    return view('mainpage');
+    return view('mainpage'); // main page
 });
+
+Route::get('/offer', function (){
+    return view('other.offer'); // Публичная оферта
+});
+
 
 // Authentication
 Auth::routes();

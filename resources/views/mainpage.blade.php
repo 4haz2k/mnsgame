@@ -4,6 +4,7 @@
 
 @section("styles")
     <link rel="stylesheet" href="{{ asset("css/mainpage.css") }}">
+{{--    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.3.3/dist/flowbite.min.css" />--}}
 @endsection
 
 @section("mainHeroContent")
@@ -100,4 +101,6 @@
     </section>
 @endsection
 
-
+@section('scripts')
+    <script src="https://unpkg.com/flowbite@1.3.3/dist/flowbite.js"></script>
+@endsection
