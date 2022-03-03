@@ -33,33 +33,33 @@
                             <a href="#_" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 hover:text-indigo-600 lg:mx-3 md:text-center">Поддержка</a>
                         </div>
                         <div class="flex flex-col items-start justify-end w-full md:items-center md:w-1/3 md:flex-row md:py-0 relative z-10">
-                            <img class="h-8 w-8 inline-flex" src="{{ asset('img/user_default.png') }}" alt="">
-                            <span class="inline-flex pl-3 font-medium">zytia</span>
-                            <button @click="dropdownOpen = !dropdownOpen"  class="relative z-10 block rounded-md bg-transparent p-2 focus:outline-none h-8 w-8 inline-flex">
-                                <svg class="h-3 w-3 text-gray-800 m-auto" xmlns="http://www.w3.org/2000/svg"  width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000"  preserveAspectRatio="xMidYMid meet"> <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none"> <path d="M277 4009 c-103 -24 -197 -103 -244 -204 -23 -51 -28 -73 -27 -145 0 -160 -96 -52 1192 -1342 777 -778 1160 -1155 1191 -1172 73 -39 158 -53 234 -37 34 7 83 24 108 37 31 17 414 394 1191 1172 1288 1290 1192 1182 1192 1342 0 72 -4 94 -28 147 -84 184 -308 262 -491 171 -26 -13 -388 -368 -1037 -1016 l-998 -997 -998 997 c-652 651 -1011 1003 -1037 1016 -76 37 -170 49 -248 31z"/> </g> </svg>
-                            </button>
+{{--                            <img class="h-8 w-8 inline-flex" src="{{ asset('img/user_default.png') }}" alt="">--}}
+{{--                            <span class="inline-flex pl-3 font-medium">zytia</span>--}}
+{{--                            <button @click="dropdownOpen = !dropdownOpen"  class="relative z-10 block rounded-md bg-transparent p-2 focus:outline-none h-8 w-8 inline-flex">--}}
+{{--                                <svg class="h-3 w-3 text-gray-800 m-auto" xmlns="http://www.w3.org/2000/svg"  width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000"  preserveAspectRatio="xMidYMid meet"> <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none"> <path d="M277 4009 c-103 -24 -197 -103 -244 -204 -23 -51 -28 -73 -27 -145 0 -160 -96 -52 1192 -1342 777 -778 1160 -1155 1191 -1172 73 -39 158 -53 234 -37 34 7 83 24 108 37 31 17 414 394 1191 1172 1288 1290 1192 1182 1192 1342 0 72 -4 94 -28 147 -84 184 -308 262 -491 171 -26 -13 -388 -368 -1037 -1016 l-998 -997 -998 997 c-652 651 -1011 1003 -1037 1016 -76 37 -170 49 -248 31z"/> </g> </svg>--}}
+{{--                            </button>--}}
 
-{{--                            <a href="#" class="w-full px-6 py-2 mr-0 text-gray-700 md:px-0 lg:pl-2 md:mr-4 lg:mr-5 md:w-auto">Вход</a>--}}
-{{--                            <a href="#_" class="inline-flex items-center w-full px-6 py-3 text-sm font-medium leading-4 text-white bg-indigo-600 md:px-3 md:w-auto md:rounded-full lg:px-5 hover:bg-indigo-500 focus:outline-none md:focus:ring-2 focus:ring-0 focus:ring-offset-2 focus:ring-indigo-600">Регистрация</a>--}}
+                            <a href="{{ url('/login') }}" class="w-full px-6 py-2 mr-0 text-gray-700 md:px-0 lg:pl-2 md:mr-4 lg:mr-5 md:w-auto">Вход</a>
+                            <a href="{{ url('/register') }}" class="inline-flex items-center w-full px-6 py-3 text-sm font-medium leading-4 text-white bg-indigo-600 md:px-3 md:w-auto md:rounded-full lg:px-5 hover:bg-indigo-500 focus:outline-none md:focus:ring-2 focus:ring-0 focus:ring-offset-2 focus:ring-indigo-600">Регистрация</a>
                         </div>
                     </div>
                 </div>
-                <div x-show="dropdownOpen" class="absolute right-0 top-100 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
-                    <a href="#" class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
-                        your profile
-                    </a>
-                    <a href="#" class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
-                        Your projects
-                    </a>
-                </div>
-{{--                <div @click="showMenu = !showMenu" class="absolute right-0 flex flex-col items-center items-end justify-center w-10 h-10 bg-white rounded-full cursor-pointer md:hidden hover:bg-gray-100">--}}
-{{--                    <svg class="w-6 h-6 text-gray-700" x-show="!showMenu" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">--}}
-{{--                        <path d="M4 6h16M4 12h16M4 18h16"></path>--}}
-{{--                    </svg>--}}
-{{--                    <svg class="w-6 h-6 text-gray-700" x-show="showMenu" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;">--}}
-{{--                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>--}}
-{{--                    </svg>--}}
+{{--                <div x-show="dropdownOpen" class="absolute right-0 top-100 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">--}}
+{{--                    <a href="#" class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">--}}
+{{--                        your profile--}}
+{{--                    </a>--}}
+{{--                    <a href="#" class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">--}}
+{{--                        Your projects--}}
+{{--                    </a>--}}
 {{--                </div>--}}
+                <div @click="showMenu = !showMenu" class="absolute right-0 flex flex-col items-center items-end justify-center w-10 h-10 bg-white rounded-full cursor-pointer md:hidden hover:bg-gray-100">
+                    <svg class="w-6 h-6 text-gray-700" x-show="!showMenu" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    <svg class="w-6 h-6 text-gray-700" x-show="showMenu" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </div>
             </div>
         </nav>
         @yield("mainHeroContent")
