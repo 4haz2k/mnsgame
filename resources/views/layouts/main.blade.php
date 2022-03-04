@@ -10,7 +10,7 @@
 <body>
 
 <!-- Section 1 -->
-<section class="w-full px-6 pb-12 antialiased">
+<section class="w-full px-6 pb-12 antialiased @yield('background')">
     <div class="mx-auto max-w-7xl">
         <nav class="relative z-50 h-24 select-none" x-data="{ showMenu: false }">
             <div class="container relative flex flex-wrap items-center justify-between h-24 mx-auto overflow-hidden font-medium md:overflow-visible lg:justify-center sm:px-4 md:px-2">

@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.mns-background{
+    background: rgb(106,142,230);
+    background: -moz-linear-gradient(200deg, rgba(106,142,230,1) 0%, rgba(0,0,0,0) 40%);
+    background: -webkit-linear-gradient(200deg, rgba(106,142,230,1) 0%, rgba(0,0,0,0) 40%);
+    background: linear-gradient(200deg, rgba(106,142,230,1) 0%, rgba(0,0,0,0) 40%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6a8ee6",endColorstr="#000000",GradientType=1);
+}

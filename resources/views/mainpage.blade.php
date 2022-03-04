@@ -7,6 +7,8 @@
 {{--    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.3.3/dist/flowbite.min.css" />--}}
 @endsection
 
+@section('background', "mns-background")
+
 @section("mainHeroContent")
     <!-- Main Hero Content -->
     <div class="container max-w-lg px-4 lg:py-32 md:py-20 mx-auto text-left md:max-w-none md:text-center">
