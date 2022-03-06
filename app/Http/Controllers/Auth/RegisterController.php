@@ -51,8 +51,8 @@ class RegisterController extends Controller
     protected function validator(array $data): \Illuminate\Contracts\Validation\Validator
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'surname' => ['required', 'string', 'max:255'],
+            'name' => ['string', 'max:255'],
+            'surname' => ['string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'login' => ['required', 'string', 'min:5', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -68,8 +68,8 @@ class RegisterController extends Controller
     protected function create(array $data): User
     {
         return User::create([
-            'name' => $data['name'],
-            'surname' => $data['surname'],
+            'name' => isset($data['name']) ? $data['name'] : null,
+            'surname' => isset($data['surname']) ? $data['surname'] : null,
             'login' => $data['login'],
             'email' => $data['email'],
             'registration_date' => Carbon::now()->timestamp,

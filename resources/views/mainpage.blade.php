@@ -46,7 +46,7 @@
 
 @section("body")
     <!-- Section 2 -->
-    <section class="py-20 bg-white">
+    <section class="py-20 mns-background2">
         <div class="container max-w-6xl mx-auto">
             <h2 class="text-4xl font-bold tracking-tight text-center">Почему MNS Game Project?</h2>
             <p class="mt-2 text-lg text-center text-gray-600">Ознакомьтесь с нашими преимуществами ниже.</p>

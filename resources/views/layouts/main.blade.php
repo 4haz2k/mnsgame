@@ -27,7 +27,7 @@
                             MNS Game<span class="text-indigo-600">.</span>
                         </a>
                         <div class="flex flex-col items-start justify-center w-full space-x-6 text-center lg:space-x-8 md:w-2/3 md:mt-0 md:flex-row md:items-center">
-                            <a href="/" class="inline-block w-full py-2 ml-6 font-medium text-left text-indigo-600 md:ml-0 md:w-auto md:px-0 md:mx-2 lg:mx-3 md:text-center">Главная</a>
+                            <a href="/" class="inline-block w-full py-2 ml-6 font-medium text-left {{ (request()->is('/')) ? 'text-indigo-600' : 'text-gray-700' }} md:ml-0 md:w-auto md:px-0 md:mx-2 lg:mx-3 md:text-center">Главная</a>
                             <a href="#_" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 hover:text-indigo-600 lg:mx-3 md:text-center">Сервера</a>
                             <a href="#_" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 hover:text-indigo-600 lg:mx-3 md:text-center">Продвижение</a>
                             <a href="#_" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 hover:text-indigo-600 lg:mx-3 md:text-center">Поддержка</a>
@@ -40,7 +40,7 @@
 {{--                            </button>--}}
 
                             <a href="{{ url('/login') }}" class="w-full px-6 py-2 mr-0 text-gray-700 md:px-0 lg:pl-2 md:mr-4 lg:mr-5 md:w-auto">Вход</a>
-                            <a href="{{ url('/register') }}" class="inline-flex items-center w-full px-6 py-3 text-sm font-medium leading-4 text-white bg-indigo-600 md:px-3 md:w-auto md:rounded-full lg:px-5 hover:bg-indigo-500 focus:outline-none md:focus:ring-2 focus:ring-0 focus:ring-offset-2 focus:ring-indigo-600">Регистрация</a>
+                            <a href="{{ url('/register') }}" class="inline-flex items-center w-full px-6 py-3 text-sm font-medium leading-4 text-white bg-indigo-600 md:px-3 md:w-auto md:rounded-full lg:px-5 hover:bg-indigo-500">Регистрация</a>
                         </div>
                     </div>
                 </div>
