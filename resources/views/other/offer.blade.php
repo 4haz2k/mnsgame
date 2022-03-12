@@ -1,6 +1,6 @@
 @extends("layouts.main")
 
-@section("title", "MNS game | Публичная оферта")
+@section("title", "MNS Game | Публичная оферта")
 
 @section("styles")
     <link rel="stylesheet" href="{{ asset("css/mainpage.css") }}">

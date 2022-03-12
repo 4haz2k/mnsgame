@@ -30,7 +30,7 @@
                             <a href="/" class="inline-block w-full py-2 ml-6 font-medium text-left {{ (request()->is('/')) ? 'text-indigo-600' : 'text-gray-700' }} md:ml-0 md:w-auto md:px-0 md:mx-2 lg:mx-3 md:text-center">Главная</a>
                             <a href="#_" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 hover:text-indigo-600 lg:mx-3 md:text-center">Сервера</a>
                             <a href="#_" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 hover:text-indigo-600 lg:mx-3 md:text-center">Продвижение</a>
-                            <a href="#_" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 hover:text-indigo-600 lg:mx-3 md:text-center">Поддержка</a>
+                            <a href="{{ url("/support") }}" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 {{ (request()->is('support')) ? 'text-indigo-600' : 'text-gray-700' }} lg:mx-3 md:text-center">Поддержка</a>
                         </div>
                         <div class="flex flex-col items-start justify-end w-full md:items-center md:w-1/3 md:flex-row md:py-0 relative z-10">
 {{--                            <img class="h-8 w-8 inline-flex" src="{{ asset('img/user_default.png') }}" alt="">--}}

@@ -23,6 +23,8 @@ Route::get('/offer', function (){
     return view('other.offer'); // Публичная оферта
 });
 
+Route::get('/support', [\App\Http\Controllers\SupportController::class, 'index']);
+
 
 // Authentication
 Auth::routes();
