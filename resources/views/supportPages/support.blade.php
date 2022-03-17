@@ -77,7 +77,7 @@
                 <span class="text-[1rem] text-gray-500">Попробуйте найти ответ на свой вопрос в базе знаний нашего проекта. Вам не придется ждать ответ, если такой вопрос уже был задан. </span>
             </div>
             <div>
-                <a href="">
+                <a href="{{url("/support/faq")}}">
                     <button class="bg-black hover:!bg-[#383838] w-2/3 text-white font-bold py-2 px-4 rounded hover:shadow-lg">
                         Перейти
                     </button>

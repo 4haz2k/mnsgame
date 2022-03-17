@@ -24,6 +24,7 @@ Route::get('/offer', function (){
 });
 
 Route::get('/support', [\App\Http\Controllers\SupportController::class, 'index']);
+Route::get('/support/faq', [\App\Http\Controllers\SupportController::class, 'faqPage']);
 
 
 // Authentication

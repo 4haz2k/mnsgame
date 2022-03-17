@@ -9,4 +9,8 @@ class SupportController extends Controller
     public function index(){
         return view('supportPages.support');
     }
+
+    public function faqPage(){
+        return view('supportPages.faq');
+    }
 }
