@@ -17,9 +17,9 @@ class TopicCategoryModel extends Model
     /**
      * @return BelongsToMany
      */
-    public function categories(): BelongsToMany
+    public function questions(): BelongsToMany
     {
-        return $this->belongsToMany("App\Models\Question", "category_of_question");
+        return $this->belongsToMany("App\Models\Question", "category_of_question", "category_id", "question_id");
     }
 
     protected static function newFactory(): TopicCategoryFactory
