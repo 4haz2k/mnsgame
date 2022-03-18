@@ -18,6 +18,7 @@ Route::get('/support', [\App\Http\Controllers\SupportController::class, 'index']
 Route::get('/support/faq', [\App\Http\Controllers\SupportController::class, 'faqPage']);
 Route::get('/support/faq/answer/{id}', [\App\Http\Controllers\SupportController::class, 'answerPage']);
 Route::post('/support/faq/answer/helpful', [\App\Http\Controllers\SupportController::class, 'isHelpful']);
+Route::post('/support/faq/answer/suggestions', [\App\Http\Controllers\SupportController::class, 'suggestions']);
 // End support section
 
 // Authentication

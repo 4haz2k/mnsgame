@@ -5,19 +5,44 @@ namespace App\Http\Controllers;
 use App\Models\Question;
 use App\Models\QuestionRate;
 use App\Models\TopicCategoryModel;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 class SupportController extends Controller
 {
+    /**
+     *
+     * Отображение главной страницы /support
+     *
+     * @return Application|Factory|View
+     */
     public function index(){
         return view('supportPages.support');
     }
 
+    /**
+     *
+     * Отображение страницы справки /support/faq
+     *
+     * @return Application|Factory|View
+     */
     public function faqPage(){
         $categories = TopicCategoryModel::with("questions")->get()->all();
         return view('supportPages.faq', compact("categories"));
     }
 
+    /**
+     *
+     * Отображение страницы ответа на вопрос /support/faq/answer/{answer_id}
+     *
+     * @param $answer
+     * @return Application|Factory|View|RedirectResponse|Redirector
+     */
     public function answerPage($answer){
         $answer = Question::where("id", $answer)->first();
 
@@ -27,7 +52,14 @@ class SupportController extends Controller
         return view("supportPages.answer", compact("answer"));
     }
 
-    public function isHelpful(Request $request): \Illuminate\Http\JsonResponse
+    /**
+     *
+     * AJAX: обработка ответа о полезности ответа на вопрос /support/faq/answer/helpful
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function isHelpful(Request $request): JsonResponse
     {
         $rate = QuestionRate::find($request->answer_id);
         if($rate != null){
@@ -53,5 +85,19 @@ class SupportController extends Controller
         else{
             return response()->json(["error" => "Answer not found"], 400);
         }
+    }
+
+    /**
+     *
+     * AJAX: обработка ответа ввода в поисковую форму слова /support/faq/answer/suggestions
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function suggestions(Request $request): JsonResponse
+    {
+        $data = Question::where("title", "like", "%". \request("word") ."%")->get();
+
+        return response()->json($data);
     }
 }

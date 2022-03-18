@@ -1,6 +1,6 @@
 @extends("layouts.main")
 
-@section("title", "MNS Game | Поддержка")
+@section("title", "MNS Game | $answer->title")
 
 @section("styles")
     <link rel="stylesheet" href="{{ asset("css/mainpage.css") }}">
@@ -13,14 +13,16 @@
 @endsection
 
 @section("body")
-    <div class="relative w-full px-6 py-6 bg-white ring-1  ring-gray-900/5 md:max-w-3xl md:mx-auto lg:max-w-4xl lg:pt-8 lg:pb-14 lg:!px-0 mb-5 rounded-2">
+    <div class="relative w-full px-6 py-6 bg-white ring-1 ring-gray-900/5 md:max-w-3xl md:mx-auto lg:max-w-4xl lg:pt-8 lg:pb-14 lg:!px-0 mb-5 rounded-2">
         <div class="mt-4 prose prose-slate mx-auto">
             <h1 class="text-left">
                 <span class="text-2xl font-black leading-none text-gray-900">
                     <span class="">MNS Game Support</span><span class="text-indigo-600">.</span><br>{{$answer->title}}
                 </span>
             </h1>
-            <p class="p-1 text-sm">{{$answer->answer}}</p>
+            <div class="text-sm">
+                {!! $answer->answer !!}
+            </div>
         </div>
         <div class="relative flex py-3 items-center mt-5 mb-5">
             <div class="flex-grow border-t border-gray-400"></div>
