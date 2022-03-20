@@ -12,6 +12,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Jenssegers\Date\Date;
 
 class SupportController extends Controller
 {
@@ -91,13 +92,25 @@ class SupportController extends Controller
      *
      * AJAX: обработка ответа ввода в поисковую форму слова /support/faq/answer/suggestions
      *
-     * @param Request $request
      * @return JsonResponse
      */
-    public function suggestions(Request $request): JsonResponse
+    public function suggestions(): JsonResponse
     {
-        $data = Question::where("title", "like", "%". \request("word") ."%")->get();
+        $data = Question::where("title", "like", "%". \request("word") ."%")->take(5)->get();
 
         return response()->json($data);
+    }
+
+    public function searchSuggestion(){
+        if(\request("question") == null)
+            return redirect("/support/faq");
+
+        $question = \request("question");
+
+        $suggestions = Question::where("title", "like", "%". $question ."%")->paginate(10);
+
+        Date::setLocale("ru");
+
+        return view("supportPages.search", compact("question", "suggestions"));
     }
 }
