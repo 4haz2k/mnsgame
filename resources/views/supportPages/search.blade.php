@@ -106,7 +106,7 @@
                 </div>
             </div>
         @endforeach
-        {{ $suggestions->links() }}
+        {{ $suggestions->appends(request()->input())->links('pagination::tailwind') }}
     </div>
 @endsection
 
