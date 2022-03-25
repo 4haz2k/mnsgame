@@ -9,7 +9,7 @@
         #user-menu::after {
             --tw-border-opacity: 0;
             bottom: 100%;
-            left: 88.7%;
+            left: 84.9%;
             border: solid transparent;
             content: '';
             height: 0;
@@ -20,6 +20,36 @@
             border-bottom-color: #ffffff;
             border-width: 6px;
             margin-left: -6px;
+        }
+
+        .notify-indicator {
+            position: absolute;
+            top: 71.2%;
+            left: 140px;
+            z-index: 2;
+            width: 10px;
+            height: 10px;
+            color: #fff;
+            background-image: linear-gradient(#54a3ff, #006eed);
+            background-clip: padding-box;
+            border-radius: 50%;
+            right: 10px;
+            border: 0;
+        }
+
+        .notify-indicator-button {
+            position: absolute;
+            top: 7px;
+            left: 227px;
+            z-index: 2;
+            width: 12px;
+            height: 12px;
+            color: #fff;
+            background-image: linear-gradient(#54a3ff, #006eed);
+            background-clip: padding-box;
+            border-radius: 50%;
+            right: 10px;
+            border: 2px solid var(--bs-body-bg);
         }
     </style>
     @yield("styles")
@@ -71,21 +101,24 @@
 {{--                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>--}}
 {{--                    </svg>--}}
 {{--                </div>--}}
-            <div class="origin-top-right absolute mt-2 w-56 rounded-sm shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 border-gray-400 border-[1.5px] focus:outline-none top-[60px] right-[40px]" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" id="user-menu" style="display: none">
+            <div class="origin-top-right absolute mt-2 w-42 rounded-sm shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100  focus:outline-none top-[60px] right-[40px]" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" id="user-menu" style="display: none">
                 <div class="py-1" role="none">
                     <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
                     <a href="{{url("/home")}}" class="text-gray-700 block px-4 py-2 text-sm hover:text-gray-700" role="menuitem" tabindex="-1" id="menu-item-0">Вы вошли как <strong>zytia</strong></a>
                 </div>
                 <div class="py-1" role="none">
-                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Мои сервера</a>
-                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-3">Продвижение</a>
+                    <a href="#" class="text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Мои сервера</a>
+                    <a href="#" class="text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-3">Продвижение</a>
                 </div>
                 <div class="py-1" role="none">
-                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-4">Настройки</a>
-                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-5">Уведомления</a>
+                    <a href="#" class="text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-4">Настройки</a>
+                    <a href="#" class="text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-5">
+                        Уведомления
+                        <span class="notify-indicator"></span>
+                    </a>
                 </div>
                 <div class="py-1" role="none">
-                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-6">Выход</a>
+                    <a href="#" class="text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-6">Выход</a>
                 </div>
             </div>
         </nav>
