@@ -5,6 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield("title")</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style type="text/css">
+        #user-menu::after {
+            --tw-border-opacity: 0;
+            bottom: 100%;
+            left: 88.7%;
+            border: solid transparent;
+            content: '';
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+            border-color: rgb(156 163 175 / var(--tw-border-opacity));
+            border-bottom-color: #ffffff;
+            border-width: 6px;
+            margin-left: -6px;
+        }
+    </style>
     @yield("styles")
 </head>
 <body>
@@ -13,7 +30,7 @@
 <section class="w-full px-6 pb-12 antialiased @yield('background')">
     <div class="mx-auto max-w-7xl">
         <nav class="relative z-50 h-24 select-none" x-data="{ showMenu: false }">
-            <div class="container relative flex flex-wrap items-center justify-between h-24 mx-auto overflow-hidden font-medium md:overflow-visible lg:justify-center sm:px-4 md:px-2">
+            <div class="container relative flex flex-wrap items-center justify-between h-24 mx-auto font-medium lg:justify-center sm:px-4 md:px-2">
                 <div class="flex items-center justify-start w-1/4 h-full pr-4">
                     <a href="/" class="inline-block py-4 md:py-0">
                         <span class="p-1 text-xl font-black leading-none text-gray-900">
@@ -22,7 +39,7 @@
                     </a>
                 </div>
                 <div class="top-0 left-0 items-start hidden w-full h-full p-4 text-sm bg-current bg-opacity-50 md:items-center md:w-3/4 md:absolute lg:text-base md:bg-transparent md:p-0 md:relative md:flex" :class="{'flex fixed': showMenu, 'hidden': !showMenu }">
-                    <div class="flex-col w-full h-auto overflow-hidden bg-current rounded-lg md:bg-transparent md:overflow-visible md:rounded-none relative md:flex md:flex-row">
+                    <div class="flex-col w-full h-auto bg-current rounded-lg md:bg-transparent md:rounded-none relative md:flex md:flex-row">
                         <a href="/" class="inline-flex items-center block w-auto h-16 px-6 text-xl font-black leading-none text-gray-900 md:hidden">
                             MNS Game<span class="text-indigo-600">.</span>
                         </a>
@@ -33,32 +50,42 @@
                             <a href="{{ url("/support") }}" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 {{ (request()->is('support')) ? 'text-indigo-600' : 'text-gray-700' }} lg:mx-3 md:text-center">Поддержка</a>
                         </div>
                         <div class="flex flex-col items-start justify-end w-full md:items-center md:w-1/3 md:flex-row md:py-0 relative z-10">
-{{--                            <img class="h-8 w-8 inline-flex" src="{{ asset('img/user_default.png') }}" alt="">--}}
-{{--                            <span class="inline-flex pl-3 font-medium">zytia</span>--}}
-{{--                            <button @click="dropdownOpen = !dropdownOpen"  class="relative z-10 block rounded-md bg-transparent p-2 focus:outline-none h-8 w-8 inline-flex">--}}
-{{--                                <svg class="h-3 w-3 text-gray-800 m-auto" xmlns="http://www.w3.org/2000/svg"  width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000"  preserveAspectRatio="xMidYMid meet"> <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none"> <path d="M277 4009 c-103 -24 -197 -103 -244 -204 -23 -51 -28 -73 -27 -145 0 -160 -96 -52 1192 -1342 777 -778 1160 -1155 1191 -1172 73 -39 158 -53 234 -37 34 7 83 24 108 37 31 17 414 394 1191 1172 1288 1290 1192 1182 1192 1342 0 72 -4 94 -28 147 -84 184 -308 262 -491 171 -26 -13 -388 -368 -1037 -1016 l-998 -997 -998 997 c-652 651 -1011 1003 -1037 1016 -76 37 -170 49 -248 31z"/> </g> </svg>--}}
-{{--                            </button>--}}
-
-                            <a href="{{ url('/login') }}" class="w-full px-6 py-2 mr-0 text-gray-700 md:px-0 lg:pl-2 md:mr-4 lg:mr-5 md:w-auto">Вход</a>
-                            <a href="{{ url('/register') }}" class="inline-flex items-center w-full px-6 py-3 text-sm font-medium leading-4 text-white bg-indigo-600 md:px-3 md:w-auto md:rounded-full lg:px-5 hover:bg-indigo-500">Регистрация</a>
+                            <button class="block rounded-md bg-transparent p-2 focus:outline-none inline-flex">
+                                <svg class="h-5 w-5 text-gray-800 m-auto" xmlns="http://www.w3.org/2000/svg"  width="20px" height="20px" viewBox="0 0 512.000000 512.000000"  preserveAspectRatio="xMidYMid meet"> <g class="h-6 w-6" transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none"> <path d="M2377 4949 c-643 -74 -1185 -516 -1386 -1129 -74 -226 -74 -219 -78 -976 l-4 -682 -47 -12 c-134 -34 -301 -168 -370 -297 -163 -308 -38 -694 273 -842 114 -54 116 -54 524 -60 l384 -6 13 -65 c36 -177 116 -325 248 -456 139 -138 289 -217 471 -249 471 -82 924 222 1024 689 l18 81 384 5 384 5 74 27 c128 47 230 125 306 236 124 183 139 422 38 624 -69 137 -234 273 -375 308 l-47 12 -4 682 c-4 757 -3 748 -78 975 -243 742 -984 1220 -1752 1130z m401 -475 c230 -41 442 -154 618 -328 168 -168 272 -358 326 -595 21 -93 22 -123 27 -893 l6 -796 30 -44 c58 -81 120 -108 254 -108 105 0 151 -22 182 -87 34 -70 15 -135 -55 -187 l-27 -21 -1579 0 -1579 0 -27 21 c-70 51 -89 117 -55 186 32 66 66 82 196 89 124 6 172 24 220 81 57 67 55 39 55 818 0 758 4 844 45 1007 91 359 385 678 742 807 200 71 406 88 621 50z m192 -3537 c0 -8 -14 -42 -31 -76 -129 -257 -476 -313 -681 -109 -45 46 -108 153 -108 186 0 9 89 12 410 12 336 0 410 -2 410 -13z"/> </g> </svg>
+                            </button>
+                            <button class="relative z-10 block rounded-md bg-transparent p-2 focus:outline-none h-auto w-auto inline-flex" id="user-menu-btn" aria-expanded="true" aria-haspopup="true">
+                                <img class="h-6 w-6 inline-flex mr-[2px]" src="{{ asset('img/user.png') }}" alt="">
+                                <svg class="h-3 w-3 text-gray-800 m-auto" xmlns="http://www.w3.org/2000/svg"  width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000"  preserveAspectRatio="xMidYMid meet"> <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none"> <path d="M783 3543 c-29 -6 -63 -49 -63 -79 0 -15 20 -46 52 -81 29 -32 434 -451 901 -930 834 -858 849 -873 887 -873 38 0 53 15 887 873 467 479 872 898 901 930 59 65 64 91 28 134 l-24 28 -1774 1 c-975 1 -1783 -1 -1795 -3z"/> </g> </svg>
+                            </button>
+                        </div>
+{{--                            <a href="{{ url('/login') }}" class="w-full px-6 py-2 mr-0 text-gray-700 md:px-0 lg:pl-2 md:mr-4 lg:mr-5 md:w-auto">Вход</a>--}}
+{{--                            <a href="{{ url('/register') }}" class="inline-flex items-center w-full px-6 py-3 text-sm font-medium leading-4 text-white bg-indigo-600 md:px-3 md:w-auto md:rounded-full lg:px-5 hover:bg-indigo-500">Регистрация</a>--}}
                         </div>
                     </div>
                 </div>
-{{--                <div x-show="dropdownOpen" class="absolute right-0 top-100 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">--}}
-{{--                    <a href="#" class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">--}}
-{{--                        your profile--}}
-{{--                    </a>--}}
-{{--                    <a href="#" class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">--}}
-{{--                        Your projects--}}
-{{--                    </a>--}}
+{{--                <div @click="showMenu = !showMenu" class="absolute right-0 flex flex-col items-center items-end justify-center w-10 h-10 bg-white rounded-full cursor-pointer md:hidden hover:bg-gray-100">--}}
+{{--                    <svg class="w-6 h-6 text-gray-700" x-show="!showMenu" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">--}}
+{{--                        <path d="M4 6h16M4 12h16M4 18h16"></path>--}}
+{{--                    </svg>--}}
+{{--                    <svg class="w-6 h-6 text-gray-700" x-show="showMenu" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;">--}}
+{{--                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>--}}
+{{--                    </svg>--}}
 {{--                </div>--}}
-                <div @click="showMenu = !showMenu" class="absolute right-0 flex flex-col items-center items-end justify-center w-10 h-10 bg-white rounded-full cursor-pointer md:hidden hover:bg-gray-100">
-                    <svg class="w-6 h-6 text-gray-700" x-show="!showMenu" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                        <path d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                    <svg class="w-6 h-6 text-gray-700" x-show="showMenu" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
+            <div class="origin-top-right absolute mt-2 w-56 rounded-sm shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 border-gray-400 border-[1.5px] focus:outline-none top-[60px] right-[40px]" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" id="user-menu" style="display: none">
+                <div class="py-1" role="none">
+                    <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+                    <a href="{{url("/home")}}" class="text-gray-700 block px-4 py-2 text-sm hover:text-gray-700" role="menuitem" tabindex="-1" id="menu-item-0">Вы вошли как <strong>zytia</strong></a>
+                </div>
+                <div class="py-1" role="none">
+                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Мои сервера</a>
+                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-3">Продвижение</a>
+                </div>
+                <div class="py-1" role="none">
+                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-4">Настройки</a>
+                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-5">Уведомления</a>
+                </div>
+                <div class="py-1" role="none">
+                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-6">Выход</a>
                 </div>
             </div>
         </nav>
@@ -101,6 +128,12 @@
         <div class="flex justify-center mt-8 space-x-6">
             <a href="https://vk.com/mnsgameru" class="text-gray-400 hover:text-gray-500">
                 <span class="sr-only">Вконтакте</span>
+                <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 30 30" width="24px" height="24px">
+                    <path d="M 25.154297 3.984375 C 24.829241 3.998716 24.526384 4.0933979 24.259766 4.2011719 C 24.010014 4.3016357 23.055766 4.7109106 21.552734 5.3554688 C 20.048394 6.0005882 18.056479 6.855779 15.931641 7.7695312 C 11.681964 9.5970359 6.9042108 11.654169 4.4570312 12.707031 C 4.3650097 12.746607 4.0439208 12.849183 3.703125 13.115234 C 3.3623292 13.381286 3 13.932585 3 14.546875 C 3 15.042215 3.2360676 15.534319 3.5332031 15.828125 C 3.8303386 16.121931 4.144747 16.267067 4.4140625 16.376953 C 5.3912284 16.775666 8.4218473 18.015862 8.9941406 18.25 C 9.195546 18.866983 10.29249 22.222526 10.546875 23.044922 C 10.714568 23.587626 10.874198 23.927519 11.082031 24.197266 C 11.185948 24.332139 11.306743 24.45034 11.453125 24.542969 C 11.511635 24.579989 11.575789 24.608506 11.640625 24.634766 L 11.644531 24.636719 C 11.659471 24.642719 11.67235 24.652903 11.6875 24.658203 C 11.716082 24.668202 11.735202 24.669403 11.773438 24.677734 C 11.925762 24.726927 12.079549 24.757812 12.216797 24.757812 C 12.80196 24.757814 13.160156 24.435547 13.160156 24.435547 L 13.181641 24.419922 L 16.191406 21.816406 L 19.841797 25.269531 C 19.893193 25.342209 20.372542 26 21.429688 26 C 22.057386 26 22.555319 25.685026 22.875 25.349609 C 23.194681 25.014192 23.393848 24.661807 23.478516 24.21875 L 23.478516 24.216797 C 23.557706 23.798129 26.921875 6.5273437 26.921875 6.5273438 L 26.916016 6.5507812 C 27.014496 6.1012683 27.040303 5.6826405 26.931641 5.2695312 C 26.822973 4.8564222 26.536648 4.4608905 26.181641 4.2480469 C 25.826669 4.0352506 25.479353 3.9700339 25.154297 3.984375 z M 24.966797 6.0742188 C 24.961997 6.1034038 24.970391 6.0887279 24.962891 6.1230469 L 24.960938 6.1347656 L 24.958984 6.1464844 C 24.958984 6.1464844 21.636486 23.196371 21.513672 23.845703 C 21.522658 23.796665 21.481573 23.894167 21.439453 23.953125 C 21.379901 23.91208 21.257812 23.859375 21.257812 23.859375 L 21.238281 23.837891 L 16.251953 19.121094 L 12.726562 22.167969 L 13.775391 17.96875 C 13.775391 17.96875 20.331562 11.182109 20.726562 10.787109 C 21.044563 10.471109 21.111328 10.360953 21.111328 10.251953 C 21.111328 10.105953 21.035234 10 20.865234 10 C 20.712234 10 20.506484 10.14875 20.396484 10.21875 C 18.963383 11.132295 12.671823 14.799141 9.8515625 16.439453 C 9.4033769 16.256034 6.2896636 14.981472 5.234375 14.550781 C 5.242365 14.547281 5.2397349 14.548522 5.2480469 14.544922 C 7.6958673 13.491784 12.47163 11.434667 16.720703 9.6074219 C 18.84524 8.6937992 20.838669 7.8379587 22.341797 7.1933594 C 23.821781 6.5586849 24.850125 6.1218894 24.966797 6.0742188 z"/>
+                </svg>
+            </a>
+            <a href="https://vk.com/mnsgameru" class="text-gray-400 hover:text-gray-500">
+                <span class="sr-only">Вконтакте</span>
                 <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="24px" height="24px">
                     <path d="M45.763,35.202c-1.797-3.234-6.426-7.12-8.337-8.811c-0.523-0.463-0.579-1.264-0.103-1.776 c3.647-3.919,6.564-8.422,7.568-11.143C45.334,12.27,44.417,11,43.125,11l-3.753,0c-1.237,0-1.961,0.444-2.306,1.151 c-3.031,6.211-5.631,8.899-7.451,10.47c-1.019,0.88-2.608,0.151-2.608-1.188c0-2.58,0-5.915,0-8.28 c0-1.147-0.938-2.075-2.095-2.075L18.056,11c-0.863,0-1.356,0.977-0.838,1.662l1.132,1.625c0.426,0.563,0.656,1.248,0.656,1.951 L19,23.556c0,1.273-1.543,1.895-2.459,1.003c-3.099-3.018-5.788-9.181-6.756-12.128C9.505,11.578,8.706,11.002,7.8,11l-3.697-0.009 c-1.387,0-2.401,1.315-2.024,2.639c3.378,11.857,10.309,23.137,22.661,24.36c1.217,0.12,2.267-0.86,2.267-2.073l0-3.846 c0-1.103,0.865-2.051,1.977-2.079c0.039-0.001,0.078-0.001,0.117-0.001c3.267,0,6.926,4.755,8.206,6.979 c0.368,0.64,1.056,1.03,1.8,1.03l4.973,0C45.531,38,46.462,36.461,45.763,35.202z"/>
                 </svg>
@@ -124,8 +157,25 @@
     </div>
 </section>
 
-<!-- AlpineJS Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js"></script>
+
+<script>
+    let modal = document.getElementById("user-menu");
+
+    let btn = document.getElementById("user-menu-btn");
+
+    btn.onclick = function() {
+        if(modal.style.display === "none")
+            modal.style.display = "block";
+        else
+            modal.style.display = "none";
+    }
+</script>
+
+<script>
+    document.addEventListener("click", function(event) {if (!event.target.closest("#user-menu") && !event.target.closest("#user-menu-btn")) {closeModal()}}, false)
+    function closeModal() {document.querySelector("#user-menu").style.display = "none"}
+</script>
 @yield('scripts')
 </body>
 </html>
