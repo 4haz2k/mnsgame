@@ -79,6 +79,12 @@
                             <a href="#_" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 hover:text-indigo-600 lg:mx-3 md:text-center">Продвижение</a>
                             <a href="{{ url("/support") }}" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 {{ (request()->is('support')) ? 'text-indigo-600' : 'text-gray-700' }} lg:mx-3 md:text-center">Поддержка</a>
                         </div>
+                        @guest
+                            <div class="flex flex-col items-start justify-end w-full md:items-center md:w-1/3 md:flex-row md:py-0 relative z-10">
+                                <a href="{{ url('/login') }}" class="w-full px-6 py-2 mr-0 text-gray-700 md:px-0 lg:pl-2 md:mr-4 lg:mr-5 md:w-auto">Вход</a>
+                                <a href="{{ url('/register') }}" class="inline-flex items-center w-full px-6 py-3 text-sm font-medium leading-4 text-white bg-indigo-600 md:px-3 md:w-auto md:rounded-full lg:px-5 hover:bg-indigo-500">Регистрация</a>
+                            </div>
+                        @else
                         <div class="flex flex-col items-start justify-end w-full md:items-center md:w-1/3 md:flex-row md:py-0 relative z-10">
                             <button class="block rounded-md bg-transparent p-2 focus:outline-none inline-flex">
                                 <svg class="h-5 w-5 text-gray-800 m-auto" xmlns="http://www.w3.org/2000/svg"  width="20px" height="20px" viewBox="0 0 512.000000 512.000000"  preserveAspectRatio="xMidYMid meet"> <g class="h-6 w-6" transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none"> <path d="M2377 4949 c-643 -74 -1185 -516 -1386 -1129 -74 -226 -74 -219 -78 -976 l-4 -682 -47 -12 c-134 -34 -301 -168 -370 -297 -163 -308 -38 -694 273 -842 114 -54 116 -54 524 -60 l384 -6 13 -65 c36 -177 116 -325 248 -456 139 -138 289 -217 471 -249 471 -82 924 222 1024 689 l18 81 384 5 384 5 74 27 c128 47 230 125 306 236 124 183 139 422 38 624 -69 137 -234 273 -375 308 l-47 12 -4 682 c-4 757 -3 748 -78 975 -243 742 -984 1220 -1752 1130z m401 -475 c230 -41 442 -154 618 -328 168 -168 272 -358 326 -595 21 -93 22 -123 27 -893 l6 -796 30 -44 c58 -81 120 -108 254 -108 105 0 151 -22 182 -87 34 -70 15 -135 -55 -187 l-27 -21 -1579 0 -1579 0 -27 21 c-70 51 -89 117 -55 186 32 66 66 82 196 89 124 6 172 24 220 81 57 67 55 39 55 818 0 758 4 844 45 1007 91 359 385 678 742 807 200 71 406 88 621 50z m192 -3537 c0 -8 -14 -42 -31 -76 -129 -257 -476 -313 -681 -109 -45 46 -108 153 -108 186 0 9 89 12 410 12 336 0 410 -2 410 -13z"/> </g> </svg>
@@ -88,39 +94,50 @@
                                 <svg class="h-3 w-3 text-gray-800 m-auto" xmlns="http://www.w3.org/2000/svg"  width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000"  preserveAspectRatio="xMidYMid meet"> <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none"> <path d="M783 3543 c-29 -6 -63 -49 -63 -79 0 -15 20 -46 52 -81 29 -32 434 -451 901 -930 834 -858 849 -873 887 -873 38 0 53 15 887 873 467 479 872 898 901 930 59 65 64 91 28 134 l-24 28 -1774 1 c-975 1 -1783 -1 -1795 -3z"/> </g> </svg>
                             </button>
                         </div>
-{{--                            <a href="{{ url('/login') }}" class="w-full px-6 py-2 mr-0 text-gray-700 md:px-0 lg:pl-2 md:mr-4 lg:mr-5 md:w-auto">Вход</a>--}}
-{{--                            <a href="{{ url('/register') }}" class="inline-flex items-center w-full px-6 py-3 text-sm font-medium leading-4 text-white bg-indigo-600 md:px-3 md:w-auto md:rounded-full lg:px-5 hover:bg-indigo-500">Регистрация</a>--}}
-                        </div>
+                        @endguest
                     </div>
                 </div>
-{{--                <div @click="showMenu = !showMenu" class="absolute right-0 flex flex-col items-center items-end justify-center w-10 h-10 bg-white rounded-full cursor-pointer md:hidden hover:bg-gray-100">--}}
-{{--                    <svg class="w-6 h-6 text-gray-700" x-show="!showMenu" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">--}}
-{{--                        <path d="M4 6h16M4 12h16M4 18h16"></path>--}}
-{{--                    </svg>--}}
-{{--                    <svg class="w-6 h-6 text-gray-700" x-show="showMenu" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;">--}}
-{{--                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>--}}
-{{--                    </svg>--}}
-{{--                </div>--}}
-            <div class="origin-top-right absolute mt-2 w-42 rounded-sm shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100  focus:outline-none top-[60px] right-[40px]" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" id="user-menu" style="display: none">
+            </div>
+            {{--                <div @click="showMenu = !showMenu" class="absolute right-0 flex flex-col items-center items-end justify-center w-10 h-10 bg-white rounded-full cursor-pointer md:hidden hover:bg-gray-100">--}}
+            {{--                    <svg class="w-6 h-6 text-gray-700" x-show="!showMenu" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">--}}
+            {{--                        <path d="M4 6h16M4 12h16M4 18h16"></path>--}}
+            {{--                    </svg>--}}
+            {{--                    <svg class="w-6 h-6 text-gray-700" x-show="showMenu" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;">--}}
+            {{--                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>--}}
+            {{--                    </svg>--}}
+            {{--                </div>--}}
+            @guest @else
+            <div class="origin-top-right absolute mt-2 w-42 rounded-sm shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100  focus:outline-none top-[60px] right-[40px] max-w-[210px]" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" id="user-menu" style="display: none">
                 <div class="py-1" role="none">
                     <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-                    <a href="{{url("/home")}}" class="text-gray-700 block px-4 py-2 text-sm hover:text-gray-700" role="menuitem" tabindex="-1" id="menu-item-0">Вы вошли как <strong>zytia</strong></a>
+                    <a href="{{url("/home")}}" class="text-gray-700 block px-4 py-2 text-sm hover:text-gray-700" role="menuitem" tabindex="-1" id="menu-item-0">
+                        Вы вошли как @if(\Illuminate\Support\Facades\Auth::user()->role != "admin") <strong>{{ \Illuminate\Support\Facades\Auth::user()->login }}</strong> @else <span class="text-red-500"><strong>{{ \Illuminate\Support\Facades\Auth::user()->login }}</strong></span> @endif
+                    </a>
                 </div>
                 <div class="py-1" role="none">
-                    <a href="#" class="text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Мои сервера</a>
-                    <a href="#" class="text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-3">Продвижение</a>
+                    <a href="{{ url("/myservers") }}" class="text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Мои сервера</a>
+                    <a href="#" class="text-lime-500 block px-4 py-2 text-sm font-semibold" role="menuitem" tabindex="-1" id="menu-item-3">Продвижение</a>
                 </div>
                 <div class="py-1" role="none">
                     <a href="#" class="text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-4">Настройки</a>
                     <a href="#" class="text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-5">
                         Уведомления
-                        <span class="notify-indicator"></span>
+                        @if(\Illuminate\Support\Facades\Auth::user()->role != "admin")
+                            <span class="notify-indicator"></span>
+                        @endif
                     </a>
+                    @if(\Illuminate\Support\Facades\Auth::user()->role == "admin")
+                        <a href="{{ url('adminpanel') }}" class="text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-6"><strong>Панель администратора</strong></a>
+                    @endif
                 </div>
                 <div class="py-1" role="none">
-                    <a href="#" class="text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-6">Выход</a>
+                    <a href="{{ route('logout') }}" class="text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-7" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Выход</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </div>
             </div>
+            @endguest
         </nav>
         @yield("mainHeroContent")
     </div>
@@ -192,6 +209,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js"></script>
 
+@guest @else
 <script>
     let modal = document.getElementById("user-menu");
 
@@ -209,6 +227,8 @@
     document.addEventListener("click", function(event) {if (!event.target.closest("#user-menu") && !event.target.closest("#user-menu-btn")) {closeModal()}}, false)
     function closeModal() {document.querySelector("#user-menu").style.display = "none"}
 </script>
+@endguest
+
 @yield('scripts')
 </body>
 </html>
