@@ -32,7 +32,7 @@ Route::post('/addserver', [\App\Http\Controllers\Server\ServerController::class,
 Route::get('/addserver', [\App\Http\Controllers\Server\ServerController::class, 'index']);
 Route::get('/editserver/{id}', [\App\Http\Controllers\Server\ServerController::class, 'editServer']);
 Route::post('/editserver', [\App\Http\Controllers\Server\ServerController::class, 'saveServer'])->name("saveserver");
-Route::get('/myservers', [\App\Http\Controllers\Server\ServerController::class, 'myServers']);
+Route::get('/myservers', [\App\Http\Controllers\Server\ServerController::class, 'myServers'])->name("myservers");
 // End user panel
 
 // Admin panel

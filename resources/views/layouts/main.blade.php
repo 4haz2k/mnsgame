@@ -24,7 +24,7 @@
 
         .notify-indicator {
             position: absolute;
-            top: 71.2%;
+            top: 75%;
             left: 140px;
             z-index: 2;
             width: 10px;
@@ -115,7 +115,8 @@
                     </a>
                 </div>
                 <div class="py-1" role="none">
-                    <a href="{{ url("/myservers") }}" class="text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Мои сервера</a>
+                    <a href="{{ route("myservers") }}" class="text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Мои сервера</a>
+                    <a href="{{ route("addserver") }}" class="text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Добавить сервер</a>
                     <a href="#" class="text-lime-500 block px-4 py-2 text-sm font-semibold" role="menuitem" tabindex="-1" id="menu-item-3">Продвижение</a>
                 </div>
                 <div class="py-1" role="none">
