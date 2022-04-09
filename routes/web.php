@@ -28,11 +28,6 @@ Auth::routes();
 
 // User panel
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::post('/addserver', [\App\Http\Controllers\Server\ServerController::class, 'createServer'])->name("addserver");
-Route::get('/addserver', [\App\Http\Controllers\Server\ServerController::class, 'index']);
-Route::get('/editserver/{id}', [\App\Http\Controllers\Server\ServerController::class, 'editServer']);
-Route::post('/editserver', [\App\Http\Controllers\Server\ServerController::class, 'saveServer'])->name("saveserver");
-Route::get('/myservers', [\App\Http\Controllers\Server\ServerController::class, 'myServers'])->name("myservers");
 // End user panel
 
 // Admin panel
@@ -41,3 +36,13 @@ Route::get('/adminpanel/settings', [\App\Http\Controllers\AdminPanel::class, 'se
 Route::post('/adminpanel/updatesettings', [\App\Http\Controllers\AdminPanel::class, "updateSettings"])->name("update_admin_settings");
 // End admin panel
 
+
+// Server controller
+Route::post('/addserver', [\App\Http\Controllers\Server\ServerController::class, 'createServer'])->name("addserver");
+Route::get('/addserver', [\App\Http\Controllers\Server\ServerController::class, 'index']);
+Route::get('/editserver/{id}', [\App\Http\Controllers\Server\ServerController::class, 'editServer']);
+Route::post('/editserver', [\App\Http\Controllers\Server\ServerController::class, 'saveServer'])->name("saveserver");
+Route::get('/myservers', [\App\Http\Controllers\Server\ServerController::class, 'myServers'])->name("myservers");
+
+Route::post('/server/loadFilters', [\App\Http\Controllers\Server\ServerController::class, "loadFilters"]);
+// End server controller
