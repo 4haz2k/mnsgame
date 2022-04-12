@@ -29,7 +29,6 @@
             visibility: visible;
         }
     </style>
-    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 @endsection
 
 @section('body')
@@ -56,9 +55,6 @@
                         IP адрес
                     </div>
                     <div class="w-1/12 justify-center items-center flex text-sm">
-                        Голосов
-                    </div>
-                    <div class="w-1/12 justify-center items-center flex text-sm">
                         Рейтинг
                     </div>
                 </div>
@@ -69,14 +65,14 @@
                         </div>
                     </div>
                     <div class="w-1/12 justify-center items-center flex tooltip-custom" data-tooltip="Counter Strike: Global Offensive">
-                        <img class="rounded-3" src="{{ asset("img/test/csgo_logo.png") }}" width="42" height="42" id="game_logo" alt="Counter Strike: Global Offensive">
+                        <img class="rounded-3" src="{{ asset("img/test/csgo_logo.png") }}" width="42" height="42" id="game-logo" alt="Counter Strike: Global Offensive">
                     </div>
                     <div class="w-7/12 justify-center items-center flex flex-col truncate">
-                        <div class="text-md mb-2 truncate font-bold">
-                            ⭐❗ Сервер 1.18.1 ❗⭐ Без /GM 1 и админок!
+                        <div class="text-md mb-1 text-ellipsis overflow-hidden font-bold max-w-[560px] text-center" id="server-title-preview">
+                            ⭐ Будущее название сервера на MNS Game! ⭐
                         </div>
                         <div class="block">
-                            <img class="rounded-3" src="{{ asset("/img/test/banner.png") }}" width="420" height="54" alt="">
+                            <img class="rounded-2" src="{{ asset("/img/test/banner.png") }}" width="486" height="60" alt="" id="server-banner">
                         </div>
                     </div>
                     <div class="w-1/12 justify-center items-center flex text-xs">
@@ -90,11 +86,6 @@
                         </div>
                     </div>
                     <div class="w-1/12 justify-center items-center flex text-xs">
-                        <div class="bg-gray-300 rounded-3 px-2 py-1 tooltip-custom" data-tooltip="Кол-во проголосовавших игроков">
-                            111
-                        </div>
-                    </div>
-                    <div class="w-1/12 justify-center items-center flex text-xs">
                         <div class="bg-gray-300 rounded-3 px-2 py-1 text-orange-400 font-semibold tooltip-custom" data-tooltip="Рейтинг сервера">
                             10204
                         </div>
@@ -102,7 +93,7 @@
                 </div>
             </div>
             <div id="secondColumn" class="my-4">
-                <form class="w-full" action="{{ route("addserver") }}" method="POST">
+                <form class="w-full" enctype="multipart/form-data" action="{{ route("addserver") }}" method="POST">
                     @csrf
                     <div class="flex flex-wrap -mx-3 mb-6">
                         <div class="lg:w-1/3 w-full px-3 lg:my-2">
@@ -140,9 +131,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="flex flex-wrap -mx-3 mb-2" id="filters">
-
-                    </div>
+                    <div class="flex flex-wrap -mx-3 mb-2" id="filters"></div>
                     <div class="flex flex-wrap -mx-3 mb-2">
                         <div class="lg:w-1/3 w-full px-3 lg:my-2">
                             <label for="server-site" class="block text-md tracking-wide text-gray-700 font-bold mb-2 text-left">Сайт сервера</label>
@@ -182,21 +171,32 @@
                     <div class="flex flex-wrap -mx-3 mb-2">
                         <div class="lg:w-1/3 w-full px-3 lg:my-2">
                             <label for="game-title" class="block text-md tracking-wide text-gray-700 font-bold mb-2 text-left">Баннер</label>
-                            <span class="block text-md tracking-wide text-gray-700 mb-2 text-left">Баннер сервера в формате gif, png или jpg размером 468x60 пикселей. <br><br><span class="text-red-500 font-bold">Внимание! Использование агрессивных, мигающих и нецензурных баннеров запрещено! Максимальный размер баннера 2 Мегабайта. Несоблюдение данных правил карается удалением сервера с хостинга без возможности восстановления!</span></span>
+                            <span class="block text-md tracking-wide text-gray-700 mb-2 text-left">Баннер сервера в формате gif, png, jpeg или jpg размером 486x60 пикселей. <br><br><span class="text-red-500 font-bold">Внимание! Использование агрессивных, мигающих и нецензурных баннеров запрещено! Максимальный размер баннера 2 Мегабайта. Несоблюдение данных правил карается удалением сервера с хостинга без возможности восстановления!</span></span>
                         </div>
-                        <div class="lg:w-2/3 w-full px-3 lg:my-4" id="dropzone">
-                            <label class="flex h-[80px] w-full cursor-pointer appearance-none justify-center rounded-md border-2 border-dashed border-gray-300 bg-white px-4 transition hover:border-gray-400 focus:outline-none">
+                        <div class="lg:w-2/3 w-full px-3 lg:my-4">
+                            <div class="w-full hidden px-3 py-2 rounded-md border-2 border-dashed border-gray-300 bg-white" id="upload_preview">
+                                <div class="w-full text-center text-base font-semibold">
+                                    Текущий банер сервера
+                                </div>
+                                <img src="" alt="" id="img-preview" class="mx-auto my-3" width="486" height="60">
+                                <div class="w-full text-center">
+                                    <button type="button" onclick="uploadButton();" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-12 border border-blue-700 rounded">
+                                        Изменить изображение
+                                    </button>
+                                </div>
+                            </div>
+                            <label class="flex h-[80px] w-full cursor-pointer appearance-none justify-center rounded-md border-2 border-dashed border-gray-300 bg-white px-4 transition hover:border-gray-400 focus:outline-none" id="dropzone">
                                 <span class="flex items-center space-x-2">
                                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                                   </svg>
                                   <span class="font-medium text-gray-600">
-                                    Перетащите сюда файл или нажмите, чтобы
-                                    <span class="text-blue-600 underline">выбрать</span>
+                                    Нажмите, чтобы выбрать
+                                    <span class="text-blue-600 underline">изображение</span>
                                   </span>
                                 </span>
-                                <input type="file" name="banner" class="hidden" />
                             </label>
+                            <input type="file" name="banner" id="banner-input" class="hidden" onchange="showPreview(event);" accept=".gif, .png, .jpeg .jpg"/>
                         </div>
                     </div>
                     <button type="submit" class="h-4 w-16">Чекнуть</button>
@@ -208,37 +208,10 @@
 @endsection
 
 @section("scripts")
-    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
     <script>
-        const dropzone = new Dropzone("div#dropzone", {
-            url: "{{ url("/addserver") }}",
-            maxFiles: 1,
-            paramName: "banner",
-            maxFilesize: 2, // MB
-            createImageThumbnails: false,
-            addRemoveLinks: true,
-            disablePreviews: true,
-            autoProcessQueue: false,
-            addedfile: file => {
-                console.log(file.fileURL);
-            }
-        });
-
-        function importImage(input) {
-            let fileReference = input.files && input.files[0];
-
-            if(fileReference){
-                let reader = new FileReader();
-
-                reader.onload = (event) => {
-                    document.getElementById('preview').src = event.target.result;
-                }
-
-                reader.readAsDataURL(fileReference);
-
-            }
-
-        }
+        document.getElementById('dropzone')
+            .addEventListener('click', () =>
+                document.getElementById('banner-input').click());
     </script>
     <script>
         function showFiltersBlock(){
@@ -309,7 +282,7 @@
                 let filters_selected = document.getElementById("filters-input");
 
                 filters_selected.innerHTML +=
-                    "<div class=\"flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-md text-indigo-700 bg-indigo-100 border border-indigo-300\" id=\""+ id + "-input" +"\">" +
+                    "<div class=\"flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-md text-indigo-700 bg-indigo-100 border border-indigo-300 h-[26px]\" id=\""+ id + "-input" +"\">" +
                         "<div class=\"text-xs font-normal leading-none max-w-full flex-initial\">"+ title +"</div>" +
                         "<div class=\"flex flex-auto flex-row-reverse\">" +
                             "<div>" +
@@ -343,6 +316,64 @@
                 suggestions.classList.add("hidden");
             }
         }
+    </script>
+    <script>
+        function showPreview(event) {
+            if (event.target.files.length > 0) {
+                let src = URL.createObjectURL(event.target.files[0]);
+                let img = new Image();
+                img.src = src;
+                img.onload = function () {
+                    if(this.width === 486 && this.height === 60){
+                        makePreview(src);
+                        changeDropzoneVisible();
+                    }
+                };
+
+            }
+        }
+
+        function makePreview(src){
+            let preview = document.getElementById("img-preview");
+            preview.src = src;
+            preview.style.display = "block";
+
+            let server_banner = document.getElementById("server-banner");
+            server_banner.src = src;
+
+            let upload_preview = document.getElementById("upload_preview");
+            if(upload_preview.classList.contains("hidden")){
+                upload_preview.classList.remove("hidden");
+            }
+        }
+
+        function changeDropzoneVisible(){
+            let dropzone = document.getElementById("dropzone");
+
+            if(!dropzone.classList.contains("hidden"))
+                dropzone.classList.add("hidden");
+        }
+
+        function uploadButton(){
+            document.getElementById('banner-input').click();
+        }
+    </script>
+
+    <script>
+        let input  = document.getElementById("server-title"),
+            output = document.getElementById("server-title-preview");
+
+        function keydownHandler() {
+            console.log(input.value);
+            if(input.value === ""){
+                output.innerHTML = "⭐ Будущее название сервера на MNS Game! ⭐";
+            }
+            else if(input.value !== "⭐ Будущее название сервера на MNS Game! ⭐"){
+                output.innerHTML = this.value;
+            }
+        }
+
+        input.addEventListener("input", keydownHandler);
     </script>
 @endsection
 
