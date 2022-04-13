@@ -93,7 +93,7 @@
                 </div>
             </div>
             <div id="secondColumn" class="my-4">
-                <form class="w-full" enctype="multipart/form-data" action="{{ route("addserver") }}" method="POST">
+                <form class="w-full" enctype="multipart/form-data" action="{{ route("addserver") }}" method="POST" id="form_input">
                     @csrf
                     <div class="flex flex-wrap -mx-3 mb-6">
                         <div class="lg:w-1/3 w-full px-3 lg:my-2">
@@ -103,7 +103,7 @@
                             <span class="block text-md tracking-wide text-gray-700 mb-2 text-left">Название вашего сервера. Разрешены буквы и цифры</span>
                         </div>
                         <div class="lg:w-2/3 w-full px-3 lg:my-4">
-                            <input class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-2 px-3 mb-3 mx-0 lg:mx-24 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm" id="server-title" type="text" placeholder="Какое будет название у вашего сервера?" required>
+                            <input name="server_title" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-2 px-3 mb-3 mx-0 lg:mx-24 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm" id="server-title" type="text" placeholder="Какое будет название у вашего сервера?" required>
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-6">
@@ -114,7 +114,7 @@
                             <span class="block text-md tracking-wide text-gray-700 mb-2 text-left">Полное описание вашего сервера. Данное описание будет отображаться на странице вашего сервера.</span>
                         </div>
                         <div class="lg:w-2/3 w-full px-3 lg:my-4">
-                            <textarea id="server-description" class="w-full h-16 px-3 py-2 text-sm text-gray-700 placeholder-gray-600 border rounded focus:shadow-outline" placeholder="Чтобы вы хотели рассказать о своём сервере игрокам?" required></textarea>
+                            <textarea name="server_description" id="server-description" class="w-full h-16 px-3 py-2 text-sm text-gray-700 placeholder-gray-600 border rounded focus:shadow-outline" placeholder="Чтобы вы хотели рассказать о своём сервере игрокам?" required></textarea>
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-2">
@@ -123,7 +123,7 @@
                             <span class="block text-md tracking-wide text-gray-700 mb-2 text-left">Выберите игру, которой посвящен ваш сервер.</span>
                         </div>
                         <div class="lg:w-2/3 w-full px-3 lg:my-4">
-                            <select id="game-title" class="w-full h-10 px-3 text-sm placeholder-gray-600 border rounded appearance-none focus:shadow-outline" onchange="getFilters()">
+                            <select id="game-title" name="game_title" class="w-full h-10 px-3 text-sm placeholder-gray-600 border rounded appearance-none focus:shadow-outline" onchange="getFilters()">
                                 <option value="" disabled selected>Выберите игру</option>
                                 @foreach($games as $game)
                                     <option value="{{ $game->title }}">{{ $game->title }}</option>
@@ -138,7 +138,7 @@
                             <span class="block text-md tracking-wide text-gray-700 mb-2 text-left">Ссылка на сайт сервера.</span>
                         </div>
                         <div class="lg:w-2/3 w-full px-3 lg:my-4">
-                            <input class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-2 px-3 mb-3 mx-0 lg:mx-24 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm" id="server-site" type="text" placeholder="Ссылка на сайт сервера" required>
+                            <input name="server_site" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-2 px-3 mb-3 mx-0 lg:mx-24 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm" id="server-site" type="text" placeholder="Ссылка на сайт сервера">
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-2">
@@ -147,7 +147,7 @@
                             <span class="block text-md tracking-wide text-gray-700 mb-2 text-left">Ссылка на сообщество Вконтакте.</span>
                         </div>
                         <div class="lg:w-2/3 w-full px-3 lg:my-4">
-                            <input class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-2 px-3 mb-3 mx-0 lg:mx-24 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm" id="server-vk" type="text" placeholder="Ссылка на сообщество Вконтакте" required>
+                            <input name="server_vk" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-2 px-3 mb-3 mx-0 lg:mx-24 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm" id="server-vk" type="text" placeholder="Ссылка на сообщество Вконтакте">
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-2">
@@ -156,7 +156,7 @@
                             <span class="block text-md tracking-wide text-gray-700 mb-2 text-left">Ссылка-приглашение в Discord сервер.</span>
                         </div>
                         <div class="lg:w-2/3 w-full px-3 lg:my-4">
-                            <input class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-2 px-3 mb-3 mx-0 lg:mx-24 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm" id="server-discord" type="text" placeholder="Ссылка-приглашение в Discord" required>
+                            <input name="server_discord" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-2 px-3 mb-3 mx-0 lg:mx-24 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm" id="server-discord" type="text" placeholder="Ссылка-приглашение в Discord">
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-2">
@@ -165,7 +165,7 @@
                             <span class="block text-md tracking-wide text-gray-700 mb-2 text-left">Текстовая или циферная ссылка на ваш сервер.</span>
                         </div>
                         <div class="lg:w-2/3 w-full px-3 lg:my-4">
-                            <input class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-2 px-3 mb-3 mx-0 lg:mx-24 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm" id="server-ip" type="text" placeholder="IP адрес сервера" required>
+                            <input name="server_ip" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-2 px-3 mb-3 mx-0 lg:mx-24 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm" id="server-ip" type="text" placeholder="IP адрес сервера" required>
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-2">
@@ -178,7 +178,7 @@
                                 <div class="w-full text-center text-base font-semibold">
                                     Текущий банер сервера
                                 </div>
-                                <img src="" alt="" id="img-preview" class="mx-auto my-3" width="486" height="60">
+                                <img src="" alt="" id="img-preview" class="mx-auto my-3 rounded-2" width="486" height="60">
                                 <div class="w-full text-center">
                                     <button type="button" onclick="uploadButton();" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-12 border border-blue-700 rounded">
                                         Изменить изображение
@@ -196,10 +196,11 @@
                                   </span>
                                 </span>
                             </label>
-                            <input type="file" name="banner" id="banner-input" class="hidden" onchange="showPreview(event);" accept=".gif, .png, .jpeg .jpg"/>
+                            <input type="file" name="server_banner" id="banner-input" class="hidden" onchange="showPreview(event);" accept=".gif, .png, .jpeg .jpg"/>
+                            <input type="hidden" name="filters_input" value="">
                         </div>
                     </div>
-                    <button type="submit" class="h-4 w-16">Чекнуть</button>
+                    <button type="button" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-12 border border-blue-700 rounded" onclick="inputFilters();">Добавить сервер</button>
                 </form>
             </div>
         </div>
@@ -358,13 +359,11 @@
             document.getElementById('banner-input').click();
         }
     </script>
-
     <script>
         let input  = document.getElementById("server-title"),
             output = document.getElementById("server-title-preview");
 
         function keydownHandler() {
-            console.log(input.value);
             if(input.value === ""){
                 output.innerHTML = "⭐ Будущее название сервера на MNS Game! ⭐";
             }
@@ -374,6 +373,23 @@
         }
 
         input.addEventListener("input", keydownHandler);
+    </script>
+    <script>
+        function inputFilters(){
+            let filters = document.getElementById("filters-input").children;
+            let form = document.getElementById("form_input");
+            let data = [];
+
+            for(let i = 0; i < filters.length; i++ )
+            {
+                data[i] = filters[i].firstChild.innerHTML;
+            }
+
+            if(data.length > 0){
+                form.filters_input.value = JSON.stringify(data);
+            }
+            form.submit();
+        }
     </script>
 @endsection
 
