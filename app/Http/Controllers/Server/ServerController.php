@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Server;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreServer;
 use App\Models\Filter;
 use App\Models\Game;
 use App\Models\Server;
@@ -33,25 +34,25 @@ class ServerController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param StoreServer $request
      * @return RedirectResponse
      */
-    public function createServer(Request $request): RedirectResponse
+    public function createServer(StoreServer $request): RedirectResponse
     {
-        $request_data = $request->all();
-        dd($request_data);
-        $request_data["game_id"] = DB::table('games')->where("title", "=", $request_data["game"])->value("id");
-        $request_data = array_merge($request_data, ['owner_id' => Auth::id()]);
-        unset($request_data["game"]);
-        $validator = Validator::make($request_data, Server::rules());
-
-        if ($validator->fails()) {
-            return Redirect::back()->withErrors($validator);
-        }
-        else{
-            Server::create(array_merge($request_data, ['owner_id' => Auth::id()]));
-            return Redirect::back()->with("Status", true);
-        }
+        return Redirect::back()->with("Status", true);
+//        $request_data = $request->all();
+//        $request_data["game_id"] = DB::table('games')->where("title", "=", $request_data["game"])->value("id");
+//        $request_data = array_merge($request_data, ['owner_id' => Auth::id()]);
+//        unset($request_data["game"]);
+//        $validator = Validator::make($request_data, Server::rules());
+//
+//        if ($validator->fails()) {
+//            return Redirect::back()->withErrors($validator);
+//        }
+//        else{
+//            Server::create(array_merge($request_data, ['owner_id' => Auth::id()]));
+//            return Redirect::back()->with("Status", true);
+//        }
     }
 
     public function editServer(Request $request){
