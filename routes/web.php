@@ -45,4 +45,5 @@ Route::post('/editserver', [\App\Http\Controllers\Server\ServerController::class
 Route::get('/myservers', [\App\Http\Controllers\Server\ServerController::class, 'myServers'])->name("myservers");
 
 Route::post('/server/loadFilters', [\App\Http\Controllers\Server\ServerController::class, "loadFilters"]);
+Route::post('/server/checkCallback', [\App\Http\Controllers\Server\ServerController::class, "getResponseStatus"]);
 // End server controller

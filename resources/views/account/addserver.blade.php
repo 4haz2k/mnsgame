@@ -28,6 +28,10 @@
             opacity: 1; /* Показываем элемент */
             visibility: visible;
         }
+
+        .tooltip-custom-callback::after{
+            margin-top: -58px !important;
+        }
     </style>
 @endsection
 
@@ -81,9 +85,12 @@
                         </div>
                     </div>
                     <div class="w-2/12 justify-center items-center flex text-xs">
-                        <div class="bg-gray-300 rounded-3 px-2 py-1 tooltip-custom" data-tooltip="Нажмите, чтобы скопировать адрес">
+                        <div class="bg-gray-300 rounded-3 px-2 py-1 tooltip-custom text-ellipsis overflow-hidden max-w-[150px]" data-tooltip="Нажмите, чтобы скопировать адрес" id="ip-preview">
                             192.168.124.120:27015
                         </div>
+                        <button class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 border-b-4 border-indigo-700 hover:border-indigo-500 active:!border-0 rounded hidden" id="launcher-button-preview">
+                            Скачать лаунчер
+                        </button>
                     </div>
                     <div class="w-1/12 justify-center items-center flex text-xs">
                         <div class="bg-gray-300 rounded-3 px-2 py-1 text-orange-400 font-semibold tooltip-custom" data-tooltip="Рейтинг сервера">
@@ -179,13 +186,51 @@
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-2">
                         <div class="lg:w-1/3 w-full px-3 lg:my-2">
-                            <label for="server-ip" class="block text-md tracking-wide text-gray-700 font-bold mb-2 text-left">IP адрес сервера</label>
-                            <span class="block text-md tracking-wide text-gray-700 mb-2 text-left">Текстовая или циферная ссылка на ваш сервер.</span>
+                            <label for="server-ip" class="block text-md tracking-wide text-gray-700 font-bold mb-2 text-left" id="server-type-title">IP адрес сервера</label>
+                            <span class="block text-md tracking-wide text-gray-700 mb-2 text-left" id="server-type-description">Текстовая или циферная ссылка на ваш сервер.</span>
                         </div>
                         <div class="lg:w-2/3 w-full px-3 lg:my-4">
-                            <input value="{{ old('server_ip') }}" name="server_ip" class="@error('server_ip') !border-red-500 @enderror appearance-none block w-full text-gray-700 border border-gray-200 rounded py-2 px-3 mb-3 mx-0 lg:mx-24 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm" id="server-ip" type="text" placeholder="IP адрес сервера" required>
+                            <input value="{{ old('server_ip') }}" name="server_ip" class="@error('server_ip') !border-red-500 @enderror appearance-none block w-full text-gray-700 border border-gray-200 rounded py-2 px-3 mb-3 mx-0 lg:mx-24 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm" id="server-ip" type="text" placeholder="IP адрес сервера">
+                            <input value="{{ old('launcher_link') }}" name="launcher_link" class="@error('launcher-link') !border-red-500 @enderror hidden appearance-none block w-full text-gray-700 border border-gray-200 rounded py-2 px-3 mb-3 mx-0 lg:mx-24 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm" id="server-launcher" type="text" placeholder="Ссылка страницу скачивания лаунчера/клиента сервера">
+                            <div class="text-left">
+                                <label for="is-launcher" class="mr-[10px] ml-1 block text-xs tracking-wide text-gray-700 font-bold mb-2 inline">На моем сервере используется лаунчер или клиент</label>
+                                <input name="is_launcher" class="appearance-none block text-gray-700 border border-gray-200 rounded px-2 mb-3 mx-0 lg:mx-24 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm inline" id="is-launcher" type="checkbox" onchange="changeServerType(this);">
+                            </div>
                             @error('server_ip')
                                 <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">{{ $message }}</span>
+                            @enderror
+                            @error('launcher_link')
+                            <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap -mx-3 mb-2">
+                        <div class="lg:w-1/3 w-full px-3 lg:my-2">
+                            <label for="server-callback" class="block text-md tracking-wide text-gray-700 font-bold mb-2 text-left">CallBack для сервера</label>
+                            <span class="block text-md tracking-wide text-gray-700 mb-2 text-left">
+                                CallBack предназначен для того, чтобы мы могли отправлять вам на сайт уведомление о том, что за ваш сервер проголосовали.
+                                Подробнее про то, как привязать callback к своему сайту и для чего он нужен, читайте в этой <a href="/fs" class="underline text-blue-700">статье</a>.
+                            </span>
+                        </div>
+                        <div class="lg:w-2/3 w-full px-3 lg:my-4">
+                            <div class="flex">
+                                <input value="{{ old('server_callback') }}" name="server_callback" class="@error('server_callback') !border-red-500 @enderror appearance-none block text-gray-700 border border-gray-200 rounded py-2 px-3 mb-3 mx-0 lg:mx-24 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm inline flex-auto" id="server-callback" type="text" placeholder="Ссылка на callback сайта">
+                                <button class="inline flex-none bg-white hover:!bg-gray-100 border focus:!border-blue-700 rounded ml-2 h-9 px-2 tooltip-custom tooltip-custom-callback" type="button" data-tooltip="Нажмите, для проверки соединения" onclick="makeRequest(this);">
+                                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 512 512">
+                                        <g>
+                                            <g>
+                                                <path d="m391.1,373.9h-57.1v-39.9l16.2,16.1c11.2,11.2 24.9,3.9 28.9-0.1 7.9-8 7.9-20.9-0.1-28.9l-51-50.6c-8-7.9-20.8-7.9-28.8,0l-51,50.6c-8,7.9-8.1,20.9-0.1,28.9 7.9,8 20.9,8.1 28.9,0.1l16.2-16.1v39.8h-170.3c-38.6,0-70.1-31.4-70.1-70 0-38.6 31.4-70.1 70.1-70.1h268.2c38.6,0 70,31.4 70,70.1 0.1,38.6-31.4,70.1-70,70.1zm-338.3-251c-1.42109e-14-38.6 31.4-70 70.1-70h268.2c38.6,0 70,31.4 70,70 0,38.6-31.4,70.1-70,70.1h-268.2c-38.6-0.1-70.1-31.5-70.1-70.1zm402.4,90.4c28.3-20.1 46.8-53.2 46.8-90.5 0-61.1-49.7-110.8-110.9-110.8h-268.2c-61.2,0-110.9,49.7-110.9,110.9 0,37.3 18.5,70.4 46.8,90.5-28.3,20.1-46.8,53.1-46.8,90.4 0,61.1 49.7,110.9 110.9,110.9h170.3v66.9c0,11.3 9.1,20.4 20.4,20.4 11.3,0 20.4-9.1 20.4-20.4v-66.9h57.1c61.1,0 110.9-49.7 110.9-110.9 0-37.3-18.5-70.3-46.8-90.5z"/>
+                                                <path d="m113.3,143.3h8.9c11.3,0 20.4-9.1 20.4-20.4 0-11.3-9.1-20.4-20.4-20.4h-8.9c-11.3,0-20.4,9.1-20.4,20.4-0.1,11.3 9.1,20.4 20.4,20.4z"/>
+                                                <path d="m189.8,143.3h8.9c11.3,0 20.4-9.1 20.4-20.4 0-11.3-9.1-20.4-20.4-20.4h-8.9c-11.3,0-20.4,9.1-20.4,20.4 0,11.3 9.1,20.4 20.4,20.4z"/>
+                                                <path d="m126.7,283.4h-8.9c-11.3,0-20.4,9.1-20.4,20.4 0,11.3 9.1,20.4 20.4,20.4h8.9c11.3,0 20.4-9.1 20.4-20.4-2.84217e-14-11.3-9.2-20.4-20.4-20.4z"/>
+                                                <path d="m203.2,283.4h-8.9c-11.3,0-20.4,9.1-20.4,20.4 0,11.3 9.1,20.4 20.4,20.4h8.9c11.3,0 20.4-9.1 20.4-20.4 0-11.3-9.1-20.4-20.4-20.4z"/>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </button>
+                            </div>
+                            @error('server_callback')
+                            <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
@@ -235,10 +280,46 @@
 
 @section("scripts")
     <script>
+        function makeRequest(element){
+            let callback_link = document.getElementById("server-callback").value;
+
+            if(callback_link === ""){
+                element.setAttribute("data-tooltip", "Поле ввода для ссылки пустое!");
+                return;
+            }
+
+            const request = new XMLHttpRequest();
+
+            const url = "{{ url("/server/checkCallback") }}";
+
+            const params = "&callback=" + callback_link;
+
+            request.open("POST", url, true);
+
+            request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            request.setRequestHeader("X-CSRF-TOKEN", "{{ csrf_token() }}");
+
+            request.addEventListener("readystatechange", () => {
+                if(request.readyState === 4 && request.status === 200) {
+                    let data = JSON.parse(request.responseText);
+
+                    if(data["status"] === true){
+                        element.setAttribute("data-tooltip", data["message"]);
+                    }
+                    else{
+                        console.log(data["error"]);
+                    }
+                }
+            });
+            request.send(params);
+        }
+    </script>
+    <script>
         document.getElementById('dropzone')
             .addEventListener('click', () =>
                 document.getElementById('banner-input').click());
     </script>
+
     <script>
         function showFiltersBlock(){
            document.getElementById("filters").innerHTML = "<div class='lg:w-1/3 w-full px-3 lg:my-2'><label for='game-filters' class='block text-md tracking-wide text-gray-700 font-bold mb-2 text-left'>Категории сервера</label><span class='block text-md tracking-wide text-gray-700 mb-2 text-left'>Этот параметр определяет, в какие категории попадет ваш сервер. Выбирайте только те категории, которые действительно присутствуют на вашем сервере. В противном случае, редактирование сервера будет отключено, а сам сервер понижен в рейтинге. <br><br><strong>Внимание!</strong> В случае полного игнорирования правил выбора параметров, сервер будет удален из мониторинга без возможности восстановления!</span></div><div class='lg:w-2/3 w-full px-3 lg:my-2'><div class='flex flex-col items-center relative'><div class='w-full'> <div class='p-1 flex border border-gray-200 bg-white rounded-t-lg'><div class='flex flex-auto flex-wrap' id='filters-input'></div> <div class='text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200'><button type='button' class='cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none' onclick='showSuggestions()'><svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='w-4 h-4' style='transform: rotate(180deg);'><polyline points='18 15 12 9 6 15'></polyline></svg></button></div></div><div class='items-stretch w-full mb-4 z-20 absolute bg-gray-100 top-[42px] !rounded-b-lg hover:rounded-b-lg drop-shadow-lg'><div class='flex flex-col w-full' id='filters-suggestion'></div></div></div></div></div>";
@@ -407,6 +488,20 @@
         }
 
         input.addEventListener("input", keydownHandler);
+
+        let server_ip_input = document.getElementById("server-ip"),
+            server_ip_output = document.getElementById("ip-preview");
+
+        function changeIp(){
+            if(server_ip_input.value === ""){
+                server_ip_output.innerHTML = "192.168.124.120:27015";
+            }
+            else if(server_ip_input.value !== "192.168.124.120:27015"){
+                server_ip_output.innerHTML = this.value;
+            }
+        }
+
+        server_ip_input.addEventListener("input", changeIp)
     </script>
     <script>
         function inputFilters(){
@@ -431,6 +526,33 @@
                 form.filters_input.value = JSON.stringify(data);
             }
             form.submit();
+        }
+    </script>
+
+    <script>
+        function changeServerType(element){
+            let server_ip = document.getElementById("server-ip");
+            let server_launcher = document.getElementById("server-launcher");
+            let server_type_title = document.getElementById("server-type-title");
+            let server_type_description = document.getElementById("server-type-description");
+            let ip_preview = document.getElementById("ip-preview");
+            let launcher_button_preview = document.getElementById("launcher-button-preview");
+            if(element.checked){
+                ip_preview.classList.add("hidden");
+                launcher_button_preview.classList.remove("hidden");
+                server_type_title.innerHTML = "Ссылка на скачивание лаунчера/клиента сервера";
+                server_type_description.innerHTML = "Ссылка на страницу скачивания лаунчера/клиента сервера. Вместо поля IP адреса на странице серверов будет отображаться кнопка для перехода на страницу скачивания лаунчера/клиента сервера."
+                server_ip.classList.add("hidden");
+                server_launcher.classList.remove("hidden");
+            }
+            else{
+                launcher_button_preview.classList.add("hidden");
+                ip_preview.classList.remove("hidden");
+                server_type_title.innerHTML = "IP адрес сервера";
+                server_type_description.innerHTML = "Текстовая или циферная ссылка на ваш сервер."
+                server_ip.classList.remove("hidden");
+                server_launcher.classList.add("hidden");
+            }
         }
     </script>
 @endsection
