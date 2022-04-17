@@ -11,8 +11,8 @@
 
 @section("mainHeroContent")
     <!-- Main Hero Content -->
-    <div class="container max-w-lg px-4 lg:py-32 md:py-20 mx-auto text-left md:max-w-none md:text-center">
-        <div class="grid lg:grid-cols-2 md:grid-cols-1">
+    <div class="container max-w-lg px-4 lg:!py-32 md:py-20 mx-auto text-left md:max-w-none md:text-center">
+        <div class="grid lg:grid-cols-2">
             <div id="firstColumn" class="lg:mt-[-35px] mt-[50px]">
                 <h1 class="text-5xl font-extrabold leading-10 tracking-tight text-left text-gray-900 text-center sm:leading-none md:text-6xl lg:text-7xl">
                     <span class="inline md:block">MNS Game</span>
