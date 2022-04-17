@@ -36,65 +36,99 @@
 @endsection
 
 @section('body')
-    <div class="container max-w-lg px-4 mx-auto text-left md:max-w-none md:text-center">
+    <div class="container max-w-full px-4 mx-auto text-left md:max-w-none md:text-center">
         <div class="lg:grid grid-cols-1 max-w-6xl mx-auto">
             <div id="firstColumn" class="lg:mt-8 lg:mb-12">
                 <div class="text-center lg:text-lg mb-2 font-semibold">
                     Предпросмотр сервера
                 </div>
-                <div class="w-full h-12 flex rounded-1">
-                    <div class="w-1/12 justify-center items-center flex text-sm">
+                <div class="w-full h-12 flex rounded-1 mdm:hidden">
+                    <div class="w-1/12 justify-center items-center flex text-xs">
                         Место
                     </div>
-                    <div class="w-1/12 justify-center items-center flex text-sm">
+                    <div class="w-1/12 justify-center items-center flex text-xs">
                         Игра
                     </div>
-                    <div class="w-7/12 justify-center items-center flex text-sm">
+                    <div class="w-6/12 justify-center items-center flex text-xs">
                         Название сервера
                     </div>
-                    <div class="w-1/12 justify-center items-center flex text-sm">
+                    <div class="w-1/12 justify-center items-center flex text-xs">
                         Игроков
                     </div>
-                    <div class="w-2/12 justify-center items-center flex text-sm">
+                    <div class="w-2/12 justify-center items-center flex text-xs">
                         IP адрес
                     </div>
-                    <div class="w-1/12 justify-center items-center flex text-sm">
+                    <div class="w-1/12 justify-center items-center flex text-xs">
                         Рейтинг
                     </div>
                 </div>
-                <div class="bg-gray-200 w-full h-24 flex rounded-1 shadow-md my-3" id="server_preview">
+                <div class="bg-gray-200 w-full mdm:h-48 h-24 flex rounded-1 shadow-md my-3 px-2 flex-wrap lg:flex-nowrap lg:px-0" id="server_preview">
                     <div class="w-1/12 justify-center items-center flex text-md">
-                        <div class="bg-gray-300 rounded-3 px-2 py-1 font-semibold tooltip-custom" data-tooltip="Место в рейтинге">
+                        <div class="bg-gray-300 rounded-3 px-2 py-1 font-semibold tooltip-custom hidden lg:inline" data-tooltip="Место в рейтинге">
                             1
                         </div>
                     </div>
-                    <div class="w-1/12 justify-center items-center flex tooltip-custom" data-tooltip="Counter Strike: Global Offensive">
-                        <img class="rounded-3" src="{{ asset("img/test/csgo_logo.png") }}" width="42" height="42" id="game-logo" alt="Counter Strike: Global Offensive">
+                    <div class="w-1/12 justify-center items-center flex tooltip-custom hidden lg:block my-auto mx-auto text-center" data-tooltip="Counter Strike: Global Offensive">
+                        <img class="rounded-3 mx-auto" src="{{ asset("img/test/csgo_logo.png") }}" width="42" height="42" id="game-logo" alt="Counter Strike: Global Offensive">
                     </div>
-                    <div class="w-7/12 justify-center items-center flex flex-col truncate">
-                        <div class="text-md mb-1 text-ellipsis overflow-hidden font-bold max-w-[560px] text-center" id="server-title-preview">
+                    <div class="w-full lg:w-6/12 justify-center items-center flex flex-col truncate">
+                        <div class="text-xs lg:!text-base mb-1 text-ellipsis overflow-hidden font-bold max-w-[560px] text-center mdm:mt-2" id="server-title-preview">
                             ⭐ Будущее название сервера на MNS Game! ⭐
                         </div>
                         <div class="block">
                             <img class="rounded-2" src="{{ asset("/img/test/banner.png") }}" width="486" height="60" alt="" id="server-banner">
                         </div>
                     </div>
-                    <div class="w-1/12 justify-center items-center flex text-xs">
+                    <div class="w-1/3 lg:w-1/12 justify-center items-center flex text-xs mdm:hidden">
                         <div class="bg-gray-300 text-indigo-500 rounded-3 px-2 py-1 tooltip-custom" data-tooltip="Текущее кол-во игроков на сервере">
                             1100
                         </div>
                     </div>
-                    <div class="w-2/12 justify-center items-center flex text-xs">
-                        <div class="bg-gray-300 rounded-3 px-2 py-1 tooltip-custom text-ellipsis overflow-hidden max-w-[150px]" data-tooltip="Нажмите, чтобы скопировать адрес" id="ip-preview">
-                            192.168.124.120:27015
+                    <div class="w-full lg:w-2/12 justify-center items-center flex text-xs mdm:mt-2 mdm:flex-wrap mdm:text-center">
+                        <div class="lg:hidden w-full mb-1">
+                            <span class="block font-semibold">Адрес сервера</span>
                         </div>
-                        <button class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 border-b-4 border-indigo-700 hover:border-indigo-500 active:!border-0 rounded hidden" id="launcher-button-preview">
-                            Скачать лаунчер
-                        </button>
+                        <div>
+                            <div class="bg-gray-300 rounded-3 px-2 py-1 tooltip-custom text-ellipsis overflow-hidden max-w-[150px]" data-tooltip="Нажмите, чтобы скопировать адрес" id="ip-preview">
+                                192.168.124.120:27015
+                            </div>
+                            <button class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 border-b-4 border-indigo-700 hover:border-indigo-500 active:!border-0 rounded hidden" id="launcher-button-preview">
+                                <svg class="w-5 h-4 inline mr-1 align-middle" color="white" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                     viewBox="0 0 293.573 293.573" xml:space="preserve">
+<path fill="#FFFFFF" d="M229.62,140.665v0.093h-69.718c-0.086-1-0.139-1.69-0.139-2.479c0-11.511,9.364-20.95,20.857-20.95l43.12,0.015
+	c28.053,0,50.876-22.741,50.876-50.794s-22.823-50.793-50.876-50.793h-25.606c-8.284,0-15,6.716-15,15s6.716,15,15,15h25.606
+	c11.511,0,20.876,9.264,20.876,20.774s-9.365,20.826-20.858,20.826l-43.12-0.077c-28.053,0-50.875,22.958-50.875,51.011
+	c0,0.782,0.024,1.466,0.059,2.466H63.62v-0.093C27.62,143.237,0,172.986,0,209.211c0,37.908,30.905,68.604,68.813,68.604
+	c24.786,0,46.61-13.057,58.708-33.057h38.864c12.098,20,33.857,33.057,58.644,33.057c37.908,0,68.543-30.768,68.543-68.676
+	C293.573,172.914,265.62,143.237,229.62,140.665z M101.62,218.758h-24v23h-18v-23h-24v-19h24v-23h18v23h24V218.758z M194.24,218.559
+	c-6.429,0-11.659-5.23-11.659-11.659s5.23-11.658,11.659-11.658s11.658,5.229,11.658,11.658S200.669,218.559,194.24,218.559z
+	 M225.029,249.348c-6.429,0-11.659-5.23-11.659-11.659s5.23-11.658,11.659-11.658s11.658,5.229,11.658,11.658
+	S231.458,249.348,225.029,249.348z M225.029,187.77c-6.429,0-11.659-5.23-11.659-11.659s5.23-11.658,11.659-11.658
+	s11.658,5.229,11.658,11.658S231.458,187.77,225.029,187.77z M255.818,218.559c-6.429,0-11.659-5.23-11.659-11.659
+	s5.23-11.658,11.659-11.658s11.658,5.229,11.658,11.658S262.247,218.559,255.818,218.559z"/>
+</svg>
+                                <span class="inline align-middle pt-[1px]">Скачать лаунчер</span>
+                            </button>
+                        </div>
                     </div>
-                    <div class="w-1/12 justify-center items-center flex text-xs">
-                        <div class="bg-gray-300 rounded-3 px-2 py-1 text-orange-400 font-semibold tooltip-custom" data-tooltip="Рейтинг сервера">
-                            10204
+                    <div class="w-1/2 justify-center items-center flex text-xs block lg:!hidden mdm:flex-wrap mdm:text-center mdm:mt-1 mdm:mb-2">
+                        <div class="lg:hidden w-full mb-1">
+                            <span class="block font-semibold">Игроков на сервере</span>
+                        </div>
+                        <div>
+                            <div class="bg-gray-300 text-indigo-500 rounded-3 px-2 py-1 tooltip-custom" data-tooltip="Текущее кол-во игроков на сервере">
+                                1100
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-1/2 lg:w-1/12 justify-center items-center flex text-xs mdm:flex-wrap mdm:text-center mdm:mt-1 mdm:mb-2">
+                        <div class="lg:hidden w-full mb-1">
+                            <span class="block font-semibold">Рейтинг сервера</span>
+                        </div>
+                        <div>
+                            <div class="bg-gray-300 rounded-3 px-2 py-1 text-orange-400 font-semibold tooltip-custom" data-tooltip="Рейтинг сервера">
+                                10204
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -192,7 +226,7 @@
                         <div class="lg:w-2/3 w-full px-3 lg:my-4">
                             <input value="{{ old('server_ip') }}" name="server_ip" class="@error('server_ip') !border-red-500 @enderror appearance-none block w-full text-gray-700 border border-gray-200 rounded py-2 px-3 mb-3 mx-0 lg:mx-24 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm" id="server-ip" type="text" placeholder="IP адрес сервера">
                             <input value="{{ old('launcher_link') }}" name="launcher_link" class="@error('launcher-link') !border-red-500 @enderror hidden appearance-none block w-full text-gray-700 border border-gray-200 rounded py-2 px-3 mb-3 mx-0 lg:mx-24 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm" id="server-launcher" type="text" placeholder="Ссылка страницу скачивания лаунчера/клиента сервера">
-                            <div class="text-left">
+                            <div class="text-center">
                                 <label for="is-launcher" class="mr-[10px] ml-1 block text-xs tracking-wide text-gray-700 font-bold mb-2 inline">На моем сервере используется лаунчер или клиент</label>
                                 <input name="is_launcher" class="appearance-none block text-gray-700 border border-gray-200 rounded px-2 mb-3 mx-0 lg:mx-24 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm inline" id="is-launcher" type="checkbox" onchange="changeServerType(this);">
                             </div>
@@ -205,7 +239,7 @@
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-2">
-                        <div class="lg:w-1/3 w-full px-3 lg:my-2">
+                        <div class="lg:w-1/3 w-full px-3 lg:my-2 mdm:mt-3">
                             <label for="server-callback" class="block text-md tracking-wide text-gray-700 font-bold mb-2 text-left">CallBack для сервера</label>
                             <span class="block text-md tracking-wide text-gray-700 mb-2 text-left">
                                 CallBack предназначен для того, чтобы мы могли отправлять вам на сайт уведомление о том, что за ваш сервер проголосовали.
@@ -215,7 +249,7 @@
                         <div class="lg:w-2/3 w-full px-3 lg:my-4">
                             <div class="flex">
                                 <input value="{{ old('server_callback') }}" name="server_callback" class="@error('server_callback') !border-red-500 @enderror appearance-none block text-gray-700 border border-gray-200 rounded py-2 px-3 mb-3 mx-0 lg:mx-24 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm inline flex-auto" id="server-callback" type="text" placeholder="Ссылка на callback сайта">
-                                <button class="inline flex-none bg-white hover:!bg-gray-100 border focus:!border-blue-700 rounded ml-2 h-9 px-2 tooltip-custom tooltip-custom-callback" type="button" data-tooltip="Нажмите, для проверки соединения" onclick="makeRequest(this);">
+                                <button class="inline flex-none bg-white hover:!bg-gray-100 border focus:!border-blue-700 rounded ml-2 h-9 px-2 tooltip-custom tooltip-custom-callback" type="button" onclick="makeRequest(this);">
                                     <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 512 512">
                                         <g>
                                             <g>
@@ -237,7 +271,7 @@
                     <div class="flex flex-wrap -mx-3 mb-2">
                         <div class="lg:w-1/3 w-full px-3 lg:my-2">
                             <label for="game-title" class="block text-md tracking-wide text-gray-700 font-bold mb-2 text-left">Баннер</label>
-                            <span class="block text-md tracking-wide text-gray-700 mb-2 text-left">Баннер сервера в формате gif, png, jpeg или jpg размером 486x60 пикселей. <br><br><span class="text-red-500 font-bold">Внимание! Использование агрессивных, мигающих и нецензурных баннеров запрещено! Максимальный размер баннера 2 Мегабайта. Несоблюдение данных правил карается удалением сервера с хостинга без возможности восстановления!</span></span>
+                            <span class="block text-md tracking-wide text-gray-700 mb-2 text-left mdm:mb-3">Баннер сервера в формате gif, png, jpeg или jpg размером 486x60 пикселей. <br><br><span class="text-red-500 font-bold">Внимание! Использование агрессивных, мигающих и нецензурных баннеров запрещено! Максимальный размер баннера 2 Мегабайта. Несоблюдение данных правил карается удалением сервера с хостинга без возможности восстановления!</span></span>
                         </div>
                         <div class="lg:w-2/3 w-full px-3 lg:my-4">
                             <div class="w-full hidden px-3 py-2 rounded-md border-2 border-dashed border-gray-300 bg-white" id="upload_preview">
@@ -251,12 +285,12 @@
                                     </button>
                                 </div>
                             </div>
-                            <label class="flex h-[80px] w-full cursor-pointer appearance-none justify-center rounded-md border-2 border-dashed border-gray-300 bg-white px-4 transition hover:border-gray-400 focus:outline-none" id="dropzone">
+                            <label class="flex h-[80px] w-full cursor-pointer appearance-none justify-center rounded-md border-2 border-dashed border-gray-300 bg-white px-4 transition hover:border-gray-400 focus:outline-none mdm:mb-3" id="dropzone">
                                 <span class="flex items-center space-x-2">
                                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                                   </svg>
-                                  <span class="font-medium text-gray-600">
+                                  <span class="font-medium text-gray-600 text-center">
                                     Нажмите, чтобы выбрать
                                     <span class="text-blue-600 underline">изображение</span>
                                   </span>
@@ -269,8 +303,8 @@
                             <input type="file" name="server_banner" id="banner-input" class="hidden" onchange="showPreview(event);" accept=".gif, .png, .jpeg .jpg"/>
                             <input type="hidden" name="filters_input" value="">
                         </div>
+                        <button type="submit" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-12 border border-blue-700 rounded mx-auto">Добавить сервер</button>
                     </div>
-                    <button type="submit" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-12 border border-blue-700 rounded">Добавить сервер</button>
                 </form>
             </div>
         </div>

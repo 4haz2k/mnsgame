@@ -5,6 +5,10 @@ module.exports = {
       "./resources/**/*.vue"
     ],
     theme: {
+        screens: {
+            'mdm': {'max': '1024px'},
+            'lg' : {'min': '1024px'}
+        },
         extend: {},
     },
     plugins: [
