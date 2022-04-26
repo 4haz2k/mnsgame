@@ -1,12 +1,14 @@
 @extends('layouts.main')
 
-@section("title", "MNS game | Авторизация")
+@section("title", "MNS Game | Авторизация")
 
 @section("styles")
     <link rel="stylesheet" href="{{ asset("css/mainpage.css") }}">
 @endsection
 
-@section('body')
+@section("background", "login-background")
+
+@section('mainHeroContent')
     <div class="min-h-full flex items-center justify-center pb-24 pt-2 flex-grow-2">
         <div class="w-[95%] lg:!w-[440px]">
             <div class="mb-4">
@@ -20,14 +22,14 @@
                     <input type="hidden" name="remember" value="true">
                     <div>
                         <label for="login" class="font-bold">Логин</label>
-                        <input id="login" name="login" type="text" autocomplete="email" required class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm @error('login') !border-red-500 @enderror" placeholder="Email address">
+                        <input id="login" name="login" type="text" autocomplete="email" required class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm @error('login') !border-red-500 @enderror" placeholder="Ваш логин">
                         @error('login')
                             <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">{{ $message }}</span>
                         @enderror
                     </div>
                     <div>
                         <label for="password" class="font-bold">Пароль</label>
-                        <input id="password" name="password" type="password" autocomplete="current-password" required class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm @error('password') !border-red-500 @enderror" placeholder="Password">
+                        <input id="password" name="password" type="password" autocomplete="current-password" required class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm @error('password') !border-red-500 @enderror" placeholder="Ваш пароль">
                         @error('password')
                             <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">{{ $message }}</span>
                         @enderror

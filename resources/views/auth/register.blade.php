@@ -1,10 +1,12 @@
 @extends('layouts.main')
 
-@section("title", "MNS game | Регистрация")
+@section("title", "MNS Game | Регистрация")
 
 @section("styles")
     <link rel="stylesheet" href="{{ asset("css/mainpage.css") }}">
 @endsection
+
+@section("body-bg", "register-background")
 
 @section('body')
     <div class="container max-w-lg px-4 mx-auto text-left md:max-w-none md:text-center">
@@ -27,28 +29,28 @@
                                 <input type="hidden" name="remember" value="true">
                                 <div class="text-left">
                                     <label for="login" class="font-bold">Логин</label>
-                                    <input id="login" name="login" type="text" required class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm @error('login') !border-red-500 @enderror" placeholder="Login">
+                                    <input id="login" name="login" type="text" required class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm @error('login') !border-red-500 @enderror" placeholder="Какой у вас будет логин?">
                                     @error('login')
                                     <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="text-left">
                                     <label for="email" class="font-bold">Электронная почта</label>
-                                    <input id="email" name="email" type="email" autocomplete="email" required class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm @error('email') !border-red-500 @enderror" placeholder="Email address">
+                                    <input id="email" name="email" type="email" autocomplete="email" required class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm @error('email') !border-red-500 @enderror" placeholder="Электронная почта для связи">
                                     @error('email')
                                     <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="text-left">
                                     <label for="password" class="font-bold">Пароль</label>
-                                    <input id="password" name="password" type="password" autocomplete="new-password" required class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm @error('password') !border-red-500 @enderror" placeholder="Password">
+                                    <input id="password" name="password" type="password" autocomplete="new-password" required class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm @error('password') !border-red-500 @enderror" placeholder="Пароль для входа">
                                     @error('password')
                                     <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="text-left">
                                     <label for="password-confirm" class="font-bold">Повторный пароль</label>
-                                    <input id="password-confirm" name="password_confirmation" type="password" autocomplete="new-password" required class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm @error('password') !border-red-500 @enderror" placeholder="Password">
+                                    <input id="password-confirm" name="password_confirmation" type="password" autocomplete="new-password" required class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm @error('password') !border-red-500 @enderror" placeholder="Повторный пароль">
                                 </div>
                                 <div class="items-center justify-between">
                                     <div class="text-center">

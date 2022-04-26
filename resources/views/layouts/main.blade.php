@@ -54,7 +54,7 @@
     </style>
     @yield("styles")
 </head>
-<body>
+<body class="@yield("body-bg")">
 
 <!-- Section 1 -->
 <section class="w-full px-6 pb-12 antialiased @yield('background')">

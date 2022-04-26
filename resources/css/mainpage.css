@@ -143,3 +143,12 @@
     90%, 99% {-webkit-transform: rotateY(90deg) rotateX(90deg);}
     99.1%, 99.9% {-webkit-transform: rotateY(90deg) rotateX(90deg) translatez(-5px);}
 }
+
+.login-background{
+    background-image: url("/public/img/views/login.png");
+    background-size: cover;
+}
+
+.register-background{
+    background-image: url("/public/img/views/registration.png");
+}

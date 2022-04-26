@@ -1,6 +1,6 @@
 @extends("layouts.main")
 
-@section("title", "MNS game")
+@section("title", "MNS Game Project")
 
 @section("styles")
     <link rel="stylesheet" href="{{ asset("css/mainpage.css") }}">
@@ -39,7 +39,6 @@
                 </div>
             </div>
         </div>
-
     </div>
     <!-- End Main Hero Content -->
 @endsection
