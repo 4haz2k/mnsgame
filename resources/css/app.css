@@ -17,3 +17,22 @@
     background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(248,250,252,1) 50%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#f8fafc",GradientType=1);
 }
+
+/* The Image container */
+.img-hover-zoom {
+    height: 250px; /* Modify this according to your need */
+    overflow: hidden; /* Removing this will break the effects */
+}
+
+/* Brightness-zoom Container */
+.img-hover-zoom--brightness img {
+    transition: transform 1s, filter 1.5s ease-in-out;
+    transform-origin: center center;
+    filter: brightness(90%);
+}
+
+/* The Transformation */
+.img-hover-zoom--brightness:hover img {
+    filter: brightness(100%);
+    transform: scale(1.1);
+}

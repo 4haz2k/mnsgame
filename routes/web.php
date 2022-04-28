@@ -11,6 +11,8 @@ Route::get('/', function () {
 Route::get('/offer', function (){
     return view('other.offer'); // Публичная оферта
 });
+
+Route::get('/games', [\App\Http\Controllers\GamePageController::class, "gamesListPage"]);
 // End open pages
 
 // Support pages

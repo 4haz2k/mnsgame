@@ -75,7 +75,7 @@
                         </a>
                         <div class="flex flex-col items-start justify-center w-full space-x-6 text-center lg:space-x-8 md:w-2/3 md:mt-0 md:flex-row md:items-center">
                             <a href="/" class="inline-block w-full py-2 ml-6 font-medium text-left {{ (request()->is('/')) ? 'text-indigo-600' : 'text-gray-700' }} md:ml-0 md:w-auto md:px-0 md:mx-2 lg:mx-3 md:text-center">Главная</a>
-                            <a href="#_" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 hover:text-indigo-600 lg:mx-3 md:text-center">Сервера</a>
+                            <a href="{{ url("/games") }}" class="inline-block w-full py-2 font-medium text-left {{ (request()->is('/games')) ? 'text-indigo-600' : 'text-gray-700' }} md:w-auto md:px-0 md:mx-2 lg:mx-3 md:text-center">Сервера</a>
                             <a href="#_" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 hover:text-indigo-600 lg:mx-3 md:text-center">Продвижение</a>
                             <a href="{{ url("/support") }}" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 {{ (request()->is('support')) ? 'text-indigo-600' : 'text-gray-700' }} lg:mx-3 md:text-center">Поддержка</a>
                         </div>
