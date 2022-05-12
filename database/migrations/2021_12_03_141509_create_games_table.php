@@ -16,6 +16,11 @@ class CreateGamesTable extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->id()->unique()->autoIncrement()->comment("ID игры");
             $table->string("title")->comment("Название игры");
+            $table->string("developer")->comment("Разработчик");
+            $table->string("description")->nullable()->comment("Описание игры");
+            $table->string("image_short")->comment("Изображение на странице игр");
+            $table->string("image")->comment("Изображение на странице серверов игры");
+            $table->string("short_link")->comment("Короткая ссылка");
             $table->timestamps();
         });
     }

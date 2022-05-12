@@ -24,7 +24,7 @@ class Game extends Model
      */
     public function servers(): BelongsTo
     {
-        return $this->belongsTo("App\Models\Server", "id");
+        return $this->belongsTo("App\Models\Server", "id", "game_id");
     }
 
     /**
