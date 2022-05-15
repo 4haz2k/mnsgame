@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Game extends Model
 {
@@ -20,11 +21,11 @@ class Game extends Model
     }
 
     /**
-     * @return BelongsTo
+     * @return HasMany
      */
-    public function servers(): BelongsTo
+    public function servers(): HasMany
     {
-        return $this->belongsTo("App\Models\Server", "id", "game_id");
+        return $this->hasMany(Server::class, "game_id");
     }
 
     /**

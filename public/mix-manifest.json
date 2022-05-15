@@ -1,5 +1,6 @@
 {
     "/js/app.js": "/js/app.js",
+    "/js/particles.js": "/js/particles.js",
     "/css/app.css": "/css/app.css",
     "/css/tailwind.css": "/css/tailwind.css",
     "/css/all.min.css": "/css/all.min.css",
@@ -18,5 +19,6 @@
     "/fonts/fa-solid-900.svg": "/fonts/fa-solid-900.svg",
     "/fonts/fa-solid-900.ttf": "/fonts/fa-solid-900.ttf",
     "/fonts/fa-solid-900.woff": "/fonts/fa-solid-900.woff",
-    "/fonts/fa-solid-900.woff2": "/fonts/fa-solid-900.woff2"
+    "/fonts/fa-solid-900.woff2": "/fonts/fa-solid-900.woff2",
+    "/js/particles.json": "/js/particles.json"
 }

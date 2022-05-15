@@ -32,7 +32,7 @@ class StoreServer extends FormRequest
     {
         return [
             "server_title" => "required|max:60|min:15",
-            "server_description" => "required|max:255|min:20",
+            "server_description" => "required|max:2048|min:20",
             "game_title" => "required|exists:games,title",
             "server_site" => "active_url|nullable",
             "server_vk" => "active_url|nullable",

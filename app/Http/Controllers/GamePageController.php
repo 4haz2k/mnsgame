@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Game;
+use App\Models\Server;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -21,8 +22,9 @@ class GamePageController extends Controller
     }
 
     public function getGameByLink($link){
-        $game = Game::where("short_link", $link)->with("servers")->firstOrFail();
+        $servers = Server::with("game")->whereHas("game",  function($q) use($link) { $q->where("short_link", $link); })->paginate(5);
+        $game = Game::with("filters")->where("short_link", $link)->firstOrFail();
 
-        return view("game", compact("game"));
+        return view("game", compact("servers", "game"));
     }
 }

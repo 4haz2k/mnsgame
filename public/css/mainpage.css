@@ -136,3 +136,39 @@
     background-image: url("/public/img/views/registration.png");
 }
 
+.server-bg {
+    background: linear-gradient(-45deg, #e2e2e2, #ffb894, #e2e2e2, #acace0);
+    background-size: 400% 400%;
+    -webkit-animation: gradient 8s ease infinite;
+            animation: gradient 8s ease infinite;
+}
+
+.server-border-color{
+    border-color: #7979e0;
+}
+
+@-webkit-keyframes gradient {
+    0% {
+        background-position: 0 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
+}
+
+

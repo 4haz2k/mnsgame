@@ -93,6 +93,13 @@ class ServerController extends Controller
         return view('account.editserver', compact("server"));
     }
 
+    /**
+     *
+     * Сохранение сервера
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function saveServer(Request $request): RedirectResponse
     {
         $server = Server::where("id", $request->id)->where("owner_id", Auth::id())->firstOrFail();
@@ -130,6 +137,12 @@ class ServerController extends Controller
     public function myServers(){
         $servers = User::find(Auth::id())->server;
         return view('account.myservers', compact("servers"));
+    }
+
+    public function getServerPage($id){
+        $server = Server::where("id", $id)->with(["game", "filters"])->firstOrFail();
+
+        return view("server", compact("server"));
     }
 
     /**

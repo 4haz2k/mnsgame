@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdminPanel;
+use App\Http\Controllers\GamePageController;
+use App\Http\Controllers\Server\ServerController;
+use App\Http\Controllers\SupportController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
 // Open pages
@@ -12,20 +17,21 @@ Route::get('/offer', function (){
     return view('other.offer'); // Публичная оферта
 });
 
-Route::get('/games', [\App\Http\Controllers\GamePageController::class, "gamesListPage"])->name("games");
+Route::get('/games', [GamePageController::class, "gamesListPage"])->name("games");
 Route::get('/servers', function (){
-    return \Illuminate\Support\Facades\Redirect::route("games");
+    return Redirect::route("games");
 });
-Route::get('/games/{link}', [\App\Http\Controllers\GamePageController::class, "getGameByLink"]);
+Route::get('/games/{link}', [GamePageController::class, "getGameByLink"])->name("toGame");
+Route::get('/server/{id}', [ServerController::class, "getServerPage"])->name("server");
 // End open pages
 
 // Support pages
-Route::get('/support', [\App\Http\Controllers\SupportController::class, 'index']);
-Route::get('/support/faq', [\App\Http\Controllers\SupportController::class, 'faqPage']);
-Route::get('/support/faq/answer/{id}', [\App\Http\Controllers\SupportController::class, 'answerPage']);
-Route::post('/support/faq/answer/helpful', [\App\Http\Controllers\SupportController::class, 'isHelpful']);
-Route::post('/support/faq/answer/suggestions', [\App\Http\Controllers\SupportController::class, 'suggestions']);
-Route::get('/support/faq/search', [\App\Http\Controllers\SupportController::class, 'searchSuggestion']);
+Route::get('/support', [SupportController::class, 'index']);
+Route::get('/support/faq', [SupportController::class, 'faqPage']);
+Route::get('/support/faq/answer/{id}', [SupportController::class, 'answerPage']);
+Route::post('/support/faq/answer/helpful', [SupportController::class, 'isHelpful']);
+Route::post('/support/faq/answer/suggestions', [SupportController::class, 'suggestions']);
+Route::get('/support/faq/search', [SupportController::class, 'searchSuggestion']);
 // End support section
 
 // Authentication
@@ -37,23 +43,23 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // End user panel
 
 // Admin panel
-Route::get('/adminpanel', [\App\Http\Controllers\AdminPanel::class, 'index'])->name("admin_main");
-Route::get('/adminpanel/settings', [\App\Http\Controllers\AdminPanel::class, 'settingPage'])->name("admin_settings");
-Route::post('/adminpanel/updatesettings', [\App\Http\Controllers\AdminPanel::class, "updateSettings"])->name("update_admin_settings");
+Route::get('/adminpanel', [AdminPanel::class, 'index'])->name("admin_main");
+Route::get('/adminpanel/settings', [AdminPanel::class, 'settingPage'])->name("admin_settings");
+Route::post('/adminpanel/updatesettings', [AdminPanel::class, "updateSettings"])->name("update_admin_settings");
 // End admin panel
 
 
 // Server controller
-Route::post('/addserver', [\App\Http\Controllers\Server\ServerController::class, 'createServer'])->name("addserver");
-Route::get('/addserver', [\App\Http\Controllers\Server\ServerController::class, 'index']);
-Route::get('/editserver/{id}', [\App\Http\Controllers\Server\ServerController::class, 'editServer']);
-Route::post('/editserver', [\App\Http\Controllers\Server\ServerController::class, 'saveServer'])->name("saveserver");
-Route::get('/myservers', [\App\Http\Controllers\Server\ServerController::class, 'myServers'])->name("myservers");
+Route::post('/addserver', [ServerController::class, 'createServer'])->name("addserver");
+Route::get('/addserver', [ServerController::class, 'index']);
+Route::get('/editserver/{id}', [ServerController::class, 'editServer']);
+Route::post('/editserver', [ServerController::class, 'saveServer'])->name("saveserver");
+Route::get('/myservers', [ServerController::class, 'myServers'])->name("myservers");
 
-Route::post('/server/loadFilters', [\App\Http\Controllers\Server\ServerController::class, "loadFilters"]);
-Route::post('/server/checkCallback', [\App\Http\Controllers\Server\ServerController::class, "getResponseStatus"]);
+Route::post('/server/loadFilters', [ServerController::class, "loadFilters"]);
+Route::post('/server/checkCallback', [ServerController::class, "getResponseStatus"]);
 // End server controller
 
 // AJAX
-Route::post('/game/get_games', [\App\Http\Controllers\GamePageController::class, "getGamesList"]);
+Route::post('/game/get_games', [GamePageController::class, "getGamesList"]);
 // End AJAX

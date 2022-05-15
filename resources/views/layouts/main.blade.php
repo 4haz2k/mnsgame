@@ -61,7 +61,7 @@
     <div class="mx-auto max-w-7xl inner">
         <nav class="relative z-50 h-24 select-none @yield('other-class')" x-data="{ showMenu: false }">
             <div class="container relative flex flex-wrap items-center justify-between h-24 mx-auto font-medium lg:justify-center sm:px-4 md:px-2">
-                <div class="flex items-center justify-start w-1/4 h-full pr-4">
+                <div class="flex items-center justify-start w-1/4 mdm:w-2/4 h-full pr-4">
                     <a href="/" class="inline-block py-4 md:py-0">
                         <span class="p-1 text-xl font-black leading-none text-gray-900 @yield("title-color")">
                             <span class="">MNS Game</span><span class="text-indigo-600">.</span>

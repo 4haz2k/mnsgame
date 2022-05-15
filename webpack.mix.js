@@ -20,4 +20,6 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss("resources/@fortawesome/fontawesome-free/css/all.min.css", "public/css")
     .postCss('resources/css/tailwind.css', "public/css")
     .copy("resources/@fortawesome/fontawesome-free/webfonts", "public/fonts")
-    .postCss("resources/css/mainpage.css", "public/css");
+    .postCss("resources/css/mainpage.css", "public/css")
+    .copy("resources/js/particles.json", "public/js")
+    .js("resources/js/particles.js", "public/js");

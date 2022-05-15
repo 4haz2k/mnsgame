@@ -16,7 +16,7 @@ class CreateServersTable extends Migration
         Schema::create('servers', function (Blueprint $table) {
             $table->id()->autoIncrement()->comment("ID сервера");
             $table->string("title")->comment("Название сервера");
-            $table->string("description")->comment("Описание");
+            $table->longText("description")->comment("Описание");
             $table->boolean("is_launcher")->default(false)->comment("Лаунчер ли");
             $table->string("server_data")->comment("Данные сервера / лаунчера");
             $table->string("banner_img")->nullable(true)->comment("Изображение баннера");

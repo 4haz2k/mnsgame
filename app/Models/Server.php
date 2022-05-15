@@ -56,7 +56,7 @@ class Server extends Model
      */
     public function game(): BelongsTo
     {
-        return $this->belongsTo("App\Models\Game", "id");
+        return $this->belongsTo(Game::class);
     }
 
     /**
