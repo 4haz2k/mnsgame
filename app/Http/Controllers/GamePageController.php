@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Game;
 use App\Models\Server;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class GamePageController extends Controller
 {
