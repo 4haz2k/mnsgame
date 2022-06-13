@@ -21,6 +21,7 @@ class CreateGamesTable extends Migration
             $table->string("image_short")->comment("Изображение на странице игр");
             $table->string("image")->comment("Изображение на странице серверов игры");
             $table->string("short_link")->comment("Короткая ссылка");
+            $table->string("platform")->comment("Короткая ссылка");
             $table->timestamps();
         });
     }
