@@ -22,6 +22,7 @@ class CreateGamesTable extends Migration
             $table->string("image")->comment("Изображение на странице серверов игры");
             $table->string("short_link")->comment("Короткая ссылка");
             $table->string("platform")->comment("Короткая ссылка");
+            $table->string("steam_app_id")->nullable(true)->comment("Steam app id");
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\ServerOnline;
 use App\Models\Game;
 use App\Models\Server;
 use Illuminate\Http\JsonResponse;
