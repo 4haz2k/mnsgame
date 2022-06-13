@@ -19,6 +19,7 @@ class CreateServersTable extends Migration
             $table->longText("description")->comment("Описание");
             $table->boolean("is_launcher")->default(false)->comment("Лаунчер ли");
             $table->string("server_data")->comment("Данные сервера / лаунчера");
+            $table->string("steam_app_id")->nullable(true)->comment("Steam app id");
             $table->string("banner_img")->nullable(true)->comment("Изображение баннера");
             $table->string("callback")->nullable(true)->comment("Ссылка для callback от сайта о том, что за сервер проголосовали");
             $table->string("site")->nullable(true)->comment("Сайт сервера");

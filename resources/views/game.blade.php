@@ -135,24 +135,32 @@
                     </div>
                     @foreach($servers as $server)
                         <div class="server-bg w-full mdm:h-[17rem] h-24 flex rounded-1 shadow-md my-3 flex-wrap lg:flex-nowrap mdm:px-2 border-b-4 server-border-color" id="server_preview">
+{{--                            Rating lg sm--}}
                             <div class="w-1/12 justify-center items-center flex text-md">
                                 <div class="rounded-3 px-2 py-1 font-semibold tooltip-custom hidden lg:inline" data-tooltip="Место в рейтинге">
                                     1
                                 </div>
                             </div>
+{{--                            End Rating lg sm--}}
                             <div class="w-full lg:w-6/12 justify-center items-center flex flex-col truncate">
+{{--                                Server Title lg sm--}}
                                 <a href="{{ route("server", ["id" => $server->id]) }}">
                                     <div class="text-xs lg:!text-base mb-1 text-ellipsis overflow-hidden font-bold max-w-[560px] text-center mdm:mt-2" id="server-title-preview">
                                         {{ $server->title }}
                                     </div>
                                 </a>
+{{--                                End Server Title lg sm--}}
+{{--                                Banner lg sm--}}
                                 <div class="block">
                                     <a href="{{ route("server", ["id" => $server->id]) }}">
                                         <img class="rounded-2" src="@if($server->banner_img == null) {{ asset("/img/test/banner.png") }} @else {{ asset("/img/banners/{$server->banner_img}") }} @endif" width="486" height="60" alt="" id="server-banner">
                                     </a>
                                 </div>
+{{--                                End Banner lg sm--}}
                             </div>
+                            @if(!$server->is_launcher)
                             <div class="w-1/3 lg:w-1/12 justify-center items-center flex text-xs mdm:hidden">
+{{--                                Players count lg sm--}}
                                 <div class="text-indigo-500 rounded-3 px-2 py-1 tooltip-custom" data-tooltip="Текущее кол-во игроков на сервере">
                                     <div class="text-center mr-1 items-center justify-center">
                                         <svg class="inline font-bold" width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -163,7 +171,13 @@
                                         <span class="inline ml-1 align-middle font-semibold text-sm text-gray-500">{{ $server->id }}</span>
                                     </div>
                                 </div>
+{{--                                Players count End lg sm--}}
                             </div>
+                            @else
+                                <div class="w-1/3 lg:w-1/12 justify-center items-center flex text-xs mdm:hidden">
+
+                                </div>
+                            @endif
                             <div class="w-full lg:w-2/12 justify-center items-center flex text-xs mdm:mt-2 mdm:flex-wrap mdm:text-center">
                                 <div class="lg:hidden w-full mb-1">
                                     <span class="block font-semibold">Адрес сервера</span>

@@ -23,7 +23,6 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable()->comment("Дата подтверждения E-mail");
             $table->timestamp("registration_date")->comment("Дата регистрации");
             $table->timestamp("login_date")->nullable()->comment("Дата входа");
-            $table->double("balance")->default(0)->comment("Баланс");
             $table->string("role")->comment("Роль");
             $table->rememberToken()->nullable()->comment("rememberToken");
             $table->timestamps();

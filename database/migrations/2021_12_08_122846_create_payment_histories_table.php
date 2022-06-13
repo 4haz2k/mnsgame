@@ -15,11 +15,14 @@ class CreatePaymentHistoriesTable extends Migration
     {
         Schema::create('payment_histories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("user_id")->comment("ID пользователя");
+            $table->unsignedBigInteger("server_id")->nullable(true)->comment("ID сервера");
             $table->double("balance_change")->comment("Сумма изменения баланса");
+            $table->string("type")->comment("Тип услуги");
+            $table->timestamp("end_date")->comment("Дата окончания услуги");
+            $table->boolean("is_active")->comment("Выполнен ли заказ");
             $table->timestamps();
 
-            $table->foreign("user_id")->references("id")->on("users")->onDelete('cascade');
+            $table->foreign("server_id")->references("id")->on("servers")->onDelete('set null');
         });
     }
 
