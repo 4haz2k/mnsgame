@@ -18,9 +18,9 @@
                 <div class="w-3/12 mdm:w-full flex flex-col">
                     <h1 class="w-full text-base text-black font-semibold mdm:text-center">{{ $server->title }}</h1>
                     @if(!$server->is_launcher)
-                        <div class="w-full mt-2 mdm:text-center" data-tooltip="Нажмите, чтобы скопировать адрес" id="ip-preview">
-                            IP: <span class="text-gray-500 font-bold">{{ $server->server_data }}</span>
-                        </div>
+                        <button class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 rounded" id="launcher-button-preview">
+                            <span class="inline align-middle pt-[1px]">{{ $server->server_data }}</span>
+                        </button>
                     @else
                         <button class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 rounded" id="launcher-button-preview">
                             <svg class="w-5 h-4 inline mr-1 align-middle" color="white" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -37,7 +37,7 @@
                                                     s11.658,5.229,11.658,11.658S231.458,187.77,225.029,187.77z M255.818,218.559c-6.429,0-11.659-5.23-11.659-11.659
                                                     s5.23-11.658,11.659-11.658s11.658,5.229,11.658,11.658S262.247,218.559,255.818,218.559z"/>
                                             </svg>
-                            <span class="inline align-middle pt-[1px]">Скачать лаунчер</span>
+                            <span class="inline align-middle">Скачать лаунчер</span>
                         </button>
                     @endif
 {{--                    <span class="w-full mt-2 text-gray-500 font-bold mdm:text-center"><a target="_blank" href="{{ $server->server_data }}">{{ preg_replace("(^https?://)", "", $server->server_data) }}</a></span>--}}
@@ -46,15 +46,17 @@
                     <img class="rounded-2" src="@if($server->banner_img == null) {{ asset("/img/test/banner.png") }} @else {{ asset("/img/banners/{$server->banner_img}") }} @endif" width="486" height="60" alt="" id="server-banner">
                 </div>
                 <div class="w-1/12 mdm:w-1/3 flex flex-col mt-[1%]">
-                    <div class="text-center mr-1 items-center justify-center">
-                        <svg class="inline font-bold" width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <circle fill="#00A300" cx="11.997" cy="18" r="1"/>
-                            <path fill="#00A300" d="M18 13c-.198 0-.397-.058-.572-.18-5.77-4.038-10.748-.084-10.798-.044-.43.35-1.06.283-1.406-.147-.35-.43-.282-1.064.146-1.413.062-.05 6.214-4.935 13.202-.044.453.317.563.943.248 1.397-.194.28-.505.43-.82.43z"/>
-                            <path fill="#00A300" d="M21 10c-.193 0-.388-.055-.56-.172C11.173 3.546 3.72 9.7 3.644 9.763c-.423.36-1.053.303-1.41-.12-.354-.424-.302-1.058.12-1.415.086-.072 8.7-7.184 19.205-.065.456.31.576.934.27 1.394-.195.288-.51.443-.83.443zm-6.002 6c-.197 0-.396-.058-.57-.18-2.552-1.776-4.713-.113-4.803-.04-.43.343-1.058.273-1.404-.157-.342-.43-.28-1.055.148-1.403 1.157-.945 4.153-2.17 7.203-.046.455.316.567.94.25 1.395-.193.28-.504.43-.82.43z"/>
-                        </svg>
-                        <span class="inline ml-1 align-middle font-semibold text-sm text-gray-500">{{ $server->id }}</span>
-                    </div>
-                    <div class="text-center">Онлайн</div>
+                    @if(!$server->is_launcher)
+                        <div class="text-center mr-1 items-center justify-center">
+                            <svg class="inline font-bold" width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <circle fill="#00A300" cx="11.997" cy="18" r="1"/>
+                                <path fill="#00A300" d="M18 13c-.198 0-.397-.058-.572-.18-5.77-4.038-10.748-.084-10.798-.044-.43.35-1.06.283-1.406-.147-.35-.43-.282-1.064.146-1.413.062-.05 6.214-4.935 13.202-.044.453.317.563.943.248 1.397-.194.28-.505.43-.82.43z"/>
+                                <path fill="#00A300" d="M21 10c-.193 0-.388-.055-.56-.172C11.173 3.546 3.72 9.7 3.644 9.763c-.423.36-1.053.303-1.41-.12-.354-.424-.302-1.058.12-1.415.086-.072 8.7-7.184 19.205-.065.456.31.576.934.27 1.394-.195.288-.51.443-.83.443zm-6.002 6c-.197 0-.396-.058-.57-.18-2.552-1.776-4.713-.113-4.803-.04-.43.343-1.058.273-1.404-.157-.342-.43-.28-1.055.148-1.403 1.157-.945 4.153-2.17 7.203-.046.455.316.567.94.25 1.395-.193.28-.504.43-.82.43z"/>
+                            </svg>
+                            <span class="inline ml-1 align-middle font-semibold text-sm text-gray-500">{{ $server->online }}</span>
+                        </div>
+                        <div class="text-center">Онлайн</div>
+                    @endif
                 </div>
                 <div class="w-5/12 mdm:hidden justify-center align-middle">
                     <img class="rounded-2" src="@if($server->banner_img == null) {{ asset("/img/test/banner.png") }} @else {{ asset("/img/banners/{$server->banner_img}") }} @endif" width="486" height="60" alt="" id="server-banner">

@@ -133,12 +133,12 @@
                             Рейтинг
                         </div>
                     </div>
-                    @foreach($servers as $server)
+                    @foreach($servers as $key => $server)
                         <div class="server-bg w-full mdm:h-[17rem] h-24 flex rounded-1 shadow-md my-3 flex-wrap lg:flex-nowrap mdm:px-2 border-b-4 server-border-color" id="server_preview">
 {{--                            Rating lg sm--}}
                             <div class="w-1/12 justify-center items-center flex text-md">
                                 <div class="rounded-3 px-2 py-1 font-semibold tooltip-custom hidden lg:inline" data-tooltip="Место в рейтинге">
-                                    1
+                                    {{ $servers->firstItem() + $key }}
                                 </div>
                             </div>
 {{--                            End Rating lg sm--}}
@@ -174,9 +174,7 @@
 {{--                                Players count End lg sm--}}
                             </div>
                             @else
-                                <div class="w-1/3 lg:w-1/12 justify-center items-center flex text-xs mdm:hidden">
-
-                                </div>
+                                <div class="w-1/3 lg:w-1/12 justify-center items-center flex text-xs mdm:hidden"></div>
                             @endif
                             <div class="w-full lg:w-2/12 justify-center items-center flex text-xs mdm:mt-2 mdm:flex-wrap mdm:text-center">
                                 <div class="lg:hidden w-full mb-1">
@@ -254,7 +252,7 @@
                                             <svg class="inline font-bold" width="20px" height="20px" viewBox="0 0 211.618 211.618">
                                                 <path fill="#00A300" d="M204.118,202.309H7.5c-4.142,0-7.5-3.357-7.5-7.5v-178c0-4.143,3.358-7.5,7.5-7.5s7.5,3.357,7.5,7.5v170.5h189.118 c4.142,0,7.5,3.357,7.5,7.5S208.26,202.309,204.118,202.309z M188.854,93.754c-1.932-1.413-4.424-1.819-6.703-1.092l-47.875,15.254 l-16.317-47.958c-0.74-2.176-2.437-3.892-4.604-4.656c-2.166-0.767-4.565-0.495-6.507,0.735L78.768,73.809L43.2,28.261 c-1.971-2.523-5.325-3.519-8.352-2.476c-3.027,1.042-5.059,3.891-5.059,7.092v133.863c0,4.143,3.358,7.5,7.5,7.5h147.139 c4.142,0,7.5-3.357,7.5-7.5V99.809C191.928,97.416,190.786,95.167,188.854,93.754z"/>
                                             </svg>
-                                            <span class="inline ml-1 align-middle font-semibold text-sm text-gray-500 mt-[1%]">{{ $server->id }}</span>
+                                            <span class="inline ml-1 align-middle font-semibold text-sm text-gray-500 mt-[1%]">{{ $server->rating != null ? $server->rating : 0 }}</span>
                                         </div>
                                     </div>
                                 </div>

@@ -154,9 +154,12 @@
 }
 
 .server-bg {
-    background: linear-gradient(-45deg, #e2e2e2, #ffb894, #e2e2e2, #acace0);
+    background: rgb(255,255,255);
+    background: -moz-linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(172,172,224,0.5) 100%);
+    background: -webkit-linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(172,172,224,0.5) 100%);
+    background: linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(172,172,224,0.5) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#acace0",GradientType=1);
     background-size: 400% 400%;
-    animation: gradient 8s ease infinite;
 }
 
 .server-border-color{

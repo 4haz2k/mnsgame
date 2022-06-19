@@ -76,6 +76,22 @@ class Server extends Model
     }
 
     /**
+     * @return BelongsTo
+     */
+    public function serverVotes(): BelongsTo
+    {
+        return $this->belongsTo(ServerRates::class, "id", "server_id");
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function serverRating(): BelongsTo
+    {
+        return $this->belongsTo(ServerRating::class, "id", "server_id");
+    }
+
+    /**
      * событие удаления
      */
     public static function boot()

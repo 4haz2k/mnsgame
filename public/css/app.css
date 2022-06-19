@@ -13301,6 +13301,9 @@ select {
 .pt-1 {
   padding-top: 0.25rem;
 }
+.pt-\[2px\] {
+  padding-top: 2px;
+}
 .text-left {
   text-align: left;
 }
@@ -14202,10 +14205,6 @@ select {
 
   .lg\:\!w-\[440px\] {
     width: 440px !important;
-  }
-
-  .lg\:w-3\/12 {
-    width: 25%;
   }
 
   .lg\:max-w-7xl {
