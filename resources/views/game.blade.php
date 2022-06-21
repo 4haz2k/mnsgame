@@ -178,7 +178,7 @@
                             @endif
                             <div class="w-full lg:w-2/12 justify-center items-center flex text-xs mdm:mt-2 mdm:flex-wrap mdm:text-center">
                                 <div class="lg:hidden w-full mb-1">
-                                    <span class="block font-semibold">Адрес сервера</span>
+                                    <span class="block font-semibold">@if(!$server->is_launcher) Адрес сервера @else Ссылка на лаунчер @endif</span>
                                 </div>
                                 <div>
                                     @if(!$server->is_launcher)
@@ -225,26 +225,28 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="w-1/2 justify-center items-center flex text-xs block lg:!hidden mdm:flex-wrap mdm:text-center mdm:mt-1 mdm:mb-2">
-                                <div class="lg:hidden w-full mb-1">
-                                    <span class="block font-semibold">Игроков на сервере</span>
-                                </div>
-                                <div>
-                                    <div class="text-indigo-500 rounded-3 px-2 py-1 tooltip-custom" data-tooltip="Текущее кол-во игроков на сервере">
-                                        <div class="text-center mr-1 items-center justify-center">
-                                            <svg class="inline font-bold" width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <circle fill="#00A300" cx="11.997" cy="18" r="1"/>
-                                                <path fill="#00A300" d="M18 13c-.198 0-.397-.058-.572-.18-5.77-4.038-10.748-.084-10.798-.044-.43.35-1.06.283-1.406-.147-.35-.43-.282-1.064.146-1.413.062-.05 6.214-4.935 13.202-.044.453.317.563.943.248 1.397-.194.28-.505.43-.82.43z"/>
-                                                <path fill="#00A300" d="M21 10c-.193 0-.388-.055-.56-.172C11.173 3.546 3.72 9.7 3.644 9.763c-.423.36-1.053.303-1.41-.12-.354-.424-.302-1.058.12-1.415.086-.072 8.7-7.184 19.205-.065.456.31.576.934.27 1.394-.195.288-.51.443-.83.443zm-6.002 6c-.197 0-.396-.058-.57-.18-2.552-1.776-4.713-.113-4.803-.04-.43.343-1.058.273-1.404-.157-.342-.43-.28-1.055.148-1.403 1.157-.945 4.153-2.17 7.203-.046.455.316.567.94.25 1.395-.193.28-.504.43-.82.43z"/>
-                                            </svg>
-                                            <span class="inline ml-1 align-middle font-semibold text-sm text-gray-500">{{ $server->id }}</span>
+                            @if(!$server->is_launcher)
+                                <div class="w-1/2 justify-center items-center flex text-xs block lg:!hidden mdm:flex-wrap mdm:text-center mdm:mt-1 mdm:mb-2">
+                                    <div class="lg:hidden w-full mb-1">
+                                        <span class="block font-semibold">Игроков на сервере</span>
+                                    </div>
+                                    <div>
+                                        <div class="text-indigo-500 rounded-3 px-2 py-1 tooltip-custom" data-tooltip="Текущее кол-во игроков на сервере">
+                                            <div class="text-center mr-1 items-center justify-center">
+                                                <svg class="inline font-bold" width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <circle fill="#00A300" cx="11.997" cy="18" r="1"/>
+                                                    <path fill="#00A300" d="M18 13c-.198 0-.397-.058-.572-.18-5.77-4.038-10.748-.084-10.798-.044-.43.35-1.06.283-1.406-.147-.35-.43-.282-1.064.146-1.413.062-.05 6.214-4.935 13.202-.044.453.317.563.943.248 1.397-.194.28-.505.43-.82.43z"/>
+                                                    <path fill="#00A300" d="M21 10c-.193 0-.388-.055-.56-.172C11.173 3.546 3.72 9.7 3.644 9.763c-.423.36-1.053.303-1.41-.12-.354-.424-.302-1.058.12-1.415.086-.072 8.7-7.184 19.205-.065.456.31.576.934.27 1.394-.195.288-.51.443-.83.443zm-6.002 6c-.197 0-.396-.058-.57-.18-2.552-1.776-4.713-.113-4.803-.04-.43.343-1.058.273-1.404-.157-.342-.43-.28-1.055.148-1.403 1.157-.945 4.153-2.17 7.203-.046.455.316.567.94.25 1.395-.193.28-.504.43-.82.43z"/>
+                                                </svg>
+                                                <span class="inline ml-1 align-middle font-semibold text-sm text-gray-500">{{ $server->online }}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="w-1/2 lg:w-1/12 justify-center items-center flex text-xs mdm:flex-wrap mdm:text-center mdm:mt-1 mdm:mb-2">
+                            @endif
+                            <div class="@if(!$server->is_launcher) w-1/2 @else w-full @endif lg:w-1/12 justify-center items-center flex text-xs mdm:flex-wrap mdm:text-center mdm:mt-1 mdm:mb-2">
                                 <div class="lg:hidden w-full mb-1">
-                                    <span class="block font-semibold">Рейтинг сервера</span>
+                                    <span class="block font-semibold">@if(!$server->is_launcher) Рейтинг сервера @else Рейтинг проекта @endif</span>
                                 </div>
                                 <div>
                                     <div class="rounded-3 px-2 py-1 text-orange-400 font-semibold tooltip-custom" data-tooltip="Рейтинг сервера">
