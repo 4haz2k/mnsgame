@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminPanel;
 use App\Http\Controllers\GamePageController;
 use App\Http\Controllers\Server\ServerController;
 use App\Http\Controllers\SupportController;
+use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
@@ -62,4 +63,5 @@ Route::post('/server/checkCallback', [ServerController::class, "getResponseStatu
 
 // AJAX
 Route::post('/game/get_games', [GamePageController::class, "getGamesList"]);
+Route::post('/server/vote/{server_id}', [VoteController::class, "addVote"]);
 // End AJAX
