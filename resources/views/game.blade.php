@@ -69,6 +69,35 @@
             opacity: 1; /* Показываем элемент */
             visibility: visible;
         }
+
+        .notify{
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 0;
+            box-sizing: border-box;
+            color: white;
+            text-align: center;
+            background: rgba(0,0,0,.6);
+            overflow: hidden;
+            transition: height .2s;
+            z-index: 100;
+        }
+
+        #notifyType:before{
+            display: block;
+            margin-top: 15px;
+
+        }
+
+        .active{
+            height: 50px;
+        }
+
+        .success:before{
+            Content: "Адрес сервера скопирован в буфер обмена";
+        }
+
     </style>
 @endsection
 
@@ -211,7 +240,7 @@
                                 </div>
                                 <div>
                                     @if(!$server->is_launcher)
-                                        <div class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 border-b-4 border-indigo-700 hover:border-indigo-500 active:!border-0 rounded tooltip-custom" data-tooltip="Нажмите, чтобы скопировать адрес" id="ip-preview">
+                                        <div class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 border-b-4 border-indigo-700 hover:border-indigo-500 active:!border-0 rounded tooltip-custom" data-tooltip="Нажмите, чтобы скопировать адрес" id="ip-preview" onclick="copy('{{ $server->server_data }}')">
                                             <svg viewBox="0 0 195.085 195.085" class="inline font-bold mr-1" width="16px" height="16px">
                                                 <g>
                                                     <path fill="#FFFFFF" d="M179.617,15.453c-0.051-0.05-0.102-0.1-0.154-0.149c-18.689-18.549-48.477-20.463-69.37-4.441
@@ -340,6 +369,7 @@
                 </div>
             </div>
         </div>
+        <div class="notify"><span id="notifyType" class=""></span></div>
 @endsection
 
 @section('scripts')
@@ -473,6 +503,41 @@
 
         function redirect(url){
             document.getElementById("redirectUrl").href = url;
+        }
+    </script>
+
+    <script>
+        function copy(ip){
+            copyToClipboard(ip);
+
+            let notify_window = document.querySelector(".notify");
+            let notifyType = document.getElementById("notifyType");
+            notify_window.classList.toggle("active");
+            notifyType.classList.toggle("success");
+
+            setTimeout(() => {
+                notify_window.classList.toggle("active");
+                notifyType.classList.toggle("success");
+            }, 2500)
+        }
+
+        function copyToClipboard(textToCopy) {
+            if (navigator.clipboard && window.isSecureContext) {
+                return navigator.clipboard.writeText(textToCopy);
+            } else {
+                let textArea = document.createElement("textarea");
+                textArea.value = textToCopy;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                textArea.style.top = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                return new Promise((res, rej) => {
+                    document.execCommand('copy') ? res() : rej();
+                    textArea.remove();
+                });
+            }
         }
     </script>
 @endsection

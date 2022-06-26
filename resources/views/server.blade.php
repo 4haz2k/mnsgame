@@ -4,6 +4,35 @@
 
 @section("styles")
     <link rel="stylesheet" href="{{ asset("css/mainpage.css") }}">
+    <style type="text/css">
+        .notify{
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 0;
+            box-sizing: border-box;
+            color: white;
+            text-align: center;
+            background: rgba(0,0,0,.6);
+            overflow: hidden;
+            transition: height .2s;
+            z-index: 100;
+        }
+
+        #notifyType:before{
+            display: block;
+            margin-top: 15px;
+
+        }
+
+        .active{
+            height: 50px;
+        }
+
+        .success:before{
+            Content: "Адрес сервера скопирован в буфер обмена";
+        }
+    </style>
 @endsection
 
 @section("mainHeroContent")
@@ -18,11 +47,11 @@
                 <div class="w-3/12 mdm:w-full flex flex-col">
                     <h1 class="w-full text-base text-black font-semibold mdm:text-center">{{ $server->title }}</h1>
                     @if(!$server->is_launcher)
-                        <button class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 rounded" id="launcher-button-preview">
+                        <button class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 rounded" id="launcher-button-preview" onclick="copy('{{ $server->server_data }}')">
                             <span class="inline align-middle pt-[1px]">{{ $server->server_data }}</span>
                         </button>
                     @else
-                        <button class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 rounded" id="launcher-button-preview">
+                        <button class="modal-open bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 rounded" id="launcher-button-preview" onclick="redirect('{{ $server->server_data }}')">
                             <svg class="w-5 h-4 inline mr-1 align-middle" color="white" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                  viewBox="0 0 293.573 293.573" xml:space="preserve">
                                                 <path fill="#FFFFFF" d="M229.62,140.665v0.093h-69.718c-0.086-1-0.139-1.69-0.139-2.479c0-11.511,9.364-20.95,20.857-20.95l43.12,0.015
@@ -140,9 +169,95 @@
             <div class="text-lg mb-4">Описание сервера</div>
             <div class="text-base mdm:text-justify">{{$server->description }}</div>
         </div>
+        <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center hidden">
+            <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+            <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+                <div class="modal-content py-4 text-left px-6">
+                    <div class="flex justify-between items-center pb-3">
+                        <p class="text-xl font-bold">Внимание!</p>
+                    </div>
+                    <p class="mb-1">Вы покидаете <strong>MNS Game Project!</strong></p>
+                    <p class="my-1">Мы не несём ответственность за содержимое и деятельность сайта, на который вы переходите.</p>
+                    <p class="mt-1">Вы уверены, что хотите продолжить?</p>
+                    <div class="flex justify-end pt-2">
+                        <button class="modal-close px-3 bg-transparent py-1 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2">Отменить</button>
+                        <a id="redirectUrl" target="_blank">
+                            <button class="modal-close bg-red-500 hover:bg-red-400 text-white py-1 px-3 rounded">
+                                <span class="inline align-middle pt-[1%]">Продолжить</span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <div class="notify"><span id="notifyType" class=""></span></div>
 @endsection
 
 @section('scripts')
+    <script>
+        let openmodal = document.querySelectorAll('.modal-open')
+        for (let i = 0; i < openmodal.length; i++) {
+            openmodal[i].addEventListener('click', function(event){
+                event.preventDefault()
+                toggleModal()
+            })
+        }
 
+        const overlay = document.querySelector('.modal-overlay')
+        overlay.addEventListener('click', toggleModal)
+
+        let closemodal = document.querySelectorAll('.modal-close')
+        for (let i = 0; i < closemodal.length; i++) {
+            closemodal[i].addEventListener('click', toggleModal)
+        }
+
+        function toggleModal() {
+            const body = document.querySelector('body')
+            const modal = document.querySelector('.modal')
+            modal.classList.toggle('opacity-0')
+            modal.classList.toggle('pointer-events-none')
+            modal.classList.toggle('hidden')
+            body.classList.toggle('modal-active')
+        }
+
+        function redirect(url){
+            document.getElementById("redirectUrl").href = url;
+        }
+    </script>
+
+    <script>
+        function copy(ip){
+            copyToClipboard(ip);
+
+            let notify_window = document.querySelector(".notify");
+            let notifyType = document.getElementById("notifyType");
+            notify_window.classList.toggle("active");
+            notifyType.classList.toggle("success");
+
+            setTimeout(() => {
+                notify_window.classList.toggle("active");
+                notifyType.classList.toggle("success");
+            }, 2500)
+        }
+
+        function copyToClipboard(textToCopy) {
+            if (navigator.clipboard && window.isSecureContext) {
+                return navigator.clipboard.writeText(textToCopy);
+            } else {
+                let textArea = document.createElement("textarea");
+                textArea.value = textToCopy;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                textArea.style.top = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                return new Promise((res, rej) => {
+                    document.execCommand('copy') ? res() : rej();
+                    textArea.remove();
+                });
+            }
+        }
+    </script>
 @endsection
