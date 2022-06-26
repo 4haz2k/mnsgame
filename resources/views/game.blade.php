@@ -301,6 +301,10 @@
                             </div>
                         </div>
                     @endforeach
+                    @if($servers->isEmpty())
+                        <div class="mt-6 text-lg font-bold text-center">Список серверов пуст!</div>
+                        <div class="mt-2 mb-6 text-base max-w-2xl mx-auto">Возможно, на данный момент на <strong>MNS Game</strong> нет серверов по выбранной игре, либо вы указали категории, по которым сервера не были найденны!</div>
+                    @endif
                     <a href="{{ route("addserver") }}">
                         <div class="flex w-full mdm:h-48 h-24 w-full cursor-pointer appearance-none justify-center rounded-md border-2 border-dashed border-gray-300 bg-white px-4 transition hover:border-gray-400 focus:outline-none mdm:mb-3" id="dropzone">
                         <span class="flex items-center space-x-2">

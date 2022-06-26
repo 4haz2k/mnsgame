@@ -12406,6 +12406,14 @@ select {
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
 }
+.my-10 {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+.my-12 {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
 .mt-16 {
   margin-top: 4rem;
 }
@@ -12717,6 +12725,9 @@ select {
 }
 .max-w-sm {
   max-width: 24rem;
+}
+.max-w-2xl {
+  max-width: 42rem;
 }
 .flex-auto {
   flex: 1 1 auto;

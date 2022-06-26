@@ -41,6 +41,12 @@ class GamePageController extends Controller
                 break;
         }
 
+        if(request("categories")){
+            $servers = $servers->whereHas("filters", function ($query){
+               $query->whereIn("id", explode("-", request("categories")));
+            });
+        }
+
         $servers = $servers->paginate(ServerData::paginate);
 
         $game = Game::with("filters")->where("short_link", $link)->firstOrFail();
