@@ -234,7 +234,7 @@
                                             <span class="inline align-middle pt-[1px] align-middle font-semibold text-[11.5px] text-white">{{ $server->server_data }}</span>
                                         </div>
                                     @else
-                                        <button class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 border-b-4 border-indigo-700 hover:border-indigo-500 active:!border-0 rounded" id="launcher-button-preview">
+                                        <button class="modal-open bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 border-b-4 border-indigo-700 hover:border-indigo-500 active:!border-0 rounded" id="launcher-button-preview" onclick="redirect('{{ $server->server_data }}')">
                                             <svg class="w-5 h-4 inline mr-1 align-middle" color="white" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                  viewBox="0 0 293.573 293.573" xml:space="preserve">
                                                 <path fill="#FFFFFF" d="M229.62,140.665v0.093h-69.718c-0.086-1-0.139-1.69-0.139-2.479c0-11.511,9.364-20.95,20.857-20.95l43.12,0.015
@@ -319,10 +319,30 @@
                 {{ $servers->appends(request()->input())->links('pagination::tailwind') }}
             </div>
         </div>
+        <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center hidden">
+            <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+            <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+                <div class="modal-content py-4 text-left px-6">
+                    <div class="flex justify-between items-center pb-3">
+                        <p class="text-xl font-bold">Внимание!</p>
+                    </div>
+                    <p class="mb-1">Вы покидаете <strong>MNS Game Project!</strong></p>
+                    <p class="my-1">Мы не несём ответственность за содержимое и деятельность сайта, на который вы переходите.</p>
+                    <p class="mt-1">Вы уверены, что хотите продолжить?</p>
+                    <div class="flex justify-end pt-2">
+                        <button class="modal-close px-3 bg-transparent py-1 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2">Отменить</button>
+                        <a id="redirectUrl" target="_blank">
+                            <button class="modal-close bg-red-500 hover:bg-red-400 text-white py-1 px-3 rounded">
+                                <span class="inline align-middle pt-[1%]">Продолжить</span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
 @endsection
 
 @section('scripts')
-    <script src="https://unpkg.com/flowbite@1.3.3/dist/flowbite.js"></script>
     <script>
         let radios = document.querySelectorAll('input[type=radio][name="projectType"]');
 
@@ -423,5 +443,36 @@
                 }
             }
         });
+    </script>
+
+    <script>
+        let openmodal = document.querySelectorAll('.modal-open')
+        for (let i = 0; i < openmodal.length; i++) {
+            openmodal[i].addEventListener('click', function(event){
+                event.preventDefault()
+                toggleModal()
+            })
+        }
+
+        const overlay = document.querySelector('.modal-overlay')
+        overlay.addEventListener('click', toggleModal)
+
+        let closemodal = document.querySelectorAll('.modal-close')
+        for (let i = 0; i < closemodal.length; i++) {
+            closemodal[i].addEventListener('click', toggleModal)
+        }
+
+        function toggleModal() {
+            const body = document.querySelector('body')
+            const modal = document.querySelector('.modal')
+            modal.classList.toggle('opacity-0')
+            modal.classList.toggle('pointer-events-none')
+            modal.classList.toggle('hidden')
+            body.classList.toggle('modal-active')
+        }
+
+        function redirect(url){
+            document.getElementById("redirectUrl").href = url;
+        }
     </script>
 @endsection
