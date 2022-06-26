@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreServer;
 use App\Http\Services\ImageService;
 use App\Models\Filter;
-use App\Models\FilterOfServer;
+use App\Models\FilterOfServer;1
 use App\Models\Game;
 use App\Models\Server;
 use App\Models\User;

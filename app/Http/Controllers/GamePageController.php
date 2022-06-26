@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Interfaces\ServerData;
-use App\Http\Services\ServerOnline;
 use App\Models\Game;
 use App\Models\Server;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\DB;
 
 class GamePageController extends Controller
 {
@@ -30,8 +28,20 @@ class GamePageController extends Controller
                     $q->where("short_link", $link);
                 })
                 ->selectRaw("`servers`.*,(select count(*) from `server_rates` where `servers`.`id` = `server_rates`.`server_id`) * ".ServerData::coefficient." + (select rating from `server_ratings` where `servers`.`id` = `server_ratings`.`server_id`) as `rating`")
-                ->orderByDesc("rating")
-                ->paginate(ServerData::paginate);
+                ->orderByDesc("rating");
+
+        switch (request("projectType")){
+            case ServerData::projectType["onlyAddresses"]:
+                $servers = $servers->where("is_launcher","=", false);
+                break;
+            case ServerData::projectType["onlyLaunchers"]:
+                $servers = $servers->where("is_launcher", "=", true);
+                break;
+            default:
+                break;
+        }
+
+        $servers = $servers->paginate(ServerData::paginate);
 
         $game = Game::with("filters")->where("short_link", $link)->firstOrFail();
 

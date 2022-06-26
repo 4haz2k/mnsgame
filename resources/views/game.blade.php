@@ -97,18 +97,47 @@
                             Удачных вам игр - команда <strong>MNS Game Project</strong>!
                         </div>
                         <div class="lg:w-3/5 w-full px-3 lg:my-2">
-                            <h3 class="text-lg text-center mb-2">Список категорий</h3>
-                            <div class="flex flex-col items-center relative">
-                                <div class="w-full">
-                                    <div class="p-1 flex border border-gray-200 bg-white h-full">
-                                        <div class="flex flex-auto flex-wrap">
-                                            @foreach($game->filters as $filter)
-                                                <div class="flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-md text-indigo-700 bg-indigo-100 border border-indigo-300 h-[26px] cursor-pointer" id="filter-id-{{ $filter->id }}">
-                                                    <div class="text-xs font-normal leading-none max-w-full flex-initial">
-                                                        {{ $filter->filter }}
+                            @if(!$game->filters->isEmpty())
+                                <h3 class="text-lg text-center mb-2">Список категорий</h3>
+                                <div class="flex flex-col items-center relative">
+                                    <div class="w-full">
+                                        <div class="p-1 flex border border-gray-200 bg-white h-full">
+                                            <div class="flex flex-auto flex-wrap">
+                                                @foreach($game->filters as $filter)
+                                                    <div class="flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-md text-indigo-700 bg-indigo-100 border border-indigo-300 h-[26px] cursor-pointer" id="filter-id-{{ $filter->id }}">
+                                                        <div class="text-xs font-normal leading-none max-w-full flex-initial">
+                                                            {{ $filter->filter }}
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            @endforeach
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                            <h3 class="text-lg text-center mb-2 mt-3">Типы проектов</h3>
+                            <div class="flex flex-col relative">
+                                <div class="w-full">
+                                    <div class="flex justify-center">
+                                        <div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white checked:!bg-blue-600 checked:border-blue-300 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="projectType" id="projectType-1" value="{{ \App\Http\Interfaces\ServerData::projectType["all"] }}" @if(request("projectType")) @if(request("projectType") == \App\Http\Interfaces\ServerData::projectType["all"]) checked @endif @else checked @endif>
+                                                <label class="form-check-label text-gray-800 text-base" for="projectType-1">
+                                                    Все проекты
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:!bg-blue-600 checked:border-blue-300 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="projectType" id="projectType-2" value="{{ \App\Http\Interfaces\ServerData::projectType["onlyAddresses"] }}" @if(request("projectType")) @if(request("projectType") == \App\Http\Interfaces\ServerData::projectType["onlyAddresses"]) checked @endif @endif>
+                                                <label class="form-check-label text-gray-800 text-base" for="projectType-2">
+                                                    Только проекты с адресом сервера
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:!bg-blue-600 checked:border-blue-300 transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="projectType" id="projectType-3" value="{{ \App\Http\Interfaces\ServerData::projectType["onlyLaunchers"] }}" @if(request("projectType")) @if(request("projectType") == \App\Http\Interfaces\ServerData::projectType["onlyLaunchers"]) checked @endif @endif>
+                                                <label class="form-check-label text-gray-800 text-base text-left" for="projectType-3">
+                                                    Только лаунчеры
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -283,15 +312,37 @@
                         </div>
                     </a>
                 </div>
-                {{ $servers->links('pagination::tailwind') }}
+                {{ $servers->appends(request()->input())->links('pagination::tailwind') }}
             </div>
         </div>
 @endsection
 
 @section('scripts')
     <script src="https://unpkg.com/flowbite@1.3.3/dist/flowbite.js"></script>
-    <script src="{{ asset("js/particles.js") }}"></script>
     <script>
-        particlesJS.load("particles", "/js/particles.json");
+        let radios = document.querySelectorAll('input[type=radio][name="projectType"]');
+
+        function changeHandler() {
+            let url = new URL(window.location.href);
+            switch (this.value) {
+                case "all":
+                    url.searchParams.set('projectType', this.value);
+                    break;
+                case "addresses":
+                    url.searchParams.set('projectType', this.value);
+                    break;
+                case "launchers":
+                    url.searchParams.set('projectType', this.value);
+                    break;
+                default:
+                    break;
+            }
+
+            window.location.href = url;
+        }
+
+        Array.prototype.forEach.call(radios, function(radio) {
+            radio.addEventListener('change', changeHandler);
+        });
     </script>
 @endsection
