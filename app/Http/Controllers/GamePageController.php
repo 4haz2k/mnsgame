@@ -27,7 +27,7 @@ class GamePageController extends Controller
                 ->whereHas("game",  function($q) use($link) {
                     $q->where("short_link", $link);
                 })
-                ->selectRaw("`servers`.*,(select count(*) from `server_rates` where `servers`.`id` = `server_rates`.`server_id`) * ".ServerData::coefficient." + (select rating from `server_ratings` where `servers`.`id` = `server_ratings`.`server_id`) as `rating`")
+                ->selectRaw("`servers`.*,(select count(*) from `server_rates` where `servers`.`id` = `server_rates`.`server_id`) * ".ServerData::coefficient." + IFNULL((select rating from `server_ratings` where `servers`.`id` = `server_ratings`.`server_id`), 0) as `rating`")
                 ->orderByDesc("rating");
 
         switch (request("projectType")){
