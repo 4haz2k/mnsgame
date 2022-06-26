@@ -104,7 +104,7 @@
                                         <div class="p-1 flex border border-gray-200 bg-white h-full">
                                             <div class="flex flex-auto flex-wrap">
                                                 @foreach($game->filters as $filter)
-                                                    <div class="flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-md text-indigo-700 bg-indigo-100 border border-indigo-300 h-[26px] cursor-pointer" id="filter-id-{{ $filter->id }}">
+                                                    <div class="flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-md text-indigo-700 border border-indigo-300 h-[26px] cursor-pointer category-server" id="filter-id-{{ $filter->id }}" onclick="filterHandler(this);">
                                                         <div class="text-xs font-normal leading-none max-w-full flex-initial">
                                                             {{ $filter->filter }}
                                                         </div>
@@ -343,6 +343,81 @@
 
         Array.prototype.forEach.call(radios, function(radio) {
             radio.addEventListener('change', changeHandler);
+        });
+    </script>
+
+    <script>
+        function filterHandler(element){
+            if(element.classList.contains("bg-white")){
+                element.classList.remove("bg-white");
+                element.classList.add("bg-indigo-100");
+                makeQuery(element.id.split("-")[2]);
+            }
+            else{
+                element.classList.add("bg-white");
+                element.classList.remove("bg-indigo-100");
+                makeQuery(element.id.split("-")[2], "remove");
+            }
+        }
+
+        function makeQuery(id, action = "add"){
+            let url = new URL(window.location.href);
+            if(action === "add"){
+                let expect_category = url.searchParams.get("categories");
+
+                if(expect_category == null){
+                    url.searchParams.set("categories", id);
+                    window.location.href = url;
+                    return;
+                }
+
+                let new_categories = expect_category.split("-");
+                new_categories.push(id);
+                new_categories = new_categories.join("-");
+                url.searchParams.set("categories", new_categories);
+                window.location.href = url;
+            }
+            else if(action === "remove"){
+                let expect_category = url.searchParams.get("categories");
+
+                if(expect_category == null){
+                    return;
+                }
+
+                let new_categories = expect_category.split("-");
+                new_categories.splice(new_categories.indexOf(id), 1);
+                new_categories = new_categories.join("-");
+                url.searchParams.set("categories", new_categories);
+
+                if(url.searchParams.get("categories") === ""){
+                    url.searchParams.delete("categories");
+                }
+
+                window.location.href = url;
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            let url = new URL(window.location.href);
+
+            let filter_list = document.querySelectorAll(".category-server");
+
+            let expect_category = url.searchParams.get("categories");
+
+            if(expect_category == null){
+                return;
+            }
+
+            let categories = expect_category.split("-");
+
+            for(element of categories){
+                for (let i = 0; i < filter_list.length; i++) {
+                    if(element === filter_list[i].id.split("-")[2]){
+                        filter_list[i].classList.remove("bg-white");
+                        filter_list[i].classList.add("bg-indigo-100");
+                    }
+                }
+            }
         });
     </script>
 @endsection
