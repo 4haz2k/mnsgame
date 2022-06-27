@@ -12699,6 +12699,9 @@ input:checked + .toggle-bg {
 .top-\[48px\] {
   top: 48px;
 }
+.right-\[25px\] {
+  right: 25px;
+}
 .z-50 {
   z-index: 50;
 }
@@ -12898,6 +12901,9 @@ input:checked + .toggle-bg {
 }
 .mt-px {
   margin-top: 1px;
+}
+.ml-\[1\.5rem\] {
+  margin-left: 1.5rem;
 }
 .block {
   display: block;
@@ -13535,6 +13541,10 @@ input:checked + .toggle-bg {
 .bg-white\/50 {
   background-color: rgb(255 255 255 / 0.5);
 }
+.bg-gray-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(75 85 99 / var(--tw-bg-opacity));
+}
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
 }
@@ -13835,6 +13845,9 @@ input:checked + .toggle-bg {
 }
 .\!font-black {
   font-weight: 900 !important;
+}
+.\!font-bold {
+  font-weight: 700 !important;
 }
 .uppercase {
   text-transform: uppercase;
