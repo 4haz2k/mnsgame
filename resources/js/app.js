@@ -30,6 +30,22 @@ window.DateMNS = {
     getDatePassMonth: function() {
         moment.locale("ru");
         return moment().add(1, 'month').format("L LT");
+    },
+
+    getCurrentAloha: function (){
+        let current_hour = moment().hours();
+        if(current_hour >= 6 && current_hour < 12){
+            return "Доброе утро, ";
+        }
+        else if(current_hour >= 12 && current_hour < 18){
+            return "Добрый день, ";
+        }
+        else if(current_hour >= 18 && current_hour < 21){
+            return "Добрый вечер, ";
+        }
+        else {
+            return "Доброй ночи, ";
+        }
     }
 }
 

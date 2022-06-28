@@ -5272,6 +5272,19 @@ window.DateMNS = {
   getDatePassMonth: function getDatePassMonth() {
     moment__WEBPACK_IMPORTED_MODULE_0___default().locale("ru");
     return moment__WEBPACK_IMPORTED_MODULE_0___default()().add(1, 'month').format("L LT");
+  },
+  getCurrentAloha: function getCurrentAloha() {
+    var current_hour = moment__WEBPACK_IMPORTED_MODULE_0___default()().hours();
+
+    if (current_hour >= 6 && current_hour < 12) {
+      return "Доброе утро, ";
+    } else if (current_hour >= 12 && current_hour < 18) {
+      return "Добрый день, ";
+    } else if (current_hour >= 18 && current_hour < 21) {
+      return "Добрый вечер, ";
+    } else {
+      return "Доброй ночи, ";
+    }
   }
 };
 
