@@ -12905,6 +12905,18 @@ input:checked + .toggle-bg {
 .mt-px {
   margin-top: 1px;
 }
+.mr-8 {
+  margin-right: 2rem;
+}
+.mr-16 {
+  margin-right: 4rem;
+}
+.mb-8 {
+  margin-bottom: 2rem;
+}
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
 .block {
   display: block;
 }
@@ -13082,6 +13094,9 @@ input:checked + .toggle-bg {
 .w-64 {
   width: 16rem;
 }
+.w-9 {
+  width: 2.25rem;
+}
 .min-w-\[90\%\] {
   min-width: 90%;
 }
@@ -13102,6 +13117,9 @@ input:checked + .toggle-bg {
 }
 .max-w-\[16rem\] {
   max-width: 16rem;
+}
+.max-w-4xl {
+  max-width: 56rem;
 }
 .max-w-lg {
   max-width: 32rem;
@@ -13768,6 +13786,12 @@ input:checked + .toggle-bg {
 .pt-1 {
   padding-top: 0.25rem;
 }
+.pt-10 {
+  padding-top: 2.5rem;
+}
+.pr-8 {
+  padding-right: 2rem;
+}
 .text-left {
   text-align: left;
 }
@@ -13986,6 +14010,30 @@ input:checked + .toggle-bg {
   --tw-text-opacity: 1;
   color: rgb(180 198 252 / var(--tw-text-opacity));
 }
+.text-rose-500 {
+  --tw-text-opacity: 1;
+  color: rgb(244 63 94 / var(--tw-text-opacity));
+}
+.text-yellow-600 {
+  --tw-text-opacity: 1;
+  color: rgb(159 88 10 / var(--tw-text-opacity));
+}
+.text-yellow-500 {
+  --tw-text-opacity: 1;
+  color: rgb(194 120 3 / var(--tw-text-opacity));
+}
+.text-amber-500 {
+  --tw-text-opacity: 1;
+  color: rgb(245 158 11 / var(--tw-text-opacity));
+}
+.text-green-500 {
+  --tw-text-opacity: 1;
+  color: rgb(14 159 110 / var(--tw-text-opacity));
+}
+.text-blue-500 {
+  --tw-text-opacity: 1;
+  color: rgb(63 131 248 / var(--tw-text-opacity));
+}
 .underline {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
@@ -14186,6 +14234,18 @@ input:checked + .toggle-bg {
 .hover\:rounded-b-lg:hover {
   border-bottom-right-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
+}
+.hover\:border-2:hover {
+  border-width: 2px;
+}
+.hover\:border:hover {
+  border-width: 1px;
+}
+.hover\:border-b:hover {
+  border-bottom-width: 1px;
+}
+.hover\:border-b-2:hover {
+  border-bottom-width: 2px;
 }
 .hover\:border-indigo-500:hover {
   --tw-border-opacity: 1;
@@ -14740,6 +14800,10 @@ input:checked + .toggle-bg {
     margin-bottom: 0px;
   }
 
+  .lg\:mt-2 {
+    margin-top: 0.5rem;
+  }
+
   .lg\:block {
     display: block;
   }
@@ -14770,6 +14834,14 @@ input:checked + .toggle-bg {
 
   .lg\:h-12 {
     height: 3rem;
+  }
+
+  .lg\:h-24 {
+    height: 6rem;
+  }
+
+  .lg\:h-20 {
+    height: 5rem;
   }
 
   .lg\:w-2\/5 {
