@@ -75,7 +75,7 @@
                         </a>
                         <div class="flex flex-col items-start justify-center w-full space-x-6 text-center lg:space-x-8 md:w-2/3 md:mt-0 md:flex-row md:items-center">
                             <a href="/" class="inline-block w-full py-2 ml-6 font-medium text-left {{ (request()->is('/')) ? 'text-indigo-600' : 'text-gray-700' }} md:ml-0 md:w-auto md:px-0 md:mx-2 lg:mx-3 md:text-center">Главная</a>
-                            <a href="{{ url("/games") }}" class="inline-block w-full py-2 font-medium text-left {{ request()->is('games/*') || request()->is('games') ? 'text-indigo-600' : 'text-gray-700' }} md:w-auto md:px-0 md:mx-2 lg:mx-3 md:text-center">Сервера</a>
+                            <a href="{{ url("/games") }}" class="inline-block w-full py-2 font-medium text-left {{ request()->is('games/*') || request()->is('games') ? 'text-indigo-600' : 'text-gray-700' }} md:w-auto md:px-0 md:mx-2 lg:mx-3 md:text-center">Игры</a>
                             <a href="{{ url("/promote") }}" class="inline-block w-full py-2 font-medium text-left {{ request()->is('promote') ? 'text-indigo-600' : 'text-gray-700' }} md:w-auto md:px-0 md:mx-2 hover:text-indigo-600 lg:mx-3 md:text-center">Продвижение</a>
                             <a href="{{ url("/support") }}" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 {{ (request()->is('support')) ? 'text-indigo-600' : 'text-gray-700' }} lg:mx-3 md:text-center">Поддержка</a>
                         </div>
@@ -134,8 +134,8 @@
                     </a>
                 </div>
                 <div class="py-1" role="none">
-                    <a href="{{ route("myservers") }}" class="text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Мои сервера</a>
-                    <a href="{{ route("addserver") }}" class="text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Добавить сервер</a>
+                    <a href="{{ route("myservers") }}" class="text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Мои проекты</a>
+                    <a href="{{ route("addserver") }}" class="text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Добавить проект</a>
                     <a href="{{ url("promote") }}" class="text-lime-500 block px-4 py-2 text-sm font-semibold" role="menuitem" tabindex="-1" id="menu-item-3">Продвижение</a>
                 </div>
                 <div class="py-1" role="none">
