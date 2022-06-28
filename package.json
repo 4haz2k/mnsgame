@@ -30,6 +30,7 @@
     },
     "dependencies": {
         "@vue/composition-api": "^1.4.9",
+        "moment": "^2.29.3",
         "particles.js": "^2.0.0"
     }
 }

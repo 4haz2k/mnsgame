@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminPanel;
 use App\Http\Controllers\GamePageController;
+use App\Http\Controllers\OtherController;
 use App\Http\Controllers\Server\ServerController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\VoteController;
@@ -23,7 +24,8 @@ Route::get('/servers', function (){
     return Redirect::route("games");
 });
 Route::get('/games/{link}', [GamePageController::class, "getGameByLink"])->name("toGame");
-Route::get('/server/{id}', [ServerController::class, "getServerPage"])->name("server");
+Route::get('/server/{id}', [ServerController::class, "getServerPage"])->name("server")->withoutMiddleware(['auth']);
+Route::get('/promote', [OtherController::class, "promotePage"]);
 // End open pages
 
 // Support pages
@@ -64,4 +66,5 @@ Route::post('/server/checkCallback', [ServerController::class, "getResponseStatu
 // AJAX
 Route::post('/game/get_games', [GamePageController::class, "getGamesList"]);
 Route::post('/server/vote/{server_id}', [VoteController::class, "addVote"]);
+Route::post('/servers/search', [OtherController::class, "getServerBySearch"]);
 // End AJAX

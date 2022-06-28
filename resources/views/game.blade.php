@@ -179,7 +179,7 @@
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:!bg-blue-600 checked:border-blue-300 transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="projectType" id="projectType-3" value="{{ \App\Http\Interfaces\ServerData::projectType["onlyLaunchers"] }}" @if(request("projectType")) @if(request("projectType") == \App\Http\Interfaces\ServerData::projectType["onlyLaunchers"]) checked @endif @endif>
                                                 <label class="form-check-label text-gray-800 text-base text-left" for="projectType-3">
-                                                    Только лаунчеры
+                                                    Только сайт проектов
                                                 </label>
                                             </div>
                                         </div>
@@ -200,7 +200,7 @@
                             Игроков
                         </div>
                         <div class="w-2/12 justify-center items-center flex text-sm">
-                            IP адрес / Лаунчер
+                            IP адрес / Сайт проекта
                         </div>
                         <div class="w-1/12 justify-center items-center flex text-sm">
                             Рейтинг
@@ -293,7 +293,7 @@
                                                     s11.658,5.229,11.658,11.658S231.458,187.77,225.029,187.77z M255.818,218.559c-6.429,0-11.659-5.23-11.659-11.659
                                                     s5.23-11.658,11.659-11.658s11.658,5.229,11.658,11.658S262.247,218.559,255.818,218.559z"/>
                                             </svg>
-                                            <span class="inline align-middle pt-[1px]">Скачать лаунчер</span>
+                                            <span class="inline align-middle pt-[1px]">Перейти на сайт</span>
                                         </button>
                                     @endif
                                 </div>

@@ -1,6 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
     "/js/particles.js": "/js/particles.js",
+    "/js/moment.js": "/js/moment.js",
     "/css/app.css": "/css/app.css",
     "/css/tailwind.css": "/css/tailwind.css",
     "/css/all.min.css": "/css/all.min.css",

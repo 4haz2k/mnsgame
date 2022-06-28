@@ -22,4 +22,5 @@ mix.js('resources/js/app.js', 'public/js')
     .copy("resources/@fortawesome/fontawesome-free/webfonts", "public/fonts")
     .postCss("resources/css/mainpage.css", "public/css")
     .copy("resources/js/particles.json", "public/js")
-    .js("resources/js/particles.js", "public/js");
+    .js("resources/js/particles.js", "public/js")
+    .js('node_modules/moment/moment.js', "public/js");

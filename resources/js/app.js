@@ -3,6 +3,7 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+import moment from "moment";
 
 require('./bootstrap');
 
@@ -24,3 +25,11 @@ require('./bootstrap');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+
+window.DateMNS = {
+    getDatePassMonth: function() {
+        moment.locale("ru");
+        return moment().add(1, 'month').format("L LT");
+    }
+}
+
