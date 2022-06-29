@@ -96,11 +96,11 @@
                             </div>
                             <div class="flex flex-col items-start justify-center w-full space-x-6 text-center md:w-2/3 md:mt-0 md:flex-row md:items-center lg:hidden">
                                 @if(\Illuminate\Support\Facades\Auth::user()->role == "admin")
-                                    <a href="{{ route("addserver") }}" class="ml-[1.5rem] inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 {{ (request()->is('addserver')) ? 'text-indigo-600' : 'text-gray-700' }} lg:mx-3 md:text-center"><strong>Панель администратора</strong></a>
+                                    <a href="{{ url('adminpanel') }}" class="ml-[1.5rem] inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 {{ (request()->is('addserver')) ? 'text-indigo-600' : 'text-gray-700' }} lg:mx-3 md:text-center"><strong>Панель администратора</strong></a>
                                 @endif
                                 <a href="{{ route("myservers") }}" class="ml-[1.5rem] inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 {{ (request()->is('myservers')) ? 'text-indigo-600' : 'text-gray-700' }} lg:mx-3 md:text-center">Мои сервера</a>
                                 <a href="{{ route("addserver") }}" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 {{ (request()->is('addserver')) ? 'text-indigo-600' : 'text-gray-700' }} lg:mx-3 md:text-center">Добавить сервер</a>
-                                <a href="#" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 {{ (request()->is('settings')) ? 'text-indigo-600' : 'text-gray-700' }} lg:mx-3 md:text-center">Настройки</a>
+                                <a href="{{ route("settings") }}" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 {{ (request()->is('settings')) ? 'text-indigo-600' : 'text-gray-700' }} lg:mx-3 md:text-center">Настройки</a>
                                 <a href="#" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 {{ (request()->is('notifications')) ? 'text-indigo-600' : 'text-gray-700' }} lg:mx-3 md:text-center">Уведомления</a>
                                 <a href="{{ route("addserver") }}" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 text-gray-700 lg:mx-3 md:text-center" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Выход</a>
                             </div>
@@ -109,7 +109,7 @@
                                     <svg class="h-5 w-5 text-gray-800 m-auto" xmlns="http://www.w3.org/2000/svg"  width="20px" height="20px" viewBox="0 0 512.000000 512.000000"  preserveAspectRatio="xMidYMid meet"> <g class="h-6 w-6" transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="{{ request()->is('games/*') ? '#ffffff' : '#000000' }}" stroke="none"> <path d="M2377 4949 c-643 -74 -1185 -516 -1386 -1129 -74 -226 -74 -219 -78 -976 l-4 -682 -47 -12 c-134 -34 -301 -168 -370 -297 -163 -308 -38 -694 273 -842 114 -54 116 -54 524 -60 l384 -6 13 -65 c36 -177 116 -325 248 -456 139 -138 289 -217 471 -249 471 -82 924 222 1024 689 l18 81 384 5 384 5 74 27 c128 47 230 125 306 236 124 183 139 422 38 624 -69 137 -234 273 -375 308 l-47 12 -4 682 c-4 757 -3 748 -78 975 -243 742 -984 1220 -1752 1130z m401 -475 c230 -41 442 -154 618 -328 168 -168 272 -358 326 -595 21 -93 22 -123 27 -893 l6 -796 30 -44 c58 -81 120 -108 254 -108 105 0 151 -22 182 -87 34 -70 15 -135 -55 -187 l-27 -21 -1579 0 -1579 0 -27 21 c-70 51 -89 117 -55 186 32 66 66 82 196 89 124 6 172 24 220 81 57 67 55 39 55 818 0 758 4 844 45 1007 91 359 385 678 742 807 200 71 406 88 621 50z m192 -3537 c0 -8 -14 -42 -31 -76 -129 -257 -476 -313 -681 -109 -45 46 -108 153 -108 186 0 9 89 12 410 12 336 0 410 -2 410 -13z"/> </g> </svg>
                                 </button>
                                 <button class="relative z-10 block rounded-md bg-transparent p-2 focus:outline-none h-auto w-auto inline-flex" id="user-menu-btn" aria-expanded="true" aria-haspopup="true">
-                                    <img class="h-6 w-6 inline-flex mr-[2px]" src="{{ asset('img/user.png') }}" alt="">
+                                    <img class="h-6 w-6 inline-flex mr-[2px] rounded-full" src="@if(\Illuminate\Support\Facades\Auth::user()->profile_image) {{ asset("public/img/profiles/".\Illuminate\Support\Facades\Auth::user()->profile_image) }} @else {{ asset('img/user.png') }} @endif" alt="">
                                     <svg class="h-3 w-3 text-gray-800 m-auto" xmlns="http://www.w3.org/2000/svg"  width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000"  preserveAspectRatio="xMidYMid meet"> <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="{{ request()->is('games/*') ? '#ffffff' : '#000000' }}" stroke="none"> <path d="M783 3543 c-29 -6 -63 -49 -63 -79 0 -15 20 -46 52 -81 29 -32 434 -451 901 -930 834 -858 849 -873 887 -873 38 0 53 15 887 873 467 479 872 898 901 930 59 65 64 91 28 134 l-24 28 -1774 1 c-975 1 -1783 -1 -1795 -3z"/> </g> </svg>
                                 </button>
                             </div>
@@ -139,7 +139,7 @@
                     <a href="{{ url("promote") }}" class="text-lime-500 block px-4 py-2 text-sm font-semibold" role="menuitem" tabindex="-1" id="menu-item-3">Продвижение</a>
                 </div>
                 <div class="py-1" role="none">
-                    <a href="#" class="text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-4">Настройки</a>
+                    <a href="{{ route("settings") }}" class="text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-4">Настройки</a>
                     <a href="#" class="text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-5">
                         Уведомления
                         @if(\Illuminate\Support\Facades\Auth::user()->role != "admin")

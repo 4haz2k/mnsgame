@@ -30,7 +30,7 @@ class UserEditRequest extends FormRequest
             'profile_img' => [
                 'nullable',
                 'mimes:jpeg,png,jpg',
-                'size:2048',
+                'max:2048',
                 'dimensions:min_width=96,min_height=96'
             ],
             'name' => [

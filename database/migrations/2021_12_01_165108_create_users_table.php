@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string("login")->unique()->comment("Логин пользователя");
             $table->string("password")->comment("Пароль пользователя");
             $table->string("email")->unique()->comment("E-mail пользователя");
+            $table->string("profile_image")->nullable(true)->comment("Изображение профиля");
             $table->timestamp('email_verified_at')->nullable()->comment("Дата подтверждения E-mail");
             $table->timestamp("registration_date")->comment("Дата регистрации");
             $table->timestamp("login_date")->nullable()->comment("Дата входа");

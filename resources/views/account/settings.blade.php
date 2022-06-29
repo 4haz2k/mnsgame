@@ -10,7 +10,6 @@
         .wp-caption img {
             display: block;
             max-width: 100%;
-            height: auto;
         }
         .wp-caption-text {
             opacity: 0;
@@ -46,14 +45,18 @@
     </section>
     <div class="container max-w-4xl lg:mx-auto mb-4">
         <div class="flex flex-col justify-center w-full text-center">
-            <div class="mx-auto cursor-pointer wp-caption my-auto">
-                <img class="w-24 h-24 rounded-full" src="{{ asset('img/user.png') }}" alt="User picture">
+            <div class="mx-auto cursor-pointer wp-caption my-auto" id="picture">
+                <img class="w-24 h-24 rounded-full" src="@if($user->profile_image) {{ asset("public/img/profiles/".$user->profile_image) }} @else {{ asset('img/user.png') }} @endif" alt="User picture" id="user-picture">
                 <div class="wp-caption-text flex justify-center">
                     <div class="my-auto text-white">
                         Изменить
                     </div>
                 </div>
             </div>
+            @error("profile_img")
+                <span class="font-medium tracking-wide text-red-500 text-md mt-1 ml-1 text-center">{{ $message }}</span>
+            @enderror
+            <span class="font-medium tracking-wide text-red-500 text-md mt-1 ml-1 text-center hidden" id="profile_img_error"></span>
             <div class="text-base font-bold mt-2">{{ $user->login }}</div>
             <div class="text-base mt-1">{{ $user->email }}</div>
         </div>
@@ -108,6 +111,7 @@
                     <span class="inline align-middle">Сохранить изменения</span>
                 </button>
             </div>
+            <input type="file" class="hidden" accept=".jpeg, .png, .jpg" name="profile_img" onchange="showPreview(event);" id="profile_image_input">
             @csrf
         </form>
     </div>
@@ -115,4 +119,38 @@
 
 @section('scripts')
     <script src="{{ asset('public/js/app.js') }}"></script>
+    <script>
+        function showPreview(event) {
+            if (event.target.files.length > 0) {
+                let src = URL.createObjectURL(event.target.files[0]);
+                let img = new Image();
+                let profile_error = document.getElementById("profile_img_error");
+                img.src = src;
+                img.onload = function () {
+                    if(this.width >= 96 && this.height >= 96){
+                        makePreview(src);
+                    }
+                    else if(this.width < 96){
+                        profile_error.classList.remove("hidden");
+                        profile_error.innerHTML = "Ширина изображения профиля должна быть минимум 96 пикселей."
+                    }
+                    else if(this.height < 96){
+                        profile_error.classList.remove("hidden");
+                        profile_error.innerHTML = "Высота изображения профиля должна быть минимум 96 пикселей."
+                    }
+                };
+
+            }
+        }
+
+        function makePreview(src){
+            let preview = document.getElementById("user-picture");
+            preview.src = src;
+        }
+    </script>
+    <script>
+        document.getElementById('picture')
+            .addEventListener('click', () =>
+                document.getElementById('profile_image_input').click());
+    </script>
 @endsection

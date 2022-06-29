@@ -300,7 +300,7 @@
                             @error('server_banner')
                                 <span class="flex items-center font-bold tracking-wide text-red-500 mt-1 ml-1">{{ $message }}</span>
                             @enderror
-                            <input type="file" name="server_banner" id="banner-input" class="hidden" onchange="showPreview(event);" accept=".gif, .png, .jpeg .jpg"/>
+                            <input type="file" name="server_banner" id="banner-input" class="hidden" onchange="showPreview(event);" accept=".gif, .png, .jpeg ,.jpg"/>
                             <input type="hidden" name="filters_input" value="">
                         </div>
                         <button type="submit" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-12 border border-blue-700 rounded mx-auto">Добавить сервер</button>

@@ -23,8 +23,27 @@ class ImageService
         return $imageName;
     }
 
+    public function handleProfileUploadedImage(Request $request): ?string
+    {
+        if ($this->canHandleProfileImage()) {
+            $imageName = time()."_".Auth::id().'_profile.'.$request->profile_img->extension();
+
+            $request->profile_img->move(public_path('img/profiles'), $imageName);
+        }
+        else{
+            return null;
+        }
+
+        return $imageName;
+    }
+
     protected function canHandleImage(): bool
     {
         return request()->hasFile('server_banner');
+    }
+
+    protected function canHandleProfileImage(): bool
+    {
+        return request()->hasFile('profile_img');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserEditRequest;
+use App\Http\Services\ImageService;
 use App\Models\User;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
@@ -54,6 +55,9 @@ class HomeController extends Controller
             $user->password = Hash::make($request->password);
 
         $user->email = $request->email;
+
+        $image = new ImageService();
+        $user->profile_image = $image->handleProfileUploadedImage($request);
 
         $user->save();
 
