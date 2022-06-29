@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserEditRequest;
+use App\Models\User;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -22,13 +26,37 @@ class HomeController extends Controller
      *
      * @return Renderable
      */
-    public function index()
+    public function index(): Renderable
     {
         $user = Auth::user();
         return view('account.home', compact("user"));
     }
 
     public function settings(){
-        return view('account.settings');
+        $user = Auth::user();
+        return view('account.settings', compact("user"));
+    }
+
+    public function updateSettings(UserEditRequest $request): RedirectResponse
+    {
+        $user = User::where("id", Auth::id())->first();
+
+        if($request->has("name"))
+            $user->name = $request->name;
+
+        if($request->has("surname"))
+            $user->surname = $request->surname;
+
+        if($request->has("login"))
+            $user->login = $request->login;
+
+        if($request->has("password"))
+            $user->password = Hash::make($request->password);
+
+        $user->email = $request->email;
+
+        $user->save();
+
+        return redirect()->back()->with("status", true);
     }
 }

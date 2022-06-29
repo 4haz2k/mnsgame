@@ -158,7 +158,12 @@ return [
     'attributes' => [
         "password" => '«Пароль»',
         "email" => '«Электронная почта»',
-        "login" => '«Логин»'
+        "login" => '«Логин»',
+        "profile_img" => "«Профиль изображения»",
+        "name" => "«Имя»",
+        "surname" => "«Фамилия»",
+        "password_confirmation" => "«Повторный пароль»",
+        "current_password" => "«Текущий пароль»"
     ],
 
 ];
