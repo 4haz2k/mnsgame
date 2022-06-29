@@ -43,6 +43,7 @@ Auth::routes();
 
 // User panel
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/settings', [App\Http\Controllers\HomeController::class, 'settings'])->name('settings');
 // End user panel
 
 // Admin panel
