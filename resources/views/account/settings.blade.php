@@ -78,6 +78,13 @@
                 @enderror
             </div>
             <div class="my-2">
+                <label for="login" class="font-bold">Ваш логин</label>
+                <input id="login" name="login" type="text" class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm @error('login') !border-red-500 @enderror" placeholder="Ваш логин" value="{{ $user->login }}">
+                @error('login')
+                    <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">{{ $message }}</span>
+                @enderror
+            </div>
+            <div class="my-2">
                 <label for="email" class="font-bold">Электронная почта</label>
                 <input id="email" name="email" type="text" class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm @error('email') !border-red-500 @enderror" placeholder="Ваш Email" value="{{ $user->email }}">
                 @error('email')
