@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section("title", "MNS Game | Добавление сервера")
+@section("title", "MNS Game | Добавление проекта")
 
 @section("styles")
     <link rel="stylesheet" href="{{ asset("css/mainpage.css") }}">
@@ -40,7 +40,7 @@
         <div class="lg:grid grid-cols-1 max-w-6xl mx-auto">
             <div id="firstColumn" class="lg:mt-8 lg:mb-12">
                 <div class="text-center lg:text-lg mb-2 font-semibold">
-                    Предпросмотр сервера
+                    Предпросмотр проекта
                 </div>
                 <div class="w-full h-12 flex rounded-1 mdm:hidden">
                     <div class="w-1/12 justify-center items-center flex text-xs">
@@ -314,7 +314,7 @@
                     <div class="flex flex-wrap -mx-3 mb-2">
                         <div class="lg:w-1/3 w-full px-3 lg:my-2">
                             <label for="game-title" class="block text-md tracking-wide text-gray-700 font-bold mb-2 text-left">Баннер</label>
-                            <span class="block text-md tracking-wide text-gray-700 mb-2 text-left mdm:mb-3">Баннер сервера в формате gif, png, jpeg или jpg размером 486x60 пикселей. <br><br><span class="text-red-500 font-bold">Внимание! Использование агрессивных, мигающих и нецензурных баннеров запрещено! Максимальный размер баннера 2 Мегабайта. Несоблюдение данных правил карается удалением сервера с хостинга без возможности восстановления!</span></span>
+                            <span class="block text-md tracking-wide text-gray-700 mb-2 text-left mdm:mb-3">Баннер сервера в формате gif, png, jpeg или jpg размером 468x60 пикселей. <br><br><span class="text-red-500 font-bold">Внимание! Использование агрессивных, мигающих и нецензурных баннеров запрещено! Максимальный размер баннера 2 Мегабайта. Несоблюдение данных правил карается удалением сервера с хостинга без возможности восстановления!</span></span>
                         </div>
                         <div class="lg:w-2/3 w-full px-3 lg:my-4">
                             <div class="w-full hidden px-3 py-2 rounded-md border-2 border-dashed border-gray-300 bg-white" id="upload_preview">
@@ -346,7 +346,7 @@
                             <input type="file" name="server_banner" id="banner-input" class="hidden" onchange="showPreview(event);" accept=".gif, .png, .jpeg ,.jpg"/>
                             <input type="hidden" name="filters_input" value="">
                         </div>
-                        <button type="submit" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-12 border border-blue-700 rounded mx-auto">Добавить сервер</button>
+                        <button type="submit" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-12 border border-blue-700 rounded mx-auto">Добавить проект</button>
                     </div>
                 </form>
             </div>
@@ -509,13 +509,13 @@
                 let banner_error = document.getElementById("banner-error");
                 img.src = src;
                 img.onload = function () {
-                    if(this.width === 486 && this.height === 60){
+                    if(this.width === 468 && this.height === 60){
                         makePreview(src);
                         changeDropzoneVisible();
                     }
-                    else if(this.width !== 486){
+                    else if(this.width !== 468){
                         banner_error.classList.remove("hidden");
-                        banner_error.innerHTML = "Ширина банера должна быть равной 486 пикселям."
+                        banner_error.innerHTML = "Ширина банера должна быть равной 468 пикселям."
                     }
                     else if(this.height !== 60){
                         banner_error.classList.remove("hidden");

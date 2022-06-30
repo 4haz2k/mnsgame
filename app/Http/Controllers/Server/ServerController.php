@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Server;
 
 use App\Http\Controllers\Controller;
 use App\Http\Interfaces\ServerData;
+use App\Http\Requests\EditServerRequest;
 use App\Http\Requests\StoreServer;
 use App\Http\Services\ImageService;
 use App\Models\Filter;
 use App\Models\FilterOfServer;
 use App\Models\Game;
 use App\Models\Server;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -32,7 +32,7 @@ class ServerController extends Controller
     }
 
     public function index(){
-        $games = \App\Models\Game::all();
+        $games = Game::all();
         return view("account.addserver", compact("games"));
     }
 
@@ -42,7 +42,7 @@ class ServerController extends Controller
      */
     public function createServer(StoreServer $request): RedirectResponse
     {
-        $game_id = Game::where("title", \request("game_title"))->first()->id;
+        $game_id = Game::where("title", \request("game_title"))->firstOrFail()->id;
         $is_launcher = \request("is_launcher");
 
         if($is_launcher == null)
@@ -90,49 +90,89 @@ class ServerController extends Controller
     }
 
     public function editServer(Request $request){
-        $server = Server::where("id", $request->id)->where("owner_id", Auth::id())->firstOrFail();
-        return view('account.editserver', compact("server"));
+        $games = Game::all();
+        $server = Server::with(["game", "filters"])->where("id", $request->id)->where("owner_id", Auth::id())->selectRaw("`servers`.*,(select count(*) from `server_rates` where `servers`.`id` = `server_rates`.`server_id`) * ".ServerData::coefficient." + IFNULL((select rating from `server_ratings` where `servers`.`id` = `server_ratings`.`server_id`), 0) as `rating`")->firstOrFail();
+        $filters_suggestion = Filter::whereHas("game", function ($q) use ($server) { $q->where("id", $server->game->id); })->get();
+        return view('account.editserver', compact("server", "games", "filters_suggestion"));
     }
 
     /**
      *
      * Сохранение сервера
      *
-     * @param Request $request
+     * @param EditServerRequest $request
      * @return RedirectResponse
      */
-    public function saveServer(Request $request): RedirectResponse
+    public function saveServer(EditServerRequest $request): RedirectResponse
     {
-        $server = Server::where("id", $request->id)->where("owner_id", Auth::id())->firstOrFail();
+        $server = Server::where("id", $request->get("server_id"))->where("owner_id", Auth::id())->firstOrFail();
+        $game = Game::where("title", $request->get("game_title"))->firstOrfail();
 
-        $request_data = $request->all();
-        $request_data["game_id"] = DB::table('games')->where("title", "=", $request_data["game"])->value("id");
-        $request_data = array_merge($request_data, ['owner_id' => Auth::id()]);
-        unset($request_data["game"]);
+        $is_launcher = \request("is_launcher");
 
-        $rules = Server::rules();
+        if($is_launcher == null)
+            if(\request("server_ip") == null) {
+                $server_data = \request("launcher_link");
+                $is_launcher = "on";
+            }
+            else
+                $server_data = \request("server_ip");
+        else
+            $server_data = \request("launcher_link");
 
-        $server_data_check = DB::table('servers')->where("owner_id", "=", Auth::id())->where("server_data", "=",  $request->server_data)->value("id");
+        if($request->has("server_title") and $request->filled('server_title'))
+            if($request->server_title != $server->title)
+                $server->title = $request->server_title;
 
-        if($server_data_check == $server->id){
-            unset($rules["server_data"]);
-            $validator = Validator::make($request_data, $rules);
+        if($request->has("server_description") and $request->filled('server_description'))
+            if($request->server_description != $server->description)
+                $server->description = $request->server_description;
+
+        if($request->has("game_title") and $request->filled('game_title'))
+            $server->game_id = $game->id;
+
+        if($request->has("server_vk") and $request->filled('server_vk'))
+            if($request->server_vk != $server->vk)
+                $server->vk = $request->server_vk;
+
+        if($request->has("server_discord") and $request->filled('server_discord'))
+            if($request->server_discord != $server->discord)
+                $server->discord = $request->server_discord;
+
+        if($server->is_launcher != (int)\request("is_launcher"))
+            $server->is_launcher = $is_launcher != null;
+
+        $server->server_data = $server_data;
+
+        if($request->has("server_callback") and $request->filled('server_callback'))
+            if($request->server_callback != $server->callback)
+                $server->callback = $request->server_callback;
+
+        if($request->hasFile("server_banner")){
+            $image = new ImageService();
+            $server->banner_img = $image->handleUploadedImage($request);
         }
-        else{
-            $validator = Validator::make($request_data, $rules);
+
+        $server->save();
+
+        FilterOfServer::where("server_id", $server->id)->delete();
+
+        if(\request("filters_input") != null){
+            $filters_id = Filter::whereIn("filter", json_decode(\request("filters_input")))->get()->pluck("id");
+
+            $filters_of_server_array = [];
+
+            foreach ($filters_id as $filter_id) {
+                array_push($filters_of_server_array, [
+                    "filter_id" => $filter_id,
+                    "server_id" => $server->id,
+                ]);
+            }
+
+            FilterOfServer::insert($filters_of_server_array);
         }
 
-        if ($validator->fails()) {
-            return Redirect::back()->withErrors($validator);
-        }
-        else{
-            $server->title = $request_data["title"];
-            $server->description = $request_data["description"];
-            $server->server_data = $request_data["server_data"];
-            $server->game_id = $request_data["game_id"];
-            $server->save();
-            return Redirect::back()->with("Status", true);
-        }
+        return redirect()->back()->with("status", true);
     }
 
     public function myServers(){

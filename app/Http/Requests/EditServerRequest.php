@@ -3,15 +3,17 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
-class StoreServer extends FormRequest
+class EditServerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -37,10 +39,14 @@ class StoreServer extends FormRequest
             "server_site" => "active_url|nullable",
             "server_vk" => "active_url|nullable",
             "server_discord" => "active_url|nullable",
-            "server_ip" => "required_without:launcher_link|nullable|unique:servers,server_data",
+            "server_ip" => [
+                "required_without:launcher_link",
+                "nullable",
+                Rule::unique('servers', 'server_data')->ignore((int)$this->get("server_id"))
+            ],
             "launcher_link" => "required_without:server_ip|active_url|nullable",
             "server_callback" => "active_url|nullable",
-            "server_banner" => "mimes:jpeg,jpg,png,gif|dimensions:width=486,height=60|max:2048|nullable",
+            "server_banner" => "mimes:jpeg,jpg,png,gif|dimensions:width=468,height=60|max:2048|nullable",
             "filters_input" => "array|nullable",
             "filters_input.*" => "exists:filters,filter"
         ];

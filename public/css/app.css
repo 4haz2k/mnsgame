@@ -12755,10 +12755,6 @@ input:checked + .toggle-bg {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
-.my-auto {
-  margin-top: auto;
-  margin-bottom: auto;
-}
 .-mx-3 {
   margin-left: -0.75rem;
   margin-right: -0.75rem;
@@ -12774,6 +12770,10 @@ input:checked + .toggle-bg {
 .my-2 {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+}
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 .mx-1 {
   margin-left: 0.25rem;
@@ -12869,9 +12869,6 @@ input:checked + .toggle-bg {
 .ml-2 {
   margin-left: 0.5rem;
 }
-.mb-0 {
-  margin-bottom: 0px;
-}
 .mb-10 {
   margin-bottom: 2.5rem;
 }
@@ -12880,6 +12877,9 @@ input:checked + .toggle-bg {
 }
 .mr-3 {
   margin-right: 0.75rem;
+}
+.mb-0 {
+  margin-bottom: 0px;
 }
 .mt-8 {
   margin-top: 2rem;
@@ -13106,8 +13106,8 @@ input:checked + .toggle-bg {
 .max-w-lg {
   max-width: 32rem;
 }
-.max-w-\[150px\] {
-  max-width: 150px;
+.max-w-\[185px\] {
+  max-width: 185px;
 }
 .max-w-4xl {
   max-width: 56rem;
@@ -13123,15 +13123,6 @@ input:checked + .toggle-bg {
 }
 .max-w-sm {
   max-width: 24rem;
-}
-.max-w-\[160px\] {
-  max-width: 160px;
-}
-.max-w-\[170px\] {
-  max-width: 170px;
-}
-.max-w-\[185px\] {
-  max-width: 185px;
 }
 .flex-auto {
   flex: 1 1 auto;
@@ -13518,14 +13509,6 @@ input:checked + .toggle-bg {
   --tw-bg-opacity: 1;
   background-color: rgb(255 240 189 / var(--tw-bg-opacity));
 }
-.bg-gray-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
-}
-.bg-gray-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
-}
 .bg-gray-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
@@ -13553,6 +13536,10 @@ input:checked + .toggle-bg {
 .bg-indigo-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(88 80 236 / var(--tw-bg-opacity));
+}
+.bg-gray-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 .bg-indigo-200 {
   --tw-bg-opacity: 1;
@@ -14835,11 +14822,6 @@ input:checked + .toggle-bg {
   .lg\:\!px-0 {
     padding-left: 0px !important;
     padding-right: 0px !important;
-  }
-
-  .lg\:px-0 {
-    padding-left: 0px;
-    padding-right: 0px;
   }
 
   .lg\:px-10 {
