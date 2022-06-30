@@ -59,7 +59,7 @@ class ServerController extends Controller
 
         $server = new Server();
         $server->title = \request("server_title");
-        $server->description = \request("server_description");
+        $server->description = strip_tags(\request("server_description"), '\n');
         $server->is_launcher = $is_launcher != null;
         $server->server_data = $server_data;
         $server->banner_img = $image->handleUploadedImage($request);
@@ -126,7 +126,7 @@ class ServerController extends Controller
 
         if($request->has("server_description") and $request->filled('server_description'))
             if($request->server_description != $server->description)
-                $server->description = $request->server_description;
+                $server->description = strip_tags($request->server_description, '\n');
 
         if($request->has("game_title") and $request->filled('game_title'))
             $server->game_id = $game->id;

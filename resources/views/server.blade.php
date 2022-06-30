@@ -182,7 +182,7 @@
                 <div class="flex-grow border-t border-gray-400"></div>
             </div>
             <div class="text-lg mb-4">Описание сервера</div>
-            <div class="text-base mdm:text-justify">{{$server->description }}</div>
+            <div class="text-base mdm:text-justify">{!! nl2br($server->description) !!}</div>
         </div>
         <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center hidden">
             <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
