@@ -13764,6 +13764,9 @@ input:checked + .toggle-bg {
 .pt-1 {
   padding-top: 0.25rem;
 }
+.pb-2 {
+  padding-bottom: 0.5rem;
+}
 .text-left {
   text-align: left;
 }
@@ -13978,6 +13981,10 @@ input:checked + .toggle-bg {
 .text-indigo-300 {
   --tw-text-opacity: 1;
   color: rgb(180 198 252 / var(--tw-text-opacity));
+}
+.text-green-500 {
+  --tw-text-opacity: 1;
+  color: rgb(14 159 110 / var(--tw-text-opacity));
 }
 .underline {
   -webkit-text-decoration-line: underline;

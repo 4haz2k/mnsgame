@@ -45,6 +45,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/settings', [App\Http\Controllers\HomeController::class, 'settings'])->name('settings');
 Route::post('/settings/update', [App\Http\Controllers\HomeController::class, 'updateSettings'])->name('updateSettings');
+Route::get('/paymentHistory', [App\Http\Controllers\HomeController::class, 'getPaymentHistory'])->name('paymentHistory');
 // End user panel
 
 // Admin panel

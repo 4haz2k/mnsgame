@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserEditRequest;
 use App\Http\Services\ImageService;
 use App\Models\Game;
+use App\Models\PaymentHistory;
 use App\Models\User;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
@@ -70,5 +71,14 @@ class HomeController extends Controller
         $user->save();
 
         return redirect()->back()->with("status", true);
+    }
+
+    public function getPaymentHistory(){
+        $payments = PaymentHistory::with("server")
+            ->whereHas("server", function ($q){ $q->where("owner_id", Auth::id()); })
+            ->whereNotNull("server_id")
+            ->get();
+
+        return view("account.paymenthistory", compact("payments"));
     }
 }

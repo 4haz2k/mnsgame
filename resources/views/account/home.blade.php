@@ -14,8 +14,8 @@
 @section("body")
     <section class="mb-10">
         <div class="container max-w-4xl mx-auto">
-            <div class="text-2xl font-bold tracking-tight mdm:text-center" id="aloha"></div>
-            <div class="text-lg font-medium tracking-tight mdm:text-center">Выбери пункт меню для продолжения</div>
+            <div class="text-2xl font-bold tracking-tight mdm:text-center">MNS Game<span class="text-indigo-500 text-3xl">.</span> История моих платежей</div>
+            <div class="text-lg font-medium tracking-tight mdm:text-center">Измените поля с данными для применения изменений</div>
         </div>
     </section>
     <div class="container max-w-2xl lg:mx-auto mb-12">
