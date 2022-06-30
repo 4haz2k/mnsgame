@@ -188,13 +188,13 @@
                             </div>
                         </div>
                     </div>
-                    <h3 class="text-xl text-left mt-4 mb-3">Сервера</h3>
+                    <h3 class="text-xl text-left mt-4 mb-3">Проекты</h3>
                     <div class="w-full h-12 flex rounded-1 mdm:hidden">
                         <div class="w-1/12 justify-center items-center flex text-sm">
                             Место
                         </div>
                         <div class="w-6/12 justify-center items-center flex text-sm">
-                            Название сервера
+                            Название проекта
                         </div>
                         <div class="w-1/12 justify-center items-center flex text-sm">
                             Игроков

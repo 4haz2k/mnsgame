@@ -18,7 +18,7 @@ class CreateFilterOfServersTable extends Migration
             $table->unsignedBigInteger("server_id")->comment("ID сервера");
 
             $table->foreign("filter_id")->references("id")->on("filters");
-            $table->foreign("server_id")->references("id")->on("servers");
+            $table->foreign("server_id")->references("id")->on("servers")->onDelete('cascade');
         });
     }
 

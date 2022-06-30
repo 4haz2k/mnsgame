@@ -19,8 +19,8 @@ class CreateServerRatesTable extends Migration
             $table->unsignedBigInteger("server_id")->comment("ID сервера");
             $table->dateTime("vote_time")->comment("Время голосования");
 
-            $table->foreign("voter_id")->references("id")->on("users");
-            $table->foreign("server_id")->references("id")->on("servers");
+            $table->foreign("voter_id")->references("id")->on("users")->onDelete('cascade');
+            $table->foreign("server_id")->references("id")->on("servers")->onDelete('cascade');
         });
     }
 

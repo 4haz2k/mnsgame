@@ -1,6 +1,6 @@
 @extends("layouts.main")
 
-@section("title", "MNS Game | Продвижение проекта")
+@section("title", "MNS Game | Настройки аккаунта")
 
 @section("styles")
     <style type="text/css">

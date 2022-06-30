@@ -59,6 +59,7 @@ Route::post('/addserver', [ServerController::class, 'createServer'])->name("adds
 Route::get('/addserver', [ServerController::class, 'index']);
 Route::get('/editserver/{id}', [ServerController::class, 'editServer']);
 Route::post('/editserver', [ServerController::class, 'saveServer'])->name("saveserver");
+Route::get('/deleteserver/{id}', [ServerController::class, 'deleteServer'])->name("deleteserver");
 Route::get('/myservers', [ServerController::class, 'myServers'])->name("myservers");
 
 Route::post('/server/loadFilters', [ServerController::class, "loadFilters"]);

@@ -136,8 +136,15 @@ class ServerController extends Controller
     }
 
     public function myServers(){
-        $servers = User::find(Auth::id())->server;
-        return view('account.myservers', compact("servers"));
+        $games = Game::with(["servers" => function ($query){
+            $query->selectRaw("*, (select count(*) from `server_rates` where `servers`.`id` = `server_rates`.`server_id`) * ".ServerData::coefficient." + IFNULL((select rating from `server_ratings` where `servers`.`id` = `server_ratings`.`server_id`), 0) as `rating`");
+        }])
+            ->whereHas("servers", function ($q){
+                $q->where("owner_id", Auth::id());
+            })
+            ->get();
+
+        return view('account.myservers', compact("games"));
     }
 
     public function getServerPage($id){
@@ -146,6 +153,17 @@ class ServerController extends Controller
             ->firstOrFail();
 
         return view("server", compact("server"));
+    }
+
+    public function deleteServer($id): RedirectResponse
+    {
+        $server = Server::where("id", $id)->first();
+
+        if($server->owner_id == Auth::id()){
+            $server->delete();
+        }
+
+        return \redirect()->back();
     }
 
     /**

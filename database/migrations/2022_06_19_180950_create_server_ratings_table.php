@@ -18,7 +18,7 @@ class CreateServerRatingsTable extends Migration
             $table->unsignedBigInteger("server_id")->comment("ID сервера");
             $table->unsignedBigInteger("rating")->comment("Рейтинг сервера");
 
-            $table->foreign("server_id")->references("id")->on("servers");
+            $table->foreign("server_id")->references("id")->on("servers")->onDelete('cascade');
         });
     }
 
