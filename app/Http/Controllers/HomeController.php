@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserEditRequest;
 use App\Http\Services\ImageService;
 use App\Models\Game;
+use App\Models\Notifications;
 use App\Models\PaymentHistory;
 use App\Models\User;
 use Illuminate\Contracts\Support\Renderable;
@@ -80,5 +81,21 @@ class HomeController extends Controller
             ->get();
 
         return view("account.paymenthistory", compact("payments"));
+    }
+
+    public function getNotifications(){
+        $notifications = Notifications::where("user_id", Auth::id())->get();
+        return view("account.notifications", compact("notifications"));
+    }
+
+    public function goToNotification($id){
+        $notification = Notifications::where("id", $id)->where("user_id", Auth::id())->firstOrFail();
+
+        if(!$notification->is_viewed){
+            $notification->is_viewed = 1;
+            $notification->save();
+        }
+
+        return view("", compact("notification"));
     }
 }

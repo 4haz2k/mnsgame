@@ -46,6 +46,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/settings', [App\Http\Controllers\HomeController::class, 'settings'])->name('settings');
 Route::post('/settings/update', [App\Http\Controllers\HomeController::class, 'updateSettings'])->name('updateSettings');
 Route::get('/paymentHistory', [App\Http\Controllers\HomeController::class, 'getPaymentHistory'])->name('paymentHistory');
+Route::get('/notifications', [App\Http\Controllers\HomeController::class, 'getNotifications'])->name('notifications');
+Route::get('/notification/{id}', [App\Http\Controllers\HomeController::class, 'goToNotification']);
 // End user panel
 
 // Admin panel
