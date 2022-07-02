@@ -96,6 +96,6 @@ class HomeController extends Controller
             $notification->save();
         }
 
-        return view("", compact("notification"));
+        return view("account.notification", compact("notification"));
     }
 }

@@ -108,10 +108,10 @@
                                     <span class="text-green-500 font-bold">{{ $payment->balance_change }} РУБ</span>
                                 </div>
                                 <div class="w-1/3 text-center ml-1 mr-1">
-                                    @if(!$payment->is_active) <span class="text-red-500 font-bold">Активен до: {{ \Carbon\Carbon::make($payment->end_date)->format("d.m.Y H:s:m") }}</span> @else <span class="text-green-500 font-bold">Исполнено</span> @endif
+                                    @if(!$payment->is_active) <span class="text-red-500 font-bold">Активен до: {{ \Carbon\Carbon::make($payment->end_date)->format("d.m.Y H:i:m") }}</span> @else <span class="text-green-500 font-bold">Исполнено</span> @endif
                                 </div>
                                 <div class="w-1/3 text-center ml-1 mr-1">
-                                    <span class="font-bold">{{ \Carbon\Carbon::make($payment->created_at)->format("d.m.Y H:s:m") }}</span>
+                                    <span class="font-bold">{{ \Carbon\Carbon::make($payment->created_at)->format("d.m.Y H:i:m") }}</span>
                                 </div>
                             </div>
                         </div>

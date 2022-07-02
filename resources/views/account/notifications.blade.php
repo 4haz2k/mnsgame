@@ -123,11 +123,11 @@
                                             </svg>
                                         @endif
                                     </td>
-                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap text-center">
+                                    <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap text-center font-bold">
                                         {{ $notification->title }}
                                     </td>
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap text-center">
-                                        {{ \Carbon\Carbon::make($notification->created_at)->format("d.m.Y H:m:s") }}
+                                        {{ \Carbon\Carbon::make($notification->created_at)->format("d.m.Y H:i:s") }}
                                     </td>
                                 </tr>
                             @endforeach
