@@ -354,6 +354,7 @@
                                     </svg>
                                 </button>
                             </div>
+                            <span class="block text-md font-black tracking-wide text-gray-700 mb-2 text-center">Ваш callback ключ: {{ $server->hash }}</span>
                             @error('server_callback')
                                 <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">{{ $message }}</span>
                             @enderror

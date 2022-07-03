@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class ServerController extends Controller
 {
@@ -74,6 +75,7 @@ class ServerController extends Controller
         $server->discord = \request("server_discord");
         $server->game_id = $game_id;
         $server->owner_id = Auth::id();
+        $server->hash = Str::random(30);
         $server->save();
 
         if(\request("filters_input") != null){

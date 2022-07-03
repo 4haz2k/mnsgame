@@ -25,6 +25,7 @@ class CreateServersTable extends Migration
             $table->string("site")->nullable(true)->comment("Сайт сервера");
             $table->string("vk")->nullable(true)->comment("ВК сайта");
             $table->string("discord")->nullable(true)->comment("Discord сервера");
+            $table->string("hash")->comment("HASH");
             $table->unsignedBigInteger("game_id")->comment("Игра");
             $table->unsignedBigInteger("owner_id")->comment("Владелец сервера");
             $table->timestamps();
