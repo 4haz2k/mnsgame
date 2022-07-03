@@ -10,10 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
-// Open pages
-Route::get('/', function () {
-    return view('mainpage'); // main page
-});
+Route::get('/', [OtherController::class, "mainPage"]);
 
 Route::get('/offer', function (){
     return view('other.offer'); // Публичная оферта

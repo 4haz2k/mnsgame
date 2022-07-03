@@ -11,6 +11,9 @@ use App\Models\Filter;
 use App\Models\FilterOfServer;
 use App\Models\Game;
 use App\Models\Server;
+use Artesaos\SEOTools\Facades\OpenGraph;
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Traits\SEOTools;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -21,6 +24,8 @@ use Illuminate\Support\Facades\Validator;
 
 class ServerController extends Controller
 {
+    use SEOTools;
+
     /**
      * Create a new controller instance.
      *
@@ -191,6 +196,15 @@ class ServerController extends Controller
         $server = Server::where("id", $id)->with(["game", "filters"])
             ->selectRaw("`servers`.*,(select count(*) from `server_rates` where `servers`.`id` = `server_rates`.`server_id`) * ".ServerData::coefficient." + IFNULL((select rating from `server_ratings` where `servers`.`id` = `server_ratings`.`server_id`), 0) as `rating`")
             ->firstOrFail();
+
+        $this->seo()->setDescription("MNS Game - это сервис мониторинга проектов и серверов. Игроки могут найти сервер по своим интересам, используя категории для поиска, а владельцы используя минимальное количество сил и времени могут вывести свой проект в лидеры!");
+        $this->seo()->opengraph()->setTitle($server->title." - MNS Game Project");
+        $this->seo()->opengraph()->setDescription("Проект '". $server->title ."' по игре ".$server->game->title." на MNS Game Project");
+        $this->seo()->opengraph()->setUrl(url("/server")."/".$server->id);
+        SEOMeta::addKeyword(["сервера", "мониторинг серверов", $server->game->title, $server->game->short_link, $server->title, "ip адреса", "айпи серверов", "топ", "список", "рейтинг", "рейтинг серверов"]);
+        OpenGraph::addImage(
+            asset($server->banner_img == null ? asset("/img/test/banner.png") : asset("/img/banners/{$server->banner_img}"))
+        );
 
         return view("server", compact("server"));
     }

@@ -5,11 +5,21 @@ namespace App\Http\Controllers;
 use App\Http\Interfaces\ServerData;
 use App\Models\Game;
 use App\Models\Server;
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Traits\SEOTools;
 use Illuminate\Http\JsonResponse;
 
 class GamePageController extends Controller
 {
+    use SEOTools;
+
     public function gamesListPage(){
+        $this->seo()->setDescription("MNS Game - это сервис мониторинга проектов и серверов. Игроки могут найти сервер по своим интересам, используя категории для поиска, а владельцы используя минимальное количество сил и времени могут вывести свой проект в лидеры!");
+        $this->seo()->opengraph()->setTitle("Список игр на MNS Game Project");
+        $this->seo()->opengraph()->setDescription("Список игр со списком проектов на MNS Game Project");
+        $this->seo()->opengraph()->setUrl(url("/games"));
+        SEOMeta::addKeyword(["сервера", "мониторинг серверов", "ip адреса", "айпи серверов", "топ", "список", "рейтинг", "рейтинг серверов"]);
+
         $games = Game::withCount("servers")->get();
         return view("games", compact("games"));
     }
@@ -50,6 +60,13 @@ class GamePageController extends Controller
         $servers = $servers->paginate(ServerData::paginate);
 
         $game = Game::with("filters")->where("short_link", $link)->firstOrFail();
+
+        $this->seo()->setDescription("MNS Game - это сервис мониторинга проектов и серверов. Игроки могут найти сервер по своим интересам, используя категории для поиска, а владельцы используя минимальное количество сил и времени могут вывести свой проект в лидеры!");
+        $this->seo()->opengraph()->setTitle("Мониторинг серверов ".$game->title);
+        $this->seo()->opengraph()->setDescription($game->description);
+        $this->seo()->opengraph()->setUrl(url("/games")."/".$game->short_link);
+        SEOMeta::addKeyword(["сервера", "мониторинг серверов", $game->title, $game->short_link, "ip адреса", "айпи серверов", "топ", "список", "рейтинг", "рейтинг серверов"]);
+
 
         return view("game", compact("servers", "game"));
     }

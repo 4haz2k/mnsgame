@@ -3,11 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Server;
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Traits\SEOTools;
 use Illuminate\Http\JsonResponse;
 
 class OtherController extends Controller
 {
+    use SEOTools;
+
     public function promotePage(){
+        $this->seo()->setDescription("MNS Game - это сервис мониторинга проектов и серверов. Игроки могут найти сервер по своим интересам, используя категории для поиска, а владельцы используя минимальное количество сил и времени могут вывести свой проект в лидеры!");
+        $this->seo()->opengraph()->setTitle("MNS Game - продвижение проекта");
+        $this->seo()->opengraph()->setDescription("Продвижение проекта на MNS Game");
+        $this->seo()->opengraph()->setUrl(url("promote"));
+        SEOMeta::addKeyword(["сервера", "мониторинг серверов", "ip адреса", "айпи серверов", "топ", "список", "рейтинг", "рейтинг серверов"]);
         return view("other.promote");
     }
 
@@ -16,5 +25,11 @@ class OtherController extends Controller
         $servers = Server::where("title", "like", "%".request("title")."%")->limit(10)->get();
 
         return response()->json($servers);
+    }
+
+    public function mainPage(){
+        $this->seo()->setDescription("MNS Game - это сервис мониторинга проектов и серверов. Игроки могут найти сервер по своим интересам, используя категории для поиска, а владельцы используя минимальное количество сил и времени могут вывести свой проект в лидеры!");
+        SEOMeta::addKeyword(["сервера", "мониторинг серверов", "майнкрафт", "csgo", "ip адреса", "айпи серверов", "топ", "список", "рейтинг", "рейтинг серверов"]);
+        return view('mainpage'); // main page
     }
 }

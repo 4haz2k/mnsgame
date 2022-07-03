@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield("title")</title>
+    {!! SEOMeta::generate() !!}
+    {!! OpenGraph::generate() !!}
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style type="text/css">
         #user-menu::after {
