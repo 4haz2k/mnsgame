@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Game;
 use App\Models\Server;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Traits\SEOTools;
@@ -29,7 +30,20 @@ class OtherController extends Controller
 
     public function mainPage(){
         $this->seo()->setDescription("MNS Game - это сервис мониторинга проектов и серверов. Игроки могут найти сервер по своим интересам, используя категории для поиска, а владельцы используя минимальное количество сил и времени могут вывести свой проект в лидеры!");
-        SEOMeta::addKeyword(["сервера", "мониторинг серверов", "майнкрафт", "csgo", "ip адреса", "айпи серверов", "топ", "список", "рейтинг", "рейтинг серверов"]);
+        $this->seo()->setTitle("MNS Game Project - сервис мониторинга различных игр");
+        $this->seo()->opengraph()->setTitle("MNS Game Project - сервис мониторинга различных игр");
+        $this->seo()->opengraph()->setDescription("MNS Game - это сервис мониторинга проектов и серверов для игроков и владельцев. Присоединяйся!");
+        $this->seo()->opengraph()->setUrl(url("/"));
+        $this->seo()->setDescription("MNS Game - это сервис мониторинга проектов и серверов. Игроки могут найти сервер по своим интересам, используя категории для поиска, а владельцы используя минимальное количество сил и времени могут вывести свой проект в лидеры!");
+        $games = Game::select(["title", "short_link"])->get();
+        $games_array = ["сервера", "мониторинг серверов", "майнкрафт", "csgo", "ip адреса", "айпи серверов", "топ", "список", "рейтинг", "рейтинг серверов"];
+
+        foreach ($games as $game){
+            $games_array[] .= $game->title;
+            $games_array[] .= $game->short_link;
+        }
+
+        SEOMeta::addKeyword($games_array);
         return view('mainpage'); // main page
     }
 }
