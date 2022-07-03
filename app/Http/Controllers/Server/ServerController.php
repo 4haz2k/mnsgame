@@ -115,18 +115,6 @@ class ServerController extends Controller
         $server = Server::where("id", $request->get("server_id"))->where("owner_id", Auth::id())->firstOrFail();
         $game = Game::where("title", $request->get("game_title"))->firstOrfail();
 
-        $is_launcher = \request("is_launcher");
-
-        if($is_launcher == null)
-            if(\request("server_ip") == null) {
-                $server_data = \request("launcher_link");
-                $is_launcher = "on";
-            }
-            else
-                $server_data = \request("server_ip");
-        else
-            $server_data = \request("launcher_link");
-
         if($request->has("server_title") and $request->filled('server_title'))
             if($request->server_title != $server->title)
                 $server->title = $request->server_title;
@@ -146,10 +134,12 @@ class ServerController extends Controller
             if($request->server_discord != $server->discord)
                 $server->discord = $request->server_discord;
 
-        if($server->is_launcher != (int)\request("is_launcher"))
-            $server->is_launcher = $is_launcher != null;
+        $server->is_launcher = $request->is_launcher;
 
-        $server->server_data = $server_data;
+        if($request->is_launcher)
+            $server->server_data = $request->launcher_link;
+        else
+            $server->server_data = $request->server_ip;
 
         if($request->has("server_callback") and $request->filled('server_callback'))
             if($request->server_callback != $server->callback)

@@ -149,13 +149,13 @@
             @if($server->vk != null)
                 <div class="flex flex-wrap my-1">
                     <div class="w-1/6 mdm:w-1/2 text-base text-gray-700">Сообщество ВКонтакте:</div>
-                    <div class="w-5/6 mdm:w-1/2 text-left text-base font-medium text-black"><a target="_blank" href="{{ $server->vk }}">{{ $server->site }}</a></div>
+                    <div class="w-5/6 mdm:w-1/2 text-left text-base font-medium text-black"><a target="_blank" href="{{ $server->vk }}">{{ $server->vk }}</a></div>
                 </div>
             @endif
             @if($server->discord != null)
                 <div class="flex flex-wrap my-1">
                     <div class="w-1/6 mdm:w-1/2 text-base text-gray-700">Discord сервер:</div>
-                    <div class="w-5/6 mdm:w-1/2 text-left text-base font-medium text-black"><a target="_blank" href="{{ $server->discord }}">{{ $server->site }}</a></div>
+                    <div class="w-5/6 mdm:w-1/2 text-left text-base font-medium text-black"><a target="_blank" href="{{ $server->discord }}">{{ $server->discord }}</a></div>
                 </div>
             @endif
             @if($server->filters->isNotEmpty())

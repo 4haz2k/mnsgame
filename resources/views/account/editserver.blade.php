@@ -90,7 +90,7 @@
                             <span class="block font-semibold">Адрес проекта</span>
                         </div>
                         <div>
-                            <div class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 border-b-4 border-indigo-700 hover:border-indigo-500 active:!border-0 rounded tooltip-custom flex max-w-[185px]" data-tooltip="Нажмите, чтобы скопировать адрес" id="ip-preview">
+                            <div class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 border-b-4 border-indigo-700 hover:border-indigo-500 active:!border-0 rounded tooltip-custom flex max-w-[185px] @if($server->is_launcher) hidden @endif" data-tooltip="Нажмите, чтобы скопировать адрес" id="ip-preview">
                                 <svg viewBox="0 0 195.085 195.085" class="inline font-bold mr-1" width="16px" height="16px">
                                     <g>
                                         <path fill="#FFFFFF" d="M179.617,15.453c-0.051-0.05-0.102-0.1-0.154-0.149c-18.689-18.549-48.477-20.463-69.37-4.441
@@ -112,7 +112,7 @@
                                 </svg>
                                 <span class="inline align-middle pt-[1px] align-middle font-semibold text-[11.5px] text-white text-ellipsis overflow-hidden" id="server-ip-span">{{ $server->server_data }}</span>
                             </div>
-                            <button class="modal-open bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 border-b-4 border-indigo-700 hover:border-indigo-500 active:!border-0 rounded hidden" id="launcher-button-preview">
+                            <button class="modal-open bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 border-b-4 border-indigo-700 hover:border-indigo-500 active:!border-0 rounded @if(!$server->is_launcher) hidden @endif" id="launcher-button-preview">
                                 <svg class="w-5 h-4 inline mr-1 align-middle" color="white" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                      viewBox="0 0 293.573 293.573" xml:space="preserve">
                                                 <path fill="#FFFFFF" d="M229.62,140.665v0.093h-69.718c-0.086-1-0.139-1.69-0.139-2.479c0-11.511,9.364-20.95,20.857-20.95l43.12,0.015
@@ -322,10 +322,10 @@
                                 <input name="is_launcher" class="appearance-none block text-gray-700 border border-gray-200 rounded px-2 mb-3 mx-0 lg:mx-24 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm inline" id="is-launcher" type="checkbox" onchange="changeServerType(this);" @if($server->is_launcher) checked @endif>
                             </div>
                             @error('server_ip')
-                                <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">{{ $message }}</span>
+                                <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1 text-center">{{ $message }}</span>
                             @enderror
                             @error('launcher_link')
-                                <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">{{ $message }}</span>
+                                <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1 text-center">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
