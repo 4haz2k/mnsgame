@@ -64,7 +64,7 @@ class HomeController extends Controller
             if($request->email != $user->email)
                 $user->email = $request->email;
 
-        if($request->hasFile("profile_image") and $request->filled('profile_image')){
+        if($request->hasFile("profile_image")){
             $image = new ImageService();
             $user->profile_image = $image->handleProfileUploadedImage($request);
         }
