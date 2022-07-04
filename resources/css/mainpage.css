@@ -145,12 +145,12 @@
 }
 
 .login-background{
-    background-image: url("/public/img/views/login.png");
+    background-image: url("/img/views/login.png");
     background-size: cover;
 }
 
 .register-background{
-    background-image: url("/public/img/views/registration.png");
+    background-image: url("/img/views/registration.png");
 }
 
 .server-bg {
