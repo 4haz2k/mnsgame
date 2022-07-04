@@ -118,7 +118,7 @@
                     <span class="inline align-middle">Сохранить изменения</span>
                 </button>
             </div>
-            <input type="file" class="hidden" accept=".jpeg, .png, .jpg" name="profile_img" onchange="showPreview(event);" id="profile_image_input">
+            <input type="file" class="hidden" accept=".jpeg, .png, .jpg" name="profile_image" onchange="showPreview(event);" id="profile_image_input">
             @csrf
         </form>
     </div>
