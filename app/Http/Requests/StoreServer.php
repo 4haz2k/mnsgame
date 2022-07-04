@@ -40,7 +40,7 @@ class StoreServer extends FormRequest
             "server_ip" => "required_without:launcher_link|nullable|unique:servers,server_data",
             "launcher_link" => "required_without:server_ip|active_url|nullable",
             "server_callback" => "active_url|nullable",
-            "server_banner" => "mimes:jpeg,jpg,png,gif|dimensions:width=486,height=60|max:2048|nullable",
+            "server_banner" => "mimes:jpeg,jpg,png,gif|dimensions:width=468,height=60|max:2048|nullable",
             "filters_input" => "array|nullable",
             "filters_input.*" => "exists:filters,filter"
         ];
@@ -65,7 +65,7 @@ class StoreServer extends FormRequest
             "launcher_link.required_without" => "Ссылка на лаунчер должна быть заполнена.",
             "launcher_link.active_url" => "Ссылка на лаунчер должна быть рабочей ссылкой.",
             "server_banner.mimes" => "Изображение должно быть формата jpeg, jpg, png или gif.",
-            "server_banner.dimensions" => "Изображение должно быть размером 486x60 пикселей (468px ширина, 80px высота).",
+            "server_banner.dimensions" => "Изображение должно быть размером 468x60 пикселей (468px ширина, 80px высота).",
             "server_banner.size" => "Изображение не должно превышать размер 2 МБ (2048 КилоБайт).",
             "filters_input.array" => "Фильтры должны быть массивом.",
             "filters_input.*.exists" => "Выбранного фильтра у данной игры не существует."
