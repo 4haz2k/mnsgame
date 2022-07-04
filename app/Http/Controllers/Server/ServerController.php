@@ -193,6 +193,7 @@ class ServerController extends Controller
         $this->seo()->opengraph()->setTitle($server->title." - MNS Game Project");
         $this->seo()->opengraph()->setDescription("Проект '". $server->title ."' по игре ".$server->game->title." на MNS Game Project");
         $this->seo()->opengraph()->setUrl(url("/server")."/".$server->id);
+        $this->seo()->opengraph()->setType("article");
         SEOMeta::addKeyword(["сервера", "мониторинг серверов", $server->game->title, $server->game->short_link, $server->title, "ip адреса", "айпи серверов", "топ", "список", "рейтинг", "рейтинг серверов"]);
         OpenGraph::addImage(
             asset($server->banner_img == null ? asset("/img/test/banner.png") : asset("/img/banners/{$server->banner_img}"))

@@ -18,6 +18,8 @@ class GamePageController extends Controller
         $this->seo()->opengraph()->setTitle("Список игр на MNS Game Project");
         $this->seo()->opengraph()->setDescription("Список игр со списком проектов на MNS Game Project");
         $this->seo()->opengraph()->setUrl(url("/games"));
+        $this->seo()->opengraph()->addImage(asset("/img/mnsgame.png"));
+        $this->seo()->opengraph()->setType("website");
         SEOMeta::addKeyword(["сервера", "мониторинг серверов", "ip адреса", "айпи серверов", "топ", "список", "рейтинг", "рейтинг серверов"]);
 
         $games = Game::withCount("servers")->get();
@@ -65,6 +67,8 @@ class GamePageController extends Controller
         $this->seo()->opengraph()->setTitle("Мониторинг серверов ".$game->title);
         $this->seo()->opengraph()->setDescription($game->description);
         $this->seo()->opengraph()->setUrl(url("/games")."/".$game->short_link);
+        $this->seo()->opengraph()->addImage(asset("/img/mnsgame.png"));
+        $this->seo()->opengraph()->setType("website");
         SEOMeta::addKeyword(["сервера", "мониторинг серверов", $game->title, $game->short_link, "ip адреса", "айпи серверов", "топ", "список", "рейтинг", "рейтинг серверов"]);
 
 

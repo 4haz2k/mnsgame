@@ -17,6 +17,8 @@ class OtherController extends Controller
         $this->seo()->opengraph()->setTitle("MNS Game - продвижение проекта");
         $this->seo()->opengraph()->setDescription("Продвижение проекта на MNS Game");
         $this->seo()->opengraph()->setUrl(url("promote"));
+        $this->seo()->opengraph()->addImage(asset("/img/mnsgame.png"));
+        $this->seo()->opengraph()->setType("website");
         SEOMeta::addKeyword(["сервера", "мониторинг серверов", "ip адреса", "айпи серверов", "топ", "список", "рейтинг", "рейтинг серверов"]);
         return view("other.promote");
     }
@@ -34,6 +36,8 @@ class OtherController extends Controller
         $this->seo()->opengraph()->setTitle("MNS Game Project - сервис мониторинга различных игр");
         $this->seo()->opengraph()->setDescription("MNS Game - это сервис мониторинга проектов и серверов для игроков и владельцев. Присоединяйся!");
         $this->seo()->opengraph()->setUrl(url("/"));
+        $this->seo()->opengraph()->addImage(asset("/img/mnsgame.png"));
+        $this->seo()->opengraph()->setType("website");
         $this->seo()->setDescription("MNS Game - это сервис мониторинга проектов и серверов. Игроки могут найти сервер по своим интересам, используя категории для поиска, а владельцы используя минимальное количество сил и времени могут вывести свой проект в лидеры!");
         $games = Game::select(["title", "short_link"])->get();
         $games_array = ["сервера", "мониторинг серверов", "майнкрафт", "csgo", "ip адреса", "айпи серверов", "топ", "список", "рейтинг", "рейтинг серверов"];
