@@ -45,6 +45,11 @@ $app->singleton(
 
 $app->register(Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class);
 
+$app->bind('path.public', function ()
+{
+    return "/var/www/134-0-113-225.cloudvps.regruhosting.ru/current/public";
+});
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application

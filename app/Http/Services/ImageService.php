@@ -5,6 +5,7 @@ namespace App\Http\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Nette\Utils\Image;
 
 class ImageService
