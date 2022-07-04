@@ -19,7 +19,7 @@ add('shared_files', [
 
 add('shared_dirs', [
     'public/img/banners',
-    'public/profiles',
+    'public/img/profiles',
     'storage',
 ]);
 
