@@ -113,7 +113,7 @@
                                     </button>
                                 </a>
                                 <button class="relative z-10 block rounded-md bg-transparent p-2 focus:outline-none h-auto w-auto inline-flex" id="user-menu-btn" aria-expanded="true" aria-haspopup="true">
-                                    <img class="h-6 w-6 inline-flex mr-[2px] rounded-full" src="@if(\Illuminate\Support\Facades\Auth::user()->profile_image) {{ asset("public/img/profiles/".\Illuminate\Support\Facades\Auth::user()->profile_image) }} @else {{ asset('img/user.png') }} @endif" alt="">
+                                    <img class="h-6 w-6 inline-flex mr-[2px] rounded-full" src="@if(\Illuminate\Support\Facades\Auth::user()->profile_image) {{ asset("/img/profiles/".\Illuminate\Support\Facades\Auth::user()->profile_image) }} @else {{ asset('img/user.png') }} @endif" alt="">
                                     <svg class="h-3 w-3 text-gray-800 m-auto" xmlns="http://www.w3.org/2000/svg"  width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000"  preserveAspectRatio="xMidYMid meet"> <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="{{ request()->is('games/*') ? '#ffffff' : '#000000' }}" stroke="none"> <path d="M783 3543 c-29 -6 -63 -49 -63 -79 0 -15 20 -46 52 -81 29 -32 434 -451 901 -930 834 -858 849 -873 887 -873 38 0 53 15 887 873 467 479 872 898 901 930 59 65 64 91 28 134 l-24 28 -1774 1 c-975 1 -1783 -1 -1795 -3z"/> </g> </svg>
                                 </button>
                             </div>

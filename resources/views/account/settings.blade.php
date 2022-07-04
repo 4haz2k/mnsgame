@@ -46,7 +46,7 @@
     <div class="container max-w-4xl lg:mx-auto mb-4">
         <div class="flex flex-col justify-center w-full text-center">
             <div class="mx-auto cursor-pointer wp-caption my-auto" id="picture">
-                <img class="w-24 h-24 rounded-full" src="@if($user->profile_image) {{ asset("public/img/profiles/".$user->profile_image) }} @else {{ asset('img/user.png') }} @endif" alt="User picture" id="user-picture">
+                <img class="w-24 h-24 rounded-full" src="@if($user->profile_image) {{ asset("/img/profiles/".$user->profile_image) }} @else {{ asset('img/user.png') }} @endif" alt="User picture" id="user-picture">
                 <div class="wp-caption-text flex justify-center">
                     <div class="my-auto text-white">
                         Изменить
