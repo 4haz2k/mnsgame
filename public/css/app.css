@@ -12750,6 +12750,10 @@ input:checked + .toggle-bg {
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
 }
+.mx-0 {
+  margin-left: 0px;
+  margin-right: 0px;
+}
 .mx-4 {
   margin-left: 1rem;
   margin-right: 1rem;
@@ -12761,10 +12765,6 @@ input:checked + .toggle-bg {
 .-mx-3 {
   margin-left: -0.75rem;
   margin-right: -0.75rem;
-}
-.mx-0 {
-  margin-left: 0px;
-  margin-right: 0px;
 }
 .mx-2 {
   margin-left: 0.5rem;
@@ -13511,16 +13511,16 @@ input:checked + .toggle-bg {
   --tw-bg-opacity: 1;
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));
 }
+.bg-indigo-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 237 255 / var(--tw-bg-opacity));
+}
 .bg-transparent {
   background-color: transparent;
 }
 .bg-red-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(240 82 82 / var(--tw-bg-opacity));
-}
-.bg-indigo-100 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(229 237 255 / var(--tw-bg-opacity));
 }
 .bg-blue-600 {
   --tw-bg-opacity: 1;
@@ -13915,11 +13915,11 @@ input:checked + .toggle-bg {
 .leading-none {
   line-height: 1;
 }
-.leading-10 {
-  line-height: 2.5rem;
-}
 .leading-tight {
   line-height: 1.25;
+}
+.leading-10 {
+  line-height: 2.5rem;
 }
 .leading-6 {
   line-height: 1.5rem;
@@ -14381,13 +14381,13 @@ input:checked + .toggle-bg {
 .focus\:z-10:focus {
   z-index: 10;
 }
-.focus\:border-blue-600:focus {
-  --tw-border-opacity: 1;
-  border-color: rgb(28 100 242 / var(--tw-border-opacity));
-}
 .focus\:border-gray-500:focus {
   --tw-border-opacity: 1;
   border-color: rgb(107 114 128 / var(--tw-border-opacity));
+}
+.focus\:border-blue-600:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(28 100 242 / var(--tw-border-opacity));
 }
 .focus\:\!border-blue-700:focus {
   --tw-border-opacity: 1 !important;
@@ -14724,6 +14724,11 @@ input:checked + .toggle-bg {
     margin-bottom: 0.5rem;
   }
 
+  .lg\:mx-24 {
+    margin-left: 6rem;
+    margin-right: 6rem;
+  }
+
   .lg\:\!mx-36 {
     margin-left: 9rem !important;
     margin-right: 9rem !important;
@@ -14732,11 +14737,6 @@ input:checked + .toggle-bg {
   .lg\:my-4 {
     margin-top: 1rem;
     margin-bottom: 1rem;
-  }
-
-  .lg\:mx-24 {
-    margin-left: 6rem;
-    margin-right: 6rem;
   }
 
   .lg\:mx-auto {
