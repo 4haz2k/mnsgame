@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Alexusmai\YandexMetrika\YandexMetrika;
+use App\Http\Services\YandexMetrikaFixed;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class AdminPanel extends Controller
     public function __construct()
     {
         $this->middleware('admin');
-        $this->metric = new YandexMetrika;
+        $this->metric = new YandexMetrikaFixed;
     }
 
     /**
@@ -128,7 +129,7 @@ class AdminPanel extends Controller
         $urlParams["date1"] = "14daysAgo"; $urlParams["date2"] = "7daysAgo";
         $refusal_prev_days =round( $this->metric->getRequestToApi($urlParams)->data["totals"][0], 2);
 
-        $refusal_percent = round(($refusal - $refusal_prev_days) / $refusal_prev_days, 2);
+        $refusal_percent = round(($refusal - $refusal_prev_days) / ($refusal_prev_days == 0 ? 1 : $refusal_prev_days), 2);
 
         return [
             "data" => $refusal, // Отказы, %
@@ -172,8 +173,8 @@ class AdminPanel extends Controller
         $visits_sum_prev_month = array_sum(array_column($visits_prev_month, 'data'));
         $users_sum_prev_month = array_sum(array_column($users_prev_month, 'data'));
 
-        $visits_percent = round(($visits_sum - $visits_sum_prev_month) / $visits_sum_prev_month * 100, 2);
-        $users_percent = round(($users_sum - $users_sum_prev_month) / $users_sum_prev_month * 100, 2);
+        $visits_percent = round(($visits_sum - $visits_sum_prev_month) / ($visits_sum_prev_month == 0 ? 1 : $visits_sum_prev_month) * 100, 2);
+        $users_percent = round(($users_sum - $users_sum_prev_month) / ($users_sum_prev_month == 0 ? 1 : $users_sum_prev_month) * 100, 2);
 
         return [
             "visits" => $visits, // массив визитов по дням за последние 30 дней
