@@ -113,7 +113,7 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('public/js/app.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     <script>
         function changeAloha() {
             let aloha = document.getElementById("aloha");
