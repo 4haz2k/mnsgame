@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminPanel;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\GamePageController;
 use App\Http\Controllers\OtherController;
 use App\Http\Controllers\Server\ServerController;
@@ -36,6 +37,8 @@ Route::get('/support/faq/search', [SupportController::class, 'searchSuggestion']
 
 // Authentication
 Auth::routes();
+Route::get('/social/auth/{provider}', [LoginController::class, "redirectToProvider"])->name("auth.social");
+Route::get('/social/auth/{provider}/callback', [LoginController::class, "handleProviderCallback"])->name("auth.social.callback");
 // End authentication
 
 // User panel

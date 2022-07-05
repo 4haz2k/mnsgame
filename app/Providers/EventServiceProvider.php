@@ -5,7 +5,10 @@ namespace App\Providers;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
+use SocialiteProviders\Google\GoogleExtendSocialite;
+use SocialiteProviders\Manager\SocialiteWasCalled;
+use SocialiteProviders\VKontakte\VKontakteExtendSocialite;
+use SocialiteProviders\Yandex\YandexExtendSocialite;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -18,10 +21,10 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
-            // add your listeners (aka providers) here
-            'SocialiteProviders\\Zoho\\ZohoExtendSocialite@handle',
-            \SocialiteProviders\VKontakte\VKontakteExtendSocialite::class.'@handle',
+        SocialiteWasCalled::class => [
+            VKontakteExtendSocialite::class.'@handle',
+            YandexExtendSocialite::class.'@handle',
+            GoogleExtendSocialite::class.'@handle',
         ],
     ];
 
