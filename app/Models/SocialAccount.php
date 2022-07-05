@@ -10,6 +10,13 @@ class SocialAccount extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'provider',
+        'provider_id',
+        'token'
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
