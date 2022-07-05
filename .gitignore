@@ -14,6 +14,5 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
-/config/yandex-metrika.php
 /public/img/profiles/
 /public/img/banners/
