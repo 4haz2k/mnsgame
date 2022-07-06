@@ -154,6 +154,24 @@
         </div>
     </section>
     <!-- End Main Hero Content -->
+    <section class="py-20">
+        <div class="container max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold tracking-tight text-center">Как работает рейтинг проектов на MNS Game?</h2>
+            <div class="max-w-6xl mx-auto my-4">
+                <p class="text-base my-2"><strong>Рейтинг проекта</strong> - это сумма количества голосов вашего проекта и рейтинга, который вы покупаете на этой странице.</p>
+                <img src="{{ asset("img/promote-image-1.png") }}" alt="" class="text-center border-indigo-500 border-2 my-2 shadow-md">
+                <p class="text-base my-2">На основе этого рейтинга расчитывается положение вашего проекта в списке других проектов выбранной пользователем игры.</p>
+                <p class="text-base my-2">Рейтинг расчитывается по формуле: <strong>Рейтинг = (Количество голосов проекта) * (Коэффициент голосов {{ \App\Http\Interfaces\ServerData::coefficient }}) + (Купленный рейтинг)</strong></p>
+                <p class="text-base my-2">Так для примера рейтинг для проекта с 50-ю голосами и 1000 купленного рейтинга составит {{ 50 * \App\Http\Interfaces\ServerData::coefficient + 1000 }} рейтинга</p>
+            </div>
+            <h2 class="text-2xl font-bold tracking-tight text-left">Цены</h2>
+            <div class="max-w-6xl mx-auto my-4">
+                <p class="text-base my-2">Купленный рейтинг будет активен ровно <strong>1 месяц</strong> с момента поступления платежа в систему.</p>
+                <p class="text-base my-2">Цена <strong>1 рейтинга равна 1 рублю</strong>.</p>
+                <p class="text-base my-2">После пополнения счёта, история о платеже будет доступна в личном кабинете владельца проекта, для которого оказывается услуга.</p>
+            </div>
+        </div>
+    </section>
 @endsection
 
 @section("body")
