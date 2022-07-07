@@ -1,10 +1,11 @@
 <?php
-
-
 namespace App\Http\Services;
 
-
 use App\Http\Interfaces\ServerInfo;
+use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Facades\Log;
 
 class MojangServerInfoService extends ServerInfo
 {
@@ -22,24 +23,23 @@ class MojangServerInfoService extends ServerInfo
      * Making query on MC API
      *
      * @return bool
+     * @throws GuzzleException
      */
     protected function makeQuery(): bool
     {
         self::checkPort();
 
-        $url = "https://mcapi.us/server/status?ip={$this->serverIp}&port={$this->serverPort}";
+        try {
+            $query = new GuzzleClient();
 
-        $ch = curl_init();
+            $result = $query->request("GET", "https://mcapi.us/server/status?ip={$this->serverIp}&port={$this->serverPort}");
 
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
+            $result = json_decode($result->getBody(), true);
 
-        $result = curl_exec($ch);
-
-        curl_close($ch);
-
-        $result = json_decode($result, true);
+        } catch (ClientException $e) {
+            Log::error('MNS Game Mojang Service module: '.$e->getMessage());
+            $result["status"] = "error";
+        }
 
         if($result["status"] == "error"){
             return false;
@@ -55,6 +55,7 @@ class MojangServerInfoService extends ServerInfo
      * Getting players count
      *
      * @return int
+     * @throws GuzzleException
      */
     public function getPlayersCount(): int
     {
