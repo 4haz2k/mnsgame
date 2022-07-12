@@ -133,15 +133,21 @@ class PaymentController extends Controller
      * @param Request $request
      */
     public function paymentCallbackYandex(Request $request){
+
+        if(count($request->all()) <= 0){
+            abort(404);
+        }
+
         Yookassa::where("payment_id", $request->object["id"])->firstOrFail();
 
-        if ($request->event == "succeeded") {
+        if ($request->event == NotificationEventType::PAYMENT_SUCCEEDED) {
+            Log::debug("First Step");
             if ($request->object['paid'] === true) {
                 $server = $this->updateInfoDB($request->object);
                 $this->addRatingToServer($server["server_id"], $server["sum"]);
                 $this->addPaymentHistory($server["server_id"], $server["sum"], "rating");
             }
-        } else if($request->event == "canceled") {
+        } else if($request->event == NotificationEventType::PAYMENT_CANCELED) {
             $this->updateInfoDB($request->object);
         }
     }
