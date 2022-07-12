@@ -141,7 +141,6 @@ class PaymentController extends Controller
         Yookassa::where("payment_id", $request->object["id"])->firstOrFail();
 
         if ($request->event == NotificationEventType::PAYMENT_SUCCEEDED) {
-            Log::debug("First Step");
             if ($request->object['paid'] === true) {
                 $server = $this->updateInfoDB($request->object);
                 $this->addRatingToServer($server["server_id"], $server["sum"]);
