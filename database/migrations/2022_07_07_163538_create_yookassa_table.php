@@ -25,7 +25,7 @@ class CreateYookassaTable extends Migration
             # Is Paid?
             $table->boolean('paid')->default(false);
             # Amount Invoice
-            $table->float('sum', 2);
+            $table->double('sum');
             # Currency Invoice
             $table->string('currency')->default('RUB');
             # Payment Link
