@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminPanel;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\GamePageController;
 use App\Http\Controllers\OtherController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\Server\ServerController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\VoteController;
@@ -39,6 +40,9 @@ Route::get('/support/faq/search', [SupportController::class, 'searchSuggestion']
 Auth::routes();
 Route::get('/social/auth/{provider}', [LoginController::class, "redirectToProvider"])->name("auth.social");
 Route::get('/social/auth/{provider}/callback', [LoginController::class, "handleProviderCallback"])->name("auth.social.callback");
+Route::get('/payment/redirect', [PaymentController::class, "paymentCreate"])->name("payment.create");
+Route::get('/payment/callback', [PaymentController::class, "paymentCallback"])->name("payment.callback");
+Route::get('/payment/callback/yandex', [PaymentController::class, "paymentCallbackYandex"])->name("payment.callback.yandex");
 // End authentication
 
 // User panel

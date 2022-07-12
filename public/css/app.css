@@ -12921,8 +12921,17 @@ input:checked + .toggle-bg {
 .mr-\[2px\] {
   margin-right: 2px;
 }
+.mt-\[15\%\] {
+  margin-top: 15%;
+}
 .mt-px {
   margin-top: 1px;
+}
+.mt-\[10\%\] {
+  margin-top: 10%;
+}
+.mt-\[5\%\] {
+  margin-top: 5%;
 }
 .block {
   display: block;
