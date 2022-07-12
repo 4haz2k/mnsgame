@@ -48,7 +48,9 @@ class PaymentController extends Controller
      */
     public function paymentCreate(PaymentOfServerRequest $request)
     {
-        $server = Server::where("server_id", $request->server_id)->first();
+        $server = Server::where("id", $request->server_id)->first();
+
+        dd($request->request);
 
         try {
             $payment = $this->client->createPayment([
@@ -79,13 +81,9 @@ class PaymentController extends Controller
 
             Log::error("YOOKASSA ERROR: ".$e->getMessage());
 
-            $error = [
-                "error" => [
-                    "payment" => "На данный момент оплата недоступна, обратитесь к администрации"
-                ]
-            ];
+            $error = "На данный момент оплата недоступна, обратитесь к администрации.";
 
-            return view("other.promote")->with($error);
+            return view("other.promote", compact("error"));
         }
     }
 

@@ -98,6 +98,15 @@
                         </div>
                     </div>
                 </div>
+                @if(isset($error))
+                    <div class="text-center font-medium tracking-wide text-red-500 text-base">{{ $error }}</div>
+                @endif
+                @error("server_id")
+                    <div class="text-center font-medium tracking-wide text-red-500 text-base">{{ $message }}</div>
+                @enderror
+                @error("price")
+                    <div class="text-center font-medium tracking-wide text-red-500 text-base">{{ $message }}</div>
+                @enderror
                 <div id="servers" class="flex flex-wrap justify-center"></div>
             </div>
             <div id="second-step" class="w-full hidden">
@@ -117,23 +126,7 @@
             </div>
             <div id="third-step" class="w-full hidden">
                 <div class="text-xl tracking-tight text-center">Осталось совсем немного.<br>Проверьте правильность указанных данных<br></div>
-                <div class="flex flex-col justify-start my-4 w-full h-48 bg-white border-indigo-500 border-2 shadow-md rounded py-2 px-3" id="info_block">
-                    <div class="my-auto text-base text-gray-700">
-                        <strong>Название проекта:</strong> [GFLClan.com] Zombie Escape 24/7 | Rank | Recruiting | NoBlock
-                    </div>
-                    <div class="my-auto text-base text-gray-700">
-                        <strong>MNS ID:</strong> 421412
-                    </div>
-                    <div class="my-auto text-base text-gray-700">
-                        <strong>Количество рейтинг-баллов:</strong> 1000
-                    </div>
-                    <div class="my-auto text-base text-gray-700">
-                        <strong>Сумма к оплате:</strong> 100 рублей
-                    </div>
-                    <div class="my-auto text-base text-gray-700">
-                        <strong>Дата окончания услуги:</strong> 28.07.2022 1:56 (1 месяц)
-                    </div>
-                </div>
+                <div class="flex flex-col justify-start my-4 w-full h-48 mdm:h-80 bg-white border-indigo-500 border-2 shadow-md rounded py-2 px-3" id="info_block"></div>
                 <div class="w-1/2 mx-auto">
                     <button class="bg-indigo-500 w-full hover:bg-indigo-400 text-white font-bold py-1 px-3 rounded" onclick="thirdStep()">
                         <span class="inline align-middle">Далее</span>
@@ -141,15 +134,13 @@
                 </div>
             </div>
             <div id="fourth-step" class="w-full hidden">
-                <div class="text-xl tracking-tight text-center">Теперь выберите способ оплаты.<br>Рейтинг начислится с момента поступления платежа в систему.<br>Историю платежей можно посмотреть в личном кабинете владельца проекта</div>
-                <div class="flex flex-col justify-start my-4 w-full h-48 py-2 px-3">
-
-                </div>
-                <div class="w-1/2 mx-auto">
-                    <button class="bg-indigo-500 w-full hover:bg-indigo-400 text-white font-bold py-1 px-3 rounded" id="launcher-button-preview">
+                <div class="text-lg tracking-tight text-center">Всё готово, теперь нажмите кнопку "Оплатить" для совершения платежа. <br>Рейтинг начислится с момента поступления платежа в систему.<br>Историю платежей можно посмотреть в личном кабинете владельца проекта</div>
+                <div class="w-1/2 mx-auto mt-3">
+                    <button class="bg-indigo-500 w-full hover:bg-indigo-400 text-white font-bold py-1 px-3 rounded" onclick="createPayment()">
                         <span class="inline align-middle">Оплатить</span>
                     </button>
                 </div>
+                <div class="text-center font-medium tracking-wide text-gray-700 text-sm mt-2">Нажимая кнопку "Оплатить" Вы соглашаетесь с <a href="{{ route("offer") }}" class="text-blue-500 underline">договором публичной оферты</a>.</div>
             </div>
         </div>
     </section>
@@ -317,8 +308,8 @@
             element_body_fourth.classList.toggle("hidden");
         }
 
-        function fourthStep(){
-
+        function createPayment(){
+            window.location.href = '{{ route("payment.create") }}'+"?server_id="+localStorage.getItem("server_id")+"&price="+localStorage.getItem("rating_count");
         }
 
         function isInt(value) {

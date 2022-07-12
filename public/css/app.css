@@ -14670,6 +14670,10 @@ input:checked + .toggle-bg {
     height: 9rem;
   }
 
+  .mdm\:h-80 {
+    height: 20rem;
+  }
+
   .mdm\:w-full {
     width: 100%;
   }
