@@ -36,7 +36,7 @@ class PaymentController extends Controller
     public function __construct()
     {
         $this->client = new Client();
-        $this->client->setAuth(env("YOOKASSA_CLIENT_ID"), env("YOOKASSA_CLIENT_SECRET"));
+        $this->client->setAuth(config("yookassa.YOOKASSA_CLIENT_ID"), config("yookassa.YOOKASSA_CLIENT_SECRET"));
     }
 
     /**
@@ -133,6 +133,7 @@ class PaymentController extends Controller
      * @param Request $request
      */
     public function paymentCallbackYandex(Request $request){
+        $request = $request->getContent();
         if ($request->event == NotificationEventType::PAYMENT_SUCCEEDED) {
             if ($request->object['paid'] === true) {
                 $server = $this->updateInfoDB($request->object);

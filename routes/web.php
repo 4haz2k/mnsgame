@@ -42,7 +42,7 @@ Route::get('/social/auth/{provider}', [LoginController::class, "redirectToProvid
 Route::get('/social/auth/{provider}/callback', [LoginController::class, "handleProviderCallback"])->name("auth.social.callback");
 Route::get('/payment/redirect', [PaymentController::class, "paymentCreate"])->name("payment.create");
 Route::get('/payment/callback', [PaymentController::class, "paymentCallback"])->name("payment.callback");
-Route::get('/payment/callback/yandex', [PaymentController::class, "paymentCallbackYandex"])->name("payment.callback.yandex");
+Route::any('/payment/callback/yandex', [PaymentController::class, "paymentCallbackYandex"])->name("payment.callback.yandex");
 // End authentication
 
 // User panel
