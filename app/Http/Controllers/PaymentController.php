@@ -50,8 +50,6 @@ class PaymentController extends Controller
     {
         $server = Server::where("id", $request->server_id)->first();
 
-        dd($request->request);
-
         try {
             $payment = $this->client->createPayment([
                 'amount' => [
