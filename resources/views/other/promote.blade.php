@@ -225,7 +225,7 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('public/js/app.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     <script src="https://unpkg.com/flowbite@1.3.3/dist/flowbite.js"></script>
     <script>
         function firstStep(element_server) {
