@@ -205,9 +205,16 @@ class PaymentController extends Controller
      * @param $rating
      */
     private function addRatingToServer($server_id, $rating){
-        $server_rating = new ServerRating();
-        $server_rating->server_id = $server_id;
-        $server_rating->rating = $rating;
+        $server_rating = ServerRating::where("server_id", $server_id)->first();
+
+        if($server_rating == null){
+            $server_rating = new ServerRating();
+            $server_rating->server_id = $server_id;
+            $server_rating->rating = $rating;
+        }
+        else{
+            $server_rating->rating += $rating;
+        }
 
         $server_rating->save();
     }
