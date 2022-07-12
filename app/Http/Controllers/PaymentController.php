@@ -106,13 +106,13 @@ class PaymentController extends Controller
             }
 
             switch ($payment->status){
-                case NotificationEventType::PAYMENT_SUCCEEDED:
+                case "succeeded":
                     return \view("payment.PAYMENT_SUCCEEDED");
 
-                case NotificationEventType::PAYMENT_WAITING_FOR_CAPTURE:
+                case "waiting_for_capture":
                     return \view("payment.PAYMENT_WAITING_FOR_CAPTURE");
 
-                case NotificationEventType::PAYMENT_CANCELED:
+                case "canceled":
                     return \view("payment.PAYMENT_CANCELED");
 
                 default:
@@ -133,14 +133,15 @@ class PaymentController extends Controller
      * @param Request $request
      */
     public function paymentCallbackYandex(Request $request){
-        $request = $request->getContent();
-        if ($request->event == NotificationEventType::PAYMENT_SUCCEEDED) {
+        Yookassa::where("payment_id", $request->object["id"])->firstOrFail();
+
+        if ($request->event == "succeeded") {
             if ($request->object['paid'] === true) {
                 $server = $this->updateInfoDB($request->object);
                 $this->addRatingToServer($server["server_id"], $server["sum"]);
                 $this->addPaymentHistory($server["server_id"], $server["sum"], "rating");
             }
-        } else if($request->event == NotificationEventType::PAYMENT_CANCELED) {
+        } else if($request->event == "canceled") {
             $this->updateInfoDB($request->object);
         }
     }

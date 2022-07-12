@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command("server:updateOnline")->everyFifteenMinutes()->description("Servers online updater");
+        $schedule->command("server:updateRating")->everyFifteenMinutes()->description("Servers rating updater");
     }
 
     /**
