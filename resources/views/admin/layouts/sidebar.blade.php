@@ -116,7 +116,7 @@
                     <li class="items-center">
                         <a href="{{ url("home") }}" class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block">
                             <i class="fas fa-house-user text-blueGray-300 mr-2 text-sm"></i>
-                            User panel
+                            Панель пользователя
                         </a>
                     </li>
 
@@ -178,7 +178,7 @@
             data: {
                 labels: [
                     @foreach($statistic["visits"] as $date)
-                    {{$date["date"].","}}
+                        {{$date["date"].","}}
                     @endforeach
                 ],
                 datasets: [
@@ -285,34 +285,70 @@
             type: "bar",
             data: {
                 labels: [
-                    "Январь",
-                    "Февраль",
-                    "Март",
-                    "Апрель",
-                    "Май",
-                    "Июнь",
-                    "Июль",
-                    "Август",
-                    "Сентябрь",
-                    "Октябрь",
-                    "Ноябрь",
-                    "Декабрь",
+                    @foreach($sales["sales"] as $sale)
+                        @switch($sale->date)
+                            @case("01")
+                                "Январь",
+                                @break
+                            @case("02")
+                                "Февраль",
+                                @break
+                            @case("03")
+                                "Март",
+                                @break
+                            @case("04")
+                                "Апрель",
+                                @break
+                            @case("05")
+                                "Май",
+                                @break
+                            @case("06")
+                                "Июнь",
+                                @break
+                            @case("07")
+                                "Июль",
+                                @break
+                            @case("08")
+                                "Август",
+                                @break
+                            @case("09")
+                                "Сентябрь",
+                                @break
+                            @case("10")
+                                "Октябрь",
+                                @break
+                            @case("11")
+                                "Ноябрь",
+                                @break
+                            @case("12")
+                                "Декабрь",
+                                @break
+                        @endswitch
+                    @endforeach
                 ],
                 datasets: [
                     {
-                        label: new Date().getFullYear(),
+                        label: "Кол-во продаж",
                         backgroundColor: "#ed64a6",
                         borderColor: "#ed64a6",
-                        data: [30, 78, 56, 34, 100, 45, 13],
+                        data: [
+                            @foreach($sales["sales"] as $sale)
+                                {{$sale->count.","}}
+                            @endforeach
+                        ],
                         fill: false,
                         barThickness: 8,
                     },
                     {
-                        label: new Date().getFullYear() - 1,
+                        label: "Сумма продаж",
                         fill: false,
                         backgroundColor: "#4c51bf",
                         borderColor: "#4c51bf",
-                        data: [27, 68, 86, 74, 10, 4, 87],
+                        data: [
+                            @foreach($sales["sales"] as $sale)
+                                {{$sale->sum.","}}
+                            @endforeach
+                        ],
                         barThickness: 8,
                     },
                 ],

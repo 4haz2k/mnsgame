@@ -4,16 +4,18 @@ namespace App\Http\Controllers;
 
 use Alexusmai\YandexMetrika\YandexMetrika;
 use App\Http\Services\YandexMetrikaFixed;
+use App\Models\PaymentHistory;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class AdminPanel extends Controller
 {
     /**
-     * @var YandexMetrika объект яндекс метрики
+     * @var YandexMetrikaFixed объект яндекс метрики
      */
     private $metric;
 
@@ -31,12 +33,14 @@ class AdminPanel extends Controller
      *
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Exception
      */
     public function index(){
         $statistic = $this->getViewsData();
         $page_views = $this->getTopPageViews();
         $refusal = $this->getRefusal();
         $geo_data = $this->getGeoArea();
+        $sales = $this->getSales();
 
         $name = Auth::user()->name. " " . Auth::user()->surname;
 
@@ -47,7 +51,8 @@ class AdminPanel extends Controller
                 "page_views",
                 "statistic",
                 "refusal",
-                "geo_data"
+                "geo_data",
+                "sales"
             )
         );
     }
@@ -57,12 +62,14 @@ class AdminPanel extends Controller
      *
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Exception
      */
     public function settingPage(){
         $statistic = $this->getViewsData();
         $page_views = $this->getTopPageViews();
         $refusal = $this->getRefusal();
         $geo_data = $this->getGeoArea();
+        $sales = $this->getSales();
         $userdata = [
             "name" => Auth::user()->name,
             "surname" => Auth::user()->surname,
@@ -81,8 +88,28 @@ class AdminPanel extends Controller
                 "refusal",
                 "geo_data",
                 "userdata",
+                "sales"
             )
         );
+    }
+
+    private function getSales(): array
+    {
+        $current_month = PaymentHistory::where("created_at", ">=", Carbon::now()->subMonth()->toDateTimeString())
+            ->where("created_at", "<=", Carbon::now()->toDateTimeString())->get()->count();
+
+        $previous_month = PaymentHistory::where("created_at", ">=", Carbon::now()->subMonths(2)->toDateTimeString())
+            ->where("created_at", "<=", Carbon::now()->subMonth()->toDateTimeString())->get()->count();
+
+        $sales = PaymentHistory::select(DB::raw("MONTH(created_at) AS `date`, COUNT(*) AS `count`, SUM(balance_change) as `sum`"))->where("created_at", ">=", Carbon::now()->subYear()->toDateTimeString())->groupBy(DB::raw("MONTH(created_at)"))->get();
+
+        $sales_percent = round(($current_month - $previous_month) / ($previous_month == 0 ? 1 : $previous_month) * 100, 2);
+
+        return [
+            "current_month" => $current_month,
+            "sales" => $sales,
+            "percent" => $sales_percent
+        ];
     }
 
     /**
@@ -94,9 +121,7 @@ class AdminPanel extends Controller
     private function getGeoArea() : ?array {
         $this->metric->getGeoArea()->adapt();
 
-        $data = json_decode($this->metric->adaptData["dataArray"]);
-
-        return $data;
+        return json_decode($this->metric->adaptData["dataArray"]);
     }
 
     /**
