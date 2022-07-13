@@ -14,9 +14,9 @@ class GamePageController extends Controller
     use SEOTools;
 
     public function gamesListPage(){
-        $this->seo()->setDescription("MNS Game - это сервис мониторинга проектов и серверов. Игроки могут найти сервер по своим интересам, используя категории для поиска, а владельцы используя минимальное количество сил и времени могут вывести свой проект в лидеры!");
-        $this->seo()->opengraph()->setTitle("Список игр на MNS Game Project");
-        $this->seo()->opengraph()->setDescription("Список игр со списком проектов на MNS Game Project");
+        $this->seo()->setDescription("MNS Game - это сервис мониторинга проектов и серверов для их владельцев и игроков различных жанров игр.");
+        $this->seo()->opengraph()->setTitle("Игры на MNS Game Project");
+        $this->seo()->opengraph()->setDescription("Страница игр на MNS Game Project");
         $this->seo()->opengraph()->setUrl(url("/games"));
         $this->seo()->opengraph()->addImage(asset("/img/mnsgame.png"));
         $this->seo()->opengraph()->setType("website");
@@ -63,7 +63,7 @@ class GamePageController extends Controller
 
         $game = Game::with("filters")->where("short_link", $link)->firstOrFail();
 
-        $this->seo()->setDescription("MNS Game - это сервис мониторинга проектов и серверов. Игроки могут найти сервер по своим интересам, используя категории для поиска, а владельцы используя минимальное количество сил и времени могут вывести свой проект в лидеры!");
+        $this->seo()->setDescription("MNS Game - это сервис мониторинга проектов и серверов для их владельцев и игроков различных жанров игр.");
         $this->seo()->opengraph()->setTitle("Мониторинг серверов ".$game->title);
         $this->seo()->opengraph()->setDescription($game->description);
         $this->seo()->opengraph()->setUrl(url("/games")."/".$game->short_link);

@@ -106,7 +106,7 @@
                     <img class="rounded-2" src="@if($server->banner_img == null) {{ asset("/img/test/banner.png") }} @else {{ asset("/img/banners/{$server->banner_img}") }} @endif" width="486" height="60" alt="" id="server-banner">
                 </div>
                 <div class="w-1/3 lg:hidden align-middle text-center mt-[1%]">
-                    <button class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 hover:border-indigo-500 rounded tooltip-custom" id="launcher-button-preview" onclick="voteProject({{ $server->id }})">
+                    <button class="modal-open bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 hover:border-indigo-500 rounded tooltip-custom" id="launcher-button-preview" onclick="addServerId({{ $server->id }})">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" class="w-5 h-4 inline mr-1 align-middle font-bold" color="white"	 viewBox="0 0 66.831 66.831" style="enable-background:new 0 0 66.831 66.831;" xml:space="preserve"> <g> 	<path fill="#FFFFFF" d="M51.735,20h-2.934c1.419-3.934,2.799-9.714,0.942-14.247c-1.095-2.673-3.177-4.574-6.021-5.496 		C43.197,0.086,42.651,0,42.101,0c-3.701,0-7.05,3.613-11.944,12.888c-2.199,4.171-5.364,7.683-7.593,9.577 		c-0.946,0.804-1.702,1.624-2.315,2.431c-1.69-2.512-4.558-4.167-7.806-4.167c-5.185,0-9.404,4.219-9.404,9.404v27.294 		c0,5.186,4.219,9.404,9.404,9.404c3.406,0,6.386-1.827,8.036-4.546c2.212,2.728,5.586,4.477,9.364,4.477h23.023 		c9.507,0,10.926-6.136,10.926-9.793v-24.91C63.793,25.41,58.384,20,51.735,20z M15.847,57.427c0,1.877-1.527,3.404-3.403,3.404 		c-1.877,0-3.404-1.527-3.404-3.404V30.133c0-1.877,1.527-3.404,3.404-3.404c1.876,0,3.403,1.527,3.403,3.404V57.427z 		 M57.793,56.969c0,2.221-0.354,3.793-4.926,3.793H29.844c-3.34,0-6.058-2.717-6.058-6.057V32.059l0.008-0.095l-0.021-0.176 		c-0.006-0.096-0.106-2.386,2.676-4.75c2.656-2.258,6.419-6.425,9.015-11.351c4.132-7.83,6.104-9.353,6.639-9.641 		c1.039,0.388,1.688,1.007,2.087,1.981c1.293,3.156-0.331,9.224-2.603,13.587l-2.283,4.385h12.43c3.341,0,6.059,2.718,6.059,6.059 		V56.969z"/> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> </svg>
                         <span class="align-middle">Голосовать</span>
                     </button>
@@ -121,7 +121,7 @@
                     <div class="text-center mt-[4px]">Рейтинг</div>
                 </div>
                 <div class="w-2/12 mdm:hidden align-middle text-center mt-[1%]">
-                    <button class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 hover:border-indigo-500 rounded tooltip-custom" id="launcher-button-preview" onclick="voteProject({{ $server->id }})">
+                    <button class="modal-open bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 hover:border-indigo-500 rounded tooltip-custom" id="launcher-button-preview" onclick="addServerId({{ $server->id }})">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" class="w-5 h-4 inline mr-1 align-middle font-bold" color="white"	 viewBox="0 0 66.831 66.831" style="enable-background:new 0 0 66.831 66.831;" xml:space="preserve"> <g> 	<path fill="#FFFFFF" d="M51.735,20h-2.934c1.419-3.934,2.799-9.714,0.942-14.247c-1.095-2.673-3.177-4.574-6.021-5.496 		C43.197,0.086,42.651,0,42.101,0c-3.701,0-7.05,3.613-11.944,12.888c-2.199,4.171-5.364,7.683-7.593,9.577 		c-0.946,0.804-1.702,1.624-2.315,2.431c-1.69-2.512-4.558-4.167-7.806-4.167c-5.185,0-9.404,4.219-9.404,9.404v27.294 		c0,5.186,4.219,9.404,9.404,9.404c3.406,0,6.386-1.827,8.036-4.546c2.212,2.728,5.586,4.477,9.364,4.477h23.023 		c9.507,0,10.926-6.136,10.926-9.793v-24.91C63.793,25.41,58.384,20,51.735,20z M15.847,57.427c0,1.877-1.527,3.404-3.403,3.404 		c-1.877,0-3.404-1.527-3.404-3.404V30.133c0-1.877,1.527-3.404,3.404-3.404c1.876,0,3.403,1.527,3.403,3.404V57.427z 		 M57.793,56.969c0,2.221-0.354,3.793-4.926,3.793H29.844c-3.34,0-6.058-2.717-6.058-6.057V32.059l0.008-0.095l-0.021-0.176 		c-0.006-0.096-0.106-2.386,2.676-4.75c2.656-2.258,6.419-6.425,9.015-11.351c4.132-7.83,6.104-9.353,6.639-9.641 		c1.039,0.388,1.688,1.007,2.087,1.981c1.293,3.156-0.331,9.224-2.603,13.587l-2.283,4.385h12.43c3.341,0,6.059,2.718,6.059,6.059 		V56.969z"/> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> </svg>
                         <span class="align-middle">Голосовать</span>
                     </button>
@@ -186,24 +186,7 @@
         </div>
         <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center hidden">
             <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
-            <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
-                <div class="modal-content py-4 text-left px-6">
-                    <div class="flex justify-between items-center pb-3">
-                        <p class="text-xl font-bold">Внимание!</p>
-                    </div>
-                    <p class="mb-1">Вы покидаете <strong>MNS Game Project!</strong></p>
-                    <p class="my-1">Мы не несём ответственность за содержимое и деятельность сайта, на который вы переходите.</p>
-                    <p class="mt-1">Вы уверены, что хотите продолжить?</p>
-                    <div class="flex justify-end pt-2">
-                        <button class="modal-close px-3 bg-transparent py-1 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2">Отменить</button>
-                        <a id="redirectUrl" target="_blank">
-                            <button class="modal-close bg-red-500 hover:bg-red-400 text-white py-1 px-3 rounded">
-                                <span class="inline align-middle pt-[1%]">Продолжить</span>
-                            </button>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto" id="modal-body"></div>
         </div>
     </div>
     <div class="notify"><span id="notifyType" class=""></span></div>
@@ -237,7 +220,39 @@
         }
 
         function redirect(url){
-            document.getElementById("redirectUrl").href = url;
+            document.getElementById("modal-body").innerHTML =
+                ' <div class="modal-content py-4 text-left px-6">'+
+                '<div class="flex justify-between items-center pb-3">'+
+                '<p class="text-xl font-bold">Внимание!</p>'+
+                '</div>'+
+                '<p class="mb-1">Вы покидаете <strong>MNS Game Project!</strong></p>'+
+                '<p class="my-1">Мы не несём ответственность за содержимое и деятельность сайта, на который вы переходите.</p>'+
+                '<p class="mt-1">Вы уверены, что хотите продолжить?</p>'+
+                '<div class="flex justify-end pt-2">'+
+                '<button class="modal-close px-3 bg-transparent py-1 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2" onclick="toggleModal()">Отменить</button>'+
+                '<a href="'+ url +'" id="redirectUrl" target="_blank">'+
+                '<button class="modal-close bg-red-500 hover:bg-red-400 text-white py-1 px-3 rounded">'+
+                '<span class="inline align-middle pt-[1%]">Продолжить</span>'+
+                '</button>'+
+                '</a>'+
+                '</div>'+
+                '</div>';
+        }
+
+        function addServerId(id){
+            document.getElementById("modal-body").innerHTML =
+                '<div class="modal-content py-4 text-left px-6">'+
+                '<div class="flex justify-between items-center pb-3 text-center">'+
+                '<p class="text-sm">Введите свой ник (для игры Minecraft), либо <a class="text-indigo-500 underline" href="https://steamid.io/" target="_blank">SteamID (для игр Steam)</a></p>'+
+                '</div>'+
+                '<input name="nickname" class="appearance-none block text-gray-600 border border-gray-200 rounded px-2 mb-3 mx-0 lg:mx-24 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm inline" type="text" id="nickname-input">'+
+                '<div class="flex justify-center pt-2">'+
+                '<button class="modal-close bg-indigo-500 hover:bg-indigo-400 text-white py-1 px-3 rounded" onclick="voteProject()">'+
+                ' <span class="inline align-middle pt-[1%]">Продолжить</span>'+
+                '</button>'+
+                '</div>'+
+                '</div>';
+            localStorage.setItem("project_id", id);
         }
     </script>
 
@@ -277,10 +292,12 @@
     </script>
 
     <script>
-        function voteProject(server_id){
+        function voteProject(){
+            toggleModal();
+
             const request = new XMLHttpRequest();
 
-            const url = "{{ url("/server/vote") }}" + "/" + server_id;
+            const url = "{{ url("/server/vote") }}" + "/" + localStorage.getItem("project_id");
 
             request.open("POST", url, true);
 
