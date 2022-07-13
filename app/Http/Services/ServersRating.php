@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 
 use App\Models\PaymentHistory;
+use App\Models\ServerRating;
 use Carbon\Carbon;
 
 class ServersRating
@@ -18,7 +19,7 @@ class ServersRating
     public function updateRating(){
         if($this->servers_payment->isNotEmpty()){
             foreach ($this->servers_payment as $server_payment) {
-                $server_rating = ServersRating::where("server_id", $server_payment->server_id)->first();
+                $server_rating = ServerRating::where("server_id", $server_payment->server_id)->first();
 
                 if($server_rating != null){
                     $server_rating->rating -= $server_payment->balance_change;
