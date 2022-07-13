@@ -20,7 +20,9 @@
         "socialiteproviders/vkontakte": "^4.2",
         "socialiteproviders/yandex": "^4.1",
         "socialiteproviders/zoho": "^4.1",
-        "yoomoney/yookassa-sdk-php": "^2.4"
+        "yoomoney/yookassa-sdk-php": "^2.4",
+        "ext-sockets": "*",
+        "ext-json": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
