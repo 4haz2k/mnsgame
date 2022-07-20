@@ -263,7 +263,9 @@
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-2">
                         <div class="lg:w-1/3 w-full px-3 lg:my-2">
-                            <label for="server-ip" class="block text-md tracking-wide text-gray-700 font-bold mb-2 text-left" id="server-type-title">IP адрес сервера</label>
+                            <label for="server-ip" class="block text-md tracking-wide text-gray-700 font-bold mb-2 text-left" id="server-type-title">
+                                IP адрес сервера <span class="text-red-500 tooltip-custom" data-tooltip="Поле обязательное для заполнения">*</span>
+                            </label>
                             <span class="block text-md tracking-wide text-gray-700 mb-2 text-left" id="server-type-description">Текстовая или циферная ссылка на ваш сервер.</span>
                         </div>
                         <div class="lg:w-2/3 w-full px-3 lg:my-4">
