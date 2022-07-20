@@ -70,7 +70,7 @@
                             ⭐ Будущее название сервера на MNS Game! ⭐
                         </div>
                         <div class="block">
-                            <img class="rounded-2" src="{{ asset("/img/test/banner.png") }}" width="486" height="60" alt="" id="server-banner">
+                            <img class="rounded-2" src="{{ asset("/img/deps/banner_placeholder_preview.png") }}" width="486" height="60" alt="" id="server-banner">
                         </div>
                     </div>
                     <div class="w-1/3 lg:w-1/12 justify-center items-center flex text-xs mdm:hidden">

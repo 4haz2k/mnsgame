@@ -87,7 +87,7 @@
                     @endif
                 </div>
                 <div class="w-full lg:hidden justify-center align-middle py-3">
-                    <img class="rounded-2" src="@if($server->banner_img == null) {{ asset("/img/test/banner.png") }} @else {{ asset("/img/banners/{$server->banner_img}") }} @endif" width="486" height="60" alt="" id="server-banner">
+                    <img class="rounded-2" src="@if($server->banner_img == null) {{ asset("/img/deps/banner_placeholder.png") }} @else {{ asset("/img/banners/{$server->banner_img}") }} @endif" width="486" height="60" alt="" id="server-banner">
                 </div>
                 <div class="w-1/12 mdm:w-1/3 flex flex-col mt-[1%]">
                     @if(!$server->is_launcher)
@@ -103,7 +103,7 @@
                     @endif
                 </div>
                 <div class="w-5/12 mdm:hidden justify-center align-middle">
-                    <img class="rounded-2" src="@if($server->banner_img == null) {{ asset("/img/test/banner.png") }} @else {{ asset("/img/banners/{$server->banner_img}") }} @endif" width="486" height="60" alt="" id="server-banner">
+                    <img class="rounded-2" src="@if($server->banner_img == null) {{ asset("/img/deps/banner_placeholder.png") }} @else {{ asset("/img/banners/{$server->banner_img}") }} @endif" width="486" height="60" alt="" id="server-banner">
                 </div>
                 <div class="w-1/3 lg:hidden align-middle text-center mt-[1%]">
                     <button class="modal-open bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 hover:border-indigo-500 rounded tooltip-custom" id="launcher-button-preview" onclick="addServerId({{ $server->id }})">

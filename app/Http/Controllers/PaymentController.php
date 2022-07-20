@@ -56,7 +56,7 @@ class PaymentController extends Controller
                     'value' => (double)$request->price,
                     'currency' => 'RUB',
                 ],
-                'description' => "Оплата рекламы проекта '{$server->title}'",
+                'description' => "Оплата рекламы проекта '{$server->title}' на MNS Game Project",
                 'capture' => true,
                 'confirmation' => [
                     'type' => 'redirect',
@@ -64,8 +64,7 @@ class PaymentController extends Controller
                 ],
                 'metadata' => [
                     'server_id' => $server->id,
-                ],
-                "test" => true // testing now
+                ]
             ], $unique_id = uniqid('', true));
 
             $this->addInfoToDB($payment, $unique_id);
