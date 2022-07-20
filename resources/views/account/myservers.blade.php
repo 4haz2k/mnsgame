@@ -132,7 +132,7 @@
                                     {{--                                Banner lg sm--}}
                                     <div class="block">
                                         <a href="{{ route("server", ["id" => $server->id]) }}">
-                                            <img class="rounded-2" src="@if($server->banner_img == null) {{ asset("/img/deps/banner_placeholder.png) }} @else {{ asset("/img/banners/{$server->banner_img}") }} @endif" width="486" height="60" alt="" id="server-banner">
+                                            <img class="rounded-2" src="@if($server->banner_img == null) {{ asset("/img/deps/banner_placeholder.png") }} @else {{ asset("/img/banners/{$server->banner_img}") }} @endif" width="486" height="60" alt="" id="server-banner">
                                         </a>
                                     </div>
                                     {{--                                End Banner lg sm--}}
