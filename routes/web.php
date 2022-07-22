@@ -78,3 +78,7 @@ Route::post('/game/get_games', [GamePageController::class, "getGamesList"]);
 Route::post('/server/vote/{server_id}', [VoteController::class, "addVote"]);
 Route::post('/servers/search', [OtherController::class, "getServerBySearch"]);
 // End AJAX
+
+// Telegram
+Route::post(config("telegram.bots.mnsgame.token")."/webhook", [\App\Http\Controllers\TelegramBotController::class, "eventHandler"]);
+// End Telegram

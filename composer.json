@@ -12,6 +12,7 @@
         "artesaos/seotools": "^0.22.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "irazasyed/telegram-bot-sdk": "^3.4.1",
         "jenssegers/date": "^4.0",
         "laravel/framework": "^8.65",
         "laravel/sanctum": "^2.11",
