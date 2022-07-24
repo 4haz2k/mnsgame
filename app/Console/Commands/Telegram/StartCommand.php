@@ -17,14 +17,11 @@ class StartCommand extends Command
      */
     public function handle()
     {
-        $telegram = new Api(config("telegram.bots.mnsgame.token"));
-        $response = $telegram->getUpdates();
-
         // Это отправит сообщение с использованием метода `sendMessage` за кулисами
         // идентификатор пользователя/чата, который запустил эту команду.
         // `replyWith<Message|Photo|Audio|Video|Voice|Document|Sticker|Location|ChatAction>()` все доступные методы динамически
         // обрабатывается, когда вы заменяете `send<Method>` на `replyWith` и используете те же параметры, за исключением того, что chat_id НЕ нужно включать в массив.
-        $this->replyWithMessage(['text' => "Здравствуйте, {$response['result'][0]['message']['from']['first_name']}. Выберите команду для продолжения:"]);
+        $this->replyWithMessage(['text' => "Здравствуйте. Выберите команду для продолжения:"]);
 
         // Это обновит статус чата до ввода...
         $this->replyWithChatAction(['action' => Actions::TYPING]);
