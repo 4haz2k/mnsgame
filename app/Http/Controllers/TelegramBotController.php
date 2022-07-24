@@ -18,7 +18,7 @@ class TelegramBotController extends Controller
     {
         $this->telegram = new Api(config("telegram.bots.mnsgame.token"));
 
-        $this->registerComamands();
+        $this->registerCommands();
 
         $updates = $this->telegram->commandsHandler(true);
 
@@ -29,7 +29,7 @@ class TelegramBotController extends Controller
         return 'ok';
     }
 
-    private function registerComamands(){
+    private function registerCommands(){
         $this->telegram->addCommands([
             StartCommand::class,
             CreateTicketCommand::class,
