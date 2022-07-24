@@ -2,22 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Console\Commands\Telegram\CreateTicketCommand;
+use App\Console\Commands\Telegram\MyTicketsCommand;
+use App\Console\Commands\Telegram\StartCommand;
 use Telegram\Bot\Api;
-use Telegram\Bot\Traits\Telegram;
 
 class TelegramBotController extends Controller
 {
+    /**
+     * @var Api $telegram
+     */
+    private Api $telegram;
+
     public function eventHandler(): string
     {
-        $telegram = new Api(config("telegram.bots.mnsgame.token"));
+        $this->telegram = new Api(config("telegram.bots.mnsgame.token"));
 
-        $updates = $telegram->commandsHandler(true);
+        $this->registerComamands();
+
+        $updates = $this->telegram->commandsHandler(true);
 
         if($updates->message->text == "Привет"){
-            $telegram->sendMessage(['text' => "Ну здарова.", 'chat_id' => $updates->message->chat->id]);
+            $this->telegram->sendMessage(['text' => "Ну здарова.", 'chat_id' => $updates->message->chat->id]);
         }
 
         return 'ok';
+    }
+
+    private function registerComamands(){
+        $this->telegram->addCommands([
+            StartCommand::class,
+            CreateTicketCommand::class,
+            MyTicketsCommand::class,
+        ]);
     }
 }
