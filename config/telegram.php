@@ -38,9 +38,7 @@ return [
             'certificate_path'    => env('TELEGRAM_CERTIFICATE_PATH', 'YOUR-CERTIFICATE-PATH'),
             'webhook_url'         => env('TELEGRAM_WEBHOOK_URL', 'YOUR-BOT-WEBHOOK-URL'),
             'commands'            => [
-                \App\Console\Commands\Telegram\StartCommand::class,
-                \App\Console\Commands\Telegram\CreateTicketCommand::class,
-                \App\Console\Commands\Telegram\MyTicketsCommand::class,
+                'user'
             ],
         ],
 
@@ -118,7 +116,7 @@ return [
     |
     */
     'commands'                     => [
-//        Telegram\Bot\Commands\HelpCommand::class,
+        Telegram\Bot\Commands\HelpCommand::class,
         \App\Console\Commands\Telegram\StartCommand::class,
         \App\Console\Commands\Telegram\CreateTicketCommand::class,
         \App\Console\Commands\Telegram\MyTicketsCommand::class,
@@ -143,6 +141,11 @@ return [
     | Examples shown below are by the group type for you to understand each of them.
     */
     'command_groups'               => [
+        'user' => [
+            'start',
+            'create',
+            'tickets'
+        ]
         /* // Group Type: 1
            'commmon' => [
                 Acme\Project\Commands\TodoCommand::class,

@@ -3,7 +3,6 @@
 namespace App\Console\Commands\Telegram;
 
 use Telegram\Bot\Actions;
-use Telegram\Bot\Api;
 use Telegram\Bot\Commands\Command;
 
 class StartCommand extends Command
