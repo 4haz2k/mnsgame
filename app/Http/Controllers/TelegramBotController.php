@@ -12,7 +12,7 @@ class TelegramBotController extends Controller
     {
         $telegram = new Api(config("telegram.bots.mnsgame.token"));
 
-        $updates = $telegram->getWebhookUpdate();
+        $updates = $telegram->commandsHandler(true);
 
         if($updates->message->text == "Привет"){
             $telegram->sendMessage(['text' => "Ну здарова.", 'chat_id' => $updates->message->chat->id]);
