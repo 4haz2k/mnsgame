@@ -119,6 +119,9 @@ return [
     */
     'commands'                     => [
 //        Telegram\Bot\Commands\HelpCommand::class,
+        \App\Console\Commands\Telegram\StartCommand::class,
+        \App\Console\Commands\Telegram\CreateTicketCommand::class,
+        \App\Console\Commands\Telegram\MyTicketsCommand::class,
     ],
 
     /*
