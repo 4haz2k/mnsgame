@@ -9,9 +9,7 @@ class VerifyCsrfToken extends Middleware
 {
     public function handle($request, Closure $next)
     {
-        if ($request->headers->get('referer') == url(config("telegram.bots.mnsgame.token")."/webhook")) {
-            $this->except[] = config("telegram.bots.mnsgame.token")."/webhook";
-        }
+        $this->except[] = config("telegram.bots.mnsgame.token")."/webhook";
 
         return parent::handle($request, $next);
     }

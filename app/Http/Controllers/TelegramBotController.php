@@ -14,8 +14,8 @@ class TelegramBotController extends Controller
 
         $updates = $telegram->getWebhookUpdate();
 
-        if($updates->message == "Привет"){
-            $telegram->sendMessage(['text' => "Ну здарова.", 'chat_id' => $updates->get('chat_id')]);
+        if($updates->message->text == "Привет"){
+            $telegram->sendMessage(['text' => "Ну здарова.", 'chat_id' => $updates->message->chat->id]);
         }
 
         return 'ok';
