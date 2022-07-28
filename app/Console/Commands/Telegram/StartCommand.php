@@ -21,7 +21,10 @@ class StartCommand extends Command
         // идентификатор пользователя/чата, который запустил эту команду.
         // `replyWith<Message|Photo|Audio|Video|Voice|Document|Sticker|Location|ChatAction>()` все доступные методы динамически
         // обрабатывается, когда вы заменяете `send<Method>` на `replyWith` и используете те же параметры, за исключением того, что chat_id НЕ нужно включать в массив.
-        $this->replyWithMessage(['text' => "Здравствуйте, {$updates->message->chat->firstName} {$updates->message->chat->lastName}. Выберите команду для продолжения:"]);
+        $this->replyWithMessage([
+            'text' => "Здравствуйте, *{$updates->message->from->firstName}*. Выберите команду для продолжения:",
+            'parse_mode' => 'markdown'
+        ]);
 
         // Это обновит статус чата до ввода...
         $this->replyWithChatAction(['action' => Actions::TYPING]);

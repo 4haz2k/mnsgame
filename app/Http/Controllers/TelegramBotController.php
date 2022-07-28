@@ -5,10 +5,23 @@ namespace App\Http\Controllers;
 use App\Console\Commands\Telegram\CreateTicketCommand;
 use App\Console\Commands\Telegram\MyTicketsCommand;
 use App\Console\Commands\Telegram\StartCommand;
+use App\Http\Interfaces\TelegramChecker;
+use App\Http\Interfaces\TelegramResolver;
+use Telegram\Bot\Answers\Answerable;
 use Telegram\Bot\Api;
+use Telegram\Bot\Exceptions\TelegramSDKException;
 
 class TelegramBotController extends Controller
 {
+    private TelegramResolver $resolver;
+
+    public function __construct()
+    {
+        $this->resolver = new TelegramResolver();
+    }
+
+    use TelegramChecker;
+
     /**
      * @var Api $telegram
      */
@@ -17,23 +30,48 @@ class TelegramBotController extends Controller
     public function eventHandler(): string
     {
         $this->telegram = new Api(config("telegram.bots.mnsgame.token"));
+        $update = $this->telegram->getWebhookUpdate();
 
-        $this->registerCommands();
+        $user_id = $this->registerUser($update->message->from);
 
-        $updates = $this->telegram->commandsHandler(true);
+        $this->registerLog($user_id, $update);
 
-        if($updates->message->text == "Привет"){
-            $this->telegram->sendMessage(['text' => "Ну здарова.", 'chat_id' => $updates->message->chat->id]);
+        if($this->checkIsUserSupporter($user_id)){
+            $this->registerAdminCommands();
         }
+        elseif($this->checkActiveTickets($user_id)){
+            if($response = $this->resolver->resolverHandler($user_id, $update, $this->telegram)){
+                $this->registerDefaultCommands();
+                $this->sendMessageToUser(null, $update, $this->telegram, true, $response);
+                return 0;
+            }
+        }
+        elseif ($this->checkResolvingTickets($user_id)){
+            $this->resolver->resolverHandler($user_id, $update, $this->telegram);
+        }
+
+        $this->telegram->commandsHandler(true);
 
         return 'ok';
     }
 
-    private function registerCommands(){
+    /**
+     *
+     * Регистрация команд
+     *
+     * @throws TelegramSDKException
+     */
+    private function registerDefaultCommands(){
         $this->telegram->addCommands([
             StartCommand::class,
             CreateTicketCommand::class,
             MyTicketsCommand::class,
+        ]);
+    }
+
+    private function registerAdminCommands(){
+        $this->telegram->addCommands([
+
         ]);
     }
 }
