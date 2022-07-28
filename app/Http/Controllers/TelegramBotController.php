@@ -50,6 +50,8 @@ class TelegramBotController extends Controller
             $this->resolver->resolverHandler($user_id, $update, $this->telegram);
         }
 
+        $this->registerDefaultCommands();
+
         $this->telegram->commandsHandler(true);
 
         return 'ok';

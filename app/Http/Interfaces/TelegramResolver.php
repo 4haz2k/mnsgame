@@ -20,7 +20,7 @@ class TelegramResolver
             case "body":
                 $this->saveBody($ticket, $updates->message);
                 $this->sendToSupport($telegram, $updates);
-                return "*Обращение зарегистрировано. Ожидайте ответ администратора.* Скоро он с вами свяжется. Дата и время регистрации обращения: *".date("d.m.Y H:i:s")."*";
+                return "*Обращение создано, ожидайте ответ администратора.* \nДата и время регистрации обращения: *".date("d.m.Y H:i:s")."*";
             case "resolving":
                 $this->sendMessageToAdmin($ticket, $updates, $telegram);
                 return false;

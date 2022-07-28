@@ -16,4 +16,6 @@ class TelegramLog extends Model
         "message",
         "date"
     ];
+
+    public $timestamps = false;
 }

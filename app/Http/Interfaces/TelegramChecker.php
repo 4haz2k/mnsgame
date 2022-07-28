@@ -49,9 +49,9 @@ trait TelegramChecker
         $ticket = TelegramTicket::where("user_id", $user_id)->where("is_creating", true)->first();
 
         if($ticket)
-            return false;
-        else
             return true;
+        else
+            return false;
     }
 
     /**
@@ -66,9 +66,9 @@ trait TelegramChecker
         $ticket = TelegramTicket::where("user_id", $user_id)->where("step", "resolving")->first();
 
         if($ticket)
-            return false;
-        else
             return true;
+        else
+            return false;
     }
 
     /**
@@ -83,7 +83,7 @@ trait TelegramChecker
 
         $log->user_id = $user_id;
         $log->message = $updates->message->text;
-        $log->date = Carbon::make($updates->message->date)->toDateTimeString();
+        $log->date = Carbon::createFromTimestamp($updates->message->date)->toDateTimeString();
 
         $log->save();
     }
