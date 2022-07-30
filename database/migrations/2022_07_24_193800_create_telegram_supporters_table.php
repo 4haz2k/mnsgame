@@ -15,6 +15,7 @@ class CreateTelegramSupportersTable extends Migration
     {
         Schema::create('telegram_supporters', function (Blueprint $table) {
             $table->id()->comment("ID пользователя");
+            $table->bigInteger("chat_id")->comment("ID чата администратора");
             $table->string("description")->comment("Описание");
 
             $table->foreign("id")->references("id")->on("telegram_users");

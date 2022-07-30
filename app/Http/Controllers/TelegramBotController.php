@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Console\Commands\Telegram\CloseTicketCommand;
 use App\Console\Commands\Telegram\CreateTicketCommand;
 use App\Console\Commands\Telegram\MyTicketsCommand;
 use App\Console\Commands\Telegram\StartCommand;
+use App\Console\Commands\Telegram\TakeTicketCommand;
 use App\Http\Interfaces\TelegramChecker;
 use App\Http\Interfaces\TelegramResolver;
 use Telegram\Bot\Answers\Answerable;
@@ -49,8 +51,9 @@ class TelegramBotController extends Controller
         elseif ($this->checkResolvingTickets($user_id)){
             $this->resolver->resolverHandler($user_id, $update, $this->telegram);
         }
-
-        $this->registerDefaultCommands();
+        else{
+            $this->registerDefaultCommands();
+        }
 
         $this->telegram->commandsHandler(true);
 
@@ -59,7 +62,7 @@ class TelegramBotController extends Controller
 
     /**
      *
-     * Регистрация команд
+     * Регистрация команд пользователя
      *
      * @throws TelegramSDKException
      */
@@ -71,9 +74,16 @@ class TelegramBotController extends Controller
         ]);
     }
 
+    /**
+     *
+     * Регистрация команд админа
+     *
+     * @throws TelegramSDKException
+     */
     private function registerAdminCommands(){
         $this->telegram->addCommands([
-
+            TakeTicketCommand::class,
+            CloseTicketCommand::class
         ]);
     }
 }
