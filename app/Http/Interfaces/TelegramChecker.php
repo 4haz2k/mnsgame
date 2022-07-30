@@ -82,6 +82,7 @@ trait TelegramChecker
 
         $log->user_id = $user_id;
         $log->message = $updates->message->text;
+        $log->chat_id = $updates->message->chat->id;
         $log->date = Carbon::createFromTimestamp($updates->message->date)->toDateTimeString();
 
         $log->save();

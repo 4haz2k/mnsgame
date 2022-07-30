@@ -16,6 +16,7 @@ class CreateTelegramUsersLogTable extends Migration
         Schema::create('telegram_users_log', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("user_id")->comment("ID пользователя");
+            $table->bigInteger("chat_id")->comment("ID чата");
             $table->longText("message")->comment("Сообщение");
             $table->dateTime("date")->comment("Время обращения");
 
