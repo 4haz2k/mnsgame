@@ -208,7 +208,7 @@
                 </a>
             </div>
             <div class="px-5 py-2">
-                <a href="#" class="text-base leading-6 text-gray-500 hover:text-gray-900">
+                <a href="https://github.com/4haz2k/GSMS/wiki" class="text-base leading-6 text-gray-500 hover:text-gray-900">
                     MNS Game API
                 </a>
             </div>
