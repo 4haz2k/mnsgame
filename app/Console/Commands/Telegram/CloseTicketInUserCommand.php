@@ -9,6 +9,10 @@ use Telegram\Bot\Exceptions\TelegramSDKException;
 
 class CloseTicketInUserCommand extends \Telegram\Bot\Commands\Command
 {
+    protected $name = "close";
+
+    protected $description = "Закрыть обращение";
+
     use TelegramChecker;
 
     /**

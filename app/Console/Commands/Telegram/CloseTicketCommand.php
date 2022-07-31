@@ -12,6 +12,10 @@ class CloseTicketCommand extends Command
 {
     use TelegramChecker;
 
+    protected $name = "close_ticket";
+
+    protected $description = "Закрыть обращение";
+
     public function handle()
     {
         $updates = $this->telegram->getWebhookUpdate();
