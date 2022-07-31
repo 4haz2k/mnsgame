@@ -15,12 +15,12 @@ class TelegramResolver
         $ticket = $this->getTicket($user_id);
         switch ($ticket->step){
             case "theme":
-                $this->saveTheme($ticket, $updates->message);
+                $this->saveTheme($ticket, $updates->message->text);
                 return "*Введите обращение*";
             case "body":
-                $this->saveBody($ticket, $updates->message);
+                $this->saveBody($ticket, $updates->message->text);
                 $this->sendToSupport($telegram, $updates);
-                return "*Обращение создано, ожидайте ответ администратора.* \nДата и время регистрации обращения: *".date("d.m.Y H:i:s")."*";
+                return "*Обращение создано, ожидайте ответ администратора.* \n\nДата и время регистрации обращения: *".date("d.m.Y H:i:s")."*";
             case "resolving":
                 $this->sendMessageToAdmin($ticket, $updates, $telegram);
                 return false;

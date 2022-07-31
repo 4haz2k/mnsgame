@@ -42,6 +42,9 @@ class TakeTicketCommand extends Command
             $this->updateTicket($ticket_model, $user_id);
             $this->sendCustomMessageToUser($ticket_model, $this->telegram, "*Ваше обращение принял администратор.* \nДля закрытия обращения напишите команду /close");
             $this->sendCustomMessageToAdmin($ticket_model, $this->telegram, $ticket[1]);
+            $this->replyWithMessage([
+                "text" => "Обработка обращения принята! Перейдите в бота @mnsgame_bot для общения с пользователем.",
+            ]);
         }
         else{
             $this->replyWithMessage([
