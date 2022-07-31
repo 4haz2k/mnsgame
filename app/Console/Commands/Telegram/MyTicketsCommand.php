@@ -25,9 +25,12 @@ class MyTicketsCommand extends \Telegram\Bot\Commands\Command
 
         $tickets = TelegramTicket::where("user_id", $user_id)->get();
 
-        $this->replyWithMessage([
-            "text" => "Ваши обращения:"
-        ]);
+        if($tickets->isEmpty()){
+            $this->replyWithMessage([
+                "text" => "Список ваших обращений пуст! Для создания обращения используйте команду /create"
+            ]);
+            return;
+        }
 
         $text = "";
 
@@ -45,6 +48,10 @@ class MyTicketsCommand extends \Telegram\Bot\Commands\Command
             }
             $text .= "Тема обращения: $ticket->theme\nДата создания: ".$ticket->created_at->format('d.m.Y H:i:s')."\nСтатус: $status\n\n";
         }
+
+        $this->replyWithMessage([
+            "text" => "Ваши обращения:"
+        ]);
 
         $this->replyWithMessage([
             "text" => $text
