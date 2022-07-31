@@ -136,6 +136,8 @@ trait TelegramChecker
     private function sendCustomMessageToAdmin($ticket, Api $telegram, string $message){
         $supporter = TelegramSupporters::where("id", $ticket->support_id)->first();
 
+        $message = "Вы приняли обращения от пользователя @".$message." \n*Тема обращения:* ".$ticket->theme."\n*Обращение:* ".$ticket->body."\nДля закрытия обращения используйте команду /close_ticket";
+
         $telegram->sendMessage([
             "chat_id" => $supporter->chat_id,
             "text" => $message,
@@ -170,5 +172,21 @@ trait TelegramChecker
         else{
             return false;
         }
+    }
+
+    private function getTicketData($ticket_id)
+    {
+        $ticket_model_data = TelegramTicket::where("id", $ticket_id)->first();
+
+        if($ticket_model_data)
+            return $ticket_model_data;
+        else
+            return false;
+    }
+
+    private function updateTicket(TelegramTicket $ticket, $user_id){
+        $ticket->support_id = $user_id;
+        $ticket->step = "resolving";
+        $ticket->save();
     }
 }
