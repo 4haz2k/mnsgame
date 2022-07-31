@@ -38,6 +38,8 @@ class TelegramBotController extends Controller
 
         $this->registerLog($user_id, $update);
 
+        // TODO: код настолько говно, что нужно привести его хотя бы к одному принципу программирования. При возникновении любой ошибки бот ляжет на лопатки и ошибку хрен найдешь в этом говне...
+
         if($this->checkIsUserSupporter($user_id)){
             $this->registerAdminCommands();
         }
