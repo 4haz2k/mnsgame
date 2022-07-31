@@ -83,7 +83,7 @@ class TelegramBotController extends Controller
     private function registerAdminCommands(){
         $this->telegram->addCommands([
             TakeTicketCommand::class,
-            CloseTicketCommand::class
+//            CloseTicketCommand::class
         ]);
     }
 }

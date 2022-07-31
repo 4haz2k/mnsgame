@@ -43,14 +43,14 @@ class TakeTicketCommand extends Command
             $ticket_model->step = "resolving";
             $ticket_model->save();
 
-            $this->sendMessageToUser($ticket_model, $updates, $this->telegram, false, "*Ваше обращение принял администратор.* \nДля закрытия обращения напишите команду /close");
-            $this->sendMessageToAdmin($ticket_model, $updates, $this->telegram, true,
+            $this->sendCustomMessageToUser($ticket_model, $this->telegram, "*Ваше обращение принял администратор.* \nДля закрытия обращения напишите команду /close");
+            $this->sendCustomMessageToAdmin($ticket_model, $this->telegram,
                 "Вы приняли обращения от пользователя @".$ticket[1]." \n\n*Тема обращения: ".$ticket_model->theme."\n\nОбращение: ".$ticket_model->body."*"."\n\nДля закрытия обращения используйте команду /close_ticket"
             );
         }
         else{
             $this->replyWithMessage([
-                "text" => "*Обращение с ID ".$ticket[2]." не найдено!",
+                "text" => "Обращение с ID ".$ticket[2]." не найдено!",
             ]);
         }
     }

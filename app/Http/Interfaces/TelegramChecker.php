@@ -124,6 +124,24 @@ trait TelegramChecker
         }
     }
 
+    private function sendCustomMessageToUser($ticket, Api $telegram, string $message){
+        $telegram->sendMessage([
+            "chat_id" => $ticket->chat_id,
+            "text" => $message,
+            "parse_mode" => 'markdown'
+        ]);
+    }
+
+    private function sendCustomMessageToAdmin($ticket, Api $telegram, string $message){
+        $supporter = TelegramSupporters::where("id", $ticket->support_id)->first();
+
+        $telegram->sendMessage([
+            "chat_id" => $supporter->chat_id,
+            "text" => $message,
+            "parse_mode" => 'markdown'
+        ]);
+    }
+
     private function sendToSupport(Api $telegram, Update $update){
         $telegram->sendMessage([
             "chat_id" => -639796455,
@@ -143,9 +161,9 @@ trait TelegramChecker
     }
 
     private function checkIsAdminTakedTicket($user_id){
-        $tickets = TelegramTicket::where("support_id", $user_id)->where("step", "resolving")->get();
+        $tickets = TelegramTicket::where("support_id", $user_id)->where("step", "resolving")->first();
 
-        if($tickets->isNotEmpty()){
+        if($tickets){
             return true;
         }
         else{
