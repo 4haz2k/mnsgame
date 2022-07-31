@@ -163,11 +163,11 @@ trait TelegramChecker
         }
     }
 
-    private function sendToSupport(Api $telegram, Update $update){
+    private function sendToSupport(Api $telegram, Update $update, $ticket_id){
         try {
             $telegram->sendMessage([
                 "chat_id" => -639796455,
-                "text" => "Новое обращение от @" . $update->message->from->username . " \nЧтобы принять обращение, напишите /take @" . $update->message->from->username,
+                "text" => "Новое обращение от @" . $update->message->from->username . " \nЧтобы принять обращение, напишите /take @" . $update->message->from->username . " $ticket_id",
                 "parse_mode" => 'markdown'
             ]);
         } catch (TelegramSDKException $e) {

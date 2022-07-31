@@ -33,7 +33,8 @@ class CloseTicketInUserCommand extends \Telegram\Bot\Commands\Command
                 "parse_mode" => 'markdown'
             ]);
             $this->replyWithMessage([
-                "text" => "*Вы закрыли обращение! Спасибо, что пользуетесь MNS Game Project!*"
+                "text" => "*Вы закрыли обращение! Спасибо, что пользуетесь MNS Game Project!*",
+                "parse_mode" => 'markdown'
             ]);
         } catch (TelegramSDKException $e) {
         }

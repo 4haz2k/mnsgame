@@ -17,7 +17,7 @@ class CreateTelegramUsersLogTable extends Migration
             $table->id();
             $table->unsignedBigInteger("user_id")->comment("ID пользователя");
             $table->bigInteger("chat_id")->comment("ID чата");
-            $table->longText("message")->comment("Сообщение");
+            $table->longText("message")->nullable(true)->comment("Сообщение");
             $table->dateTime("date")->comment("Время обращения");
 
             $table->foreign("user_id")->references("id")->on("telegram_users");

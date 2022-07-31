@@ -19,7 +19,7 @@ class TelegramResolver
                 return "*Введите обращение*";
             case "body":
                 $this->saveBody($ticket, $updates->message->text);
-                $this->sendToSupport($telegram, $updates);
+                $this->sendToSupport($telegram, $updates, $ticket->id);
                 return "*Обращение создано, ожидайте ответ администратора.* \n\nДата и время регистрации обращения: *".date("d.m.Y H:i:s")."*";
             case "resolving":
                 if($updates->message->text == "/close")

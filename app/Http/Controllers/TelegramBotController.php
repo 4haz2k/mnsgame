@@ -10,7 +10,6 @@ use App\Console\Commands\Telegram\StartCommand;
 use App\Console\Commands\Telegram\TakeTicketCommand;
 use App\Http\Interfaces\TelegramChecker;
 use App\Http\Interfaces\TelegramResolver;
-use Telegram\Bot\Answers\Answerable;
 use Telegram\Bot\Api;
 use Telegram\Bot\Exceptions\TelegramSDKException;
 
@@ -46,7 +45,7 @@ class TelegramBotController extends Controller
                 if($update->message->text != "/close_ticket"){
                     $this->sendMessageToUser($ticket, $update, $this->telegram);
                 }
-                $this->registerAdminCommandsInTicket(); // добавить перессылку сообщения
+                $this->registerAdminCommandsInTicket();
             }
             else{
                 $this->registerAdminCommands();
