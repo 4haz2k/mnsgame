@@ -136,12 +136,11 @@ trait TelegramChecker
     private function sendCustomMessageToAdmin($ticket, Api $telegram, string $message){
         $supporter = TelegramSupporters::where("id", $ticket->support_id)->first();
 
-        $message = "Вы приняли обращения от пользователя ".$message." \n\n*Тема обращения:* ".$ticket->theme."\n\n*Обращение:* ".$ticket->body."\n\nДля закрытия обращения используйте команду /close_ticket";
+        $message = "Вы приняли обращения от пользователя ".$message." \n\nТема обращения: ".$ticket->theme."\n\nОбращение: ".$ticket->body."\n\nДля закрытия обращения используйте команду /close_ticket";
 
         $telegram->sendMessage([
             "chat_id" => $supporter->chat_id,
             "text" => $message,
-            "parse_mode" => 'markdown'
         ]);
     }
 
