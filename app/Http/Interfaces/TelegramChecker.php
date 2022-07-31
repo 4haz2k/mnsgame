@@ -11,6 +11,7 @@ use App\Models\TelegramUser;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Api;
+use Telegram\Bot\Exceptions\TelegramSDKException;
 use Telegram\Bot\Objects\Update;
 
 trait TelegramChecker
@@ -93,44 +94,59 @@ trait TelegramChecker
         $supporter = TelegramSupporters::where("id", $ticket->support_id)->first();
 
         if($is_bot){
-            $telegram->sendMessage([
-                "chat_id" => $supporter->chat_id,
-                "text" => $message,
-                "parse_mode" => 'markdown'
-            ]);
+            try {
+                $telegram->sendMessage([
+                    "chat_id" => $supporter->chat_id,
+                    "text" => $message,
+                    "parse_mode" => 'markdown'
+                ]);
+            } catch (TelegramSDKException $e) {
+            }
         }
         else{
-            $telegram->forwardMessage([
-                "chat_id" => $supporter->chat_id,
-                "from_chat_id" => $updates->message->chat->id,
-                "message_id" => $updates->message->messageId
-            ]);
+            try {
+                $telegram->forwardMessage([
+                    "chat_id" => $supporter->chat_id,
+                    "from_chat_id" => $updates->message->chat->id,
+                    "message_id" => $updates->message->messageId
+                ]);
+            } catch (TelegramSDKException $e) {
+            }
         }
     }
 
     private function sendMessageToUser($ticket, Update $updates, Api $telegram, bool $is_bot = false, string $message = null){
         if($is_bot){
-            $telegram->sendMessage([
-                "chat_id" => $updates->message->chat->id,
-                "text" => $message,
-                "parse_mode" => 'markdown'
-            ]);
+            try {
+                $telegram->sendMessage([
+                    "chat_id" => $updates->message->chat->id,
+                    "text" => $message,
+                    "parse_mode" => 'markdown'
+                ]);
+            } catch (TelegramSDKException $e) {
+            }
+
         }
         else{
-            $telegram->sendMessage([
-                "chat_id" => $ticket->chat_id,
-                "text" => $updates->message->text,
-                "parse_mode" => 'markdown'
-            ]);
+            try {
+                $telegram->sendMessage([
+                    "chat_id" => $ticket->chat_id,
+                    "text" => $updates->message->text
+                ]);
+            } catch (TelegramSDKException $e) {
+            }
         }
     }
 
     private function sendCustomMessageToUser($ticket, Api $telegram, string $message){
-        $telegram->sendMessage([
-            "chat_id" => $ticket->chat_id,
-            "text" => $message,
-            "parse_mode" => 'markdown'
-        ]);
+        try {
+            $telegram->sendMessage([
+                "chat_id" => $ticket->chat_id,
+                "text" => $message,
+                "parse_mode" => 'markdown'
+            ]);
+        } catch (TelegramSDKException $e) {
+        }
     }
 
     private function sendCustomMessageToAdmin($ticket, Api $telegram, string $message){
@@ -138,18 +154,24 @@ trait TelegramChecker
 
         $message = "Вы приняли обращения от пользователя ".$message." \n\nТема обращения: ".$ticket->theme."\n\nОбращение: ".$ticket->body."\n\nДля закрытия обращения используйте команду /close_ticket";
 
-        $telegram->sendMessage([
-            "chat_id" => $supporter->chat_id,
-            "text" => $message,
-        ]);
+        try {
+            $telegram->sendMessage([
+                "chat_id" => $supporter->chat_id,
+                "text" => $message,
+            ]);
+        } catch (TelegramSDKException $e) {
+        }
     }
 
     private function sendToSupport(Api $telegram, Update $update){
-        $telegram->sendMessage([
-            "chat_id" => -639796455,
-            "text" => "Новое обращение от @".$update->message->from->username." \nЧтобы принять обращение, напишите /take @".$update->message->from->username,
-            "parse_mode" => 'markdown'
-        ]);
+        try {
+            $telegram->sendMessage([
+                "chat_id" => -639796455,
+                "text" => "Новое обращение от @" . $update->message->from->username . " \nЧтобы принять обращение, напишите /take @" . $update->message->from->username,
+                "parse_mode" => 'markdown'
+            ]);
+        } catch (TelegramSDKException $e) {
+        }
     }
 
     private function checkIsUserSupporter($user_id)
@@ -166,7 +188,7 @@ trait TelegramChecker
         $tickets = TelegramTicket::where("support_id", $user_id)->where("step", "resolving")->first();
 
         if($tickets){
-            return true;
+            return $tickets;
         }
         else{
             return false;
@@ -187,5 +209,27 @@ trait TelegramChecker
         $ticket->support_id = $user_id;
         $ticket->step = "resolving";
         $ticket->save();
+    }
+
+    private function closeTicketInAdmin($user_id){
+        $ticket = TelegramTicket::where("support_id", $user_id)->where("step", "resolving")->first();
+
+        $ticket->step = "closed";
+
+        $ticket->save();
+
+        return $ticket->chat_id;
+    }
+
+    private function closeTicketInUser($user_id){
+        $ticket = TelegramTicket::where("user_id", $user_id)->where("step", "resolving")->first();
+
+        $ticket->step = "closed";
+
+        $ticket->save();
+
+        $supporter = TelegramSupporters::where("id", $ticket->support_id)->first();
+
+        return $supporter->chat_id;
     }
 }

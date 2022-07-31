@@ -22,6 +22,9 @@ class TelegramResolver
                 $this->sendToSupport($telegram, $updates);
                 return "*Обращение создано, ожидайте ответ администратора.* \n\nДата и время регистрации обращения: *".date("d.m.Y H:i:s")."*";
             case "resolving":
+                if($updates->message->text == "/close")
+                    return false;
+
                 $this->sendMessageToAdmin($ticket, $updates, $telegram);
                 return false;
             default:

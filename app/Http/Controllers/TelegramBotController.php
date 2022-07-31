@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Console\Commands\Telegram\CloseTicketCommand;
+use App\Console\Commands\Telegram\CloseTicketInUserCommand;
 use App\Console\Commands\Telegram\CreateTicketCommand;
 use App\Console\Commands\Telegram\MyTicketsCommand;
 use App\Console\Commands\Telegram\StartCommand;
@@ -41,7 +42,13 @@ class TelegramBotController extends Controller
         // TODO: код настолько говно, что нужно привести его хотя бы к одному принципу программирования. При возникновении любой ошибки бот ляжет на лопатки и ошибку хрен найдешь в этом говне...
 
         if($this->checkIsUserSupporter($user_id)){
-            $this->registerAdminCommands();
+            if($ticket = $this->checkIsAdminTakedTicket($user_id)){
+                $this->sendMessageToUser($ticket, $update, $this->telegram);
+                $this->registerAdminCommandsInTicket(); // добавить перессылку сообщения
+            }
+            else{
+                $this->registerAdminCommands();
+            }
         }
         elseif($this->checkActiveTickets($user_id)){
             if($response = $this->resolver->resolverHandler($user_id, $update, $this->telegram)){
@@ -52,6 +59,7 @@ class TelegramBotController extends Controller
         }
         elseif ($this->checkResolvingTickets($user_id)){
             $this->resolver->resolverHandler($user_id, $update, $this->telegram);
+            $this->registerUserCommandsInTicket();
         }
         else{
             $this->registerDefaultCommands();
@@ -85,7 +93,30 @@ class TelegramBotController extends Controller
     private function registerAdminCommands(){
         $this->telegram->addCommands([
             TakeTicketCommand::class,
-//            CloseTicketCommand::class
+        ]);
+    }
+
+    /**
+     *
+     * Регистрация команд админа в тикете
+     *
+     * @throws TelegramSDKException
+     */
+    private function registerAdminCommandsInTicket(){
+        $this->telegram->addCommands([
+            CloseTicketCommand::class,
+        ]);
+    }
+
+    /**
+     *
+     * Регистрация команд пользователя в тикете
+     *
+     * @throws TelegramSDKException
+     */
+    private function registerUserCommandsInTicket(){
+        $this->telegram->addCommands([
+            CloseTicketInUserCommand::class,
         ]);
     }
 }

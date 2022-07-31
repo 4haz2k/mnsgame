@@ -26,7 +26,7 @@ class TakeTicketCommand extends Command
 
         if(!isset($ticket[1]) and !isset($ticket[2])){
             $this->replyWithMessage([
-                "text" => "Необходимо ввести пользователя и ID обращения в формате /take @user 12345!"
+                "text" => "Необходимо ввести пользователя и ID обращения в формате /take @user 12345"
             ]);
             return;
         }
