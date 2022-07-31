@@ -43,7 +43,9 @@ class TelegramBotController extends Controller
 
         if($this->checkIsUserSupporter($user_id)){
             if($ticket = $this->checkIsAdminTakedTicket($user_id)){
-                $this->sendMessageToUser($ticket, $update, $this->telegram);
+                if($update->message->text != "/close_ticket"){
+                    $this->sendMessageToUser($ticket, $update, $this->telegram);
+                }
                 $this->registerAdminCommandsInTicket(); // добавить перессылку сообщения
             }
             else{
