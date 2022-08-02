@@ -47,8 +47,7 @@ class PasswordReset extends Notification
 
         return (new MailMessage)
             ->view('vendor.maileclipse.templates.passwordReset', compact("link", "login"))
-            ->subject("Восстановление пароля")
-            ->from("support@mnsgame.ru");
+            ->subject("Восстановление пароля");
     }
 
     /**
