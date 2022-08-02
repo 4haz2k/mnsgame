@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\PasswordReset;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -70,5 +71,10 @@ class User extends Authenticatable
         static::deleting(function ($user){
             $user->server()->delete();
         });
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new PasswordReset($token));
     }
 }

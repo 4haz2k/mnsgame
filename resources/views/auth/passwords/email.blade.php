@@ -19,7 +19,7 @@
                     @csrf
                     <input type="hidden" name="remember" value="true">
                     <div>
-                        <label for="email" class="font-bold">Email</label>
+                        <label for="email" class="font-bold">Электронная почта</label>
                         <input id="email" name="email" type="text" autocomplete="email" required class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm @error('email') !border-red-500 @enderror" placeholder="Введите e-mail адрес, привязанный к аккаунту">
                         @error('email')
                         <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">{{ $message }}</span>
