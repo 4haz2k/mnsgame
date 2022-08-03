@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Alexusmai\YandexMetrika\YandexMetrika;
 use App\Http\Services\YandexMetrikaFixed;
 use App\Models\PaymentHistory;
+use App\Models\Question;
+use App\Models\QuestionOfCategoryModel;
+use App\Models\QuestionRate;
+use App\Models\TopicCategoryModel;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -215,5 +219,65 @@ class AdminPanel extends Controller
 
     public function updateSettings(Request $request){
         $user = User::find(Auth::id());
+    }
+
+    public function questionsPage(){
+        $statistic = $this->getViewsData();
+        $page_views = $this->getTopPageViews();
+        $refusal = $this->getRefusal();
+        $geo_data = $this->getGeoArea();
+        $sales = $this->getSales();
+        $userdata = [
+            "name" => Auth::user()->name,
+            "surname" => Auth::user()->surname,
+            "email" => Auth::user()->email,
+            "login" => Auth::user()->login
+        ];
+
+        $name = Auth::user()->name. " " . Auth::user()->surname;
+
+        $categories = TopicCategoryModel::all();
+
+        return view(
+            'admin.questions',
+            compact(
+                "name",
+                "page_views",
+                "statistic",
+                "refusal",
+                "geo_data",
+                "userdata",
+                "sales",
+                "categories"
+            )
+        );
+    }
+
+    public function questionsPageAdd(){
+        $question = new Question();
+
+        $question->title = \request("title");
+        $question->answer = \request("answer");
+        $question->dateTime = Carbon::now()->toDateTimeString();
+
+        $question->save();
+
+        $rate = new QuestionRate();
+        $rate->id = $question->id;
+        $rate->helpful = 0;
+        $rate->useless = 0;
+        $rate->save();
+
+
+        if(\request("category") != "empty"){
+            $category = new QuestionOfCategoryModel();
+
+            $category->question_id = $question->id;
+            $category->category_id = (int)\request("category");
+
+            $category->save();
+        }
+
+        return $this->questionsPage();
     }
 }

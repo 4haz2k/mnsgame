@@ -62,7 +62,7 @@ class SupportController extends Controller
      */
     public function isHelpful(Request $request): JsonResponse
     {
-        $rate = QuestionRate::find($request->answer_id);
+        $rate = QuestionRate::where("id", (int)\request("answer_id"))->first();
         if($rate != null){
             if(\request("type") != null){
                 switch (\request("type")){
