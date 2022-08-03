@@ -16,7 +16,7 @@ class CreateQuestionsTable extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->string("title")->comment("Название вопроса");
-            $table->string("answer")->comment("Ответ на вопрос");
+            $table->longText("answer")->comment("Ответ на вопрос");
             $table->dateTime("dateTime")->comment("Время и дата вопроса");
         });
     }
