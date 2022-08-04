@@ -14,6 +14,7 @@ use App\Models\Server;
 use Artesaos\SEOTools\Facades\OpenGraph;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Traits\SEOTools;
+use Dflydev\DotAccessData\Data;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -174,12 +175,15 @@ class ServerController extends Controller
 
     public function myServers(){
         $games = Game::with(["servers" => function ($query){
-            $query->selectRaw("*, (select count(*) from `server_rates` where `servers`.`id` = `server_rates`.`server_id`) * ".ServerData::coefficient." + IFNULL((select rating from `server_ratings` where `servers`.`id` = `server_ratings`.`server_id`), 0) as `rating`");
+            $query->selectRaw("*, (select count(*) from `server_rates` where `servers`.`id` = `server_rates`.`server_id`) * ".ServerData::coefficient." + IFNULL((select rating from `server_ratings` where `servers`.`id` = `server_ratings`.`server_id`), 0) as `rating`")->where("owner_id", Auth::id());
         }])
-            ->whereHas("servers", function ($q){
-                $q->where("owner_id", Auth::id());
-            })
             ->get();
+
+        foreach ($games as $key => $game){
+            if($game->servers->isEmpty()){
+                unset($games[$key]);
+            }
+        }
 
         return view('account.myservers', compact("games"));
     }
