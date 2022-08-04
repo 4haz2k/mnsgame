@@ -34,7 +34,7 @@ class EditServerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "server_title" => "required|max:60|min:10",
+            "server_title" => "required|max:60|min:6",
             "server_description" => "required|max:2048|min:20",
             "game_title" => "required|exists:games,title",
             "server_site" => "active_url|nullable",
@@ -57,7 +57,7 @@ class EditServerRequest extends FormRequest
         return [
             "server_title.required" => "Название сервера должно быть заполнено.",
             "server_title.max" => "Название сервера должно быть не длинее 60 символов.",
-            "server_title.min" => "Название сервера должно быть не короче 15 символов.",
+            "server_title.min" => "Название сервера должно быть не короче 6 символов.",
             "server_description.required" => "Описание сервера должно быть заполнено.",
             "server_description.max" => "Описание сервера должно быть не длинее 255 символов.",
             "server_description.min" => "Описание сервера должно быть не короче 20 символов.",
