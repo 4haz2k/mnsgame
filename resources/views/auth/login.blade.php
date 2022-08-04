@@ -78,14 +78,14 @@
                             </button>
                         </a>
                     </div>
-                    <div class="relative w-full mx-1 justify-center text-center ">
-                        <a href="{{ route("auth.social", "google") }}">
-                            <button class="w-full justify-center text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-1 focus:ring-indigo-200 font-medium rounded-lg text-sm px-[2.5rem] py-1 text-center mr-2 mb-2">
-                                <svg class="mx-auto w-6 h-6 inline" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="48px" height="48px"><path fill="#808080" d="M24 4A20 20 0 1 0 24 44A20 20 0 1 0 24 4Z"/><path fill="#fff" d="M34 19H36V27H34z"/><path fill="#fff" d="M31 22H39V24H31zM27.815 22.2l-.05-.2H19v3h5.91c-.477 2.837-2.938 5-5.91 5-3.314 0-6-2.686-6-6s2.686-6 6-6c1.5 0 2.868.554 3.92 1.465l2.151-2.106C23.471 15.894 21.34 15 19 15c-4.971 0-9 4.029-9 9s4.029 9 9 9 9-4.029 9-9C28 23.383 27.934 22.782 27.815 22.2z"/></svg>
-                                <span class="inline block lg:hidden text-sm my-auto align-middle">Google</span>
-                            </button>
-                        </a>
-                    </div>
+{{--                    <div class="relative w-full mx-1 justify-center text-center ">--}}
+{{--                        <a href="{{ route("auth.social", "google") }}">--}}
+{{--                            <button class="w-full justify-center text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-1 focus:ring-indigo-200 font-medium rounded-lg text-sm px-[2.5rem] py-1 text-center mr-2 mb-2">--}}
+{{--                                <svg class="mx-auto w-6 h-6 inline" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="48px" height="48px"><path fill="#808080" d="M24 4A20 20 0 1 0 24 44A20 20 0 1 0 24 4Z"/><path fill="#fff" d="M34 19H36V27H34z"/><path fill="#fff" d="M31 22H39V24H31zM27.815 22.2l-.05-.2H19v3h5.91c-.477 2.837-2.938 5-5.91 5-3.314 0-6-2.686-6-6s2.686-6 6-6c1.5 0 2.868.554 3.92 1.465l2.151-2.106C23.471 15.894 21.34 15 19 15c-4.971 0-9 4.029-9 9s4.029 9 9 9 9-4.029 9-9C28 23.383 27.934 22.782 27.815 22.2z"/></svg>--}}
+{{--                                <span class="inline block lg:hidden text-sm my-auto align-middle">Google</span>--}}
+{{--                            </button>--}}
+{{--                        </a>--}}
+{{--                    </div>--}}
                 </div>
             </div>
         </div>
