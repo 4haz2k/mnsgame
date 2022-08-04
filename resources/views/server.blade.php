@@ -189,6 +189,10 @@
             <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto" id="modal-body"></div>
         </div>
     </div>
+    <div class="relative w-full px-6 py-1 mdm:max-w-3xl md:mx-auto lg:max-w-7xl lg:pt-2 lg:pb-14 lg:!px-0 mb-5 flex justify-content-between">
+        <div class="text-xs mdm:w-2/3"><a href="{{ url("games") }}">Игры</a> » <a href="{{ url("games")."/{$server->game->short_link}" }}">{{ $server->game->title }}</a> » <a href="">{{ $server->title }}</a></div>
+        <div class="text-xs"><a href="{{ url()->previous() }}">← Назад</a></div>
+    </div>
     <div class="notify"><span id="notifyType" class=""></span></div>
 @endsection
 

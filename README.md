@@ -17,7 +17,7 @@ In the future, games will be added.
 
 Start of site development: 01 December 2021
 
-Planned Alpha release date: 5 July 2022
+Planned Alpha release date: 5 August 2022
 
 Planned Release date: 15 July 2022
 
@@ -25,10 +25,9 @@ Planned Release date: 15 July 2022
 
 Technology stack used in development:
 
-- Apache 2.4
+- Nginx
 - PHP 7.4
-- MariaDB 10.3
-- Vue.js
+- MySQL
 - Laravel 8.0
 - Tailwind
 

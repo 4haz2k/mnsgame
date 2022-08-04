@@ -33,6 +33,10 @@
             </span>
         </div>
     </div>
+    <div class="relative w-full px-6 py-1 md:max-w-3xl md:mx-auto lg:max-w-4xl lg:pt-2 lg:pb-14 lg:!px-0 mb-5 flex justify-content-between">
+        <div class="text-xs mdm:w-2/3"><a href="{{ url("home") }}">Личный кабинет</a> » <a href="{{ url("notifications") }}">Уведомления</a> » <a href="{{ url("notification")."/$notification->id" }}">{{$notification->title}}</a></div>
+        <div class="text-xs"><a href="{{ url()->previous() }}">← Назад</a></div>
+    </div>
 @endsection
 
 @section('scripts')

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Interfaces\NotificationSender;
 use App\Models\SocialAccount;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -19,7 +20,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class LoginController extends Controller
 {
-    use AuthenticatesUsers;
+    use AuthenticatesUsers, NotificationSender;
 
     /**
      * Where to redirect users after login.
@@ -104,6 +105,7 @@ class LoginController extends Controller
         ]);
 
         $this->addSocialAccount($provider, $user, $socialiteUser);
+        $this->sendFirstNotification($user->id, $user->login);
 
         return $user;
     }

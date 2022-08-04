@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Interfaces\NotificationSender;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Carbon\Carbon;
@@ -23,7 +24,7 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    use RegistersUsers, NotificationSender;
 
     /**
      * Where to redirect users after registration.
@@ -67,7 +68,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data): User
     {
-        return User::create([
+        $user = User::create([
             'name' => isset($data['name']) ? $data['name'] : null,
             'surname' => isset($data['surname']) ? $data['surname'] : null,
             'login' => $data['login'],
@@ -77,5 +78,9 @@ class RegisterController extends Controller
             'role' => "user",
             'password' => Hash::make($data['password']),
         ]);
+
+        $this->sendFirstNotification($user->id, $user->login);
+
+        return $user;
     }
 }

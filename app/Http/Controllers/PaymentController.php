@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Interfaces\NotificationSender;
 use App\Http\Requests\PaymentOfServerRequest;
 use App\Models\PaymentHistory;
 use App\Models\Server;
@@ -31,6 +32,8 @@ use YooKassa\Request\Payments\CreatePaymentResponse;
 
 class PaymentController extends Controller
 {
+    use NotificationSender;
+
     private $client;
 
     public function __construct()
@@ -143,7 +146,8 @@ class PaymentController extends Controller
             if ($request->object['paid'] === true) {
                 $server = $this->updateInfoDB($request->object);
                 $this->addRatingToServer($server["server_id"], $server["sum"]);
-                $this->addPaymentHistory($server["server_id"], $server["sum"], "rating");
+                $payment_history = $this->addPaymentHistory($server["server_id"], $server["sum"], "rating");
+                $this->sendNotifyToServerAdmin($payment_history, $server["server_id"]);
             }
         } else if($request->event == NotificationEventType::PAYMENT_CANCELED) {
             $this->updateInfoDB($request->object);
@@ -171,6 +175,11 @@ class PaymentController extends Controller
             "created_at" => Carbon::now()->toDateTime(),
             "updated_at" => Carbon::now()->toDateTime()
         ]);
+    }
+
+    private function sendNotifyToServerAdmin(PaymentHistory $payment, $server_id){
+        $server = Server::where("id", $server_id)->first();
+        $this->sendPaymentNotification($server->owner_id, $payment, $server->title);
     }
 
     /**
@@ -225,6 +234,7 @@ class PaymentController extends Controller
      * @param $server_id
      * @param $rating
      * @param $type
+     * @return PaymentHistory
      */
     private function addPaymentHistory($server_id, $rating, $type){
         $payment_history = new PaymentHistory();
@@ -236,5 +246,7 @@ class PaymentController extends Controller
         $payment_history->is_active = false;
 
         $payment_history->save();
+
+        return $payment_history;
     }
 }
