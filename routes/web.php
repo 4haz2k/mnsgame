@@ -59,7 +59,9 @@ Route::get('/notification/{id}', [App\Http\Controllers\HomeController::class, 'g
 Route::get('/adminpanel', [AdminPanel::class, 'index'])->name("admin_main");
 Route::get('/adminpanel/settings', [AdminPanel::class, 'settingPage'])->name("admin_settings");
 Route::get('/adminpanel/questions', [AdminPanel::class, 'questionsPage'])->name("admin_questions");
+Route::get('/adminpanel/filters', [AdminPanel::class, 'filtersPage'])->name("admin_filters");
 Route::post('/adminpanel/questions', [AdminPanel::class, 'questionsPageAdd'])->name("add_admin_question");
+Route::post('/adminpanel/filters', [AdminPanel::class, 'filtersPageAdd'])->name("add_admin_filters");
 Route::post('/adminpanel/updatesettings', [AdminPanel::class, "updateSettings"])->name("update_admin_settings");
 // End admin panel
 

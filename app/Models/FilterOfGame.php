@@ -11,4 +11,5 @@ class FilterOfGame extends Model
 
     protected $table = "filter_of_game";
 
+    public $timestamps = false;
 }

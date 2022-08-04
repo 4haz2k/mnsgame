@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Alexusmai\YandexMetrika\YandexMetrika;
 use App\Http\Services\YandexMetrikaFixed;
+use App\Models\Filter;
+use App\Models\FilterOfGame;
+use App\Models\Game;
 use App\Models\PaymentHistory;
 use App\Models\Question;
 use App\Models\QuestionOfCategoryModel;
@@ -279,5 +282,55 @@ class AdminPanel extends Controller
         }
 
         return $this->questionsPage();
+    }
+
+    public function filtersPage(){
+        $statistic = $this->getViewsData();
+        $page_views = $this->getTopPageViews();
+        $refusal = $this->getRefusal();
+        $geo_data = $this->getGeoArea();
+        $sales = $this->getSales();
+        $userdata = [
+            "name" => Auth::user()->name,
+            "surname" => Auth::user()->surname,
+            "email" => Auth::user()->email,
+            "login" => Auth::user()->login
+        ];
+
+        $name = Auth::user()->name. " " . Auth::user()->surname;
+
+        $games = Game::all();
+
+        return view(
+            'admin.filters',
+            compact(
+                "name",
+                "page_views",
+                "statistic",
+                "refusal",
+                "geo_data",
+                "userdata",
+                "sales",
+                "games"
+            )
+        );
+    }
+
+    public function filtersPageAdd(){
+        $filters = explode(",", \request("filters"));
+        $game_id = (int)\request("game");
+
+        foreach ($filters as $filter){
+            $insert = new Filter();
+            $insert->filter = $filter;
+            $insert->save();
+
+            $filter_of_game = new FilterOfGame();
+            $filter_of_game->game_id = $game_id;
+            $filter_of_game->filter_id = $insert->id;
+            $filter_of_game->save();
+        }
+
+        return $this->filtersPage();
     }
 }

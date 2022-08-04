@@ -251,8 +251,8 @@
                                             @endforeach
                                         </div>
                                         <div class='text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200'>
-                                            <button type='button' class='cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none' onclick='showSuggestions()'>
-                                                <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='w-4 h-4' style='transform: rotate(180deg);'><polyline points='18 15 12 9 6 15'></polyline></svg>
+                                            <button type='button' class='cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none' onclick='showSuggestions()' id='filter-category'>
+                                                <svg id='filter-category' xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='w-4 h-4' style='transform: rotate(180deg);'><polyline points='18 15 12 9 6 15'></polyline></svg>
                                             </button>
                                         </div>
                                     </div>
@@ -260,9 +260,9 @@
                                         <div class='flex flex-col w-full' id='filters-suggestion'>
                                             @foreach($filters_suggestion as $filter)
                                                 <div class="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-indigo-100" onclick="selectFilter(this)" id="filter-id-{{ $filter->id }}" data-value="{{ $filter->filter }}">
-                                                    <div class="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative hover:border-indigo-100">
-                                                        <div class="w-full items-center flex">
-                                                            <div class="mx-2 leading-6">{{ $filter->filter }}</div>
+                                                    <div class="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative @if($server->filters->contains($filter))border-indigo-500 @else hover:border-indigo-100 @endif" id='filter-category'>
+                                                        <div class="w-full items-center flex" id='filter-category'>
+                                                            <div class="mx-2 leading-6" id='filter-category'>{{ $filter->filter }}</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -480,9 +480,9 @@
                         data["filters"].forEach(function (element){
                             filters_suggestions.innerHTML +=
                                 "<div class=\"cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-indigo-100\" onclick=\"selectFilter(this)\" id=\"filter-id-" + element.id + "\" data-value=\""+ element.filter +"\">" +
-                                "<div class=\"flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative hover:border-indigo-100\">" +
-                                "<div class=\"w-full items-center flex\">" +
-                                "<div class=\"mx-2 leading-6\">"+ element.filter +"</div>" +
+                                "<div class=\"flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative hover:border-indigo-100\" id='filter-category'>" +
+                                "<div class=\"w-full items-center flex\" id='filter-category'>" +
+                                "<div class=\"mx-2 leading-6\" id='filter-category'>"+ element.filter +"</div>" +
                                 "</div>" +
                                 "</div>" +
                                 "</div>";
@@ -685,18 +685,29 @@
         }
     </script>
     <script>
-        function setFilters() {
-            let selected_filters = document.querySelector("#filters-input").childNodes;
-            selected_filters.forEach(ch => {
-                if(ch.nodeType !== Node.TEXT_NODE){
-                    let filter_id = ch.id.split("-", 3)[2];
-                    let filter = document.getElementById("filter-id-" + filter_id);
-
-                    filter.firstElementChild.classList.add("border-indigo-500");
-                }
-            });
-        }
+        // function setFilters() {
+        //     let selected_filters = document.querySelector("#filters-input").childNodes;
+        //     selected_filters.forEach(ch => {
+        //         if(ch.nodeType !== Node.TEXT_NODE){
+        //             let filter_id = ch.id.split("-", 3)[2];
+        //             let filter = document.getElementById("filter-id-" + filter_id);
+        //
+        //             filter.firstElementChild.classList.add("border-indigo-500");
+        //         }
+        //     });
+        // }
 
         document.addEventListener("DOMContentLoaded", setFilters);
+    </script>
+    <script>
+        window.addEventListener("click", function(event) {
+            let suggestions = document.getElementById("filters-suggestion");
+
+            if(suggestions != null){
+                if(event.target.id !== "filter-category" && !suggestions.classList.contains("hidden")){
+                    showSuggestions();
+                }
+            }
+        });
     </script>
 @endsection

@@ -10,4 +10,6 @@ class FilterOfServer extends Model
     use HasFactory;
 
     protected $table = "filter_of_servers";
+
+    public $timestamps = false;
 }

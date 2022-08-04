@@ -81,8 +81,14 @@
 
                     <li class="items-center">
                         <a href="{{url('adminpanel/questions')}}" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500">
-                            <i class="fas fa-server mr-2 text-sm text-blueGray-300"></i>
+                            <i class="fas fa-question mr-2 text-sm text-blueGray-300"></i>
                             Вопросы
+                        </a>
+                    </li>
+                    <li class="items-center">
+                        <a href="{{url('adminpanel/filters')}}" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500">
+                            <i class="fas fa-filter mr-2 text-sm text-blueGray-300"></i>
+                            Фильтры игр
                         </a>
                     </li>
                 </ul>
