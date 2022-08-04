@@ -54,8 +54,8 @@ trait NotificationSender
 <p><strong>Активен до</strong>: '.$payment->end_date.'&nbsp;</p>
 <p><strong>Дата пополнения</strong>: '.$payment->created_at.'&nbsp;</p>
 <hr>
-<p>Если у Вас возникли вопросы или средства не были начисленны на проект, то просьба обратиться к нам через <a href="https://t.me/mnsgame_bot">нашего Telegram бота</a>.</p>
-<p>Ваша команда MNS Game Project!</p>';
+<p>Если у Вас возникли вопросы или средства не были зачислены на проект, то просьба обратиться к нам через <a href="https://t.me/mnsgame_bot">нашего Telegram бота</a>.</p>
+<p>Спасибо, что пользуетесь нашими услугами! Ваша команда MNS Game Project!</p>';
         $notify = new Notifications();
         $notify->title = $title;
         $notify->body = $body;
