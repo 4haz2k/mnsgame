@@ -48,7 +48,7 @@ trait NotificationSender
     }
 
     public function sendPaymentNotification($user_id, PaymentHistory $payment, $server_title){
-        $title = "Успешная оплата проекта";
+        $title = "Успешная оплата рекламы $server_title";
         $body = '<p>Платеж проекта <strong>'.$server_title.'</strong> прошёл успешно,<strong> </strong>спасибо за покупку!</p>
 <p><strong>Сумма платежа</strong>: '.$payment->balance_change.' руб</p>
 <p><strong>Активен до</strong>: '.$payment->end_date.'&nbsp;</p>
