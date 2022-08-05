@@ -254,7 +254,7 @@
                                 </div>
                                 <div>
                                     @if(!$server->is_launcher)
-                                        <div class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 border-b-4 border-indigo-700 hover:border-indigo-500 active:!border-0 rounded tooltip-custom max-w-[189px] truncate" data-tooltip="Нажмите, чтобы скопировать адрес" id="ip-preview" onclick="copy('{{ $server->server_data }}')">
+                                        <div class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 border-b-4 border-indigo-700 hover:border-indigo-500 active:!border-0 rounded tooltip-custom max-w-[189px] truncate overflow-hidden" data-tooltip="Нажмите, чтобы скопировать адрес" id="ip-preview" onclick="copy('{{ $server->server_data }}')">
                                             <svg viewBox="0 0 195.085 195.085" class="inline font-bold mr-1" width="16px" height="16px">
                                                 <g>
                                                     <path fill="#FFFFFF" d="M179.617,15.453c-0.051-0.05-0.102-0.1-0.154-0.149c-18.689-18.549-48.477-20.463-69.37-4.441
