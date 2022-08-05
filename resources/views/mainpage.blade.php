@@ -22,7 +22,7 @@
                     <div class="mb-2">MNS Game - это сервис мониторинга проектов и серверов.</div>
                     <div>Игроки могут найти сервер по своим интересам, используя категории для поиска, а владельцы используя минимальное количество сил и времени могут вывести свой проект в лидеры!</div>
                     <a href="{{ route("games") }}">
-                        <button class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 border-b-4 border-indigo-700 hover:border-indigo-500 active:!border-0 rounded mt-3 h-[40px] w-5/6">
+                        <button class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 border-b-4 border-indigo-700 hover:border-indigo-500 active:!border-0 rounded mt-3 h-[40px] w-5/6 mdm:!w-full">
                             <span class="inline align-middle pt-[1px] text-base">Перейти к обзору проектов</span>
                         </button>
                     </a>

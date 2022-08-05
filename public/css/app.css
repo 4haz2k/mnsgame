@@ -13167,6 +13167,9 @@ input:checked + .toggle-bg {
 .max-w-\[210px\] {
   max-width: 210px;
 }
+.max-w-\[189px\] {
+  max-width: 189px;
+}
 .flex-auto {
   flex: 1 1 auto;
 }
@@ -13349,6 +13352,9 @@ input:checked + .toggle-bg {
 }
 .text-ellipsis {
   text-overflow: ellipsis;
+}
+.text-clip {
+  text-overflow: clip;
 }
 .whitespace-nowrap {
   white-space: nowrap;
@@ -14679,12 +14685,16 @@ input:checked + .toggle-bg {
     width: 50%;
   }
 
+  .mdm\:w-2\/3 {
+    width: 66.666667%;
+  }
+
   .mdm\:w-2\/4 {
     width: 50%;
   }
 
-  .mdm\:w-2\/3 {
-    width: 66.666667%;
+  .mdm\:\!w-full {
+    width: 100% !important;
   }
 
   .mdm\:max-w-3xl {
