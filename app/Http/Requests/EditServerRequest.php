@@ -48,7 +48,7 @@ class EditServerRequest extends FormRequest
             "server_callback" => "active_url|nullable",
             "server_banner" => "mimes:jpeg,jpg,png,gif|dimensions:width=468,height=60|max:2048|nullable",
             "filters_input" => "array|nullable",
-            "filters_input.*" => "exists:filters,filter"
+            "filters_input.*" => "exists:filters,id"
         ];
     }
 

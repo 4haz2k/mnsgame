@@ -80,7 +80,13 @@ class ServerController extends Controller
         $server->save();
 
         if(\request("filters_input") != null){
-            $filters_id = Filter::whereIn("filter", json_decode(\request("filters_input")))->get()->pluck("id");
+            $filters_id = Filter::with(["game"])
+                ->whereIn("id", json_decode(\request("filters_input")))
+                ->whereHas("game", function ($q) use ($game_id){
+                    $q->where("id", $game_id);
+                })
+                ->get()
+                ->pluck("id");
 
             $filters_of_server_array = [];
 
@@ -91,10 +97,12 @@ class ServerController extends Controller
                 ]);
             }
 
-            FilterOfServer::insert($filters_of_server_array);
+            if(count($filters_of_server_array ) !== 0){
+                FilterOfServer::insert($filters_of_server_array);
+            }
         }
 
-        return Redirect::back()->with("Status", true);
+        return Redirect::route("myservers");
     }
 
     public function editServer(Request $request){
@@ -156,7 +164,15 @@ class ServerController extends Controller
         FilterOfServer::where("server_id", $server->id)->delete();
 
         if(\request("filters_input") != null){
-            $filters_id = Filter::whereIn("filter", json_decode(\request("filters_input")))->get()->pluck("id");
+            $game_id = $game->id;
+
+            $filters_id = Filter::with(["game"])
+                ->whereIn("id", json_decode(\request("filters_input")))
+                ->whereHas("game", function ($q) use ($game_id){
+                    $q->where("id", $game_id);
+                })
+                ->get()
+                ->pluck("id");
 
             $filters_of_server_array = [];
 
@@ -167,10 +183,12 @@ class ServerController extends Controller
                 ]);
             }
 
-            FilterOfServer::insert($filters_of_server_array);
+            if(count($filters_of_server_array ) !== 0){
+                FilterOfServer::insert($filters_of_server_array);
+            }
         }
 
-        return redirect()->back()->with("status", true);
+        return redirect()->route("myservers");
     }
 
     public function myServers(){

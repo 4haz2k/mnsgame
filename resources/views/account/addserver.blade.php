@@ -598,7 +598,7 @@
 
             for(let i = 0; i < filters.length; i++ )
             {
-                data[i] = filters[i].firstChild.innerHTML;
+                data[i] = filters[i].id.split("-")[2];
             }
 
             if(data.length > 0){
