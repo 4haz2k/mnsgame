@@ -67,24 +67,27 @@ class VoteController extends Controller
 
     private function sendCallback($url, $nickname, $hash): bool
     {
-        $client = new Client();
+        $client = new Client([
+            'headers' => [ 'Content-Type' => 'application/json' ]
+        ]);
 
-        try{
-            $promise = $client->request('POST', $url, [
-                'form_params' => [
+        try {
+            $response = $client->post($url, [
+                'json' => [
                     'nickname' => $nickname,
                     'hash' => $hash,
                     'time' => time()
                 ]
             ]);
-            if($promise->getStatusCode() == 200){
+
+            if($response->getStatusCode() == 200){
                 return true;
             }
             else{
                 return false;
             }
         }
-        catch (ConnectException|GuzzleException $exception){
+        catch (ConnectException|GuzzleException $exception) {
             return false;
         }
     }

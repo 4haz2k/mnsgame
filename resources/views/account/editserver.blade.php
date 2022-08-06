@@ -333,8 +333,9 @@
                         <div class="lg:w-1/3 w-full px-3 lg:my-2 mdm:mt-3">
                             <label for="server-callback" class="block text-md tracking-wide text-gray-700 font-bold mb-2 text-left">CallBack для сервера</label>
                             <span class="block text-md tracking-wide text-gray-700 mb-2 text-left">
-                                CallBack предназначен для того, чтобы мы могли отправлять вам на сайт уведомление о том, что за ваш сервер проголосовали.
-                                Подробнее про то, как привязать callback к своему сайту и для чего он нужен, читайте в этой <a href="https://mnsgame.ru/support/faq/answer/1" class="underline text-blue-700">статье</a>.
+                                CallBack предназначен для того, чтобы мы могли отправлять вам на сайт уведомление о том, что за ваш сервер проголосовали.<br><br>
+                                При нажатии кнопки проверки запроса мы отправим тестовые параметры:<br><strong>"nickname", "hash", "time"</strong><br><br>
+                                Подробнее про то, как привязать callback к своему сайту, какие параметры приходят и для чего он нужен, читайте в этой <a href="https://mnsgame.ru/support/faq/answer/1" class="underline text-blue-700">статье</a>.
                             </span>
                         </div>
                         <div class="lg:w-2/3 w-full px-3 lg:my-4">

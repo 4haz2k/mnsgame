@@ -15,6 +15,9 @@ use Artesaos\SEOTools\Facades\OpenGraph;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Traits\SEOTools;
 use Dflydev\DotAccessData\Data;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -273,17 +276,29 @@ class ServerController extends Controller
         }
 
         $url = \request("callback");
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_HEADER, true);    // we want headers
-        curl_setopt($ch, CURLOPT_NOBODY, true);    // we don't need body
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-        curl_setopt($ch, CURLOPT_TIMEOUT,10);
-        $output = curl_exec($ch);
-        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
 
-        if($httpcode === 0){
-            $httpcode = 404;
+        $client = new Client([
+            'headers' => [ 'Content-Type' => 'application/json' ]
+        ]);
+
+        try {
+            $response = $client->post($url, [
+                'json' => [
+                    'nickname' => "testNickname",
+                    'hash' => "testHash",
+                    'time' => time()
+                ]
+            ]);
+
+            if($response->getStatusCode() == 0){
+                $httpcode = 404;
+            }
+            else{
+                $httpcode = $response->getStatusCode();
+            }
+        }
+        catch (ConnectException|GuzzleException $exception) {
+            return response()->json(["status" => true, "message" => "Страница не найдена. Код статуса: 404"]);
         }
 
         return response()->json(["status" => true, "message" => "Запрос выполнен. Код статуса: {$httpcode}"]);
