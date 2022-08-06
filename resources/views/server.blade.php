@@ -132,34 +132,34 @@
     <div class="relative w-full px-2 py-6 bg-white ring-1 ring-gray-900/5 mdm:max-w-3xl md:mx-auto lg:max-w-7xl lg:pt-8 lg:pb-14 lg:!px-0 mb-5 rounded-2">
         <div class="mt-2 px-10 mdm:px-2 mx-auto">
             <div class="text-lg mb-4">Информация сервера</div>
-            <div class="flex flex-wrap my-1">
+            <div class="flex flex-wrap my-1 break-words">
                 <div class="w-1/6 mdm:w-1/2 text-base text-gray-700">ID сервера MNS:</div>
                 <div class="w-5/6 mdm:w-1/2 text-left text-base font-medium text-black">{{ $server->id }}</div>
             </div>
-            <div class="flex flex-wrap my-1">
+            <div class="flex flex-wrap my-1 break-words">
                 <div class="w-1/6 mdm:w-1/2 text-base text-gray-700">Игра:</div>
                 <div class="w-5/6 mdm:w-1/2 text-left text-base font-medium text-black"><a href="{{ route("toGame", ["link" => $server->game->short_link]) }}">{{ $server->game->title }}</a></div>
             </div>
             @if($server->site != null)
-                <div class="flex flex-wrap my-1">
+                <div class="flex flex-wrap my-1 break-words">
                     <div class="w-1/6 mdm:w-1/2 text-base text-gray-700">Сайт сервера:</div>
                     <div class="w-5/6 mdm:w-1/2 text-left text-base font-medium text-black"><a target="_blank" href="{{ $server->site }}">{{ $server->site }}</a></div>
                 </div>
             @endif
             @if($server->vk != null)
-                <div class="flex flex-wrap my-1">
+                <div class="flex flex-wrap my-1 break-words">
                     <div class="w-1/6 mdm:w-1/2 text-base text-gray-700">Сообщество ВКонтакте:</div>
                     <div class="w-5/6 mdm:w-1/2 text-left text-base font-medium text-black"><a target="_blank" href="{{ $server->vk }}">{{ $server->vk }}</a></div>
                 </div>
             @endif
             @if($server->discord != null)
-                <div class="flex flex-wrap my-1">
+                <div class="flex flex-wrap my-1 break-words">
                     <div class="w-1/6 mdm:w-1/2 text-base text-gray-700">Discord сервер:</div>
                     <div class="w-5/6 mdm:w-1/2 text-left text-base font-medium text-black"><a target="_blank" href="{{ $server->discord }}">{{ $server->discord }}</a></div>
                 </div>
             @endif
             @if($server->filters->isNotEmpty())
-                <div class="flex flex-wrap my-1">
+                <div class="flex flex-wrap my-1 break-words">
                     <div class="w-1/6 mdm:w-full text-base text-gray-700 mt-[7px]">Категории сервера:</div>
                     <div class="flex flex-col items-center relative">
                         <div class="w-full">
@@ -182,7 +182,7 @@
                 <div class="flex-grow border-t border-gray-400"></div>
             </div>
             <div class="text-lg mb-4">Описание сервера</div>
-            <div class="text-base mdm:text-justify">{!! nl2br($server->description) !!}</div>
+            <div class="text-base mdm:text-justify break-words">{!! nl2br($server->description) !!}</div>
         </div>
         <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center hidden">
             <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
