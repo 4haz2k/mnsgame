@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Server;
 use App\Models\ServerRates;
 use Carbon\Carbon;
-use http\Client\Response;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
@@ -65,31 +67,25 @@ class VoteController extends Controller
 
     private function sendCallback($url, $nickname, $hash): bool
     {
-        $ch = curl_init();
+        $client = new Client();
 
-        curl_setopt($ch, CURLOPT_URL,$url);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_HEADER, true);    // we want headers
-        curl_setopt($ch, CURLOPT_NOBODY, true);    // we don't need body
-
-        curl_setopt($ch, CURLOPT_POSTFIELDS,
-            http_build_query([
-                'nickname' => $nickname,
-                'hash' => $hash
-            ]));
-
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-        curl_setopt($ch, CURLOPT_TIMEOUT,10);
-
-        curl_exec($ch);
-
-        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-        curl_close($ch);
-
-        if($http_code === 200)
-            return true;
-        else
+        try{
+            $promise = $client->request('POST', $url, [
+                'form_params' => [
+                    'nickname' => $nickname,
+                    'hash' => $hash,
+                    'time' => time()
+                ]
+            ]);
+            if($promise->getStatusCode() == 200){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        catch (ConnectException|GuzzleException $exception){
             return false;
+        }
     }
 }

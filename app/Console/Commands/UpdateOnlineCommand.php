@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Http\Services\ServerOnline;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
 
 class UpdateOnlineCommand extends Command
 {

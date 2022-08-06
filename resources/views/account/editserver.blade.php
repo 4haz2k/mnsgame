@@ -257,7 +257,7 @@
                                         </div>
                                     </div>
                                     <div class='items-stretch w-full mb-4 z-20 absolute bg-gray-100 top-[42px] !rounded-b-lg hover:rounded-b-lg drop-shadow-lg'>
-                                        <div class='flex flex-col w-full' id='filters-suggestion'>
+                                        <div class='flex flex-col w-full hidden' id='filters-suggestion'>
                                             @foreach($filters_suggestion as $filter)
                                                 <div class="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-indigo-100" onclick="selectFilter(this)" id="filter-id-{{ $filter->id }}" data-value="{{ $filter->filter }}">
                                                     <div class="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative @if($server->filters->contains($filter))border-indigo-500 @else hover:border-indigo-100 @endif" id='filter-category'>

@@ -26,6 +26,23 @@
             z-index: 2;
         }
 
+        @media (max-width: 1024px) {
+            .bg-shadow-50:after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgb(255,255,255);
+                background: -moz-linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.85) 0%);
+                background: -webkit-linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.85) 0%);
+                background: linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.85) 0%);
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#000000",GradientType=1);
+                z-index: 2;
+            }
+        }
+
         .inner {
             position: relative;
             z-index: 3;
@@ -45,28 +62,30 @@
             color: white;
         }
 
-        .tooltip-custom {
-            cursor: pointer;
-        }
+        @media (min-width: 1024px) {
+            .tooltip-custom {
+                cursor: pointer;
+            }
 
-        .tooltip-custom::after {
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 10px 10px 10px 5px;
-            box-shadow: 2px 2px 11px rgba(0, 0, 0, 0.6);
-            color: #FFF;
-            content: attr(data-tooltip); /* Основной код, который определяет, что будет во всплывающей подсказке*/
-            margin-top: -31px;
-            padding: 5px 9px;
-            position: absolute;
-            visibility: hidden; /* ...скрываем элемент */
-            font-size: 0.75rem;
-            line-height: 1rem;
-            opacity: 1 !important;
-        }
+            .tooltip-custom::after {
+                background: rgba(0, 0, 0, 0.8);
+                border-radius: 10px 10px 10px 5px;
+                box-shadow: 2px 2px 11px rgba(0, 0, 0, 0.6);
+                color: #FFF;
+                content: attr(data-tooltip); /* Основной код, который определяет, что будет во всплывающей подсказке*/
+                margin-top: -31px;
+                padding: 5px 9px;
+                position: absolute;
+                visibility: hidden; /* ...скрываем элемент */
+                font-size: 0.75rem;
+                line-height: 1rem;
+                opacity: 1 !important;
+            }
 
-        .tooltip-custom:hover::after {
-            opacity: 1; /* Показываем элемент */
-            visibility: visible;
+            .tooltip-custom:hover::after {
+                opacity: 1; /* Показываем элемент */
+                visibility: visible;
+            }
         }
 
         .notify{
