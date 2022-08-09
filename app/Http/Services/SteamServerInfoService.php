@@ -22,9 +22,11 @@ class SteamServerInfoService extends ServerInfo
      */
     protected function makeQuery(): bool
     {
-        self::checkPort();
+//        self::checkPort();
 
-        $url = "https://api.steampowered.com/IGameServersService/GetServerList/v1/?filter=\appid\\{$this->serverAppId}\addr\\{$this->serverIp}:{$this->serverPort}&key=".config("steam.STEAM_API_KEY");
+        $server_address = $this->serverPort == null ? $this->serverIp : $this->serverIp.":".$this->serverPort;
+
+        $url = "https://api.steampowered.com/IGameServersService/GetServerList/v1/?filter=\appid\\{$this->serverAppId}\addr\\{$server_address}&key=".config("steam.STEAM_API_KEY");
 
         $ch = curl_init();
 
