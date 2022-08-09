@@ -33,6 +33,12 @@ class ServerOnline
                         $server->save();
                         unset($mojangServerInfoService);
                         break;
+                    case GamesType::samp:
+                        $sampServerInfoService = new SampServerInfoService($server->server_data);
+                        $server->online = $sampServerInfoService->getPlayersCount();
+                        $server->save();
+                        unset($sampServerInfoService);
+                        break;
                     default:
                         break;
                 }
