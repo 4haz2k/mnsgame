@@ -24,7 +24,7 @@ class SteamServerInfoService extends ServerInfo
     {
         self::checkPort();
 
-        $url = "https://api.steampowered.com/IGameServersService/GetServerList/v1/?filter=\appid\\{$this->serverAppId}\addr\\{$this->serverIp}:{$this->serverPort}&key=".env("STEAM_API_KEY");
+        $url = "https://api.steampowered.com/IGameServersService/GetServerList/v1/?filter=\appid\\{$this->serverAppId}\addr\\{$this->serverIp}:{$this->serverPort}&key=".config("steam.STEAM_API_KEY");
 
         $ch = curl_init();
 
