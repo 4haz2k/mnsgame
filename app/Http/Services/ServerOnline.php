@@ -39,6 +39,12 @@ class ServerOnline
                         $server->save();
                         unset($sampServerInfoService);
                         break;
+                    case GamesType::minecraftBedrock:
+                        $minecraftBedrock = new MinecraftBedrockServerInfoService($server->server_data);
+                        $server->online = $minecraftBedrock->getPlayersCount();
+                        $server->save();
+                        unset($minecraftBedrock);
+                        break;
                     default:
                         break;
                 }
