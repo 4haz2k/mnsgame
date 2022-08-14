@@ -61,7 +61,7 @@ class GamePageController extends Controller
 
         $servers = $servers->paginate(ServerData::paginate);
 
-        $game = Game::with("filters")->where("short_link", $link)->firstOrFail();
+        $game = Game::with(["filters" => function ($q){ $q->orderBy('filter'); }])->where("short_link", $link)->firstOrFail();
 
         $this->seo()->setDescription("MNS Game - это сервис мониторинга проектов и серверов для их владельцев и игроков различных жанров игр.");
         $this->seo()->opengraph()->setTitle("Мониторинг серверов ".$game->title);
