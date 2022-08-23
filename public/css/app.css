@@ -12870,6 +12870,9 @@ input:checked + .toggle-bg {
 .mt-\[7px\] {
   margin-top: 7px;
 }
+.mb-0 {
+  margin-bottom: 0px;
+}
 .mr-\[10px\] {
   margin-right: 10px;
 }
@@ -12887,9 +12890,6 @@ input:checked + .toggle-bg {
 }
 .mr-3 {
   margin-right: 0.75rem;
-}
-.mb-0 {
-  margin-bottom: 0px;
 }
 .mt-8 {
   margin-top: 2rem;
@@ -12920,6 +12920,12 @@ input:checked + .toggle-bg {
 }
 .mr-\[2px\] {
   margin-right: 2px;
+}
+.mb-2\.5 {
+  margin-bottom: 0.625rem;
+}
+.mt-2\.5 {
+  margin-top: 0.625rem;
 }
 .mt-\[5\%\] {
   margin-top: 5%;
@@ -12984,6 +12990,9 @@ input:checked + .toggle-bg {
 .h-8 {
   height: 2rem;
 }
+.h-\[350px\] {
+  height: 350px;
+}
 .h-16 {
   height: 4rem;
 }
@@ -13016,6 +13025,9 @@ input:checked + .toggle-bg {
 }
 .h-48 {
   height: 12rem;
+}
+.h-28 {
+  height: 7rem;
 }
 .h-\[318px\] {
   height: 318px;
@@ -13170,17 +13182,20 @@ input:checked + .toggle-bg {
 .max-w-\[210px\] {
   max-width: 210px;
 }
+.max-w-5xl {
+  max-width: 64rem;
+}
 .flex-auto {
   flex: 1 1 auto;
 }
 .flex-initial {
   flex: 0 1 auto;
 }
-.flex-none {
-  flex: none;
-}
 .flex-1 {
   flex: 1 1 0%;
+}
+.flex-none {
+  flex: none;
 }
 .flex-shrink {
   flex-shrink: 1;
@@ -13385,6 +13400,10 @@ input:checked + .toggle-bg {
   border-top-right-radius: 0.5rem !important;
   border-bottom-right-radius: 0.5rem !important;
 }
+.rounded-t {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
 .rounded-t-lg {
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
@@ -13392,10 +13411,6 @@ input:checked + .toggle-bg {
 .\!rounded-b-lg {
   border-bottom-right-radius: 0.5rem !important;
   border-bottom-left-radius: 0.5rem !important;
-}
-.rounded-t {
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
 }
 .rounded-l-lg {
   border-top-left-radius: 0.5rem;
@@ -13646,11 +13661,11 @@ input:checked + .toggle-bg {
 .p-2 {
   padding: 0.5rem;
 }
-.p-5 {
-  padding: 1.25rem;
-}
 .p-4 {
   padding: 1rem;
+}
+.p-5 {
+  padding: 1.25rem;
 }
 .p-3 {
   padding: 0.75rem;
@@ -14650,6 +14665,10 @@ input:checked + .toggle-bg {
     margin-top: 0.75rem;
   }
 
+  .mdm\:mt-2\.5 {
+    margin-top: 0.625rem;
+  }
+
   .mdm\:hidden {
     display: none;
   }
@@ -14696,6 +14715,10 @@ input:checked + .toggle-bg {
 
   .mdm\:max-w-3xl {
     max-width: 48rem;
+  }
+
+  .mdm\:flex-col {
+    flex-direction: column;
   }
 
   .mdm\:flex-wrap {

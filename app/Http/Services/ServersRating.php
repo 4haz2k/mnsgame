@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 
 use App\Models\PaymentHistory;
+use App\Models\Server;
 use App\Models\ServerRating;
 use Carbon\Carbon;
 
@@ -26,6 +27,17 @@ class ServersRating
                     $server_rating->save();
                     $server_payment->is_active = true;
                     $server_payment->save();
+                }
+
+                if($server_payment->type != "rating"){
+                    $server = Server::where("server_id", $server_payment->server_id)->first();
+                    $server->background = null;
+
+                    if($server_payment->type == "packet3"){
+                        $server->chart = false;
+                    }
+
+                    $server->save();
                 }
             }
         }

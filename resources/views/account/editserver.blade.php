@@ -32,6 +32,54 @@
         .tooltip-custom-callback::after{
             margin-top: -58px !important;
         }
+
+        .server-bg-color-1{
+            background: -moz-linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, rgba(235, 112, 112,0.5) 100%);
+            background: -webkit-linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(235, 112, 112,0.5) 100%);
+            background: linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(235, 112, 112,0.5) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#acace0",GradientType=1);
+            background-size: 400% 400%;
+        }
+
+        .server-bg-color-2{
+            background: -moz-linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, rgba(255, 150, 92,0.5) 100%);
+            background: -webkit-linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(255, 150, 92,0.5) 100%);
+            background: linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(255, 150, 92,0.5) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#acace0",GradientType=1);
+            background-size: 400% 400%;
+        }
+
+        .server-bg-color-3{
+            background: -moz-linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, rgba(139, 255, 114,0.5) 100%);
+            background: -webkit-linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(139, 255, 114,0.5) 100%);
+            background: linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(139, 255, 114,0.5) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#acace0",GradientType=1);
+            background-size: 400% 400%;
+        }
+
+        .server-bg-gr-1{
+            background: -moz-linear-gradient(270deg, rgb(255 0 0) 0%, rgba(66, 66, 255, 0.3) 100%);
+            background: -webkit-linear-gradient(270deg, rgb(255 0 0) 0%, rgba(66, 66, 255, 0.3) 100%);
+            background: linear-gradient(270deg, rgb(255 0 0) 0%, rgba(66, 66, 255, 0.3) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#acace0",GradientType=1);
+            background-size: 400% 400%;
+        }
+
+        .server-bg-gr-2{
+            background: -moz-linear-gradient(270deg, rgb(0 8 255) 0%, rgba(98, 255, 0, 0.26) 100%);
+            background: -webkit-linear-gradient(270deg, rgb(0 8 255) 0%, rgba(98, 255, 0, 0.26) 100%);
+            background: linear-gradient(270deg, rgb(0 8 255) 0%, rgba(98, 255, 0, 0.26) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#acace0",GradientType=1);
+            background-size: 400% 400%;
+        }
+
+        .server-bg-gr-3{
+            background: -moz-linear-gradient(270deg, rgb(255 225 0) 0%, rgba(255, 0, 0, 0.4) 100%);
+            background: -webkit-linear-gradient(270deg, rgb(255 225 0) 0%, rgba(255, 0, 0, 0.4) 100%);
+            background: linear-gradient(270deg, rgb(255 225 0) 0%, rgba(255, 0, 0, 0.4) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#acace0",GradientType=1);
+            background-size: 400% 400%;
+        }
     </style>
 @endsection
 
@@ -59,7 +107,7 @@
                         Рейтинг
                     </div>
                 </div>
-                <div class="server-bg w-full mdm:h-[17rem] h-24 flex rounded-1 shadow-md my-3 flex-wrap lg:flex-nowrap mdm:px-2 border-b-4 server-border-color" id="server_preview">
+                <div class="@if($server->background) {{ $server->background }} @else server-bg @endif w-full mdm:h-[17rem] h-24 flex rounded-1 shadow-md my-3 flex-wrap lg:flex-nowrap mdm:px-2 border-b-4 server-border-color" id="server_preview">
                     <div class="w-1/12 justify-center items-center flex text-md">
                         <div class="rounded-3 px-2 py-1 font-semibold tooltip-custom hidden lg:inline" data-tooltip="Место в рейтинге">
                             1
@@ -361,6 +409,36 @@
                             @enderror
                         </div>
                     </div>
+                    @if($bg_type)
+                        <div class="flex flex-wrap -mx-3 mb-2">
+                            <div class="lg:w-1/3 w-full px-3 lg:my-2 mdm:mt-3">
+                                <label for="server-bg-color" class="block text-md tracking-wide text-gray-700 font-bold mb-2 text-left">Цвет фона сервера <span class="text-red-500 font-bold">(Оплаченная услуга)</span></label>
+                                <span class="block text-md tracking-wide text-gray-700 mb-2 text-left">
+                                   Выберите цвет фона, который будет отображаться у вашего проекта
+                                </span>
+                            </div>
+                            <div class="lg:w-2/3 w-full px-3 lg:my-4">
+                                <select id="server-bg-color" name="server_bg_color" class="@error('server_bg_color') !border-red-500 @enderror w-full h-10 px-3 text-sm placeholder-gray-600 border rounded appearance-none focus:shadow-outline" onchange="getFilters()">
+                                    <option value="color_clear" selected>Убрать цвет</option>
+                                    @if($bg_type == "bg-cl")
+                                        <option value="color_red">Малиновый цвет (#eb7070)</option>
+                                        <option value="color_orange">Оранжевый цвет (#ff965c)</option>
+                                        <option value="color_green">Салатовый цвет (#8bff72)</option>
+                                    @elseif($bg_type == "bg-gr")
+                                        <option value="color_red">Малиновый цвет (#eb7070)</option>
+                                        <option value="color_orange">Оранжевый цвет (#ff965c)</option>
+                                        <option value="color_green">Салатовый цвет (#8bff72)</option>
+                                        <option value="color_gr_blueRed">Градиент (Голубой -> Жёлтый)</option>
+                                        <option value="color_gr_greenBlue">Градиент (Салатовый -> Синий)</option>
+                                        <option value="color_gr_pinkOrange">Градиент (Розовый -> Оранжевый)</option>
+                                    @endif
+                                </select>
+                                @error('server_bg_color')
+                                    <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    @endif
                     <div class="flex flex-wrap -mx-3 mb-2">
                         <div class="lg:w-1/3 w-full px-3 lg:my-2">
                             <label for="game-title" class="block text-md tracking-wide text-gray-700 font-bold mb-2 text-left">Баннер</label>

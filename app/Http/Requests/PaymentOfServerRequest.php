@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Interfaces\PaymentTypes;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -29,9 +30,13 @@ class PaymentOfServerRequest extends FormRequest
                 Rule::exists("servers", "id"),
                 "required"
             ],
-            "price" => [
+            "qty" => [
                 "required",
                 "not_in:0"
+            ],
+            "type" => [
+                "required",
+                "in:".implode(",", PaymentTypes::packets)
             ]
         ];
     }
@@ -41,8 +46,10 @@ class PaymentOfServerRequest extends FormRequest
         return [
             "server_id.required" => "Необходимо выбрать сервер, для которого будет оказана услуга.",
             "server_id.exists" => "Выбранного вами сервера не существует в системе.",
-            "price.required" => "Необходимо выбрать кол-во рейтинга, который будет зачсилено на ваш сервер.",
-            "price.not_in" => "Введённое кол-во рейтинга должно быть больше нуля."
+            "qty.required" => "Необходимо выбрать кол-во рейтинга, который будет зачислено на ваш сервер.",
+            "qty.not_in" => "Введённое кол-во рейтинга должно быть больше нуля.",
+            "type.required" => "Необходимо выбрать тип платежа.",
+            "type.in" => "Выбранный тип не зарегистрирован в системе."
         ];
     }
 }

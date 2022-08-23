@@ -48,7 +48,8 @@ class EditServerRequest extends FormRequest
             "server_callback" => "active_url|nullable",
             "server_banner" => "mimes:jpeg,jpg,png,gif|dimensions:width=468,height=60|max:2048|nullable",
             "filters_input" => "array|nullable",
-            "filters_input.*" => "exists:filters,id"
+            "filters_input.*" => "exists:filters,id",
+            "server_bg_color" => "in:color_clear,color_red,color_orange,color_green,color_gr_blueRed,color_gr_greenBlue,color_gr_pinkOrange",
         ];
     }
 
@@ -74,7 +75,8 @@ class EditServerRequest extends FormRequest
             "server_banner.dimensions" => "Изображение должно быть размером 486x60 пикселей (468px ширина, 80px высота).",
             "server_banner.size" => "Изображение не должно превышать размер 2 МБ (2048 КилоБайт).",
             "filters_input.array" => "Фильтры должны быть массивом.",
-            "filters_input.*.exists" => "Выбранного фильтра у данной игры не существует."
+            "filters_input.*.exists" => "Выбранного фильтра у данной игры не существует.",
+            "server_bg_color.in" => "Выбранного цвета не существует!",
         ];
     }
 }

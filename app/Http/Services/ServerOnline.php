@@ -23,26 +23,34 @@ class ServerOnline
                 switch ($server->game->platform){
                     case GamesType::steamServer:
                         $steamServerInfoService = new SteamServerInfoService($server->server_data, $server->game->steam_app_id);
-                        $server->online = $steamServerInfoService->getPlayersCount();
+                        $online = $steamServerInfoService->getPlayersCount();
+                        $server->online = $online;
                         $server->save();
+                        $this->saveOnlineLog($server->id, $online);
                         unset($steamServerInfoService);
                         break;
                     case GamesType::mojangServer:
                         $mojangServerInfoService = new MojangServerInfoService($server->server_data);
-                        $server->online = $mojangServerInfoService->getPlayersCount();
+                        $online = $mojangServerInfoService->getPlayersCount();
+                        $server->online = $online;
                         $server->save();
+                        $this->saveOnlineLog($server->id, $online);
                         unset($mojangServerInfoService);
                         break;
                     case GamesType::samp:
                         $sampServerInfoService = new SampServerInfoService($server->server_data);
-                        $server->online = $sampServerInfoService->getPlayersCount();
+                        $online = $sampServerInfoService->getPlayersCount();
+                        $server->online = $online;
                         $server->save();
+                        $this->saveOnlineLog($server->id, $online);
                         unset($sampServerInfoService);
                         break;
                     case GamesType::minecraftBedrock:
                         $minecraftBedrock = new MinecraftBedrockServerInfoService($server->server_data);
-                        $server->online = $minecraftBedrock->getPlayersCount();
+                        $online = $minecraftBedrock->getPlayersCount();
+                        $server->online = $online;
                         $server->save();
+                        $this->saveOnlineLog($server->id, $online);
                         unset($minecraftBedrock);
                         break;
                     default:
@@ -50,5 +58,14 @@ class ServerOnline
                 }
             }
         }
+    }
+
+    private function saveOnlineLog($server_id, $online){
+        $server_online = new \App\Models\ServerOnline();
+
+        $server_online->server_id = $server_id;
+        $server_online->online = $online;
+
+        $server_online->save();
     }
 }

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Interfaces\NotificationSender;
+use App\Http\Interfaces\PaymentTypes;
 use App\Http\Requests\PaymentOfServerRequest;
+use App\Http\Services\PaymentsHandler;
 use App\Models\PaymentHistory;
 use App\Models\Server;
 use App\Models\ServerRating;
@@ -34,7 +36,7 @@ class PaymentController extends Controller
 {
     use NotificationSender;
 
-    private $client;
+    private Client $client;
 
     public function __construct()
     {
@@ -53,10 +55,12 @@ class PaymentController extends Controller
     {
         $server = Server::where("id", $request->server_id)->first();
 
+        $paymentHandler = new PaymentsHandler($request->type);
+
         try {
             $payment = $this->client->createPayment([
                 'amount' => [
-                    'value' => (double)$request->price,
+                    'value' => $paymentHandler->getPacket()["price"] * (int)$request->qty,
                     'currency' => 'RUB',
                 ],
                 'description' => "Оплата рекламы проекта '{$server->title}' на MNS Game Project",
@@ -67,6 +71,8 @@ class PaymentController extends Controller
                 ],
                 'metadata' => [
                     'server_id' => $server->id,
+                    'packet' => $paymentHandler->getPacket()["packet"],
+                    'qty' => $request->qty
                 ]
             ], $unique_id = uniqid('', true));
 
@@ -145,13 +151,59 @@ class PaymentController extends Controller
         if ($request->event == NotificationEventType::PAYMENT_SUCCEEDED) {
             if ($request->object['paid'] === true) {
                 $server = $this->updateInfoDB($request->object);
-                $this->addRatingToServer($server["server_id"], $server["sum"]);
-                $payment_history = $this->addPaymentHistory($server["server_id"], $server["sum"], "rating");
+
+                $paymentHandler = new PaymentsHandler($request->metadata["packet"]);
+
+                // todo: избавиться от хардкода
+                // Начисление рейтинга в зависимости от выбранного типа услуги
+                switch ($request->metadata["packet"]){
+                    case "rating":
+                        $this->addRatingToServer(
+                            $server["server_id"],
+                            $paymentHandler->getPacket()["price"] * (int)$request->metadata["qty"]
+                        );
+                        $payment_history = $this->addPaymentHistory($server["server_id"], $paymentHandler->getPacket()["price"] * (int)$request->metadata["qty"], $request->metadata["packet"]);
+                        break;
+                    case "packet1":
+                        $this->addRatingToServer(
+                            $server["server_id"],
+                            $paymentHandler->getRatingToSet()
+                        );
+                        $payment_history = $this->addPaymentHistory($server["server_id"], $paymentHandler->getRatingToSet(), $request->metadata["packet"], $paymentHandler->getTimeToSet());
+                        break;
+                    case "packet2":
+                        $this->addRatingToServer(
+                            $server["server_id"],
+                            $paymentHandler->getRatingToSet()
+                        );
+                        $payment_history = $this->addPaymentHistory($server["server_id"], $paymentHandler->getRatingToSet(), $request->metadata["packet"]);
+                        break;
+                    case "packet3":
+                        $this->addRatingToServer(
+                            $server["server_id"],
+                            $paymentHandler->getRatingToSet()
+                        );
+                        $payment_history = $this->addPaymentHistory($server["server_id"], $paymentHandler->getRatingToSet(), $request->metadata["packet"]);
+                        $this->setChartServer($server["server_id"]);
+                        break;
+                }
                 $this->sendNotifyToServerAdmin($payment_history, $server["server_id"]);
             }
         } else if($request->event == NotificationEventType::PAYMENT_CANCELED) {
             $this->updateInfoDB($request->object);
         }
+    }
+
+    /**
+     *
+     * Добавить график серверу
+     *
+     * @param $server_id
+     */
+    private function setChartServer($server_id){
+        $server = Server::where("server_id", $server_id)->first();
+        $server->chart = true;
+        $server->save();
     }
 
     /**
@@ -234,15 +286,27 @@ class PaymentController extends Controller
      * @param $server_id
      * @param $rating
      * @param $type
+     * @param null $endDate
      * @return PaymentHistory
      */
-    private function addPaymentHistory($server_id, $rating, $type){
+    private function addPaymentHistory($server_id, $rating, $type, $endDate = null): PaymentHistory
+    {
         $payment_history = new PaymentHistory();
 
         $payment_history->server_id = $server_id;
         $payment_history->balance_change = $rating;
         $payment_history->type = $type;
-        $payment_history->end_date = Carbon::now()->addMonth()->toDateTimeString();
+        if($endDate){
+            if($endDate == "1 week"){
+                $payment_history->end_date = Carbon::now()->addWeek()->toDateTimeString();
+            }
+            else{
+                $payment_history->end_date = Carbon::now()->addMonth()->toDateTimeString();
+            }
+        }
+        else{
+            $payment_history->end_date = Carbon::now()->addMonth()->toDateTimeString();
+        }
         $payment_history->is_active = false;
 
         $payment_history->save();

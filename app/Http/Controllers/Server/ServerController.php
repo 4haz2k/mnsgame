@@ -10,10 +10,13 @@ use App\Http\Services\ImageService;
 use App\Models\Filter;
 use App\Models\FilterOfServer;
 use App\Models\Game;
+use App\Models\PaymentHistory;
 use App\Models\Server;
+use App\Models\ServerOnline;
 use Artesaos\SEOTools\Facades\OpenGraph;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Traits\SEOTools;
+use Carbon\Carbon;
 use Dflydev\DotAccessData\Data;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
@@ -111,8 +114,33 @@ class ServerController extends Controller
     public function editServer(Request $request){
         $games = Game::all();
         $server = Server::with(["game", "filters"])->where("id", $request->id)->where("owner_id", Auth::id())->selectRaw("`servers`.*,(select count(*) from `server_rates` where `servers`.`id` = `server_rates`.`server_id`) * ".ServerData::coefficient." + IFNULL((select rating from `server_ratings` where `servers`.`id` = `server_ratings`.`server_id`), 0) as `rating`")->firstOrFail();
+        $bg_type = $this->checkDonate($server->id);
         $filters_suggestion = Filter::whereHas("game", function ($q) use ($server) { $q->where("id", $server->game->id); })->get();
-        return view('account.editserver', compact("server", "games", "filters_suggestion"));
+        return view('account.editserver', compact("server", "games", "filters_suggestion", "bg_type"));
+    }
+
+    /**
+     *
+     * Проверка списка услуг
+     *
+     * @param $server_id
+     * @return string|null
+     */
+    private function checkDonate($server_id): ?string
+    {
+        $payment = PaymentHistory::where("server_id", $server_id)->where("is_active", false)->get();
+
+        if($payment->isEmpty()){
+            return null;
+        }
+
+        if($payment->contains('type', "packet2") or $payment->contains('type', "packet3")){
+            return "bg-gr";
+        } elseif($payment->contains('type', "packet1")){
+            return "bg-cl";
+        } else{
+            return null;
+        }
     }
 
     /**
@@ -162,6 +190,12 @@ class ServerController extends Controller
             $server->banner_img = $image->handleUploadedImage($request);
         }
 
+        if($request->has("server_bg_color")){
+            $bg_type = $this->checkDonate($server->id);
+            $bg = $this->getServerBackground($bg_type, $request->server_bg_color);
+            $server->background = $bg;
+        }
+
         $server->save();
 
         FilterOfServer::where("server_id", $server->id)->delete();
@@ -194,6 +228,65 @@ class ServerController extends Controller
         return redirect()->route("myservers");
     }
 
+    /**
+     *
+     * Смена заднего фона сервера
+     *
+     * @param $bg_type
+     * @param $server_bg_color
+     * @return null
+     */
+    private function getServerBackground($bg_type, $server_bg_color): ?string
+    {
+        if($bg_type){
+            if($bg_type == "bg-cl"){
+                switch ($server_bg_color){
+                    case "color_clear":
+                        $bg = null;
+                        break;
+                    case "color_red":
+                        $bg = "server-bg-color-1";
+                        break;
+                    case "color_orange":
+                        $bg = "server-bg-color-2";
+                        break;
+                    case "color_green":
+                        $bg = "server-bg-color-3";
+                        break;
+                }
+            }
+            elseif ($bg_type == "bg-gr"){
+                switch ($server_bg_color){
+                    case "color_clear":
+                        $bg = null;
+                        break;
+                    case "color_red":
+                        $bg = "server-bg-color-1";
+                        break;
+                    case "color_orange":
+                        $bg = "server-bg-color-2";
+                        break;
+                    case "color_green":
+                        $bg = "server-bg-color-3";
+                        break;
+                    case "color_gr_blueRed":
+                        $bg = "server-bg-gr-1";
+                        break;
+                    case "color_gr_greenBlue":
+                        $bg = "server-bg-gr-2";
+                        break;
+                    case "color_gr_pinkOrange":
+                        $bg = "server-bg-gr-3";
+                        break;
+                }
+            }
+            return $bg;
+        }
+        else{
+            return null;
+        }
+    }
+
     public function myServers(){
         $games = Game::with(["servers" => function ($query){
             $query->selectRaw("*, (select count(*) from `server_rates` where `servers`.`id` = `server_rates`.`server_id`) * ".ServerData::coefficient." + IFNULL((select rating from `server_ratings` where `servers`.`id` = `server_ratings`.`server_id`), 0) as `rating`")->where("owner_id", Auth::id());
@@ -214,6 +307,17 @@ class ServerController extends Controller
             ->selectRaw("`servers`.*,(select count(*) from `server_rates` where `servers`.`id` = `server_rates`.`server_id`) * ".ServerData::coefficient." + IFNULL((select rating from `server_ratings` where `servers`.`id` = `server_ratings`.`server_id`), 0) as `rating`")
             ->firstOrFail();
 
+        if($server->chart)
+            $server_online = ServerOnline::where("server_id", $server->id)
+                ->where("created_at", ">=", Carbon::now()->subMonth()->toDateTimeString())
+                ->orderBy("created_at")
+                ->get()
+                ->groupBy(function($date) {
+                    return Carbon::parse($date->created_at)->format('d.m');
+                });
+        else
+            $server_online = null;
+
         $this->seo()->setDescription("MNS Game - это сервис мониторинга проектов и серверов для их владельцев и игроков различных жанров игр.");
         $this->seo()->opengraph()->setTitle($server->title." - MNS Game Project");
         $this->seo()->opengraph()->setDescription("Проект '". $server->title ."' по игре ".$server->game->title." на MNS Game Project");
@@ -224,7 +328,7 @@ class ServerController extends Controller
             asset($server->banner_img == null ? asset("/img/test/banner.png") : asset("/img/banners/{$server->banner_img}"))
         );
 
-        return view("server", compact("server"));
+        return view("server", compact("server", "server_online"));
     }
 
     public function deleteServer($id): RedirectResponse

@@ -181,6 +181,29 @@
             <div class="relative flex py-3 items-center mt-4 mb-4">
                 <div class="flex-grow border-t border-gray-400"></div>
             </div>
+            @if($server->chart)
+                <div class="w-full mb-12 px-4">
+                    <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-indigo-500">
+                        <div class="rounded-t mb-0 px-4 py-3 bg-transparent">
+                            <div class="flex flex-wrap items-center">
+                                <div class="relative w-full max-w-full flex-grow flex-1">
+                                    <h6 class="uppercase text-white mb-1 text-xs font-semibold">
+                                        Статистика проекта {{ $server->title }}
+                                    </h6>
+                                    <h2 class="text-white text-xl font-semibold">
+                                        Онлайн проекта за месяц
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-auto">
+                            <div class="relative h-[350px]">
+                                <canvas id="line-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
             <div class="text-lg mb-4">Описание сервера</div>
             <div class="text-base mdm:text-justify break-words">{!! nl2br($server->description) !!}</div>
         </div>
@@ -197,6 +220,104 @@
 @endsection
 
 @section('scripts')
+    @if($server->chart)
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" charset="utf-8"></script>
+        <script>
+            const myChart = new Chart(document.getElementById("line-chart").getContext('2d'), {
+                type: "line",
+                data: {
+                    labels: [
+                        @foreach($server_online as $key => $online)
+                            "{{ $key }}",
+                        @endforeach
+                    ],
+                    datasets: [
+                        {
+                            label: "Среднее количество онлайна",
+                            fill: false,
+                            backgroundColor: "#fff",
+                            borderColor: "#fff",
+                            data: [
+                                @foreach($server_online as $online)
+                                    "{{ $online->avg('online') }}",
+                                @endforeach
+                            ],
+                        },
+                    ],
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    title: {
+                        display: false,
+                        text: "Статистика",
+                        fontColor: "white",
+                    },
+                    legend: {
+                        labels: {
+                            fontColor: "white",
+                        },
+                        align: "end",
+                        position: "bottom",
+                    },
+                    tooltips: {
+                        mode: "index",
+                        intersect: false,
+                    },
+                    hover: {
+                        mode: "nearest",
+                        intersect: true,
+                    },
+                    scales: {
+                        xAxes: [
+                            {
+                                ticks: {
+                                    fontColor: "rgba(255,255,255,.7)",
+                                },
+                                display: true,
+                                scaleLabel: {
+                                    display: false,
+                                    labelString: "Month",
+                                    fontColor: "white",
+                                },
+                                gridLines: {
+                                    display: false,
+                                    borderDash: [2],
+                                    borderDashOffset: [2],
+                                    color: "rgba(33, 37, 41, 0.3)",
+                                    zeroLineColor: "rgba(0, 0, 0, 0)",
+                                    zeroLineBorderDash: [2],
+                                    zeroLineBorderDashOffset: [2],
+                                },
+                            },
+                        ],
+                        yAxes: [
+                            {
+                                ticks: {
+                                    fontColor: "rgba(255,255,255,.7)",
+                                },
+                                display: true,
+                                scaleLabel: {
+                                    display: false,
+                                    labelString: "Value",
+                                    fontColor: "white",
+                                },
+                                gridLines: {
+                                    borderDash: [3],
+                                    borderDashOffset: [3],
+                                    drawBorder: false,
+                                    color: "rgba(255, 255, 255, 0.15)",
+                                    zeroLineColor: "rgba(33, 37, 41, 0)",
+                                    zeroLineBorderDash: [2],
+                                    zeroLineBorderDashOffset: [2],
+                                },
+                            },
+                        ],
+                    },
+                },
+            });
+        </script>
+    @endif
     <script>
         let openmodal = document.querySelectorAll('.modal-open')
         for (let i = 0; i < openmodal.length; i++) {

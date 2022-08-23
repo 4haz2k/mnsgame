@@ -131,6 +131,54 @@
         .voteServerNotFound:before{
             Content: "Данного сервера не существует!";
         }
+
+        .server-bg-color-1{
+            background: -moz-linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, rgba(235, 112, 112,0.5) 100%);
+            background: -webkit-linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(235, 112, 112,0.5) 100%);
+            background: linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(235, 112, 112,0.5) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#acace0",GradientType=1);
+            background-size: 400% 400%;
+        }
+
+        .server-bg-color-2{
+            background: -moz-linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, rgba(255, 150, 92,0.5) 100%);
+            background: -webkit-linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(255, 150, 92,0.5) 100%);
+            background: linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(255, 150, 92,0.5) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#acace0",GradientType=1);
+            background-size: 400% 400%;
+        }
+
+        .server-bg-color-3{
+            background: -moz-linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, rgba(139, 255, 114,0.5) 100%);
+            background: -webkit-linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(139, 255, 114,0.5) 100%);
+            background: linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(139, 255, 114,0.5) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#acace0",GradientType=1);
+            background-size: 400% 400%;
+        }
+
+        .server-bg-gr-1{
+            background: -moz-linear-gradient(270deg, rgb(255 0 0) 0%, rgba(66, 66, 255, 0.3) 100%);
+            background: -webkit-linear-gradient(270deg, rgb(255 0 0) 0%, rgba(66, 66, 255, 0.3) 100%);
+            background: linear-gradient(270deg, rgb(255 0 0) 0%, rgba(66, 66, 255, 0.3) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#acace0",GradientType=1);
+            background-size: 400% 400%;
+        }
+
+        .server-bg-gr-2{
+            background: -moz-linear-gradient(270deg, rgb(0 8 255) 0%, rgba(98, 255, 0, 0.26) 100%);
+            background: -webkit-linear-gradient(270deg, rgb(0 8 255) 0%, rgba(98, 255, 0, 0.26) 100%);
+            background: linear-gradient(270deg, rgb(0 8 255) 0%, rgba(98, 255, 0, 0.26) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#acace0",GradientType=1);
+            background-size: 400% 400%;
+        }
+
+        .server-bg-gr-3{
+            background: -moz-linear-gradient(270deg, rgb(255 225 0) 0%, rgba(255, 0, 0, 0.4) 100%);
+            background: -webkit-linear-gradient(270deg, rgb(255 225 0) 0%, rgba(255, 0, 0, 0.4) 100%);
+            background: linear-gradient(270deg, rgb(255 225 0) 0%, rgba(255, 0, 0, 0.4) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#acace0",GradientType=1);
+            background-size: 400% 400%;
+        }
     </style>
 @endsection
 
@@ -225,7 +273,7 @@
                         </div>
                     </div>
                     @foreach($servers as $key => $server)
-                        <div class="server-bg w-full mdm:h-[17rem] h-24 flex rounded-1 shadow-md my-3 flex-wrap lg:flex-nowrap mdm:px-2 border-b-4 server-border-color" id="server_preview">
+                        <div class="@if($server->background) {{ $server->background }} @else server-bg @endif w-full mdm:h-[17rem] h-24 flex rounded-1 shadow-md my-3 flex-wrap lg:flex-nowrap mdm:px-2 border-b-4 server-border-color" id="server_preview">
 {{--                            Rating lg sm--}}
                             <div class="w-1/12 justify-center items-center flex text-md">
                                 <div class="rounded-3 px-2 py-1 font-semibold tooltip-custom hidden lg:inline" data-tooltip="Место в рейтинге">
