@@ -152,8 +152,6 @@ class PaymentController extends Controller
             if ($request->object['paid'] === true) {
                 $server = $this->updateInfoDB($request->object);
 
-                Log::debug($request->all());
-
                 $paymentHandler = new PaymentsHandler($request->object["metadata"]["packet"]);
 
                 // todo: избавиться от хардкода
