@@ -152,38 +152,40 @@ class PaymentController extends Controller
             if ($request->object['paid'] === true) {
                 $server = $this->updateInfoDB($request->object);
 
-                $paymentHandler = new PaymentsHandler($request->metadata["packet"]);
+                Log::debug($request->all());
+
+                $paymentHandler = new PaymentsHandler($request->object["metadata"]["packet"]);
 
                 // todo: избавиться от хардкода
                 // Начисление рейтинга в зависимости от выбранного типа услуги
-                switch ($request->metadata["packet"]){
+                switch ($request->object["metadata"]["packet"]){
                     case "rating":
                         $this->addRatingToServer(
                             $server["server_id"],
-                            $paymentHandler->getPacket()["price"] * (int)$request->metadata["qty"]
+                            $paymentHandler->getPacket()["price"] * (int)$request->object["metadata"]["qty"]
                         );
-                        $payment_history = $this->addPaymentHistory($server["server_id"], $paymentHandler->getPacket()["price"] * (int)$request->metadata["qty"], $request->metadata["packet"]);
+                        $payment_history = $this->addPaymentHistory($server["server_id"], $paymentHandler->getPacket()["price"] * (int)$request->object["metadata"]["qty"], $request->object["metadata"]["packet"]);
                         break;
                     case "packet1":
                         $this->addRatingToServer(
                             $server["server_id"],
                             $paymentHandler->getRatingToSet()
                         );
-                        $payment_history = $this->addPaymentHistory($server["server_id"], $paymentHandler->getRatingToSet(), $request->metadata["packet"], $paymentHandler->getTimeToSet());
+                        $payment_history = $this->addPaymentHistory($server["server_id"], $paymentHandler->getRatingToSet(), $request->object["metadata"]["packet"], $paymentHandler->getTimeToSet());
                         break;
                     case "packet2":
                         $this->addRatingToServer(
                             $server["server_id"],
                             $paymentHandler->getRatingToSet()
                         );
-                        $payment_history = $this->addPaymentHistory($server["server_id"], $paymentHandler->getRatingToSet(), $request->metadata["packet"]);
+                        $payment_history = $this->addPaymentHistory($server["server_id"], $paymentHandler->getRatingToSet(), $request->object["metadata"]["packet"]);
                         break;
                     case "packet3":
                         $this->addRatingToServer(
                             $server["server_id"],
                             $paymentHandler->getRatingToSet()
                         );
-                        $payment_history = $this->addPaymentHistory($server["server_id"], $paymentHandler->getRatingToSet(), $request->metadata["packet"]);
+                        $payment_history = $this->addPaymentHistory($server["server_id"], $paymentHandler->getRatingToSet(), $request->object["metadata"]["packet"]);
                         $this->setChartServer($server["server_id"]);
                         break;
                 }
@@ -201,7 +203,7 @@ class PaymentController extends Controller
      * @param $server_id
      */
     private function setChartServer($server_id){
-        $server = Server::where("server_id", $server_id)->first();
+        $server = Server::where("id", $server_id)->first();
         $server->chart = true;
         $server->save();
     }
