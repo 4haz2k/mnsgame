@@ -169,21 +169,21 @@ class PaymentController extends Controller
                             $server["server_id"],
                             $paymentHandler->getRatingToSet()
                         );
-                        $payment_history = $this->addPaymentHistory($server["server_id"], $paymentHandler->getRatingToSet(), $request->object["metadata"]["packet"], $paymentHandler->getTimeToSet());
+                        $payment_history = $this->addPaymentHistory($server["server_id"], $paymentHandler->getPacket()["price"], $request->object["metadata"]["packet"], $paymentHandler->getTimeToSet());
                         break;
                     case "packet2":
                         $this->addRatingToServer(
                             $server["server_id"],
                             $paymentHandler->getRatingToSet()
                         );
-                        $payment_history = $this->addPaymentHistory($server["server_id"], $paymentHandler->getRatingToSet(), $request->object["metadata"]["packet"]);
+                        $payment_history = $this->addPaymentHistory($server["server_id"], $paymentHandler->getPacket()["price"], $request->object["metadata"]["packet"]);
                         break;
                     case "packet3":
                         $this->addRatingToServer(
                             $server["server_id"],
                             $paymentHandler->getRatingToSet()
                         );
-                        $payment_history = $this->addPaymentHistory($server["server_id"], $paymentHandler->getRatingToSet(), $request->object["metadata"]["packet"]);
+                        $payment_history = $this->addPaymentHistory($server["server_id"], $paymentHandler->getPacket()["price"], $request->object["metadata"]["packet"]);
                         $this->setChartServer($server["server_id"]);
                         break;
                 }

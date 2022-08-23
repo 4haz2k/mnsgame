@@ -16,7 +16,7 @@
 @endsection
 
 @section("mainHeroContent")
-    <section class="py-20">
+    <section class="pt-20 pb-10">
         <div class="container max-w-6xl mx-auto">
             <h2 class="text-3xl font-bold tracking-tight text-center">Повышение рейтинга проекта</h2>
             <!-- component -->
@@ -153,10 +153,12 @@
         </div>
     </section>
     <!-- End Main Hero Content -->
-    <section class="py-20">
+    <section class="pb-20">
         <div class="container max-w-5xl mx-auto">
-            <h2 class="text-3xl font-bold tracking-tight text-center">Не упусти свой шанс быть выше остальных!</h2>
-            <p class="text-lg text-center">Выбери свой выгодный пакет, и покоряй высоты высоким онлайном.</p>
+            <div class="pb-3">
+                <h2 class="text-3xl font-bold tracking-tight text-center">Не упусти свой шанс быть выше остальных!</h2>
+                <p class="text-lg text-center">Выбери свой выгодный пакет, и покоряй высоты высоким онлайном.</p>
+            </div>
             <div class="text-center mb-2.5">
                 <a href="" class="modal-open" onclick="selectPacket('packet2')">
                     <svg class="mx-auto mdm:hidden" width="908" height="347" viewBox="0 0 908 347" fill="none" xmlns="http://www.w3.org/2000/svg">
