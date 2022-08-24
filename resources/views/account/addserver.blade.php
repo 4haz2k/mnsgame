@@ -362,7 +362,7 @@
                         </div>
                         <div class="lg:w-2/3 w-full px-3 lg:my-4 my-auto">
                             <div class="flex justify-center text-base mdm:text-center mdm:my-2">
-                                <a href="{{ url("https://superhub.host/") }}">Зарегистрируйся на Superhub и получи скидку 20% навсегда по промокоду MNSGAME</a>
+                                <a href="{{ url("https://superhub.host/") }}">Зарегистрируйся на Superhub и получи скидку 15% навсегда по промокоду MNSGAME</a>
                             </div>
                         </div>
                     </div>
