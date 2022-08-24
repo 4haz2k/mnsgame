@@ -349,6 +349,24 @@
                             <input type="file" name="server_banner" id="banner-input" class="hidden" onchange="showPreview(event);" accept=".gif, .png, .jpeg ,.jpg"/>
                             <input type="hidden" name="filters_input" value="">
                         </div>
+                    </div>
+                    <div class="flex flex-wrap -mx-3 mb-2 bg-indigo-200 rounded-1 hidden" id="superhub">
+                        <div class="lg:w-1/3 w-full px-3 lg:my-2 mdm:mt-3 lg:border-r lg:border-r-indigo-500">
+                            <label class="block text-md tracking-wide text-gray-700 font-bold mb-4 lg:text-left mdm:text-center">Хостинг для твоего Minecraft сервера со скидкой!</label>
+                            <a href="{{ url("https://superhub.host/") }}">
+                                <div class="flex my-2">
+                                    <div class="w-1/2"><img src="{{ asset('img/superHub.png') }}" alt="SuperHub" class="h-16 w-16 mx-auto"></div>
+                                    <div class="w-1/2 text-left my-auto font-bold text-lg">Superhub</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="lg:w-2/3 w-full px-3 lg:my-4 my-auto">
+                            <div class="flex justify-center text-base mdm:text-center mdm:my-2">
+                                <a href="{{ url("https://superhub.host/") }}">Зарегистрируйся на Superhub и получи скидку 20% навсегда по промокоду MNSGAME</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap -mx-3 mb-2">
                         <button type="submit" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-12 border border-blue-700 rounded mx-auto">Добавить проект</button>
                     </div>
                 </form>
@@ -405,10 +423,30 @@
            document.getElementById("filters").innerHTML = "<div class='lg:w-1/3 w-full px-3 lg:my-2'><label for='game-filters' class='block text-md tracking-wide text-gray-700 font-bold mb-2 text-left'>Категории сервера</label><span class='block text-md tracking-wide text-gray-700 mb-2 text-left'>Этот параметр определяет, в какие категории попадет ваш сервер. Выбирайте только те категории, которые действительно присутствуют на вашем сервере. В противном случае, редактирование сервера будет отключено, а сам сервер понижен в рейтинге. <br><br><strong>Внимание!</strong> В случае полного игнорирования правил выбора параметров, сервер будет удален из мониторинга без возможности восстановления!</span></div><div class='lg:w-2/3 w-full px-3 lg:my-2'><div class='flex flex-col items-center relative'><div class='w-full'> <div class='p-1 flex border border-gray-200 bg-white rounded-t-lg'><div class='flex flex-auto flex-wrap' id='filters-input'></div> <div class='text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200'><button type='button' class='cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none' onclick='showSuggestions()' id='filter-category'><svg id='filter-category' xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='w-4 h-4' style='transform: rotate(180deg);'><polyline points='18 15 12 9 6 15'></polyline></svg></button></div></div><div class='items-stretch w-full mb-4 z-20 absolute bg-gray-100 top-[42px] !rounded-b-lg hover:rounded-b-lg drop-shadow-lg'><div class='flex flex-col w-full' id='filters-suggestion'></div></div></div></div></div>";
         }
 
+        function viewPartner() {
+            let partner = document.getElementById("superhub");
+
+            if (partner.classList.contains("hidden"))
+                partner.classList.remove("hidden");
+        }
+
+        function hidePartner(){
+            let partner = document.getElementById("superhub");
+
+            if(!partner.classList.contains("hidden"))
+                partner.classList.add("hidden");
+        }
+
         function getFilters(){
             showFiltersBlock();
             let game_title = document.getElementById("game-title").value;
             let filters_suggestions = document.getElementById("filters-suggestion");
+
+            if(game_title === "Minecraft")
+                viewPartner();
+            else
+                hidePartner();
+
             filters_suggestions.innerHTML = "";
 
             const request = new XMLHttpRequest();

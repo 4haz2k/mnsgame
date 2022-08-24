@@ -94,6 +94,7 @@
                             <a href="{{ url("/games") }}" class="inline-block w-full py-2 font-medium text-left {{ request()->is('games/*') || request()->is('games') ? 'text-indigo-600' : 'text-gray-700' }} md:w-auto md:px-0 md:mx-2 lg:mx-3 md:text-center">Игры</a>
                             <a href="{{ url("/promote") }}" class="inline-block w-full py-2 font-medium text-left {{ request()->is('promote') ? 'text-indigo-600' : 'text-gray-700' }} md:w-auto md:px-0 md:mx-2 hover:text-indigo-600 lg:mx-3 md:text-center">Продвижение</a>
                             <a href="{{ url("/support") }}" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 {{ (request()->is('support')) ? 'text-indigo-600' : 'text-gray-700' }} lg:mx-3 md:text-center">Поддержка</a>
+                            @yield('integration_main')
                         </div>
                         @guest
                             <div class="relative flex py-3 items-center lg:hidden">

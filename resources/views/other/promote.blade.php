@@ -5,14 +5,6 @@
 @section("styles")
     <link rel="stylesheet" href="{{ asset("css/mainpage.css") }}">
     <script src="https://use.fontawesome.com/fd45a37d11.js"></script>
-    <style type="text/css">
-        .sapphire-bg{
-            background: linear-gradient(262.12deg, #5850EC -0.27%, #01CEFE 100.04%) center;
-        }
-        .sapphire-bg-polygon{
-            background: linear-gradient(228.23deg, #04C9FD 3.26%, #5850EC 56.78%) right top;
-        }
-    </style>
 @endsection
 
 @section("mainHeroContent")

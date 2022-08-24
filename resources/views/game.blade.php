@@ -2,6 +2,12 @@
 
 @section("title", "MNS Game | $game->title")
 
+@section("integration_main")
+    @if($game->id == 2)
+        <a target="_blank" href="{{ url("https://superhub.host/") }}" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 text-gray-700 lg:mx-3 md:text-center">Хостинг для сервера</a>
+    @endif
+@endsection
+
 @section("styles")
     <link rel="stylesheet" href="{{ asset("css/mainpage.css") }}">
     <style type="text/css">
