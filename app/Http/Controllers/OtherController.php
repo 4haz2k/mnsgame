@@ -49,4 +49,15 @@ class OtherController extends Controller
         SEOMeta::addKeyword($games_array);
         return view('mainpage'); // main page
     }
+
+    public function offer() { // Публичная оферта
+        $this->seo()->setDescription("MNS Game - это сервис мониторинга проектов и серверов для их владельцев и игроков различных жанров игр.");
+        $this->seo()->opengraph()->setTitle("MNS Game - Публичная оферта");
+        $this->seo()->opengraph()->setDescription("Договор публичной оферты MNS Game");
+        $this->seo()->opengraph()->setUrl(url("offer"));
+        $this->seo()->opengraph()->addImage(asset("/img/mnsgame.png"));
+        $this->seo()->opengraph()->setType("website");
+        SEOMeta::addKeyword(["сервера", "мониторинг серверов", "ip адреса", "айпи серверов", "топ", "список", "рейтинг", "рейтинг серверов"]);
+        return view('other.offer');
+    }
 }

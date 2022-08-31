@@ -14,9 +14,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [OtherController::class, "mainPage"]);
 
-Route::get('/offer', function (){
-    return view('other.offer'); // Публичная оферта
-})->name("offer");
+Route::get('/offer', [OtherController::class, "offer"])->name("offer");
 
 Route::get('/games', [GamePageController::class, "gamesListPage"])->name("games");
 Route::get('/servers', function (){

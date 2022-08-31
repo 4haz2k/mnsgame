@@ -13,9 +13,11 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Jenssegers\Date\Date;
+use Artesaos\SEOTools\Traits\SEOTools;
 
 class SupportController extends Controller
 {
+    use SEOTools;
     /**
      *
      * Отображение главной страницы /support
@@ -33,6 +35,12 @@ class SupportController extends Controller
      * @return Application|Factory|View
      */
     public function faqPage(){
+        $this->seo()->setDescription("MNS Game - это сервис мониторинга проектов и серверов для их владельцев и игроков различных жанров игр.");
+        $this->seo()->opengraph()->setTitle("MNS Game - наиболее частые вопросы");
+        $this->seo()->opengraph()->setDescription("Наиболее частые вопросы MNS Game");
+        $this->seo()->opengraph()->setUrl(url("/support/faq"));
+        $this->seo()->opengraph()->addImage(asset("/img/mnsgame.png"));
+        $this->seo()->opengraph()->setType("website");
         $categories = TopicCategoryModel::with("questions")->get()->all();
         return view('supportPages.faq', compact("categories"));
     }
