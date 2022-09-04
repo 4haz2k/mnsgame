@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Interfaces\ServerData;
+use App\Http\Services\Images\DrawBanner;
 use App\Models\Game;
 use App\Models\Server;
 use Artesaos\SEOTools\Facades\SEOMeta;
@@ -59,5 +61,14 @@ class OtherController extends Controller
         $this->seo()->opengraph()->setType("website");
         SEOMeta::addKeyword(["сервера", "мониторинг серверов", "ip адреса", "айпи серверов", "топ", "список", "рейтинг", "рейтинг серверов"]);
         return view('other.offer');
+    }
+
+    public function getServerBanner($type, $id)
+    {
+        $server = Server::where("id", $id)->with(["game", "filters"])
+            ->selectRaw("(select count(*) from `server_rates` where `servers`.`id` = `server_rates`.`server_id`) * ".ServerData::coefficient." + IFNULL((select rating from `server_ratings` where `servers`.`id` = `server_ratings`.`server_id`), 0) as `rating`")
+            ->firstOrFail();
+
+        DrawBanner::getImageByApi($type, $server->rating);
     }
 }

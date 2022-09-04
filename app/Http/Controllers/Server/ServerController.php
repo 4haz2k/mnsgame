@@ -318,6 +318,13 @@ class ServerController extends Controller
         else
             $server_online = null;
 
+        $game_id = $server->game->id;
+
+        $randomFilters = Filter::whereHas("game", function ($q) use ($game_id) { $q->where("id", $game_id); })
+            ->inRandomOrder()
+            ->limit(5)
+            ->get();
+
         $this->seo()->setDescription("MNS Game - это сервис мониторинга проектов и серверов для их владельцев и игроков различных жанров игр.");
         $this->seo()->opengraph()->setTitle($server->title." - MNS Game Project");
         $this->seo()->opengraph()->setDescription("Проект '". $server->title ."' по игре ".$server->game->title." на MNS Game Project");
@@ -328,7 +335,7 @@ class ServerController extends Controller
             asset($server->banner_img == null ? asset("/img/test/banner.png") : asset("/img/banners/{$server->banner_img}"))
         );
 
-        return view("server", compact("server", "server_online"));
+        return view("server", compact("server", "server_online", "randomFilters"));
     }
 
     public function deleteServer($id): RedirectResponse

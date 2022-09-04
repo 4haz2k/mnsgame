@@ -33,6 +33,10 @@
             Content: "Адрес сервера скопирован в буфер обмена";
         }
 
+        .bannerLink:before{
+            Content: "Код кнопки скопирован в буфер обмена";
+        }
+
         .voteSuccess:before{
             Content: "Голос засчитан";
         }
@@ -129,7 +133,7 @@
             </div>
         </div>
     </div>
-    <div class="relative w-full px-2 py-6 bg-white ring-1 ring-gray-900/5 mdm:max-w-3xl md:mx-auto lg:max-w-7xl lg:pt-8 lg:pb-14 lg:!px-0 mb-5 rounded-2">
+    <div class="relative w-full px-2 py-6 bg-white ring-1 ring-gray-900/5 mdm:max-w-3xl md:mx-auto lg:max-w-7xl lg:pt-8 lg:pb-14 lg:!px-0 mb-2 rounded-2">
         <div class="mt-2 px-10 mdm:px-2 mx-auto">
             <div class="text-lg mb-4">Информация сервера</div>
             <div class="flex flex-wrap my-1 break-words">
@@ -212,6 +216,55 @@
             <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto" id="modal-body"></div>
         </div>
     </div>
+    <div class="relative w-full px-2 py-6 bg-white ring-1 ring-gray-900/5 mdm:max-w-3xl md:mx-auto lg:max-w-7xl lg:pt-8 lg:pb-14 lg:!px-0 mb-5 rounded-2">
+        <div class="mt-2 px-10 mdm:px-2 mx-auto">
+            <div class="text-lg mb-4">Кнопки проекта</div>
+            <div class="flex justify-center flex-wrap">
+                @for($i = 1; $i <= 4; $i++)
+                    <div class="lg:w-1/4 mdm:w-full my-2">
+                        <div class="flex pb-1 w-[221px]">
+                            <div class="w-1/2 text-xs pl-[23px]">Пример</div>
+                            <div class="w-1/2 text-xs">Html код для сайта</div>
+                        </div>
+                        <div class="flex w-[221px]">
+                            <div class="w-1/2">
+                                <img src="{{ \App\Http\Services\Images\DrawBanner::getImage($i, $server->rating) }}" alt="banner-1" class="ml-auto mr-1">
+                            </div>
+                            <div class="w-1/2">
+                                <button class="bg-indigo-500 hover:bg-indigo-400 text-xs text-white font-bold py-1 px-1 hover:border-indigo-500 h-8 min-w-[137px] max-w-[137px]" onclick="copyBannerCode({{ $i }}, {{ $server->id }})">
+                                    <svg viewBox="0 0 460 460" class="w-5 h-4 inline mr-1 align-middle font-bold"><path fill="#FFFFFF" d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272 c1.579,0,2.864,1.285,2.864,2.864v254.272c0,1.58-1.285,2.865-2.864,2.865h-74.729v30h74.729 c18.121,0,32.864-14.743,32.864-32.865V32.864C458.797,14.743,444.055,0,425.934,0z"/><path fill="#FFFFFF" d="M288.339,139.998H34.068c-18.122,0-32.865,14.743-32.865,32.865v254.272C1.204,445.257,15.946,460,34.068,460h254.272 c18.122,0,32.865-14.743,32.865-32.864V172.863C321.206,154.741,306.461,139.998,288.339,139.998z M288.341,430H34.068 c-1.58,0-2.865-1.285-2.865-2.864V172.863c0-1.58,1.285-2.865,2.865-2.865h254.272c1.58,0,2.865,1.285,2.865,2.865v254.273h0.001 C291.206,428.715,289.92,430,288.341,430z"/></svg>
+                                    <span class="align-middle pr-1">Скопировать код</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                @endfor
+            </div>
+            <div class="relative flex py-3 items-center mt-4 mb-4">
+                <div class="flex-grow border-t border-gray-400"></div>
+            </div>
+            <div class="text-lg mb-4">Проекты по другим категориям</div>
+            <div class="flex flex-wrap my-1 break-words">
+                <div class="flex flex-col items-center relative">
+                    <div class="w-full">
+                        <div class="p-1 flex h-full">
+                            <div class="flex flex-auto flex-wrap justify-center">
+                                @foreach($randomFilters as $filter)
+                                    <a href="{{ url("games/minecraft?categories=".$filter->id) }}">
+                                        <div class="flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-md text-indigo-700 bg-indigo-100 border border-indigo-300 h-[26px] cursor-pointer" id="filter-id-{{ $filter->id }}">
+                                            <div class="text-xs font-normal leading-none max-w-full flex-initial">
+                                                Проекты {{ $server->game->title }} - {{ $filter->filter }}
+                                            </div>
+                                        </div>
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="relative w-full px-6 py-1 mdm:max-w-3xl md:mx-auto lg:max-w-7xl lg:pt-2 lg:pb-14 lg:!px-0 mb-5 flex justify-content-between">
         <div class="text-xs mdm:w-2/3"><a href="{{ url("games") }}">Игры</a> » <a href="{{ url("games")."/{$server->game->short_link}" }}">{{ $server->game->title }}</a> » <a href="">{{ $server->title }}</a></div>
         <div class="text-xs"><a href="{{ url()->previous() }}">← Назад</a></div>
@@ -239,7 +292,7 @@
                             borderColor: "#fff",
                             data: [
                                 @foreach($server_online as $online)
-                                    "{{ $online->avg('online') }}",
+                                    "{{ round($online->avg('online')) }}",
                                 @endforeach
                             ],
                         },
@@ -382,6 +435,12 @@
     </script>
 
     <script>
+        function getHtmlBannerCode(type, server_id){
+            return '<a href="{{ url("server") }}/'+ server_id +'"><img src="{{ url("/api/server/banner") }}/'+ type +'/'+ server_id +'" alt="MNS Game Project"/></a>';
+        }
+    </script>
+
+    <script>
         function copy(ip){
             copyToClipboard(ip);
 
@@ -393,6 +452,21 @@
             setTimeout(() => {
                 notify_window.classList.toggle("active");
                 notifyType.classList.toggle("success");
+            }, 2500)
+        }
+
+        function copyBannerCode(type, server_id){
+            let htmlCode = getHtmlBannerCode(type, server_id);
+            copyToClipboard(htmlCode);
+
+            let notify_window = document.querySelector(".notify");
+            let notifyType = document.getElementById("notifyType");
+            notify_window.classList.toggle("active");
+            notifyType.classList.toggle("bannerLink");
+
+            setTimeout(() => {
+                notify_window.classList.toggle("active");
+                notifyType.classList.toggle("bannerLink");
             }, 2500)
         }
 
