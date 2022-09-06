@@ -216,7 +216,7 @@
             <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto" id="modal-body"></div>
         </div>
     </div>
-    <div class="relative w-full px-2 py-6 bg-white ring-1 ring-gray-900/5 mdm:max-w-3xl md:mx-auto lg:max-w-7xl lg:pt-8 lg:pb-14 lg:!px-0 mb-5 rounded-2">
+    <div class="relative w-full px-2 py-6 bg-white ring-1 ring-gray-900/5 mdm:max-w-3xl md:mx-auto lg:max-w-7xl lg:pt-8 lg:pb-14 lg:!px-0 mb-2 rounded-2">
         <div class="mt-2 px-10 mdm:px-2 mx-auto">
             <div class="text-lg mb-4">Кнопки проекта</div>
             <div class="flex justify-center flex-wrap">
@@ -263,6 +263,12 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="relative w-full px-2 py-6 bg-white ring-1 ring-gray-900/5 mdm:max-w-3xl md:mx-auto lg:max-w-7xl lg:pt-8 lg:pb-14 lg:!px-0 mb-5 rounded-2">
+        <div class="mt-2 px-10 mdm:px-2 mx-auto">
+            <div class="text-lg mb-4">Комментарии</div>
+            <div id="vk_comments"></div>
         </div>
     </div>
     <div class="relative w-full px-6 py-1 mdm:max-w-3xl md:mx-auto lg:max-w-7xl lg:pt-2 lg:pb-14 lg:!px-0 mb-5 flex justify-content-between">
@@ -371,6 +377,16 @@
             });
         </script>
     @endif
+    <script src="https://vk.com/js/api/openapi.js?169" type="text/javascript"></script>
+    <script type="text/javascript">
+        VK.init({
+            apiId: 8015443,
+            onlyWidgets: true
+        });
+    </script>
+    <script type="text/javascript">
+        VK.Widgets.Comments('vk_comments');
+    </script>
     <script>
         let openmodal = document.querySelectorAll('.modal-open')
         for (let i = 0; i < openmodal.length; i++) {
