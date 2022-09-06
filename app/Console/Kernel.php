@@ -19,6 +19,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command("server:updateOnline")->everyFifteenMinutes()->description("Servers online updater");
         $schedule->command("server:updateRating")->everyFifteenMinutes()->description("Servers rating updater");
+        $schedule->command("server:updateVotes")->everyFifteenMinutes()->description("Servers vote updater");
     }
 
     /**
