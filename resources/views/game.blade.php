@@ -279,11 +279,55 @@
                         </div>
                     </div>
                     @foreach($servers as $key => $server)
-                        <div class="@if($server->background) {{ $server->background }} @else server-bg @endif w-full mdm:h-[17rem] h-24 flex rounded-1 shadow-md my-3 flex-wrap lg:flex-nowrap mdm:px-2 border-b-4 server-border-color" id="server_preview">
+                        <div class="@if($server->background) {{ $server->background }} @else server-bg @endif w-full mdm:h-[17rem] h-24 flex rounded-1 shadow-md my-3 flex-wrap lg:flex-nowrap mdm:px-2 border-b-4
+                        @switch($servers->firstItem() + $key)
+                            @case(1)
+                                border-[#FFA500]
+                                @break
+                            @case(2)
+                                border-[#808080]
+                                @break
+                            @case(3)
+                                border-[#CD7F32]
+                                @break
+                            @default
+                                server-border-color
+                                @break
+                        @endswitch
+                        " id="server_preview">
 {{--                            Rating lg sm--}}
                             <div class="w-1/12 justify-center items-center flex text-md">
-                                <div class="rounded-3 px-2 py-1 font-semibold tooltip-custom hidden lg:inline" data-tooltip="Место в рейтинге">
-                                    {{ $servers->firstItem() + $key }}
+                                <div class="rounded-3 px-2 py-1 font-semibold tooltip-custom hidden lg:inline flex" data-tooltip="Место в рейтинге">
+                                    <div class="w-1/2 inline">
+                                        @if($servers->firstItem() + $key <= 3)
+                                            <svg viewBox="0 0 282.887 282.887" class="w-4 h-4">
+                                                <path
+                                                    @switch($servers->firstItem() + $key)
+                                                        @case(1)
+                                                            fill="#FFA500"
+                                                            @break
+                                                        @case(2)
+                                                            fill="#A9A9A9"
+                                                            @break
+                                                        @case(3)
+                                                            fill="#CD7F32"
+                                                            @break
+                                                        @default
+                                                            fill="#FFFFFF"
+                                                            @break
+                                                    @endswitch
+                                                    d="M282.84,92.192L263.4,264.533c-0.423,3.749-3.563,6.553-7.321,6.619c-0.469,0.092-0.954,0.075-1.45,0.075
+                                                c-0.006,0-0.014,0-0.02,0H28.277c-0.46,0-0.908,0.012-1.35-0.069c-3.811-0.006-7.013-2.802-7.441-6.59L0.047,92.209
+                                                c-0.127-1.132,0.005-2.277,0.386-3.351l0.425-1.196c0.979-2.759,3.475-4.695,6.39-4.96c2.909-0.26,5.717,1.19,7.178,3.729
+                                                l59.346,103.095l61.463-172.88c1.063-2.99,3.893-4.987,7.066-4.987s6.004,1.998,7.067,4.988l60.797,171.056l58.298-101.273
+                                                c1.461-2.538,4.258-4.002,7.181-3.728c2.916,0.266,5.411,2.204,6.389,4.964l0.424,1.196
+                                                C282.836,89.935,282.967,91.062,282.84,92.192z"/>
+                                            </svg>
+                                        @endif
+                                    </div>
+                                    <div class="w-1/2 inline">
+                                        {{ $servers->firstItem() + $key }}
+                                    </div>
                                 </div>
                             </div>
 {{--                            End Rating lg sm--}}
