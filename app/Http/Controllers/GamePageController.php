@@ -15,8 +15,8 @@ class GamePageController extends Controller
 
     public function gamesListPage(){
         $this->seo()->setDescription("MNS Game - это сервис мониторинга проектов и серверов для их владельцев и игроков различных жанров игр.");
-        $this->seo()->opengraph()->setTitle("Игры на MNS Game Project");
-        $this->seo()->opengraph()->setDescription("Страница игр на MNS Game Project");
+        $this->seo()->opengraph()->setTitle("Игры на MNS Game Мониторинг");
+        $this->seo()->opengraph()->setDescription("Страница игр на MNS Game Мониторинг");
         $this->seo()->opengraph()->setUrl(url("/games"));
         $this->seo()->opengraph()->addImage(asset("/img/mnsgame.png"));
         $this->seo()->opengraph()->setType("website");

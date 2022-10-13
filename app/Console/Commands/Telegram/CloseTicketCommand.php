@@ -27,7 +27,7 @@ class CloseTicketCommand extends Command
         try {
             $this->telegram->sendMessage([
                 "chat_id" => $chat_id,
-                "text" => "*Администратор закрыл ваше обращение. Спасибо, что пользуетесь MNS Game Project!*",
+                "text" => "*Администратор закрыл ваше обращение. Спасибо, что пользуетесь MNS Game Мониторинг!*",
                 "parse_mode" => 'markdown'
             ]);
             $this->replyWithMessage([

@@ -210,7 +210,7 @@
                         <div class="lg:w-2/5 w-full px-3 lg:my-2 text-justify font-medium text-base">
                             Представляем вам сервера от MNS Game, здесь вы с лёгкостью подберете сервера <strong>{{ $game->title }}</strong> под конкретные ваши требования!<br><br>
                             Рядом расположены категории <strong>{{ $game->title }}</strong>, где выбирая их нажатием, ниже вам будут отображаются сервера, которые соответствуют выбранным категориям.<br><br>
-                            Удачных вам игр - команда <strong>MNS Game Project</strong>!
+                            Удачных вам игр - команда <strong>MNS Game Мониторинг</strong>!
                         </div>
                         <div class="lg:w-3/5 w-full px-3 lg:my-2">
                             @if(!$game->filters->isEmpty())

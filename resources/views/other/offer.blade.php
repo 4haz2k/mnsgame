@@ -26,7 +26,7 @@
                     <strong>Общие положения</strong>
                     <ol>
                         <li>
-                            Настоящий Договор является официальным предложением (публичной офертой) MNS Game Project для
+                            Настоящий Договор является официальным предложением (публичной офертой) MNS Game Мониторинг для
                             полностью дееспособного физического (далее – «Заказчик»), которое примет настоящее
                             предложение, на указанных ниже условиях.
                         </li>
@@ -194,7 +194,7 @@
                 <li>
                     <strong>Контакты</strong><br>
                     e-mail: <a href="mailto:support@mnsgame.ru">support@mnsgame.ru</a><br>
-                    ВКонтакте: <a href="https://vk.com/mnsgameru">MNS Game Project</a>
+                    ВКонтакте: <a href="https://vk.com/mnsgameru">MNS Game Мониторинг</a>
                 </li>
             </ol>
         </div>

@@ -63,7 +63,7 @@ class PaymentController extends Controller
                     'value' => $paymentHandler->getPacket()["price"] * (int)$request->qty,
                     'currency' => 'RUB',
                 ],
-                'description' => "Оплата рекламы проекта '{$server->title}' на MNS Game Project",
+                'description' => "Оплата рекламы проекта '{$server->title}' на MNS Game Мониторинг",
                 'capture' => true,
                 'confirmation' => [
                     'type' => 'redirect',

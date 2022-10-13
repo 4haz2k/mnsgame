@@ -35,7 +35,7 @@ class OtherController extends Controller
     public function mainPage(){
         $this->seo()->setDescription("MNS Game - это сервис мониторинга проектов и серверов для их владельцев и игроков различных жанров игр.");
         $this->seo()->setTitle("MNS Game - сервис мониторинга различных игровых проектов.");
-        $this->seo()->opengraph()->setTitle("MNS Game Project - сервис мониторинга различных игровых проектов.");
+        $this->seo()->opengraph()->setTitle("MNS Game Мониторинг - сервис мониторинга различных игровых проектов.");
         $this->seo()->opengraph()->setDescription("MNS Game - это сервис мониторинга проектов и серверов для игроков и владельцев. Присоединяйся!");
         $this->seo()->opengraph()->setUrl(url("/"));
         $this->seo()->opengraph()->addImage(asset("/img/mnsgame.png"));
@@ -54,7 +54,7 @@ class OtherController extends Controller
 
     public function offer() { // Публичная оферта
         $this->seo()->setDescription("MNS Game - это сервис мониторинга проектов и серверов для их владельцев и игроков различных жанров игр.");
-        $this->seo()->opengraph()->setTitle("MNS Game - Публичная оферта");
+        $this->seo()->opengraph()->setTitle("MNS Game мониторинг - Публичная оферта");
         $this->seo()->opengraph()->setDescription("Договор публичной оферты MNS Game");
         $this->seo()->opengraph()->setUrl(url("offer"));
         $this->seo()->opengraph()->addImage(asset("/img/mnsgame.png"));

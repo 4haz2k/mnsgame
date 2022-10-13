@@ -15,13 +15,13 @@
 </head>
 <body>
 <section class="pt-24 container">
-    <div class="text-center text-3xl text-gray-900 font-black my-6">MNS Game<span class="text-indigo-600 text-4xl">.</span> Project</div>
+    <div class="text-center text-3xl text-gray-900 font-black my-6">MNS Game<span class="text-indigo-600 text-4xl">.</span> Мониторинг</div>
     <div class="content text-lg text-center">
         На MNS Game ведутся технические работы по исправлению ошибок или улучшению сайта!
         <br>
         Совсем скоро мы вернемся!
         <br>
-        Спасибо, что остаетесь с нами! <span class="font-black">Команда MNS Game<span class="text-indigo-600 text-xl">.</span> Project</span>
+        Спасибо, что остаетесь с нами! <span class="font-black">Команда MNS Game<span class="text-indigo-600 text-xl">.</span> Мониторинг</span>
     </div>
 </section>
 <!-- Section 4 -->

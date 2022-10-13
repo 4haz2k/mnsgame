@@ -1344,7 +1344,7 @@
     <!-- Section 2 -->
     <section class="py-20 mns-background2">
         <div class="container max-w-6xl mx-auto">
-            <h2 class="text-3xl font-bold tracking-tight text-center">Почему стоит выбрать услуги MNS Game Project?</h2>
+            <h2 class="text-3xl font-bold tracking-tight text-center">Почему стоит выбрать услуги MNS Game Мониторинг?</h2>
             <div class="grid grid-cols-4 gap-8 mt-2 sm:grid-cols-8 lg:grid-cols-12 sm:px-8 xl:px-0">
 
                 <div class="flex flex-col items-start justify-between col-span-4 px-8 py-12 space-y-4 overflow-hidden sm:rounded-xl">

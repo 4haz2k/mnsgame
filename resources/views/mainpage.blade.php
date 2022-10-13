@@ -1,6 +1,6 @@
 @extends("layouts.main")
 
-@section("title", "MNS Game Project")
+@section("title", "MNS Game Мониторинг")
 
 @section("styles")
     <link rel="stylesheet" href="{{ asset("css/mainpage.css") }}">
@@ -16,7 +16,7 @@
             <div id="firstColumn" class="lg:mt-[-35px] mt-[50px]">
                 <h1 class="text-5xl font-extrabold leading-10 tracking-tight text-left text-gray-900 text-center sm:leading-none md:text-6xl lg:text-7xl">
                     <span class="inline md:block">MNS Game</span>
-                    <span class="relative mt-2 text-transparent bg-clip-text bg-gradient-to-br from-indigo-600 to-indigo-500 md:inline-block h-20">Project</span>
+                    <span class="relative mt-2 text-transparent bg-clip-text bg-gradient-to-br from-indigo-600 to-indigo-500 md:inline-block h-20">Мониторинг</span>
                 </h1>
                 <div class="mx-auto mt-5 text-gray-500 mt-12 max-w-lg text-center lg:text-lg">
                     <div class="mb-2">MNS Game - это сервис мониторинга проектов и серверов.</div>
@@ -51,7 +51,7 @@
     <!-- Section 2 -->
     <section class="py-20 mns-background2">
         <div class="container max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold tracking-tight text-center">Почему MNS Game Project?</h2>
+            <h2 class="text-4xl font-bold tracking-tight text-center">Почему MNS Game Мониторинг?</h2>
             <p class="mt-2 text-lg text-center text-gray-600">Ознакомьтесь с нашими преимуществами ниже.</p>
             <div class="grid grid-cols-4 gap-8 mt-10 sm:grid-cols-8 lg:grid-cols-12 sm:px-8 xl:px-0">
 
