@@ -188,7 +188,7 @@
             data: {
                 labels: [
                     @foreach($statistic["visits"] as $date)
-                        {{$date["date"].","}}
+                        '{{$date["date"]}}',
                     @endforeach
                 ],
                 datasets: [
