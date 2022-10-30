@@ -11,6 +11,7 @@ use App\Models\PaymentHistory;
 use App\Models\Question;
 use App\Models\QuestionOfCategoryModel;
 use App\Models\QuestionRate;
+use App\Models\Server;
 use App\Models\TopicCategoryModel;
 use App\Models\User;
 use Carbon\Carbon;
@@ -50,6 +51,8 @@ class AdminPanel extends Controller
         $sales = $this->getSales();
 
         $name = Auth::user()->name. " " . Auth::user()->surname;
+        $servers = Server::count();
+        $users = User::count();
 
         return view(
             'admin.home',
@@ -59,7 +62,9 @@ class AdminPanel extends Controller
                 "statistic",
                 "refusal",
                 "geo_data",
-                "sales"
+                "sales",
+                "servers",
+                "users"
             )
         );
     }
