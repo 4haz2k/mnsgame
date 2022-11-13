@@ -7,7 +7,7 @@ require 'recipe/laravel.php';
 set('application', 'MNS_GAME');
 
 // Project repository
-set('repository', 'git@github.com:4haz2k/GSMS.git');
+set('repository', 'git@github.com:4haz2k/mnsgame.git');
 
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', false);
