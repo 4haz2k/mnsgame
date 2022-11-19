@@ -5,7 +5,8 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "7.4",
+        "php": ">=7.4",
+        "ext-gd": "*",
         "ext-json": "*",
         "ext-sockets": "*",
         "alexusmai/yandex-metrika": "^1.7",
@@ -20,12 +21,12 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
         "qoraiche/laravel-mail-editor": "3.5.0",
+        "socialiteproviders/discord": "^4.1",
         "socialiteproviders/google": "^4.1",
         "socialiteproviders/vkontakte": "^4.2",
         "socialiteproviders/yandex": "^4.1",
         "socialiteproviders/zoho": "^4.1",
-        "yoomoney/yookassa-sdk-php": "^2.4",
-      "ext-gd": "*"
+        "yoomoney/yookassa-sdk-php": "^2.4"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

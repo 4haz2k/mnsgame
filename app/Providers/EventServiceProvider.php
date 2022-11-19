@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use SocialiteProviders\Discord\DiscordExtendSocialite;
 use SocialiteProviders\Google\GoogleExtendSocialite;
 use SocialiteProviders\Manager\SocialiteWasCalled;
 use SocialiteProviders\VKontakte\VKontakteExtendSocialite;
@@ -25,6 +26,7 @@ class EventServiceProvider extends ServiceProvider
             VKontakteExtendSocialite::class.'@handle',
             YandexExtendSocialite::class.'@handle',
             GoogleExtendSocialite::class.'@handle',
+            DiscordExtendSocialite::class."@handle",
         ],
     ];
 
