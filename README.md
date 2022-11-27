@@ -9,9 +9,8 @@ MNS Game is a game server monitoring system for different games, which allows pl
 - Counter-Strike: Global Offensive;
 - Minecraft;
 - Garry’s Mod;
-- San Andreas Multiplayer.
-
-In the future, games will be added.
+- San Andreas Multiplayer;
+- and others.
 
 ## Project time frame
 
@@ -27,9 +26,12 @@ Technology stack used in development:
 
 - Nginx
 - PHP 7.4
-- MySQL
-- Laravel 8.0
+- MariaDB
+- Laravel 8
 - Tailwind
+- Webpack js
+- PHP deployer
+- Blade
 
 ## Developers
 

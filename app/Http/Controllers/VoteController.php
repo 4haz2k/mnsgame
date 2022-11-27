@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FavoriteServers;
 use App\Models\Server;
 use App\Models\ServerRates;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\GuzzleException;
+use http\Env\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
@@ -63,6 +65,35 @@ class VoteController extends Controller
         }
 
         return response()->json(["message" => "Голос засчитан"]);
+    }
+
+    public function addFavorite($server_id): JsonResponse
+    {
+        $server = Server::where("id", $server_id)->first();
+
+        if(!$server){
+            return response()->json(["message" => "Данного сервера не существует!", "code" => 0], 422);
+        }
+
+        $favorites = FavoriteServers::where("user_id", Auth::id())->where("server_id", $server->id)->get();
+
+        if($favorites->isEmpty()) {
+            FavoriteServers::create([
+                "server_id" => $server->id,
+                "user_id" => Auth::id()
+            ]);
+
+            return response()->json(["message" => "Success", "code" => 1]);
+        } else {
+            return response()->json(["message" => "Already in favorites", "code" => 2], 422);
+        }
+    }
+
+    public function favoriteDelete($id): JsonResponse
+    {
+        FavoriteServers::where("user_id", Auth::id())->where("server_id", $id)->delete();
+
+        return response()->json(["message" => "Success"]);
     }
 
     private function sendCallback($url, $nickname, $hash): bool

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Server extends Model
 {
@@ -89,6 +90,14 @@ class Server extends Model
     public function serverRating(): BelongsTo
     {
         return $this->belongsTo(ServerRating::class, "id", "server_id");
+    }
+
+    public function serverRcon(): BelongsTo {
+        return $this->belongsTo(ServerRcon::class, "id", "server_id");
+    }
+
+    public function serverRconHistory(): HasMany {
+        return $this->hasMany(ServerRconHistory::class);
     }
 
     /**

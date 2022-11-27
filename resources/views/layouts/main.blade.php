@@ -115,8 +115,9 @@
                                 @if(\Illuminate\Support\Facades\Auth::user()->role == "admin")
                                     <a href="{{ url('adminpanel') }}" class="ml-[1.5rem] inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 {{ (request()->is('addserver')) ? 'text-indigo-600' : 'text-gray-700' }} lg:mx-3 md:text-center"><strong>Панель администратора</strong></a>
                                 @endif
-                                <a href="{{ route("myservers") }}" class="ml-[1.5rem] inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 {{ (request()->is('myservers')) ? 'text-indigo-600' : 'text-gray-700' }} lg:mx-3 md:text-center">Мои сервера</a>
-                                <a href="{{ route("addserver") }}" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 {{ (request()->is('addserver')) ? 'text-indigo-600' : 'text-gray-700' }} lg:mx-3 md:text-center">Добавить сервер</a>
+                                <a href="{{ route("favoriteServers") }}" class="ml-[1.5rem] inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 {{ (request()->is('favorites')) ? 'text-indigo-600' : 'text-gray-700' }} lg:mx-3 md:text-center">Избранные проекты</a>
+                                <a href="{{ route("myservers") }}" class="ml-[1.5rem] inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 {{ (request()->is('myservers')) ? 'text-indigo-600' : 'text-gray-700' }} lg:mx-3 md:text-center">Мои проекты</a>
+                                <a href="{{ route("addserver") }}" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 {{ (request()->is('addserver')) ? 'text-indigo-600' : 'text-gray-700' }} lg:mx-3 md:text-center">Добавить проект</a>
                                 <a href="{{ route("settings") }}" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 {{ (request()->is('settings')) ? 'text-indigo-600' : 'text-gray-700' }} lg:mx-3 md:text-center">Настройки</a>
                                 <a href="{{ route("notifications") }}" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 {{ (request()->is('notifications')) ? 'text-indigo-600' : 'text-gray-700' }} lg:mx-3 md:text-center">Уведомления</a>
                                 <a href="{{ route("addserver") }}" class="inline-block w-full py-2 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 text-gray-700 lg:mx-3 md:text-center" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Выход</a>
@@ -153,6 +154,7 @@
                     </a>
                 </div>
                 <div class="py-1" role="none">
+                    <a href="{{ route("favoriteServers") }}" class="text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Избранные проекты</a>
                     <a href="{{ route("myservers") }}" class="text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Мои проекты</a>
                     <a href="{{ route("addserver") }}" class="text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Добавить проект</a>
                     <a href="{{ url("promote") }}" class="text-lime-500 block px-4 py-2 text-sm font-semibold" role="menuitem" tabindex="-1" id="menu-item-3">Продвижение</a>

@@ -6,6 +6,7 @@ use App\Http\Controllers\GamePageController;
 use App\Http\Controllers\OtherController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\Server\ServerController;
+use App\Http\Controllers\ServerConsole;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Auth;
@@ -70,6 +71,11 @@ Route::get('/editserver/{id}', [ServerController::class, 'editServer']);
 Route::post('/editserver', [ServerController::class, 'saveServer'])->name("saveserver");
 Route::get('/deleteserver/{id}', [ServerController::class, 'deleteServer'])->name("deleteserver");
 Route::get('/myservers', [ServerController::class, 'myServers'])->name("myservers");
+Route::get('/favorites', [ServerController::class, 'favoriteServers'])->name("favoriteServers");
+Route::post('/favorites/delete/{id}', [VoteController::class, 'favoriteDelete'])->name("favoriteDelete");
+Route::get('/serverstats/{id}', [ServerController::class, 'serverStats'])->name('serverStats');
+Route::post('/server/connect/new', [ServerConsole::class, 'FirstTimeServerConnect'])->name('connectToServerFirstTime');
+Route::post('/server/connect', [ServerConsole::class, 'connectToServer'])->name('connectToServer');
 
 Route::post('/server/loadFilters', [ServerController::class, "loadFilters"]);
 Route::post('/server/checkCallback', [ServerController::class, "getResponseStatus"]);
@@ -78,7 +84,10 @@ Route::post('/server/checkCallback', [ServerController::class, "getResponseStatu
 // AJAX
 Route::post('/game/get_games', [GamePageController::class, "getGamesList"]);
 Route::post('/server/vote/{server_id}', [VoteController::class, "addVote"]);
+Route::post('/server/favorite/{server_id}', [VoteController::class, "addFavorite"]);
 Route::post('/servers/search', [OtherController::class, "getServerBySearch"]);
+Route::post('/server/console/send', [ServerConsole::class, "sendCommand"]);
+Route::delete('/server/console/delete', [ServerConsole::class, "deleteConnection"]);
 // End AJAX
 
 // Telegram

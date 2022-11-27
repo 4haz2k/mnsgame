@@ -1,6 +1,6 @@
 @extends("layouts.main")
 
-@section("title", "MNS Game | Мои проекты")
+@section("title", "MNS Game | Избранные проекты")
 
 @section("styles")
     <link rel="stylesheet" href="{{ asset("css/mainpage.css") }}">
@@ -142,8 +142,8 @@
 @section("body")
     <section class="mb-10">
         <div class="container max-w-7xl mx-auto">
-            <div class="text-2xl font-bold tracking-tight mdm:text-center">MNS Game<span class="text-indigo-500 text-3xl">.</span> Мои проекты</div>
-            <div class="text-lg font-medium tracking-tight mdm:text-center">На этой странице отображены ваши проекты. Для управления нажмите соответствующие кнопки в правой части проекта.</div>
+            <div class="text-2xl font-bold tracking-tight mdm:text-center">MNS Game<span class="text-indigo-500 text-3xl">.</span> Избранные проекты</div>
+            <div class="text-lg font-medium tracking-tight mdm:text-center">На этой странице отображены ваши избранные проекты. Для добавления новых проектов нажмите на кнопку "В избранное" в списке проектов.</div>
         </div>
     </section>
     <div class="container max-w-full px-4 mx-auto text-left md:max-w-none md:text-center">
@@ -153,7 +153,7 @@
                     <div class="lg:mt-8 lg:mb-12">
                         <h3 class="text-xl text-left mt-4 mb-3 font-bold mdm:!text-center">{{ $game->title }}</h3>
                         <div class="w-full h-12 flex rounded-1 mdm:hidden">
-                            <div class="w-5/12 justify-center items-center flex text-sm">
+                            <div class="w-6/12 justify-center items-center flex text-sm">
                                 Название проекта
                             </div>
                             <div class="w-1/12 justify-center items-center flex text-sm">
@@ -169,15 +169,15 @@
                         @foreach($game->servers as $key => $server)
                             <div class="@if($server->background) {{ $server->background }} @else server-bg @endif w-full mdm:h-[20rem] h-24 flex rounded-1 shadow-md my-3 flex-wrap lg:flex-nowrap mdm:px-2 border-b-4 server-border-color" id="server_preview">
                                 {{--                            End Rating lg sm--}}
-                                <div class="w-full lg:w-5/12 justify-center items-center flex flex-col truncate">
+                                <div class="w-full lg:w-6/12 justify-center items-center flex flex-col truncate">
                                     {{--                                Server Title lg sm--}}
                                     <a href="{{ route("server", ["id" => $server->id]) }}">
                                         <div class="text-xs lg:!text-base mb-1 text-ellipsis overflow-hidden font-bold max-w-[560px] text-center mdm:mt-2" id="server-title-preview">
                                             {{ $server->title }}
                                         </div>
                                     </a>
-{{--                                                                    End Server Title lg sm--}}
-{{--                                                                    Banner lg sm--}}
+                                    {{--                                                                    End Server Title lg sm--}}
+                                    {{--                                                                    Banner lg sm--}}
                                     <div class="block">
                                         <a href="{{ route("server", ["id" => $server->id]) }}">
                                             <img class="rounded-2" src="@if($server->banner_img == null) {{ asset("/img/deps/banner_placeholder.png") }} @else {{ asset("/img/banners/{$server->banner_img}") }} @endif" width="486" height="60" alt="" id="server-banner">
@@ -286,46 +286,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="w-1/3 lg:w-1/12 justify-center items-center flex text-xs mdm:flex-wrap mdm:text-center">
-                                    <a href="{{ url("/editserver/".$server->id) }}">
-                                        <button class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 border-b-4 border-indigo-700 hover:border-indigo-500 active:!border-0 rounded tooltip-custom mdm:w-[5rem]" data-tooltip="Редактировать">
-                                            <svg viewBox="0 0 490.305 490.305" class="w-5 h-4 inline align-middle font-bold" color="white">
-                                                <g>
-                                                    <path fill="#FFFFFF" d="M472.469,81.443l-63.6-63.6c-13.1-16.4-53.2-30.2-83.4,0l-290.9,289.9l0,0c-4.4,4.4-6.5,10.1-6.2,15.6l-27.1,141.8
-                                                c-4.2,16.2,11.9,26.6,22.9,25l147-29.2c4.2,0,7.3-2.1,10.4-5.2l290.9-289.8C495.469,142.943,495.469,104.443,472.469,81.443z
-                                                 M354.669,46.043c6.3-7.3,18.8-7.3,26.1,0l17.3,17l-289.7,289.7l-30.1-30.4L354.669,46.043z M61.769,364.043l64.4,64.4l-80.1,15.8
-                                                L61.769,364.043z M444.369,135.643l-276.8,276.8l-30.1-30.4l290-290l16.8,16.5C453.469,118.343,449.169,130.743,444.369,135.643z"
-                                                    />
-                                                </g>
-                                            </svg>
-                                        </button>
-                                    </a>
-                                </div>
-                                <div class="w-1/3 lg:w-1/12 justify-center items-center flex text-xs mdm:flex-wrap mdm:text-center">
-                                    <a href="{{ url("/serverstats/".$server->id) }}">
-                                        <button class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 border-b-4 border-indigo-700 hover:border-indigo-500 active:!border-0 rounded tooltip-custom mdm:w-[5rem]" data-tooltip="Статистика и управление">
-                                            <svg viewBox="0 0 458.317 458.317" class="w-5 h-4 inline align-middle font-bold" color="white">
-                                                <g>
-                                                    <path fill="#FFFFFF" d="M446.185,179.159h-64.768c-2.536-7.702-5.636-15.15-9.26-22.29l45.818-45.818c4.737-4.737,4.737-12.416,0-17.152
-                                                    L364.416,40.34c-4.737-4.737-12.416-4.737-17.152,0l-45.818,45.818c-7.14-3.624-14.587-6.724-22.289-9.26V12.131
-                                                    c0.001-6.699-5.429-12.129-12.128-12.129h-75.743c-6.698,0-12.129,5.43-12.129,12.128v64.768
-                                                    c-7.702,2.535-15.149,5.636-22.29,9.26L111.05,40.341c-4.737-4.737-12.416-4.737-17.152,0L40.339,93.9
-                                                    c-4.737,4.736-4.737,12.416,0,17.152l45.817,45.817c-3.624,7.14-6.725,14.588-9.26,22.29H12.129C5.43,179.159,0,184.59,0,191.288
-                                                    v75.743c0,6.698,5.43,12.128,12.129,12.128h64.768c2.536,7.702,5.636,15.149,9.26,22.29L40.34,347.266
-                                                    c-4.737,4.736-4.737,12.416,0,17.152l53.559,53.559c4.737,4.736,12.416,4.736,17.152,0l45.817-45.817
-                                                    c7.14,3.624,14.587,6.725,22.29,9.26v64.768c0,6.698,5.43,12.128,12.129,12.128h75.743c6.698,0,12.129-5.43,12.129-12.128v-64.768
-                                                    c7.702-2.535,15.149-5.636,22.289-9.26l45.818,45.817c4.737,4.736,12.416,4.736,17.152,0l53.559-53.559
-                                                    c4.737-4.737,4.737-12.416,0-17.152l-45.817-45.817c3.624-7.14,6.724-14.587,9.26-22.289h64.768
-                                                    c6.698,0,12.129-5.43,12.129-12.128v-75.743C458.314,184.59,452.884,179.159,446.185,179.159z M229.157,289.542
-                                                    c-33.349,0-60.384-27.035-60.384-60.384s27.035-60.384,60.384-60.384s60.384,27.035,60.384,60.384
-                                                    S262.506,289.542,229.157,289.542z"/>
-                                                </g>
-                                            </svg>
-                                        </button>
-                                    </a>
-                                </div>
-                                <div class="w-1/3 lg:w-1/12 justify-center items-center flex text-xs mdm:flex-wrap mdm:text-center">
-                                    <button class="modal-open bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 border-b-4 border-indigo-700 hover:border-indigo-500 active:!border-0 rounded tooltip-custom mdm:w-[5rem]" data-tooltip="Удалить" onclick="redirectToDelete('{{ url("deleteserver/".$server->id) }}')">
+                                <div class="w-1/2 lg:w-1/12 justify-center items-center flex text-xs mdm:hidden">
+                                    <button class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 border-b-4 border-indigo-700 hover:border-indigo-500 active:!border-0 rounded tooltip-custom mdm:w-[5rem]" data-tooltip="Удалить из избранных" onclick="deleteFavorite('{{ $server->id }}')">
                                         <svg viewBox="0 0 348.333 348.334" class="w-5 h-4 inline align-middle font-bold" color="white">
                                             <g>
                                                 <path fill="#FFFFFF" d="M336.559,68.611L231.016,174.165l105.543,105.549c15.699,15.705,15.699,41.145,0,56.85
@@ -337,34 +299,43 @@
                                         </svg>
                                     </button>
                                 </div>
+                                <div class="w-1/2 justify-center items-center flex text-xs mdm:flex-wrap mdm:text-center lg:hidden mb-2">
+                                    <button class="bg-indigo-500 min-w-[90%] hover:bg-indigo-400 text-white font-bold py-1 px-3 border-b-4 border-indigo-700 hover:border-indigo-500 active:!border-0 rounded" onclick="deleteFavorite('{{ $server->id }}')">
+                                        <span class="inline align-middle pt-[1%]">Удалить</span>
+                                        <svg viewBox="0 0 348.333 348.334" class="w-5 h-4 inline align-middle font-bold" color="white">
+                                            <g>
+                                                <path fill="#FFFFFF" d="M336.559,68.611L231.016,174.165l105.543,105.549c15.699,15.705,15.699,41.145,0,56.85
+                                                c-7.844,7.844-18.128,11.769-28.407,11.769c-10.296,0-20.581-3.919-28.419-11.769L174.167,231.003L68.609,336.563
+                                                c-7.843,7.844-18.128,11.769-28.416,11.769c-10.285,0-20.563-3.919-28.413-11.769c-15.699-15.698-15.699-41.139,0-56.85
+                                                l105.54-105.549L11.774,68.611c-15.699-15.699-15.699-41.145,0-56.844c15.696-15.687,41.127-15.687,56.829,0l105.563,105.554
+                                                L279.721,11.767c15.705-15.687,41.139-15.687,56.832,0C352.258,27.466,352.258,52.912,336.559,68.611z"/>
+                                            </g>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="w-1/2 lg:w-1/12 justify-center items-center flex text-xs mdm:flex-wrap mdm:text-center mdm:hidden">
+                                    <button class="modal-open bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-1 px-3 border-b-4 border-indigo-700 hover:border-indigo-500 active:!border-0 rounded tooltip-custom" data-tooltip="Проголосовать" onclick="addServerId({{ $server->id }})">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" class="w-5 h-4 inline mr-1 align-middle font-bold" color="white"	 viewBox="0 0 66.831 66.831" style="enable-background:new 0 0 66.831 66.831;" xml:space="preserve"> <g> 	<path fill="#FFFFFF" d="M51.735,20h-2.934c1.419-3.934,2.799-9.714,0.942-14.247c-1.095-2.673-3.177-4.574-6.021-5.496 		C43.197,0.086,42.651,0,42.101,0c-3.701,0-7.05,3.613-11.944,12.888c-2.199,4.171-5.364,7.683-7.593,9.577 		c-0.946,0.804-1.702,1.624-2.315,2.431c-1.69-2.512-4.558-4.167-7.806-4.167c-5.185,0-9.404,4.219-9.404,9.404v27.294 		c0,5.186,4.219,9.404,9.404,9.404c3.406,0,6.386-1.827,8.036-4.546c2.212,2.728,5.586,4.477,9.364,4.477h23.023 		c9.507,0,10.926-6.136,10.926-9.793v-24.91C63.793,25.41,58.384,20,51.735,20z M15.847,57.427c0,1.877-1.527,3.404-3.403,3.404 		c-1.877,0-3.404-1.527-3.404-3.404V30.133c0-1.877,1.527-3.404,3.404-3.404c1.876,0,3.403,1.527,3.403,3.404V57.427z 		 M57.793,56.969c0,2.221-0.354,3.793-4.926,3.793H29.844c-3.34,0-6.058-2.717-6.058-6.057V32.059l0.008-0.095l-0.021-0.176 		c-0.006-0.096-0.106-2.386,2.676-4.75c2.656-2.258,6.419-6.425,9.015-11.351c4.132-7.83,6.104-9.353,6.639-9.641 		c1.039,0.388,1.688,1.007,2.087,1.981c1.293,3.156-0.331,9.224-2.603,13.587l-2.283,4.385h12.43c3.341,0,6.059,2.718,6.059,6.059 		V56.969z"/> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> </svg>
+                                    </button>
+                                </div>
+                                <div class="w-1/2 justify-center items-center flex text-xs mdm:flex-wrap mdm:text-center lg:hidden mb-2">
+                                    <button class="modal-open bg-indigo-500 min-w-[90%] hover:bg-indigo-400 text-white font-bold py-1 px-3 border-b-4 border-indigo-700 hover:border-indigo-500 active:!border-0 rounded" id="launcher-button-preview" onclick="addServerId({{ $server->id }})">
+                                        <span class="inline align-middle pt-[1%]">Голосовать</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" class="w-5 h-4 inline mr-1 align-middle font-bold" color="white"	 viewBox="0 0 66.831 66.831" style="enable-background:new 0 0 66.831 66.831;" xml:space="preserve"> <g> 	<path fill="#FFFFFF" d="M51.735,20h-2.934c1.419-3.934,2.799-9.714,0.942-14.247c-1.095-2.673-3.177-4.574-6.021-5.496 		C43.197,0.086,42.651,0,42.101,0c-3.701,0-7.05,3.613-11.944,12.888c-2.199,4.171-5.364,7.683-7.593,9.577 		c-0.946,0.804-1.702,1.624-2.315,2.431c-1.69-2.512-4.558-4.167-7.806-4.167c-5.185,0-9.404,4.219-9.404,9.404v27.294 		c0,5.186,4.219,9.404,9.404,9.404c3.406,0,6.386-1.827,8.036-4.546c2.212,2.728,5.586,4.477,9.364,4.477h23.023 		c9.507,0,10.926-6.136,10.926-9.793v-24.91C63.793,25.41,58.384,20,51.735,20z M15.847,57.427c0,1.877-1.527,3.404-3.403,3.404 		c-1.877,0-3.404-1.527-3.404-3.404V30.133c0-1.877,1.527-3.404,3.404-3.404c1.876,0,3.403,1.527,3.403,3.404V57.427z 		 M57.793,56.969c0,2.221-0.354,3.793-4.926,3.793H29.844c-3.34,0-6.058-2.717-6.058-6.057V32.059l0.008-0.095l-0.021-0.176 		c-0.006-0.096-0.106-2.386,2.676-4.75c2.656-2.258,6.419-6.425,9.015-11.351c4.132-7.83,6.104-9.353,6.639-9.641 		c1.039,0.388,1.688,1.007,2.087,1.981c1.293,3.156-0.331,9.224-2.603,13.587l-2.283,4.385h12.43c3.341,0,6.059,2.718,6.059,6.059 		V56.969z"/> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> </svg>
+                                    </button>
+                                </div>
                             </div>
                         @endforeach
                     </div>
                 @endforeach
             @else
-                <div class="text-center text-xl font-bold mt-4">Ваш список проектов пуст!</div>
-                <div class="text-lg font-medium tracking-tight mdm:text-center mt-3 mb-10 text-indigo-500"><a href="{{ url("addserver") }}">Добавить проект</a></div>
+                <div class="text-center text-xl font-bold mt-4 mb-24">Ваш список избранных проектов пуст!</div>
             @endif
         </div>
     </div>
     <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center hidden">
         <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
-        <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
-            <div class="modal-content py-4 text-left px-6">
-                <div class="flex justify-between items-center pb-3">
-                    <p class="text-xl font-bold">Внимание!</p>
-                </div>
-                <div id="modal-body"></div>
-                <div class="flex justify-end pt-2">
-                    <button class="modal-close px-3 bg-transparent py-1 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2">Отменить</button>
-                    <a id="redirectUrl">
-                        <button class="modal-close bg-red-500 hover:bg-red-400 text-white py-1 px-3 rounded">
-                            <span class="inline align-middle pt-[1%]">Продолжить</span>
-                        </button>
-                    </a>
-                </div>
-            </div>
-        </div>
+        <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto" id="modal-body"></div>
     </div>
     <div class="notify"><span id="notifyType" class=""></span></div>
 @endsection
@@ -401,9 +372,108 @@
             document.getElementById("redirectUrl").href = url;
         }
 
-        function redirectToDelete(url){
-            document.getElementById("modal-body").innerHTML = '<p class="mb-1">Вы собираетесь удалить проект с <strong>MNS Game Project!</strong></p> <p class="my-1">Ваш проект будет полностью удален <strong>БЕЗ возможности восстановления данных и рейтинга!</strong></p> <p class="mt-1">Вы уверены, что хотите продолжить?</p>';
-            document.getElementById("redirectUrl").href = url;
+        function deleteFavorite(id){
+            const request = new XMLHttpRequest();
+
+            const _url = "{{ url("/favorites/delete") }}" + "/" + id;
+
+            request.open("POST", _url, true);
+
+            request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            request.setRequestHeader("Accept", "application/json");
+            request.setRequestHeader("X-CSRF-TOKEN", "{{ csrf_token() }}");
+
+            request.addEventListener("readystatechange", () => {
+                if(request.readyState === 4 && request.status === 200) {
+                    window.location.reload(true)
+                } else if(request.readyState === 4 && request.status === 401){
+                    window.location.href = '{{ url("/login") }}';
+                }
+            });
+            request.send();
+        }
+
+        function addServerId(id){
+            document.getElementById("modal-body").innerHTML =
+                '<div class="modal-content py-4 text-left px-6">'+
+                '<div class="flex justify-between items-center pb-3 text-center">'+
+                '<p class="text-sm">Введите свой ник (для игры Minecraft), либо <a class="text-indigo-500 underline" href="https://steamid.io/" target="_blank">SteamID (для игр Steam)</a></p>'+
+                '</div>'+
+                '<input name="nickname" class="appearance-none block text-gray-600 border border-gray-200 rounded px-2 mb-3 mx-0 lg:mx-24 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm inline" type="text" id="nickname-input">'+
+                '<div class="flex justify-center pt-2">'+
+                '<button class="modal-close bg-indigo-500 hover:bg-indigo-400 text-white py-1 px-3 rounded" onclick="voteProject()">'+
+                ' <span class="inline align-middle pt-[1%]">Продолжить</span>'+
+                '</button>'+
+                '</div>'+
+                '</div>';
+            localStorage.setItem("project_id", id);
+        }
+
+        function voteProject(){
+            toggleModal();
+
+            const request = new XMLHttpRequest();
+
+            const url = "{{ url("/server/vote") }}" + "/" + localStorage.getItem("project_id");
+
+            const params = "&nickname=" + document.getElementById("nickname-input").value;
+
+            request.open("POST", url, true);
+
+            request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            request.setRequestHeader("Accept", "application/json");
+            request.setRequestHeader("X-CSRF-TOKEN", "{{ csrf_token() }}");
+
+            request.addEventListener("readystatechange", () => {
+                if(request.readyState === 4 && request.status === 200) {
+                    let notify_window = document.querySelector(".notify");
+                    let notifyType = document.getElementById("notifyType");
+                    notify_window.classList.toggle("active");
+                    notifyType.classList.toggle("voteSuccess");
+                    setTimeout(() => {
+                        notify_window.classList.toggle("active");
+                        notifyType.classList.toggle("voteSuccess");
+                    }, 2500)
+
+                }
+                else if(request.readyState === 4 && request.status === 422){
+                    let data = JSON.parse(request.responseText);
+
+                    let notify_window = document.querySelector(".notify");
+                    let notifyType = document.getElementById("notifyType");
+                    notify_window.classList.toggle("active");
+
+                    switch (data.code){
+                        case 0:
+                            notifyType.classList.toggle("voteServerNotFound");
+                            setTimeout(() => {
+                                notify_window.classList.toggle("active");
+                                notifyType.classList.toggle("voteServerNotFound");
+                            }, 2500)
+                            break;
+                        case 1:
+                            notifyType.classList.toggle("voteFailed");
+                            setTimeout(() => {
+                                notify_window.classList.toggle("active");
+                                notifyType.classList.toggle("voteFailed");
+                            }, 2500)
+                            break;
+                        case 2:
+                            notifyType.classList.toggle("voteTimeFailed");
+                            setTimeout(() => {
+                                notify_window.classList.toggle("active");
+                                notifyType.classList.toggle("voteTimeFailed");
+                            }, 2500)
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else if(request.readyState === 4 && request.status === 401){
+                    window.location.href = '{{ url("/login") }}';
+                }
+            });
+            request.send(params);
         }
     </script>
 

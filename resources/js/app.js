@@ -46,6 +46,15 @@ window.DateMNS = {
         else {
             return "Доброй ночи, ";
         }
-    }
+    },
+
+    getTimer: function (seconds) {
+        return moment(seconds * 1000).format('mm:ss');
+    },
+
+    getCurrentTime: function () {
+        moment.locale("de");
+        return moment().format("L LTS");
+    },
 }
 

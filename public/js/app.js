@@ -5285,6 +5285,13 @@ window.DateMNS = {
     } else {
       return "Доброй ночи, ";
     }
+  },
+  getTimer: function getTimer(seconds) {
+    return moment__WEBPACK_IMPORTED_MODULE_0___default()(seconds * 1000).format('mm:ss');
+  },
+  getCurrentTime: function getCurrentTime() {
+    moment__WEBPACK_IMPORTED_MODULE_0___default().locale("de");
+    return moment__WEBPACK_IMPORTED_MODULE_0___default()().format("L LTS");
   }
 };
 

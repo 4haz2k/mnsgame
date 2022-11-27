@@ -1,0 +1,104 @@
+html, body {
+    height: 100%;
+}
+
+#content {
+    height: 100%;
+    position: relative;
+}
+
+#consoleRow{
+    position: absolute;
+    top: 83px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+}
+
+#alertMessage{
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+}
+
+#consoleContent{
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 49px;
+}
+
+.panel-heading{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.panel-body{
+    position: absolute;
+    top: 43px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+}
+
+.panel-body ul{
+    margin-bottom: 0;
+}
+.panel-body ul li .label{
+    margin-top: 2px;
+    margin-right: -5px;
+}
+
+#consoleCommand{
+    position: absolute;
+    bottom: 0;
+}
+
+#groupConsole{
+    overflow: auto;
+}
+
+.list-group-item {
+    padding: 3px 10px
+}
+
+.ui-autocomplete {
+    position: absolute;
+    z-index: 1000;
+    cursor: default;
+    padding: 0;
+    margin-top: 3px;
+    list-style: none;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 5px 5px 0 0; -webkit-border-radius: 5px 5px 0 0; -moz-border-radius: 5px 5px 0 0;
+}
+.ui-autocomplete > li {
+    white-space: nowrap;
+}
+.ui-autocomplete > li div{
+    white-space: nowrap;
+    padding: 2px 12px;
+}
+.ui-autocomplete > li:hover {
+    background-color: #eeeeee;
+}
+.ui-state-active {
+    background-color: #dddddd;
+}
+.ui-helper-hidden-accessible {
+    display: none;
+}
+#txtCommandResults > ul{
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+

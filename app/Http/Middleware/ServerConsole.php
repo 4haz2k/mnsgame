@@ -2,12 +2,12 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\User;
+use App\Models\Server;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AdminPanel
+class ServerConsole
 {
     /**
      * Handle an incoming request.
@@ -18,9 +18,10 @@ class AdminPanel
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user() and Auth::user()->role == "admin")
-            return $next($request);
+        if($request->get("server_id", false) and Auth::check())
+            if(Server::where("owner_id", Auth::user()->id)->where("id", $request->server_id)->first())
+                return $next($request);
 
-        return abort(404);
+        abort(404);
     }
 }

@@ -7,27 +7,29 @@ use App\Http\Interfaces\ServerData;
 use App\Http\Requests\EditServerRequest;
 use App\Http\Requests\StoreServer;
 use App\Http\Services\ImageService;
+use App\Http\Services\ServerStats;
+use App\Models\FavoriteServers;
 use App\Models\Filter;
 use App\Models\FilterOfServer;
 use App\Models\Game;
 use App\Models\PaymentHistory;
 use App\Models\Server;
 use App\Models\ServerOnline;
+use App\Models\ServerRcon;
+use App\Models\ServerRconHistory;
 use Artesaos\SEOTools\Facades\OpenGraph;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Traits\SEOTools;
 use Carbon\Carbon;
-use Dflydev\DotAccessData\Data;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class ServerController extends Controller
@@ -335,7 +337,67 @@ class ServerController extends Controller
             asset($server->banner_img == null ? asset("/img/test/banner.png") : asset("/img/banners/{$server->banner_img}"))
         );
 
+        ServerStats::registerServerView($id);
+
         return view("server", compact("server", "server_online", "randomFilters"));
+    }
+
+    public function serverStats($id) {
+        $server = Server::with("serverRcon")->where("id", $id)->where("owner_id", Auth::id())->firstOrFail();
+
+        $server_online = ServerStats::getServerOnline($server->id);
+        $serverRating = ServerStats::getServerRating($server->game_id, $server->id);
+        $serverOnlineAvg = ServerStats::getServerOnlineAvg($server->id);
+        $serverViews = ServerStats::getServerViews($server->id);
+        $connectionInfo = collect([
+            "isConnected" => false,
+            "isServerRegistered" => false,
+            "history" => false,
+        ]);
+
+        if($serverConnection = $server->serverRcon) {
+            $connectionInfo['isServerRegistered'] = true;
+            if($serverConnection->is_connected) {
+                if($key = Cookie::get("user_key")) {
+                    if(($timeLeft = Carbon::parse($serverConnection->activated_time, "Europe/Moscow")->unix() - Carbon::now("Europe/Moscow")->unix()) > 0) {
+                        $connectionInfo['isConnected'] = true;
+                        $connectionInfo['isServerRegistered'] = true;
+                        $connectionInfo['timeLeft'] = $timeLeft;
+                        $connectionInfo['history'] = ServerRconHistory::where("server_id", $server->id)->where("deleted", false)->orderBy("created_at")->get();
+                    } else {
+                        ServerRconHistory::where("server_id", $server->id)->update(["deleted" => true]);
+                        $serverConnection->is_connected = false;
+                        $serverConnection->save();
+                    }
+                } else {
+                    ServerRconHistory::where("server_id", $server->id)->update(["deleted" => true]);
+                }
+            }
+        }
+
+        return view("account.serverStats", compact(
+            "server", "server_online", "serverRating",
+            "serverOnlineAvg", "serverViews", "connectionInfo")
+        );
+    }
+
+    public function favoriteServers() {
+        $favoriteServers = FavoriteServers::where("user_id", Auth::id())->pluck("server_id");
+
+        $games = Game::with(["servers" => function ($query) use ($favoriteServers){
+            $query
+                ->selectRaw("*, (select count(*) from `server_rates` where `servers`.`id` = `server_rates`.`server_id`) * ".ServerData::coefficient." + IFNULL((select rating from `server_ratings` where `servers`.`id` = `server_ratings`.`server_id`), 0) as `rating`")
+                ->whereIn("id", $favoriteServers);
+        }])
+            ->get();
+
+        foreach ($games as $key => $game){
+            if($game->servers->isEmpty()){
+                unset($games[$key]);
+            }
+        }
+
+        return view('account.favorites', compact("games"));
     }
 
     public function deleteServer($id): RedirectResponse
