@@ -29,13 +29,17 @@ class ServerConsole extends Controller
     {
         $server = Server::where("owner_id", Auth::id())->where("id", $request->server_id)->first();
 
+        if($server->is_launcher)
+            $address = $request->address;
+        else
+            $address = $request->address ?? explode(":", $server->server_data)[0];
+
         $serverConnection = new ServerRcon(
-            $server->is_launcher ? $request->address : explode(":", $server->server_data)[0],
+            $address,
             (int)$request->rcon_port,
             $request->rcon_password
         );
 
-        $address = $server->is_launcher ? $request->address : explode(":", $server->server_data)[0];
 
         if($serverConnection->isConnected()) {
             $connectedTime = Carbon::now("Europe/Moscow");

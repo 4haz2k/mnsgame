@@ -345,22 +345,23 @@
                         @csrf
                         <input type="hidden" name="server_id" value="{{ $server->id }}">
                         <input type="hidden" name="is_launcher" value="{{ $server->is_launcher }}">
-                        @if($server->is_launcher)
-                            <div class="flex flex-wrap -mx-3 mb-6">
-                                <div class="lg:w-1/3 w-full px-3 lg:my-2">
-                                    <label class="block text-md tracking-wide text-gray-700 font-bold mb-2 text-left">
-                                        IP адрес сервера <span class="text-red-500 tooltip-custom" data-tooltip="Поле обязательное для заполнения">*</span>
-                                    </label>
-                                    <span class="block text-md tracking-wide text-gray-700 mb-2 text-left">Введите адрес сервера, по которому будет осуществляться подключение к вашему серверу</span>
-                                </div>
-                                <div class="lg:w-2/3 w-full px-3 lg:my-4">
-                                    <input value="{{ old('address') }}" name="address" class="@error('address') !border-red-500 @enderror appearance-none block w-full text-gray-700 border border-gray-200 rounded py-2 px-3 mb-3 mx-0 lg:mx-24 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm" type="text" placeholder="Введите IP адрес сервера (без порта) формата 127.0.0.1" required>
-                                    @error('address')
-                                        <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">{{ $message }}</span>
-                                    @enderror
-                                </div>
+                        <div class="flex flex-wrap -mx-3 mb-6">
+                            <div class="lg:w-1/3 w-full px-3 lg:my-2">
+                                <label class="block text-md tracking-wide text-gray-700 font-bold mb-2 text-left">
+                                    IP адрес сервера @if($server->is_launcher)<span class="text-red-500 tooltip-custom" data-tooltip="Поле обязательное для заполнения">*</span>@endif
+                                </label>
+                                <span class="block text-md tracking-wide text-gray-700 mb-2 text-left">
+                                    Введите адрес сервера, по которому будет осуществляться подключение к вашему серверу. <br><br>
+                                    @if(!$server->is_launcher) Оставьте поле пустым, если хотите использовать IP адрес <b>{{ @explode(":", $server->server_data)[0] }}</b>@endif
+                                </span>
                             </div>
-                        @endif
+                            <div class="lg:w-2/3 w-full px-3 lg:my-4">
+                                <input value="{{ old('address') }}" name="address" class="@error('address') !border-red-500 @enderror appearance-none block w-full text-gray-700 border border-gray-200 rounded py-2 px-3 mb-3 mx-0 lg:mx-24 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm" type="text" placeholder="Введите IP адрес сервера (без порта) формата 127.0.0.1" @if($server->is_launcher) required @endif >
+                                @error('address')
+                                    <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="flex flex-wrap -mx-3 mb-6">
                             <div class="lg:w-1/3 w-full px-3 lg:my-2">
                                 <label class="block text-md tracking-wide text-gray-700 font-bold mb-2 text-left">
