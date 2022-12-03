@@ -25,17 +25,17 @@ class ServersRating
 
                 if($server_rating != null){
                     switch ($server_payment->type) {
-                        case PaymentTypes::packets[0]:
+                        case PaymentTypes::PACKET_RATING["title"]:
                             $server_rating->rating -= $server_payment->balance_change;
                             break;
-                        case PaymentTypes::packets[1]:
-                            $server_rating->rating -= 150;
+                        case PaymentTypes::PACKET_RUBY["title"]:
+                            $server_rating->rating -= PaymentTypes::PACKET_RUBY["rating"];
                             break;
-                        case PaymentTypes::packets[2]:
-                            $server_rating->rating -= 200;
+                        case PaymentTypes::PACKET_SAPPHIRE["title"]:
+                            $server_rating->rating -= PaymentTypes::PACKET_SAPPHIRE["rating"];
                             break;
-                        case PaymentTypes::packets[3]:
-                            $server_rating->rating -= 300;
+                        case PaymentTypes::PACKET_EMERALD["title"]:
+                            $server_rating->rating -= PaymentTypes::PACKET_EMERALD["rating"];
                             break;
                     }
                     $server_rating->save();
@@ -43,11 +43,11 @@ class ServersRating
                     $server_payment->save();
                 }
 
-                if($server_payment->type != PaymentTypes::packets[0]){
+                if($server_payment->type != PaymentTypes::PACKET_RATING["title"]){
                     $server = Server::where("server_id", $server_payment->server_id)->first();
                     $server->background = null;
 
-                    if($server_payment->type == PaymentTypes::packets[3]){
+                    if($server_payment->type == PaymentTypes::PACKET_EMERALD["title"]){
                         $server->chart = false;
                     }
 
