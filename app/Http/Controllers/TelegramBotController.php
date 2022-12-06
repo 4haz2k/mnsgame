@@ -29,23 +29,19 @@ class TelegramBotController extends Controller
         $this->user_id = $this->registerUser($this->updates->message->from);
 
         $this->resolver = new TelegramResolver($this->telegram, $this->updates, $this->user_id);
+
+        $this->init();
     }
 
     public function eventHandler(): ?string
     {
-        // Регистрация пользователя
-        $user_id = $this->registerUser($this->updates->message->from);
-
-        // Пишем логи
-        $this->registerLog($user_id, $this->updates);
-
         // Определяем чью роль будем обрабатывать
         switch ($this->checkIsUserSupporter($this->user_id)) {
             case TelegramRoles::ADMIN: // Админ
                 $this->resolver->adminHandler();
                 break;
             case TelegramRoles::USER: // Пользователь
-                TelegramResolver::userHandler();
+                $this->resolver->userHandler();
                 break;
         }
 
@@ -54,27 +50,12 @@ class TelegramBotController extends Controller
         return 'ok';
     }
 
-    /**
-     * Регистрация команд пользователя
-     */
-    private function registerDefaultCommands(){
-        try {
-            $this->telegram->addCommands([
-                StartCommand::class,
-                CreateTicketCommand::class,
-                MyTicketsCommand::class,
-            ]);
-        } catch (TelegramSDKException $exception) {}
-    }
+    private function init()
+    {
+        // Регистрация пользователя
+        $this->registerUser($this->updates->message->from);
 
-    /**
-     * Регистрация команд пользователя в тикете
-     */
-    private function registerUserCommandsInTicket(){
-        try {
-            $this->telegram->addCommands([
-                CloseTicketInUserCommand::class,
-            ]);
-        } catch (TelegramSDKException $exception) {}
+        // Пишем логи
+        $this->registerLog();
     }
 }
