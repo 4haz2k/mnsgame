@@ -13,6 +13,7 @@ abstract class TelegramMessage
     const YOU_CLOSED_TICKET_USER = '*Вы закрыли обращение! Спасибо, что пользуетесь MNS Game Мониторинг!*';
     const YOU_CLOSED_TICKET_ADMIN = '*Вы закрыли обращение!*';
     const ADMIN_CLOSED_TICKET = '*Администратор закрыл ваше обращение. Спасибо, что пользуетесь MNS Game Мониторинг!*';
+    const ENTER_BODY = '*Введите обращение*';
 
     // Error messages
     const EMPTY_TICKETS = 'Список ваших обращений пуст! Для создания обращения используйте команду /create';
@@ -66,7 +67,7 @@ abstract class TelegramMessage
     }
 
     /**
-     * Returning ticket by format "Тема обращения: %s\nДата создания: %s\nСтатус: %s\n\n"
+     * Returning tickets by format "Тема обращения: %s\nДата создания: %s\nСтатус: %s\n\n"
      *
      * @example Тема обращения: Проблема регистрации
      * @example Дата создания: 06.12.2022 11:53:10
@@ -99,5 +100,32 @@ abstract class TelegramMessage
         }
 
         return $text;
+    }
+
+    /**
+     *
+     * Returns a message about the ticket that was created
+     *
+     * @return string
+     */
+    public static function TicketCreated(): string
+    {
+        return sprintf("*Обращение создано, ожидайте ответ администратора.* \n\nДата и время регистрации обращения: *%s*", date("d.m.Y H:i:s"));
+    }
+
+    public static function NewTicket($user, $ticket): string
+    {
+        return sprintf(
+            "Новое обращение от @%s \nЧтобы принять обращение, напишите /%s @%s %s",
+            $user, TelegramCommand::CLOSE_USER, $user, $ticket
+        );
+    }
+
+    public static function TookTicket($user, $theme, $body): string
+    {
+        return sprintf(
+            "Вы приняли обращения от пользователя %s \n\nТема обращения: %s\n\nОбращение: %s\n\nДля закрытия обращения используйте команду /%s",
+            $user, $theme, $body, TelegramCommand::CLOSE_ADMIN
+        );
     }
 }

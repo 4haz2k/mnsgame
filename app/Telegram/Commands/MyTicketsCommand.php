@@ -2,11 +2,10 @@
 namespace App\Telegram\Commands;
 
 
-use App\Http\Interfaces\TelegramChecker;
 use App\Models\TelegramTicket;
 use App\Telegram\Enum\TelegramCommand;
 use App\Telegram\Enum\TelegramMessage;
-use App\Telegram\Enum\TelegramTicketStatus;
+use App\Telegram\Service\TelegramChecker;
 
 class MyTicketsCommand extends \Telegram\Bot\Commands\Command
 {

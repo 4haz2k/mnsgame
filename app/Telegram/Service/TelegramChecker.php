@@ -1,15 +1,15 @@
 <?php
 
-
-namespace App\Http\Interfaces;
-
+namespace App\Telegram\Service;
 
 use App\Models\TelegramLog;
 use App\Models\TelegramSupporters;
 use App\Models\TelegramTicket;
 use App\Models\TelegramUser;
+use App\Telegram\Enum\TelegramMessage;
+use App\Telegram\Enum\TelegramRoles;
+use App\Telegram\Enum\TelegramTicketStatus;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Api;
 use Telegram\Bot\Exceptions\TelegramSDKException;
 use Telegram\Bot\Objects\Update;
@@ -45,14 +45,9 @@ trait TelegramChecker
      * @param $user_id
      * @return bool
      */
-    private function checkActiveTickets($user_id): bool
+    public static function checkActiveTickets($user_id): bool
     {
-        $ticket = TelegramTicket::where("user_id", $user_id)->where("is_creating", true)->first();
-
-        if($ticket)
-            return true;
-        else
-            return false;
+        return (bool)TelegramTicket::where("user_id", $user_id)->where("is_creating", true)->first();
     }
 
     /**
@@ -64,7 +59,7 @@ trait TelegramChecker
      */
     private function checkResolvingTickets($user_id): bool
     {
-        $ticket = TelegramTicket::where("user_id", $user_id)->where("step", "resolving")->first();
+        $ticket = TelegramTicket::where("user_id", $user_id)->where("step", TelegramTicketStatus::RESOLVING)->first();
 
         if($ticket)
             return true;
@@ -116,7 +111,7 @@ trait TelegramChecker
     }
 
     private function sendMessageToUser($ticket, Update $updates, Api $telegram, bool $is_bot = false, string $message = null){
-        if($is_bot){
+        if($is_bot) {
             try {
                 $telegram->sendMessage([
                     "chat_id" => $updates->message->chat->id,
@@ -126,15 +121,13 @@ trait TelegramChecker
             } catch (TelegramSDKException $e) {
             }
 
-        }
-        else{
+        } else {
             try {
                 $telegram->sendMessage([
                     "chat_id" => $ticket->chat_id,
                     "text" => $updates->message->text
                 ]);
-            } catch (TelegramSDKException $e) {
-            }
+            } catch (TelegramSDKException $e) {}
         }
     }
 
@@ -149,10 +142,10 @@ trait TelegramChecker
         }
     }
 
-    private function sendCustomMessageToAdmin($ticket, Api $telegram, string $message){
+    private function sendCustomMessageToAdmin($ticket, Api $telegram, string $user){
         $supporter = TelegramSupporters::where("id", $ticket->support_id)->first();
 
-        $message = "Вы приняли обращения от пользователя ".$message." \n\nТема обращения: ".$ticket->theme."\n\nОбращение: ".$ticket->body."\n\nДля закрытия обращения используйте команду /close_ticket";
+        $message = TelegramMessage::TookTicket($user, $ticket->theme, $ticket->body);
 
         try {
             $telegram->sendMessage([
@@ -167,28 +160,29 @@ trait TelegramChecker
         try {
             $telegram->sendMessage([
                 "chat_id" => -639796455,
-                "text" => "Новое обращение от @" . $update->message->from->username . " \nЧтобы принять обращение, напишите /take @" . $update->message->from->username . " $ticket_id",
+                "text" => TelegramMessage::NewTicket($update->message->from->username, $ticket_id),
                 "parse_mode" => 'markdown'
             ]);
         } catch (TelegramSDKException $e) {
         }
     }
 
-    private function checkIsUserSupporter($user_id)
+    private function checkIsUserSupporter($user_id): string
     {
         $supporter = TelegramSupporters::where("id", $user_id)->first();
 
         if ($supporter)
-            return true;
+            return TelegramRoles::ADMIN;
         else
-            return false;
+            return TelegramRoles::USER;
     }
 
-    private function checkIsAdminTakedTicket($user_id){
-        $tickets = TelegramTicket::where("support_id", $user_id)->where("step", "resolving")->first();
+    public static function checkIsAdminTookTicket($user_id)
+    {
+        $ticket = TelegramTicket::where("support_id", $user_id)->where("step", TelegramTicketStatus::RESOLVING)->first();
 
-        if($tickets){
-            return $tickets;
+        if($ticket){
+            return $ticket;
         }
         else{
             return false;
@@ -207,14 +201,14 @@ trait TelegramChecker
 
     private function updateTicket(TelegramTicket $ticket, $user_id){
         $ticket->support_id = $user_id;
-        $ticket->step = "resolving";
+        $ticket->step = TelegramTicketStatus::RESOLVING;
         $ticket->save();
     }
 
     private function closeTicketInAdmin($user_id){
-        $ticket = TelegramTicket::where("support_id", $user_id)->where("step", "resolving")->first();
+        $ticket = TelegramTicket::where("support_id", $user_id)->where("step", TelegramTicketStatus::RESOLVING)->first();
 
-        $ticket->step = "closed";
+        $ticket->step = TelegramTicketStatus::CLOSED;
 
         $ticket->save();
 
@@ -222,9 +216,9 @@ trait TelegramChecker
     }
 
     private function closeTicketInUser($user_id){
-        $ticket = TelegramTicket::where("user_id", $user_id)->where("step", "resolving")->first();
+        $ticket = TelegramTicket::where("user_id", $user_id)->where("step", TelegramTicketStatus::RESOLVING)->first();
 
-        $ticket->step = "closed";
+        $ticket->step = TelegramTicketStatus::CLOSED;
 
         $ticket->save();
 

@@ -4,9 +4,9 @@
 namespace App\Telegram\Commands;
 
 
-use App\Http\Interfaces\TelegramChecker;
 use App\Telegram\Enum\TelegramCommand;
 use App\Telegram\Enum\TelegramMessage;
+use App\Telegram\Service\TelegramChecker;
 use Telegram\Bot\Commands\Command;
 
 class TakeTicketCommand extends Command
