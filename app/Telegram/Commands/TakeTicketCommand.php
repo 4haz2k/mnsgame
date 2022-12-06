@@ -1,20 +1,21 @@
 <?php
 
 
-namespace App\Console\Commands\Telegram;
+namespace App\Telegram\Commands;
 
 
 use App\Http\Interfaces\TelegramChecker;
-use App\Models\TelegramTicket;
+use App\Telegram\Enum\TelegramCommand;
+use App\Telegram\Enum\TelegramMessage;
 use Telegram\Bot\Commands\Command;
 
 class TakeTicketCommand extends Command
 {
     use TelegramChecker;
 
-    protected $name = "take";
+    protected $name = TelegramCommand::TAKE;
 
-    protected $description = "Ответить на обращение";
+    protected $description = TelegramCommand::TAKE_DESCRIPTION;
 
     public function handle()
     {
@@ -26,29 +27,29 @@ class TakeTicketCommand extends Command
 
         if(!isset($ticket[1]) and !isset($ticket[2])){
             $this->replyWithMessage([
-                "text" => "Необходимо ввести пользователя и ID обращения в формате /take @user 12345"
+                "text" => TelegramMessage::WRONG_TAKE_COMMAND
             ]);
             return;
         }
 
         if($this->checkIsAdminTakedTicket($user_id)){
             $this->replyWithMessage([
-                "text" => "Вы уже отвечаете на обращение!"
+                "text" => TelegramMessage::ALREADY_ANSWERED
             ]);
             return;
         }
 
         if($ticket_model = $this->getTicketData($ticket[2])){
             $this->updateTicket($ticket_model, $user_id);
-            $this->sendCustomMessageToUser($ticket_model, $this->telegram, "*Ваше обращение принял администратор.* \nДля закрытия обращения напишите команду /close");
+            $this->sendCustomMessageToUser($ticket_model, $this->telegram, TelegramMessage::TICKET_CLAIMED_BY_ADMIN);
             $this->sendCustomMessageToAdmin($ticket_model, $this->telegram, $ticket[1]);
             $this->replyWithMessage([
-                "text" => "Обработка обращения принята! Перейдите в бота @mnsgame_bot для общения с пользователем.",
+                "text" => TelegramMessage::YOU_CLAIMED_TICKET,
             ]);
         }
         else{
             $this->replyWithMessage([
-                "text" => "Обращение с ID ".$ticket[2]." не найдено!",
+                "text" => TelegramMessage::TicketNotFound($ticket[2]),
             ]);
         }
     }

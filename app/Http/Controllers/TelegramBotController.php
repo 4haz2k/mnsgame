@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Console\Commands\Telegram\CloseTicketCommand;
-use App\Console\Commands\Telegram\CloseTicketInUserCommand;
-use App\Console\Commands\Telegram\CreateTicketCommand;
-use App\Console\Commands\Telegram\MyTicketsCommand;
-use App\Console\Commands\Telegram\StartCommand;
-use App\Console\Commands\Telegram\TakeTicketCommand;
 use App\Http\Interfaces\TelegramChecker;
 use App\Http\Interfaces\TelegramResolver;
+use App\Telegram\Commands\CloseTicketCommand;
+use App\Telegram\Commands\CloseTicketInUserCommand;
+use App\Telegram\Commands\CreateTicketCommand;
+use App\Telegram\Commands\MyTicketsCommand;
+use App\Telegram\Commands\StartCommand;
+use App\Telegram\Commands\TakeTicketCommand;
 use Telegram\Bot\Api;
 use Telegram\Bot\Exceptions\TelegramSDKException;
 

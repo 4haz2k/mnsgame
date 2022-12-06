@@ -1,21 +1,23 @@
 <?php
 
 
-namespace App\Console\Commands\Telegram;
+namespace App\Telegram\Commands;
 
 
 use App\Http\Interfaces\TelegramChecker;
 use App\Models\TelegramTicket;
-use App\Models\TelegramUser;
+use App\Telegram\Enum\TelegramCommand;
+use App\Telegram\Enum\TelegramMessage;
+use App\Telegram\Enum\TelegramTicketStatus;
 use Telegram\Bot\Objects\Update;
 
 class CreateTicketCommand extends \Telegram\Bot\Commands\Command
 {
     use TelegramChecker;
 
-    protected $name = "create";
+    protected $name = TelegramCommand::CREATE;
 
-    protected $description = "Создать обращение в техническую поддержку";
+    protected $description = TelegramCommand::CREATE_DESCRIPTION;
 
     /**
      * @inheritDoc
@@ -28,7 +30,7 @@ class CreateTicketCommand extends \Telegram\Bot\Commands\Command
 
         if($this->checkActiveTickets($user_id)){
             $this->replyWithMessage([
-                'text' => "*Вы уже создаёте обращение!*",
+                'text' => TelegramMessage::ALREADY_CREATING,
                 'parse_mode' => 'markdown'
             ]);
             return;
@@ -36,7 +38,7 @@ class CreateTicketCommand extends \Telegram\Bot\Commands\Command
 
         if($this->checkResolvingTickets($user_id)){
             $this->replyWithMessage([
-                'text' => "*Во время общения с технической поддержкой запрещено использовать команды!*",
+                'text' => TelegramMessage::CANT_CREATE_TICKET_WHILE_TALKING,
                 'parse_mode' => 'markdown'
             ]);
             return;
@@ -45,7 +47,7 @@ class CreateTicketCommand extends \Telegram\Bot\Commands\Command
         $this->createTicket($updates, $user_id);
 
         $this->replyWithMessage([
-            'text' => "*Введите тему обращения*",
+            'text' => TelegramMessage::ENTER_SUBJECT,
             'parse_mode' => 'markdown'
         ]);
     }
@@ -55,7 +57,7 @@ class CreateTicketCommand extends \Telegram\Bot\Commands\Command
 
         $ticket->user_id = $user_id;
         $ticket->chat_id = $updates->message->chat->id;
-        $ticket->step = "theme";
+        $ticket->step = TelegramTicketStatus::THEME;
         $ticket->is_creating = true;
 
         $ticket->save();

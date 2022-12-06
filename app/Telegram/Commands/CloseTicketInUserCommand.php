@@ -1,17 +1,19 @@
 <?php
 
 
-namespace App\Console\Commands\Telegram;
+namespace App\Telegram\Commands;
 
 
 use App\Http\Interfaces\TelegramChecker;
+use App\Telegram\Enum\TelegramCommand;
+use App\Telegram\Enum\TelegramMessage;
 use Telegram\Bot\Exceptions\TelegramSDKException;
 
 class CloseTicketInUserCommand extends \Telegram\Bot\Commands\Command
 {
-    protected $name = "close";
+    protected $name = TelegramCommand::CLOSE_USER;
 
-    protected $description = "Закрыть обращение";
+    protected $description = TelegramCommand::CLOSE_DESCRIPTION;
 
     use TelegramChecker;
 
@@ -29,14 +31,13 @@ class CloseTicketInUserCommand extends \Telegram\Bot\Commands\Command
         try {
             $this->telegram->sendMessage([
                 "chat_id" => $chat_id,
-                "text" => "*Пользователь закрыл обращение.*",
+                "text" => TelegramMessage::USER_CLOSED_TICKET,
                 "parse_mode" => 'markdown'
             ]);
             $this->replyWithMessage([
-                "text" => "*Вы закрыли обращение! Спасибо, что пользуетесь MNS Game Мониторинг!*",
+                "text" => TelegramMessage::YOU_CLOSED_TICKET_USER,
                 "parse_mode" => 'markdown'
             ]);
-        } catch (TelegramSDKException $e) {
-        }
+        } catch (TelegramSDKException $e) {}
     }
 }

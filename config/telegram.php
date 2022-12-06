@@ -39,9 +39,9 @@ return [
             'webhook_url'         => env('TELEGRAM_WEBHOOK_URL', 'YOUR-BOT-WEBHOOK-URL'),
             'commands'            => [
                 Telegram\Bot\Commands\HelpCommand::class,
-                \App\Console\Commands\Telegram\StartCommand::class,
-                \App\Console\Commands\Telegram\CreateTicketCommand::class,
-                \App\Console\Commands\Telegram\MyTicketsCommand::class,
+                \App\Telegram\Commands\StartCommand::class,
+                \App\Telegram\Commands\CreateTicketCommand::class,
+                \App\Telegram\Commands\MyTicketsCommand::class,
             ],
         ],
 
@@ -120,9 +120,9 @@ return [
     */
     'commands'                     => [
         Telegram\Bot\Commands\HelpCommand::class,
-        \App\Console\Commands\Telegram\StartCommand::class,
-        \App\Console\Commands\Telegram\CreateTicketCommand::class,
-        \App\Console\Commands\Telegram\MyTicketsCommand::class,
+        \App\Telegram\Commands\StartCommand::class,
+        \App\Telegram\Commands\CreateTicketCommand::class,
+        \App\Telegram\Commands\MyTicketsCommand::class,
     ],
 
     /*
