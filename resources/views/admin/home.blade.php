@@ -189,6 +189,20 @@
                                         </div>
                                     </div>
                                 </div>
+                                <p class="text-sm text-blueGray-400 mt-4">
+                                    @if($usersNew > 0)
+                                        <span class="text-emerald-500 mr-2">
+                                            <i class="fas fa-arrow-up"></i>
+                                            + {{$usersNew}} пользователей
+                                        </span>
+                                    @else
+                                        <span class="text-red-500 mr-2">
+                                            <i class="fas fa-arrow-down"></i>
+                                            {{$usersNew}} пользователей
+                                        </span>
+                                    @endif
+                                    <span class="whitespace-nowrap">На этой неделе</span>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -208,6 +222,20 @@
                                         </div>
                                     </div>
                                 </div>
+                                <p class="text-sm text-blueGray-400 mt-4">
+                                    @if($serversNew > 0)
+                                        <span class="text-emerald-500 mr-2">
+                                            <i class="fas fa-arrow-up"></i>
+                                            + {{$serversNew}} серверов
+                                        </span>
+                                    @else
+                                        <span class="text-red-500 mr-2">
+                                            <i class="fas fa-arrow-down"></i>
+                                            {{$serversNew}} серверов
+                                        </span>
+                                    @endif
+                                    <span class="whitespace-nowrap">На этой неделе</span>
+                                </p>
                             </div>
                         </div>
                     </div>
