@@ -292,7 +292,18 @@
                     ],
                     datasets: [
                         {
-                            label: "Среднее количество онлайна",
+                            label: "Максимальное кол-во онлайна",
+                            fill: false,
+                            backgroundColor: "#FFA500",
+                            borderColor: "#FFA500",
+                            data: [
+                                @foreach($server_online as $online)
+                                    "{{ round($online->max('online')) }}",
+                                @endforeach
+                            ],
+                        },
+                        {
+                            label: "Среднее кол-во онлайна",
                             fill: false,
                             backgroundColor: "#fff",
                             borderColor: "#fff",
