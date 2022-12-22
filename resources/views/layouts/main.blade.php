@@ -87,9 +87,14 @@
             <div class="container relative flex flex-wrap items-center justify-between h-24 mx-auto font-medium lg:justify-center sm:px-4 md:px-2">
                 <div class="flex items-center justify-start w-1/4 mdm:w-2/4 h-full pr-4">
                     <a href="/" class="inline-block py-4 md:py-0">
-                        <span class="p-1 text-xl font-black leading-none text-gray-900 @yield("title-color") new-year-bg !pb-[18px]">
-                            <span class="">MNS Game</span><span class="text-indigo-600">.</span>
-                        </span>
+{{--                        <span class="p-1 text-xl font-black leading-none text-gray-900 @yield("title-color")">--}}
+{{--                            <span class="">MNS Game</span><span class="text-indigo-600">.</span>--}}
+{{--                        </span>--}}
+                        @if(request()->is('games/*'))
+                            <img src="{{ asset("img/mnsgameNewYear_white.png") }}" alt="" width="115" height="90" class="p-1 mt-[-7px]">
+                        @else
+                            <img src="{{ asset("img/mnsgameNewYear.png") }}" alt="" width="115" height="90" class="p-1 mt-[-7px]">
+                        @endif
                     </a>
                 </div>
                 <div class="top-0 left-0 items-start hidden w-full h-full p-4 text-sm {{ request()->is('games/*') ? 'bg-gray-900' : 'bg-gray-200' }} md:items-center md:w-3/4 md:absolute lg:text-base md:bg-transparent md:p-0 md:relative md:flex" :class="{'flex fixed': showMenu, 'hidden': !showMenu }">

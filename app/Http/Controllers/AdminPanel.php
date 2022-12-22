@@ -49,6 +49,8 @@ class AdminPanel extends Controller
         $refusal = $this->getRefusal();
         $geo_data = $this->getGeoArea();
         $sales = $this->getSales();
+        $serversNew = $this->getServersCount();
+        $usersNew = $this->getUsersCount();
 
         $name = Auth::user()->name. " " . Auth::user()->surname;
         $servers = Server::count();
@@ -64,7 +66,9 @@ class AdminPanel extends Controller
                 "geo_data",
                 "sales",
                 "servers",
-                "users"
+                "users",
+                "serversNew",
+                "usersNew",
             )
         );
     }
@@ -337,5 +341,13 @@ class AdminPanel extends Controller
         }
 
         return $this->filtersPage();
+    }
+
+    private function getServersCount(): int {
+        return Server::where("created_at", ">=", Carbon::now()->subWeek())->count();
+    }
+
+    private function getUsersCount(): int {
+        return User::where("created_at", ">=", Carbon::now()->subWeek())->count();
     }
 }
