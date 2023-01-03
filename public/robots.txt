@@ -1,2 +1,27 @@
 User-agent: *
-Disallow:
+Disallow: /games/*?
+Disallow: /social/auth/
+Disallow: /payment/
+Disallow: /support/faq/answer/
+Disallow: /support/faq/search?
+Disallow: /home
+Disallow: /settings
+Disallow: /paymentHistory
+Disallow: /notifications
+Disallow: /notification
+Disallow: /adminpanel
+Disallow: /addserver
+Disallow: /editserver
+Disallow: /deleteserver
+Disallow: /myservers
+Disallow: /favorites
+Disallow: /serverstats
+Disallow: /server/connect
+Disallow: /server/loadFilters
+Disallow: /server/checkCallback
+Disallow: /game/get_games
+Disallow: /server/vote
+Disallow: /server/favorite
+Disallow: /server/console
+
+Sitemap: https://mnsgame.ru/sitemap.xml

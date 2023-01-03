@@ -5,9 +5,11 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\GamePageController;
 use App\Http\Controllers\OtherController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\SeoController;
 use App\Http\Controllers\Server\ServerController;
 use App\Http\Controllers\ServerConsole;
 use App\Http\Controllers\SupportController;
+use App\Http\Controllers\TelegramBotController;
 use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -91,5 +93,12 @@ Route::delete('/server/console/delete', [ServerConsole::class, "deleteConnection
 // End AJAX
 
 // Telegram
-Route::post(config("telegram.bots.mnsgame.token")."/webhook", [\App\Http\Controllers\TelegramBotController::class, "eventHandler"]);
+Route::post(config("telegram.bots.mnsgame.token")."/webhook", [TelegramBotController::class, "eventHandler"]);
 // End Telegram
+
+// SEO
+Route::get('/sitemap.xml', [SeoController::class, "generateSitemap"]);
+Route::get('/default/sitemap.xml', [SeoController::class, "generateDefaultSitemap"]);
+Route::get('/servers/sitemap.xml', [SeoController::class, "generateServersSitemap"]);
+Route::get('/game/sitemap.xml', [SeoController::class, "generateGamesSitemap"]);
+// End SEO
