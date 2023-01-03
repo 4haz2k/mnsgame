@@ -42,7 +42,7 @@ trait MNSGameSEO
         }
 
         if ($isNotIndexing) {
-            SEOMeta::addMeta("robots", "none");
+            SEOMeta::addMeta("robots", "noindex, nofollow");
             return;
         }
 
