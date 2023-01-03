@@ -3,36 +3,36 @@
 namespace App\Http\Controllers;
 
 use App\Http\Interfaces\ServerData;
+use App\Http\Services\MNSGameSEO;
 use App\Models\Game;
 use App\Models\Server;
-use Artesaos\SEOTools\Facades\SEOMeta;
-use Artesaos\SEOTools\Traits\SEOTools;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 
 class GamePageController extends Controller
 {
-    use SEOTools;
+    use MNSGameSEO;
 
+    /**
+     * Get page with games
+     *
+     * @return Application|Factory|View
+     */
     public function gamesListPage(){
-        $this->seo()->setDescription("MNS Game - это сервис мониторинга проектов и серверов для их владельцев и игроков различных жанров игр.");
-        $this->seo()->opengraph()->setTitle("Игры на MNS Game Мониторинг");
-        $this->seo()->opengraph()->setDescription("Страница игр на MNS Game Мониторинг");
-        $this->seo()->opengraph()->setUrl(url("/games"));
-        $this->seo()->opengraph()->addImage(asset("/img/mnsgame.png"));
-        $this->seo()->opengraph()->setType("website");
-        SEOMeta::addKeyword(["сервера", "мониторинг серверов", "ip адреса", "айпи серверов", "топ", "список", "рейтинг", "рейтинг серверов"]);
+        $this->setPageSEO(true);
 
         $games = Game::withCount("servers")->get();
         return view("games", compact("games"));
     }
 
-    public function getGamesList(): JsonResponse
-    {
-        $games = Game::where("title", "like", "%".\request("title")."%")->withCount("servers")->get();
-
-        return response()->json($games);
-    }
-
+    /**
+     * Get game by link
+     *
+     * @param $link
+     * @return Application|Factory|View
+     */
     public function getGameByLink($link){
         $servers =
             Server::with(["game"])
@@ -64,15 +64,41 @@ class GamePageController extends Controller
 
         $game = Game::with(["filters" => function ($q){ $q->orderBy('filter'); }])->where("short_link", $link)->firstOrFail();
 
-        $this->seo()->setDescription("MNS Game - это сервис мониторинга проектов и серверов для их владельцев и игроков различных жанров игр.");
-        $this->seo()->opengraph()->setTitle("Мониторинг серверов ".$game->title);
-        $this->seo()->opengraph()->setDescription($game->description);
-        $this->seo()->opengraph()->setUrl(url("/games")."/".$game->short_link);
-        $this->seo()->opengraph()->addImage(asset("/img/mnsgame.png"));
-        $this->seo()->opengraph()->setType("website");
-        SEOMeta::addKeyword(["сервера", "мониторинг серверов", $game->title, $game->short_link, "ip адреса", "айпи серверов", "топ", "список", "рейтинг", "рейтинг серверов"]);
-
+        $this->setPageSEO(false, request("categories") or request("projectType"), [
+            "description" => "MNS Game - это сервис мониторинга проектов и серверов для их владельцев и игроков различных жанров игр.",
+            "opengraph" => [
+                "title" => "Мониторинг серверов " . $game->title,
+                "description" => $game->description,
+                "url" => url("/games") . "/" . $game->short_link,
+                "image" => asset("/img/mnsgame.png"),
+                "type" => "website"
+            ],
+            "keywords" => [
+                "сервера",
+                "мониторинг серверов",
+                $game->title,
+                $game->short_link,
+                "ip адреса",
+                "айпи серверов",
+                "топ",
+                "список",
+                "рейтинг",
+                "рейтинг серверов"
+            ]
+        ]);
 
         return view("game", compact("servers", "game"));
+    }
+
+    /**
+     * AJAX: Get game list
+     *
+     * @return JsonResponse
+     */
+    public function getGamesList(): JsonResponse
+    {
+        $games = Game::where("title", "like", "%" . request("title") . "%")->withCount("servers")->get();
+
+        return response()->json($games);
     }
 }

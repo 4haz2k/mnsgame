@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Alexusmai\YandexMetrika\YandexMetrika;
 use App\Http\Services\YandexMetrikaFixed;
 use App\Models\Filter;
 use App\Models\FilterOfGame;
@@ -15,10 +14,12 @@ use App\Models\Server;
 use App\Models\TopicCategoryModel;
 use App\Models\User;
 use Carbon\Carbon;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class AdminPanel extends Controller
 {
@@ -40,8 +41,8 @@ class AdminPanel extends Controller
      *
      *
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     * @throws \Exception
+     * @return Application|Factory|\Illuminate\Contracts\View\View
+     * @throws Exception
      */
     public function index(){
         $statistic = $this->getViewsData();
@@ -77,8 +78,8 @@ class AdminPanel extends Controller
      *
      *
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     * @throws \Exception
+     * @return Application|Factory|\Illuminate\Contracts\View\View
+     * @throws Exception
      */
     public function settingPage(){
         $statistic = $this->getViewsData();
@@ -183,7 +184,7 @@ class AdminPanel extends Controller
      * Подсчет уникальных пользователей и визитов
      *
      * @return array|null
-     * @throws \Exception
+     * @throws Exception
      */
     private function getViewsData() : ?array {
         $this->metric->getVisitsViewsUsers()->adapt();
