@@ -21,7 +21,11 @@ class GamePageController extends Controller
      * @return Application|Factory|View
      */
     public function gamesListPage(){
-        $this->setPageSEO(true);
+        $this->setPageSEO(true, false, [
+            "title" => 'Игры на MNS Game Мониторинг',
+            "description" => 'Страница игр на MNS Game Мониторинг',
+            "url" => url("games")
+        ]);
 
         $games = Game::withCount("servers")->get();
         return view("games", compact("games"));

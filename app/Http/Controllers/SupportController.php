@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\MNSGameSEO;
 use App\Models\Question;
 use App\Models\QuestionRate;
 use App\Models\TopicCategoryModel;
@@ -13,13 +14,12 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Jenssegers\Date\Date;
-use Artesaos\SEOTools\Traits\SEOTools;
 
 class SupportController extends Controller
 {
-    use SEOTools;
+    use MNSGameSEO;
+
     /**
-     *
      * Отображение главной страницы /support
      *
      * @return Application|Factory|View
@@ -29,24 +29,22 @@ class SupportController extends Controller
     }
 
     /**
-     *
      * Отображение страницы справки /support/faq
      *
      * @return Application|Factory|View
      */
     public function faqPage(){
-        $this->seo()->setDescription("MNS Game - это сервис мониторинга проектов и серверов для их владельцев и игроков различных жанров игр.");
-        $this->seo()->opengraph()->setTitle("MNS Game - наиболее частые вопросы");
-        $this->seo()->opengraph()->setDescription("Наиболее частые вопросы MNS Game");
-        $this->seo()->opengraph()->setUrl(url("/support/faq"));
-        $this->seo()->opengraph()->addImage(asset("/img/mnsgame.png"));
-        $this->seo()->opengraph()->setType("website");
+        $this->setPageSEO(true, false, [
+            "title" => "MNS Game - наиболее частые вопросы",
+            "description" => "Наиболее частые вопросы MNS Game",
+            "url" => url("/support/faq")
+        ]);
+
         $categories = TopicCategoryModel::with("questions")->get()->all();
         return view('supportPages.faq', compact("categories"));
     }
 
     /**
-     *
      * Отображение страницы ответа на вопрос /support/faq/answer/{answer_id}
      *
      * @param $answer
@@ -62,7 +60,6 @@ class SupportController extends Controller
     }
 
     /**
-     *
      * AJAX: обработка ответа о полезности ответа на вопрос /support/faq/answer/helpful
      *
      * @param Request $request
@@ -97,7 +94,6 @@ class SupportController extends Controller
     }
 
     /**
-     *
      * AJAX: обработка ответа ввода в поисковую форму слова /support/faq/answer/suggestions
      *
      * @return JsonResponse

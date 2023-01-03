@@ -7,6 +7,7 @@ use App\Http\Interfaces\ServerData;
 use App\Http\Requests\EditServerRequest;
 use App\Http\Requests\StoreServer;
 use App\Http\Services\ImageService;
+use App\Http\Services\MNSGameSEO;
 use App\Http\Services\ServerStats;
 use App\Models\FavoriteServers;
 use App\Models\Filter;
@@ -15,10 +16,7 @@ use App\Models\Game;
 use App\Models\PaymentHistory;
 use App\Models\Server;
 use App\Models\ServerOnline;
-use App\Models\ServerRcon;
 use App\Models\ServerRconHistory;
-use Artesaos\SEOTools\Facades\OpenGraph;
-use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Traits\SEOTools;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
@@ -34,7 +32,7 @@ use Illuminate\Support\Str;
 
 class ServerController extends Controller
 {
-    use SEOTools;
+    use MNSGameSEO;
 
     /**
      * Create a new controller instance.
@@ -327,15 +325,17 @@ class ServerController extends Controller
             ->limit(5)
             ->get();
 
-        $this->seo()->setDescription("MNS Game - это сервис мониторинга проектов и серверов для их владельцев и игроков различных жанров игр.");
-        $this->seo()->opengraph()->setTitle($server->title." - MNS Game Мониторинг");
-        $this->seo()->opengraph()->setDescription("Проект '". $server->title ."' по игре ".$server->game->title." на MNS Game Мониторинг");
-        $this->seo()->opengraph()->setUrl(url("/server")."/".$server->id);
-        $this->seo()->opengraph()->setType("article");
-        SEOMeta::addKeyword(["сервера", "мониторинг серверов", $server->game->title, $server->game->short_link, $server->title, "ip адреса", "айпи серверов", "топ", "список", "рейтинг", "рейтинг серверов"]);
-        OpenGraph::addImage(
-            asset($server->banner_img == null ? asset("/img/test/banner.png") : asset("/img/banners/{$server->banner_img}"))
-        );
+        $this->setPageSEO(false, false, [
+            "description" => "MNS Game - это сервис мониторинга проектов и серверов для их владельцев и игроков различных жанров игр.",
+            "opengraph" => [
+                "title" => $server->title . " - MNS Game Мониторинг",
+                "description" => "Проект '". $server->title ."' по игре ".$server->game->title." на MNS Game Мониторинг",
+                "url" => url("/server")."/".$server->id,
+                "image" => asset($server->banner_img == null ? asset("/img/test/banner.png") : asset("/img/banners/{$server->banner_img}")),
+                "type" => "article"
+            ],
+            "keywords" => ["сервера", "мониторинг серверов", $server->game->title, $server->game->short_link, $server->title, "ip адреса", "айпи серверов", "топ", "список", "рейтинг", "рейтинг серверов"]
+        ]);
 
         ServerStats::registerServerView($id);
 

@@ -11,13 +11,17 @@ trait MNSGameSEO
 
     /**
      * Setup default SEO on site
+     *
+     * @param string $title
+     * @param string $description
+     * @param string $url
      */
-    private function setDefaultSEO(): void
+    private function setDefaultSEO(string $title, string $description, string $url): void
     {
         $this->seo()->setDescription("MNS Game - это сервис мониторинга проектов и серверов для их владельцев и игроков различных жанров игр.");
-        $this->seo()->opengraph()->setTitle("Игры на MNS Game Мониторинг");
-        $this->seo()->opengraph()->setDescription("Страница игр на MNS Game Мониторинг");
-        $this->seo()->opengraph()->setUrl(url("/games"));
+        $this->seo()->opengraph()->setTitle($title);
+        $this->seo()->opengraph()->setDescription($description);
+        $this->seo()->opengraph()->setUrl($url);
         $this->seo()->opengraph()->addImage(asset("/img/mnsgame.png"));
         $this->seo()->opengraph()->setType("website");
         SEOMeta::addKeyword(["сервера", "мониторинг серверов", "ip адреса", "айпи серверов", "топ", "список", "рейтинг", "рейтинг серверов"]);
@@ -33,7 +37,7 @@ trait MNSGameSEO
     protected function setPageSEO(bool $isDefault, $isNotIndexing = false, array $options = null): void
     {
         if ($isDefault) {
-            $this->setDefaultSEO();
+            $this->setDefaultSEO($options["title"], $options["description"], $options["url"]);
             return;
         }
 
@@ -62,13 +66,13 @@ trait MNSGameSEO
             $this->seo()->opengraph()->setDescription($options["opengraph"]["description"]);
 
         if(isset($options["opengraph"]["url"]))
-            $this->seo()->opengraph()->setDescription($options["opengraph"]["url"]);
+            $this->seo()->opengraph()->setUrl($options["opengraph"]["url"]);
 
         if(isset($options["opengraph"]["image"]))
-            $this->seo()->opengraph()->setDescription($options["opengraph"]["image"]);
+            $this->seo()->opengraph()->addImage($options["opengraph"]["image"]);
 
         if(isset($options["opengraph"]["type"]))
-            $this->seo()->opengraph()->setDescription($options["opengraph"]["type"]);
+            $this->seo()->opengraph()->setType($options["opengraph"]["type"]);
 
         if(isset($options["keywords"]))
             SEOMeta::addKeyword($options["keywords"]);
