@@ -18,7 +18,7 @@ trait MNSGameSEO
      */
     private function setDefaultSEO(string $title, string $description, string $url): void
     {
-        $this->seo()->setDescription("MNS Game - это сервис мониторинга проектов и серверов для их владельцев и игроков различных жанров игр.");
+        $this->seo()->setDescription($description);
         $this->seo()->opengraph()->setTitle($title);
         $this->seo()->opengraph()->setDescription($description);
         $this->seo()->opengraph()->setUrl($url);

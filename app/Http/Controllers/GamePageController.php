@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Interfaces\ServerData;
 use App\Http\Services\MNSGameSEO;
+use App\Models\Filter;
 use App\Models\Game;
 use App\Models\Server;
 use Illuminate\Contracts\Foundation\Application;
@@ -37,7 +38,8 @@ class GamePageController extends Controller
      * @param $link
      * @return Application|Factory|View
      */
-    public function getGameByLink($link){
+    public function getGameByLink($link)
+    {
         $servers =
             Server::with(["game"])
                 ->whereHas("game",  function($q) use($link) {
@@ -58,7 +60,8 @@ class GamePageController extends Controller
                 break;
         }
 
-        if(request("categories")){
+        if(request("categories"))
+        {
             $servers = $servers->whereHas("filters", function ($query){
                $query->whereIn("id", explode("-", request("categories")));
             });
@@ -68,27 +71,45 @@ class GamePageController extends Controller
 
         $game = Game::with(["filters" => function ($q){ $q->orderBy('filter'); }])->where("short_link", $link)->firstOrFail();
 
-        $this->setPageSEO(false, request("categories") or request("projectType") or request("page"), [
-            "description" => "MNS Game - это сервис мониторинга проектов и серверов для их владельцев и игроков различных жанров игр.",
+        $keywords = [
+            "сервера",
+            "мониторинг серверов",
+            $game->title,
+            $game->short_link,
+            "ip адреса",
+            "айпи серверов",
+            "топ",
+            "список",
+            "рейтинг",
+            "рейтинг серверов"
+        ];
+
+        $description = "Сервера $game->title ";
+
+        if(request("categories"))
+        {
+            $filters = Filter::whereIn("id", explode("-", request("categories")))->get();
+
+            foreach ($filters as $filter)
+            {
+                $keywords[] = $filter->filter;
+            }
+
+            $description .= implode(", ", $filters->pluck("filter")->toArray());
+        }
+
+        $description .= " на MNS Game Мониторинг";
+
+        $this->setPageSEO(false, request("page"), [
+            "description" => $description,
             "opengraph" => [
                 "title" => "Мониторинг серверов " . $game->title,
-                "description" => $game->description,
+                "description" => $description,
                 "url" => url("/games") . "/" . $game->short_link,
                 "image" => asset("/img/mnsgame.png"),
                 "type" => "website"
             ],
-            "keywords" => [
-                "сервера",
-                "мониторинг серверов",
-                $game->title,
-                $game->short_link,
-                "ip адреса",
-                "айпи серверов",
-                "топ",
-                "список",
-                "рейтинг",
-                "рейтинг серверов"
-            ]
+            "keywords" => $keywords
         ]);
 
         return view("game", compact("servers", "game"));

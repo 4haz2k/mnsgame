@@ -326,7 +326,7 @@ class ServerController extends Controller
             ->get();
 
         $this->setPageSEO(false, false, [
-            "description" => "MNS Game - это сервис мониторинга проектов и серверов для их владельцев и игроков различных жанров игр.",
+            "description" => "Описание сервера $server->title: " . $server->description,
             "opengraph" => [
                 "title" => $server->title . " - MNS Game Мониторинг",
                 "description" => "Проект '". $server->title ."' по игре ".$server->game->title." на MNS Game Мониторинг",

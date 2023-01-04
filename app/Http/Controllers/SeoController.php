@@ -26,7 +26,7 @@ class SeoController extends Controller
 
     public function generateGamesSitemap(): Response
     {
-        $games = Game::all(["short_link", "created_at"]);
+        $games = Game::with(["filters"])->get();
         return response()->view("sitemaps.games", compact("games"))->header('Content-Type', 'text/xml');
     }
 }
