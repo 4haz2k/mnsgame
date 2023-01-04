@@ -85,6 +85,7 @@ class GamePageController extends Controller
         ];
 
         $description = "Сервера $game->title ";
+        $title = "MNS Game Мониторинг | $game->title ";
 
         if(request("categories"))
         {
@@ -96,9 +97,21 @@ class GamePageController extends Controller
             }
 
             $description .= implode(", ", $filters->pluck("filter")->toArray());
+            $title .= implode(", ", $filters->pluck("filter")->toArray());
         }
 
         $description .= " на MNS Game Мониторинг";
+
+        switch (request("projectType")) {
+            case ServerData::projectType["onlyAddresses"]:
+                $title .= ", проекты с адресом сервера";
+                break;
+            case ServerData::projectType["onlyLaunchers"]:
+                $title .= ", сайт проекта";
+                break;
+            default:
+                break;
+        }
 
         $this->setPageSEO(false, request("page"), [
             "description" => $description,
@@ -112,7 +125,7 @@ class GamePageController extends Controller
             "keywords" => $keywords
         ]);
 
-        return view("game", compact("servers", "game"));
+        return view("game", compact("servers", "game", "title"));
     }
 
     /**

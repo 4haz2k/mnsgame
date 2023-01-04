@@ -1,6 +1,6 @@
 @extends("layouts.main")
 
-@section("title", "MNS Game | $game->title")
+@section("title", $title)
 
 @section("integration_main")
     @if($game->id == 2)
