@@ -1,5 +1,6 @@
 User-agent: *
 Disallow: /games/*?page=
+Disallow: /games?etext=
 Disallow: /social/auth/
 Disallow: /payment/
 Disallow: /support/faq/answer/
