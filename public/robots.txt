@@ -24,5 +24,6 @@ Disallow: /game/get_games
 Disallow: /server/vote
 Disallow: /server/favorite
 Disallow: /server/console
+Disallow: /password
 
 Sitemap: https://mnsgame.ru/sitemap.xml
