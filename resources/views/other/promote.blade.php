@@ -9,8 +9,26 @@
 
 @section("mainHeroContent")
     <section class="pt-20 pb-10">
+        <div class="flex mdm:flex-col w-full">
+            <div class="lg:w-1/2 mdm:w-full lg:mt-20 mdm:text-center">
+                <div class="text-2xl font-bold mdm:text-center">Продвигай свой проект на MNS Game Мониторинг!</div>
+                <div class="text-base mt-4 mdm:text-center">На MNS Game доступно несколько вариантов продвижения:</div>
+                <div><a class="text-base" href="#packets">- Пакеты продвижения (Sapphire, Ruby, Emerald)</a></div>
+                <div><a class="text-base" href="#ratings">- Поштучная покупка рейтинга</a></div>
+                <div class="text-base mt-4">Наши примущества по сравнению с другими мониторингами:</div>
+                <div><a class="text-base" href="#benefits">- Эффективность</a></div>
+                <div><a class="text-base" href="#benefits">- Вознаграждения</a></div>
+                <div><a class="text-base" href="#benefits">- Цены</a></div>
+                <div class="text-base mt-4">О том, как работает рейтинг проектов, вы можете прочитать в этой <a href="https://mnsgame.ru/support/faq/answer/5" class="text-blue-500 underline">статье</a>.</div>
+            </div>
+            <div class="lg:w-1/2 mdm:w-full mdm:hidden">
+                <img src="{{ asset("img/mnsgame_promote.png") }}" class="h-[30rem] text-center" style="transform: perspective(900px) rotateY(-30deg); filter: drop-shadow(15px 12px 5px rgb(0 0 0 / 0.1));" alt="">
+            </div>
+        </div>
+    </section>
+    <section class="py-20" id="ratings">
         <div class="container max-w-6xl mx-auto">
-            <h2 class="text-3xl font-bold tracking-tight text-center">Повышение рейтинга проекта</h2>
+            <h2 class="text-3xl font-bold tracking-tight text-center">Поштучная покупка рейтинга</h2>
             <!-- component -->
             <div class="max-w-6xl mx-auto my-4 border-b-2 pb-4">
                 <div class="flex pb-3">
@@ -145,7 +163,7 @@
         </div>
     </section>
     <!-- End Main Hero Content -->
-    <section class="pb-20">
+    <section class="pb-20" id="packets">
         <div class="container max-w-5xl mx-auto">
             <div class="pb-3">
                 <h2 class="text-3xl font-bold tracking-tight text-center">Не упусти свой шанс быть выше остальных!</h2>
@@ -1320,29 +1338,11 @@
             </div>
         </div>
     </section>
-    <section class="py-20">
-        <div class="container max-w-6xl mx-auto">
-            <h2 class="text-3xl font-bold tracking-tight text-center">Как работает рейтинг проектов на MNS Game?</h2>
-            <div class="max-w-6xl mx-auto my-4">
-                <p class="text-base my-2"><strong>Рейтинг проекта</strong> - это сумма количества голосов вашего проекта и рейтинга, который вы покупаете на этой странице.</p>
-                <img src="{{ asset("img/promote-image-1.png") }}" alt="" class="text-center border-indigo-500 border-2 my-2 shadow-md">
-                <p class="text-base my-2">На основе этого рейтинга расчитывается положение вашего проекта в списке других проектов выбранной пользователем игры.</p>
-                <p class="text-base my-2">Рейтинг расчитывается по формуле: <strong>Рейтинг = (Количество голосов проекта) * (Коэффициент голосов {{ \App\Http\Interfaces\ServerData::coefficient }}) + (Купленный рейтинг)</strong></p>
-                <p class="text-base my-2">Так для примера рейтинг для проекта с 50-ю голосами и 1000 купленного рейтинга составит {{ 50 * \App\Http\Interfaces\ServerData::coefficient + 1000 }} рейтинга</p>
-            </div>
-            <h2 class="text-2xl font-bold tracking-tight text-left">Цены</h2>
-            <div class="max-w-6xl mx-auto my-4">
-                <p class="text-base my-2">Купленный рейтинг будет активен ровно <strong>1 месяц</strong> с момента поступления платежа в систему.</p>
-                <p class="text-base my-2">Цена <strong>1 рейтинга равна 1 рублю</strong>.</p>
-                <p class="text-base my-2">После пополнения счёта, история о платеже будет доступна в личном кабинете владельца проекта, для которого оказывается услуга.</p>
-            </div>
-        </div>
-    </section>
 @endsection
 
 @section("body")
     <!-- Section 2 -->
-    <section class="py-20 mns-background2">
+    <section class="py-20 mns-background2" id="benefits">
         <div class="container max-w-6xl mx-auto">
             <h2 class="text-3xl font-bold tracking-tight text-center">Почему стоит выбрать услуги MNS Game Мониторинг?</h2>
             <div class="grid grid-cols-4 gap-8 mt-2 sm:grid-cols-8 lg:grid-cols-12 sm:px-8 xl:px-0">
