@@ -94,7 +94,7 @@ class MojangServerInfoService extends ServerInfo
             }
 
             if ($response) {
-                if ($response->getStatusCode() == 419 ) {
+                if ($response->getStatusCode() == 429 ) {
                     return true;
                 }
             }
