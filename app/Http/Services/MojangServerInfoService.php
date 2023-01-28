@@ -46,8 +46,6 @@ class MojangServerInfoService extends ServerInfo
             $this->serverPort ? "https://api.mcsrvstat.us/2/{$this->serverIp}:{$this->serverPort}" : "https://api.mcsrvstat.us/2/{$this->serverIp}"
         )->getBody()->getContents();
 
-        Log::debug($response);
-
         $data = json_decode($response);
 
         if((bool)$data->online)
