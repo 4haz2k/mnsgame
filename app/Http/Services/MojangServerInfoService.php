@@ -13,17 +13,14 @@ use GuzzleHttp\Middleware;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use Illuminate\Support\Facades\Log;
 
 class MojangServerInfoService extends ServerInfo
 {
     /**
      * Setting default port of Mojang application
      */
-    protected function checkPort()
-    {
-        if($this->serverPort == null)
-            $this->serverPort = "25565";
-    }
+    protected function checkPort() {}
 
     /**
      *
@@ -46,8 +43,10 @@ class MojangServerInfoService extends ServerInfo
 
         $response = $client->request(
             'GET',
-            "https://api.mcsrvstat.us/2/{$this->serverIp}:{$this->serverPort}"
+            $this->serverPort ? "https://api.mcsrvstat.us/2/{$this->serverIp}:{$this->serverPort}" : "https://api.mcsrvstat.us/2/{$this->serverIp}"
         )->getBody()->getContents();
+
+        Log::debug($response);
 
         $data = json_decode($response);
 
@@ -84,6 +83,7 @@ class MojangServerInfoService extends ServerInfo
     private function retryDecider()
     {
         return function ($retries, Request $request, Response $response = null, RequestException $exception = null) {
+            Log::error("code: " . $response->getStatusCode() . " attempt: " . $retries);
 
             if ($retries >= 5) {
                 return false;
