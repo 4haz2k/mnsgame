@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Server;
 
 use App\Http\Controllers\Controller;
+use App\Http\Interfaces\PaymentTypes;
 use App\Http\Interfaces\ServerData;
 use App\Http\Requests\EditServerRequest;
 use App\Http\Requests\StoreServer;
@@ -134,9 +135,9 @@ class ServerController extends Controller
             return null;
         }
 
-        if($payment->contains('type', "packet2") or $payment->contains('type', "packet3")){
+        if($payment->contains('type', PaymentTypes::PACKET_SAPPHIRE["title"]) or $payment->contains('type', PaymentTypes::PACKET_EMERALD["title"])){
             return "bg-gr";
-        } elseif($payment->contains('type', "packet1")){
+        } elseif($payment->contains('type', PaymentTypes::PACKET_RUBY["title"])){
             return "bg-cl";
         } else{
             return null;

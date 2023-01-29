@@ -154,31 +154,30 @@ class PaymentController extends Controller
 
                 $paymentHandler = new PaymentsHandler($request->object["metadata"]["packet"]);
 
-                // todo: избавиться от хардкода
                 // Начисление рейтинга в зависимости от выбранного типа услуги
                 switch ($request->object["metadata"]["packet"]){
-                    case "rating":
+                    case PaymentTypes::PACKET_RATING["title"]:
                         $this->addRatingToServer(
                             $server["server_id"],
                             $paymentHandler->getPacket()["price"] * (int)$request->object["metadata"]["qty"]
                         );
                         $payment_history = $this->addPaymentHistory($server["server_id"], $paymentHandler->getPacket()["price"] * (int)$request->object["metadata"]["qty"], $request->object["metadata"]["packet"]);
                         break;
-                    case "packet1":
+                    case PaymentTypes::PACKET_RUBY["title"]:
                         $this->addRatingToServer(
                             $server["server_id"],
                             $paymentHandler->getRatingToSet()
                         );
                         $payment_history = $this->addPaymentHistory($server["server_id"], $paymentHandler->getPacket()["price"], $request->object["metadata"]["packet"], $paymentHandler->getTimeToSet());
                         break;
-                    case "packet2":
+                    case PaymentTypes::PACKET_SAPPHIRE["title"]:
                         $this->addRatingToServer(
                             $server["server_id"],
                             $paymentHandler->getRatingToSet()
                         );
                         $payment_history = $this->addPaymentHistory($server["server_id"], $paymentHandler->getPacket()["price"], $request->object["metadata"]["packet"]);
                         break;
-                    case "packet3":
+                    case PaymentTypes::PACKET_EMERALD["title"]:
                         $this->addRatingToServer(
                             $server["server_id"],
                             $paymentHandler->getRatingToSet()

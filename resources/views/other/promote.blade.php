@@ -170,7 +170,7 @@
                 <p class="text-lg text-center">Выбери свой выгодный пакет, и покоряй высоты высоким онлайном.</p>
             </div>
             <div class="text-center mb-2.5">
-                <a href="" class="modal-open" onclick="selectPacket('packet2')">
+                <a href="" class="modal-open" onclick="selectPacket('{{ \App\Http\Interfaces\PaymentTypes::PACKET_SAPPHIRE["title"] }}')">
                     <svg class="mx-auto mdm:hidden" width="908" height="347" viewBox="0 0 908 347" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="2.5" y="2.5" width="903" height="342" rx="18.5" fill="url(#paint0_linear_509_125)" stroke="#5850EC" stroke-width="5"/>
                         <path d="M888 5H545C554.313 173.685 797.694 105.844 802.661 201.799C806.634 278.563 871.543 267.668 903 253V79.5541V21C903 9 892 5 888 5Z" fill="url(#paint1_linear_509_125)"/>
@@ -541,7 +541,7 @@
             </div>
             <div class="flex mdm:flex-col w-full mt-2.5">
                 <div class="lg:w-1/2 mdm:w-full text-center">
-                    <a href="" class="modal-open" onclick="selectPacket('packet1')">
+                    <a href="" class="modal-open" onclick="selectPacket('{{ \App\Http\Interfaces\PaymentTypes::PACKET_RUBY["title"] }}')">
                         <svg class="mx-auto mdm:hidden" width="446" height="347" viewBox="0 0 446 347" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="2.5" y="2.5" width="440.083" height="342" rx="18.5" fill="url(#paint0_linear_509_161)" stroke="#5850EC" stroke-width="5"/>
                         <path d="M237.729 293.482C260.051 293.98 271.966 321.058 262.999 342H22C12.9559 342 8.02225 337.063 6 332C5.00366 329.506 5 326.98 5 325V321.058C8.54184 322.032 14.2973 316.188 24.9229 304.013C33.4233 294.273 44.8974 301.253 49.5718 305.961C56.1378 295.503 62.0081 280.854 65.0526 259.271C74.5287 192.092 91.9017 191.47 109.801 192.092C127.701 192.714 146.126 279.797 166.658 274.199C187.19 268.601 181.399 235.634 196.666 230.658C211.933 225.681 209.827 292.86 237.729 293.482Z" fill="url(#paint1_linear_509_161)"/>
@@ -883,7 +883,7 @@
                     </a>
                 </div>
                 <div class="lg:w-1/2 mdm:w-full text-center mdm:mt-2.5">
-                    <a href="" class="modal-open" onclick="selectPacket('packet3')">
+                    <a href="" class="modal-open" onclick="selectPacket('{{ \App\Http\Interfaces\PaymentTypes::PACKET_EMERALD["title"] }}')">
                         <svg class="mx-auto mdm:hidden" width="446" height="347" viewBox="0 0 446 347" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="2.5" y="2.5" width="440.083" height="342" rx="18.5" fill="url(#paint0_linear_509_160)" stroke="#5850EC" stroke-width="5"/>
                             <circle cx="378.541" cy="84.0008" r="50" transform="rotate(-173.329 378.541 84.0008)" fill="url(#paint1_linear_509_160)"/>
@@ -1411,13 +1411,13 @@
             let packet_title;
 
             switch (packet) {
-                case "packet1":
+                case "{{ \App\Http\Interfaces\PaymentTypes::PACKET_RUBY["title"] }}":
                     packet_title = "Rubby пакет за 99 руб!";
                     break;
-                case "packet2":
+                case "{{ \App\Http\Interfaces\PaymentTypes::PACKET_SAPPHIRE["title"] }}":
                     packet_title = "Sapphire пакет за 189 руб!";
                     break;
-                case "packet3":
+                case "{{ \App\Http\Interfaces\PaymentTypes::PACKET_EMERALD["title"] }}":
                     packet_title = "Emerald пакет за 249 руб!"
                     break;
                 default:
