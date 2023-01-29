@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Interfaces;
+namespace App\Http\Services\OnlineHandler;
 
 use Closure;
 use GuzzleHttp\Client;

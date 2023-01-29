@@ -1,10 +1,11 @@
 <?php
-namespace App\Http\Interfaces;
 
-use App\Http\Services\MinecraftBedrockServerInfoService;
-use App\Http\Services\MojangServerInfoService;
-use App\Http\Services\SampServerInfoService;
-use App\Http\Services\SteamServerInfoService;
+namespace App\Http\Services\OnlineHandler;
+
+use App\Http\Services\OnlineHandler\Platforms\MinecraftBedrockServerInfoService;
+use App\Http\Services\OnlineHandler\Platforms\MojangServerInfoService;
+use App\Http\Services\OnlineHandler\Platforms\SampServerInfoService;
+use App\Http\Services\OnlineHandler\Platforms\SteamServerInfoService;
 use http\Exception\RuntimeException;
 
 final class GamesType

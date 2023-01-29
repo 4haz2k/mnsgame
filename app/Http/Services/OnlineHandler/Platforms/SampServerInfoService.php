@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Http\Services\OnlineHandler\Platforms;
 
-
-use App\Http\Interfaces\ServerInfo;
+use App\Http\Services\OnlineHandler\ServerInfo;
 use App\Http\Services\SampSocketPackets\SampQueryAPI;
 
 class SampServerInfoService extends ServerInfo

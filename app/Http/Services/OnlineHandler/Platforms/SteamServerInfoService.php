@@ -1,7 +1,8 @@
 <?php
-namespace App\Http\Services;
 
-use App\Http\Interfaces\ServerInfo;
+namespace App\Http\Services\OnlineHandler\Platforms;
+
+use App\Http\Services\OnlineHandler\ServerInfo;
 
 class SteamServerInfoService extends ServerInfo
 {
