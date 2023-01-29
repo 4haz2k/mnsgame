@@ -2,7 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Http\Services\ServerOnline;
+
+use App\Http\Services\OnlineHandler\ServerOnline;
 use Illuminate\Console\Command;
 
 class UpdateOnlineCommand extends Command
