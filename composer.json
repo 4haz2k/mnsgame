@@ -27,7 +27,8 @@
         "socialiteproviders/yandex": "^4.1",
         "socialiteproviders/zoho": "^4.1",
         "yoomoney/yookassa-sdk-php": "^2.4",
-        "ext-openssl": "*"
+        "ext-openssl": "*",
+      "ext-http": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

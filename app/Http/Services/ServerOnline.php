@@ -20,42 +20,17 @@ class ServerOnline
     public function updateOnline(){
         foreach ($this->server_list as $server) {
             if(!$server->is_launcher){
-                switch ($server->game->platform){
-                    case GamesType::steamServer:
-                        $steamServerInfoService = new SteamServerInfoService($server->server_data, $server->game->steam_app_id);
-                        $online = $steamServerInfoService->getPlayersCount();
-                        $server->online = $online;
-                        $server->save();
-                        $this->saveOnlineLog($server->id, $online);
-                        unset($steamServerInfoService);
-                        break;
-                    case GamesType::mojangServer:
-                        $mojangServerInfoService = new MojangServerInfoService($server->server_data);
-                        $online = $mojangServerInfoService->getPlayersCount();
-                        $server->online = $online;
-                        $server->save();
-                        $this->saveOnlineLog($server->id, $online);
-                        unset($mojangServerInfoService);
-                        break;
-                    case GamesType::samp:
-                        $sampServerInfoService = new SampServerInfoService($server->server_data);
-                        $online = $sampServerInfoService->getPlayersCount();
-                        $server->online = $online;
-                        $server->save();
-                        $this->saveOnlineLog($server->id, $online);
-                        unset($sampServerInfoService);
-                        break;
-                    case GamesType::minecraftBedrock:
-                        $minecraftBedrock = new MinecraftBedrockServerInfoService($server->server_data);
-                        $online = $minecraftBedrock->getPlayersCount();
-                        $server->online = $online;
-                        $server->save();
-                        $this->saveOnlineLog($server->id, $online);
-                        unset($minecraftBedrock);
-                        break;
-                    default:
-                        break;
-                }
+                /** @var  $gameServiceClass MojangServerInfoService|SteamServerInfoService|SampServerInfoService|MinecraftBedrockServerInfoService */
+                $gameServiceClass = GamesType::GAME_TYPES[$server->game->platform];
+
+                $gameServiceClass = new $gameServiceClass($server->server_data, $server->game->steam_app_id);
+                $online = $gameServiceClass->getPlayersCount();
+
+                $server->online = $online;
+                $server->save();
+
+                $this->saveOnlineLog($server->id, $online);
+                unset($gameServiceClass);
             }
         }
     }

@@ -8,11 +8,7 @@ class SteamServerInfoService extends ServerInfo
     /**
      * Setting default port of Steam application
      */
-    protected function checkPort()
-    {
-        if($this->serverPort == null)
-            $this->serverPort = '27015';
-    }
+    protected function checkPort(): void {}
 
     /**
      *
@@ -22,8 +18,6 @@ class SteamServerInfoService extends ServerInfo
      */
     protected function makeQuery(): bool
     {
-//        self::checkPort();
-
         $server_address = $this->serverPort == null ? $this->serverIp : $this->serverIp.":".$this->serverPort;
 
         $url = "https://api.steampowered.com/IGameServersService/GetServerList/v1/?filter=\appid\\{$this->serverAppId}\addr\\{$server_address}&key=".config("steam.STEAM_API_KEY");

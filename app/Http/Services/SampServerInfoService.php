@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Services;
 
 
@@ -12,7 +11,7 @@ class SampServerInfoService extends ServerInfo
     /**
      * Setting default port of Steam application
      */
-    protected function checkPort()
+    protected function checkPort(): void
     {
         if($this->serverPort == null)
             $this->serverPort = '7777';
@@ -26,7 +25,7 @@ class SampServerInfoService extends ServerInfo
      */
     protected function makeQuery(): bool
     {
-        self::checkPort();
+        static::checkPort();
 
         $query = new SampQueryAPI($this->serverIp, $this->serverPort);
 
@@ -50,7 +49,7 @@ class SampServerInfoService extends ServerInfo
      */
     public function getPlayersCount(): int
     {
-        if(self::makeQuery()){
+        if(static::makeQuery()){
             return $this->playersCount;
         }
         else{

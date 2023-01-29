@@ -1,33 +1,30 @@
 <?php
 
-
 namespace App\Http\Services;
 
-
 use App\Http\Interfaces\ServerInfo;
+use GuzzleHttp\Exception\GuzzleException;
 
 class MinecraftBedrockServerInfoService extends ServerInfo
 {
     /**
      * Setting default port of Mojang Bedrock minecraft application
      */
-    protected function checkPort()
-    {
-        if($this->serverPort == null)
-            $this->serverPort = "19132";
-    }
+    protected function checkPort(): void {}
 
     /**
      *
      * Making query on MC API
      *
      * @return bool
+     * @throws GuzzleException
      */
     protected function makeQuery(): bool
     {
-        self::checkPort();
-
-        $response = json_decode(file_get_contents("https://api.mcsrvstat.us/bedrock/2/{$this->serverIp}:{$this->serverPort}"));
+        $response = $this->getApiData($this->serverPort ?
+                "https://api.mcsrvstat.us/bedrock/2/{$this->serverIp}:{$this->serverPort}" :
+                "https://api.mcsrvstat.us/bedrock/2/{$this->serverIp}"
+        );
 
         if((bool)$response->online)
             $this->playersCount = $response->players->online;
@@ -42,10 +39,11 @@ class MinecraftBedrockServerInfoService extends ServerInfo
      * Getting players count
      *
      * @return int
+     * @throws GuzzleException
      */
     public function getPlayersCount(): int
     {
-        if(self::makeQuery()){
+        if(static::makeQuery()){
             return $this->playersCount;
         }
         else{
