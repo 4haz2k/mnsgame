@@ -8,7 +8,10 @@ use App\Models\Game;
 use App\Models\Notifications;
 use App\Models\PaymentHistory;
 use App\Models\User;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -32,49 +35,37 @@ class HomeController extends Controller
      */
     public function index(): Renderable
     {
-        $user = Auth::user();
-        return view('account.home', compact("user"));
+        return view('account.home', ["user" => Auth::user()]);
     }
 
-    public function settings(){
-        $user = Auth::user();
-        return view('account.settings', compact("user"));
+    /**
+     * Settings page
+     *
+     * @return Renderable
+     */
+    public function settings(): Renderable
+    {
+        return view('account.settings', ["user" => Auth::user()]);
     }
 
+    /**
+     * User settings update
+     *
+     * @param UserEditRequest $request
+     * @return RedirectResponse
+     */
     public function updateSettings(UserEditRequest $request): RedirectResponse
     {
-        $user = User::where("id", Auth::id())->first();
-
-        if($request->has("name") and $request->filled('name'))
-            if($request->name != $user->name)
-                $user->name = $request->name;
-
-        if($request->has("surname") and $request->filled('surname'))
-            if($request->surname != $user->surname)
-                $user->surname = $request->surname;
-
-        if($request->has("login") and $request->filled('login'))
-            if($request->login != $user->login)
-                $user->login = $request->login;
-
-        if($request->has("password") and $request->filled('password'))
-            $user->password = Hash::make($request->password);
-
-        if($request->has("email") and $request->filled('email'))
-            if($request->email != $user->email)
-                $user->email = $request->email;
-
-        if($request->hasFile("profile_image")){
-            $image = new ImageService();
-            $user->profile_image = $image->handleProfileUploadedImage($request);
-        }
-
-        $user->save();
-
-        return redirect()->back()->with("status", true);
+        return redirect()->back()->with("status", User::updateUser($request));
     }
 
-    public function getPaymentHistory(){
+    /**
+     * Get payment history of user
+     *
+     * @return Renderable
+     */
+    public function getPaymentHistory(): Renderable
+    {
         $payments = PaymentHistory::with("server")
             ->whereHas("server", function ($q){ $q->where("owner_id", Auth::id()); })
             ->whereNotNull("server_id")
@@ -83,15 +74,27 @@ class HomeController extends Controller
         return view("account.paymenthistory", compact("payments"));
     }
 
-    public function getNotifications(){
-        $notifications = Notifications::where("user_id", Auth::id())->get();
-        return view("account.notifications", compact("notifications"));
+    /**
+     * Get notifications of user
+     *
+     * @return Renderable
+     */
+    public function getNotifications(): Renderable
+    {
+        return view("account.notifications", ["notifications" => Notifications::where("user_id", Auth::id())->get()]);
     }
 
-    public function goToNotification($id){
+    /**
+     * Open notification by ID
+     *
+     * @param $id
+     * @return Renderable
+     */
+    public function goToNotification($id): Renderable
+    {
         $notification = Notifications::where("id", $id)->where("user_id", Auth::id())->firstOrFail();
 
-        if(!$notification->is_viewed){
+        if(!$notification->is_viewed) {
             $notification->is_viewed = 1;
             $notification->save();
         }
