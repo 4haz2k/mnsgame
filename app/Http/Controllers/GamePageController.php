@@ -119,7 +119,7 @@ class GamePageController extends Controller
                 if(!$title)
                     $title = "MNS Game Мониторинг | $game->title";
                 else
-                    $title = " | $game->title";
+                    $title .= " | $game->title";
                 break;
         }
 
