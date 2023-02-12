@@ -54,7 +54,7 @@ class ServerInfoTest extends TestCase
         $result = [];
 
         foreach ($platforms as $key => $platform) {
-            $gameServiceClass = isset(GamesType::GAME_TYPES[$key]) ? GamesType::GAME_TYPES[$key] : null;
+            $gameServiceClass = GamesType::GAME_TYPES[$key] ?? null;
 
             if(is_null($gameServiceClass))
                 continue;
