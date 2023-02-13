@@ -44,7 +44,7 @@
                 <div class="text-left font-semibold text-base mt-3 px-3 truncate max-w-[16rem] max-h-[24px]">Игра: {{ $game->title }}</div>
                 <div class="text-left font-medium text-base mt-2 px-3 truncate max-w-[16rem] max-h-[24px]">Разработчик: {{ $game->developer }}</div>
                 <div class="text-left font-medium text-sm mt-2 px-3">Серверов на MNS Game: <span class="text-indigo-500 font-semibold">{{ $game->servers_count }}</span></div>
-                <div class="text-left font-medium text-sm mt-2 px-3">Количество игроков: <span class="text-indigo-500 font-semibold">{{ $game->servers_sum_online }}</span></div>
+                <div class="text-left font-medium text-sm mt-2 px-3">Количество игроков: <span class="text-indigo-500 font-semibold">{{ $game->servers_sum_online ?? 0 }}</span></div>
                 <button class="btn h-[24px] w-60 mx-auto justify-center mt-3 inline-block px-3 py-2.5 bg-blue-600 text-white font-medium text-sm leading-tight !rounded-tr-xl !rounded-bl-xl shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out flex items-center" data-link="{{ url("/games/{$game->short_link}") }}" onclick="redirect(this)">
                     Перейти
                 </button>
