@@ -28,7 +28,7 @@ class GamePageController extends Controller
             "url" => url("games")
         ]);
 
-        $games = Game::withCount("servers")->get();
+        $games = Game::withCount("servers")->withSum('servers', 'online')->get();
         return view("games", compact("games"));
     }
 
