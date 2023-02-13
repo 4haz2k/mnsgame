@@ -71,7 +71,7 @@ class PaymentController extends Controller
                 ],
                 'metadata' => [
                     'server_id' => $server->id,
-                    'packet' => $paymentHandler->getPacket()["packet"],
+                    'packet' => $paymentHandler->getPacket()["title"],
                     'qty' => $request->qty
                 ]
             ], $unique_id = uniqid('', true));
