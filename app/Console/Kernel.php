@@ -2,10 +2,8 @@
 
 namespace App\Console;
 
-use App\Http\Services\ServerOnline;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -20,6 +18,7 @@ class Kernel extends ConsoleKernel
         $schedule->command("server:updateOnline")->everyFifteenMinutes()->description("Servers online updater");
         $schedule->command("server:updateRating")->everyFifteenMinutes()->description("Servers rating updater");
         $schedule->command("server:updateVotes")->everyFifteenMinutes()->description("Servers vote updater");
+        $schedule->command("server:removeOldOnline")->everySixHours()->description("Servers old online remover");
     }
 
     /**

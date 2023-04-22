@@ -1,26 +1,25 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\App;
 
 use App\Http\Services\ServersRating;
-use App\Http\Services\ServersVote;
 use Illuminate\Console\Command;
 
-class UpdateVotesCommand extends Command
+class UpdateRatingCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'server:updateVotes';
+    protected $signature = 'server:updateRating';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Update server votes';
+    protected $description = 'Update servers rating';
 
     /**
      * Create a new command instance.
@@ -35,12 +34,12 @@ class UpdateVotesCommand extends Command
     /**
      * Execute the console command.
      *
-     * @param ServersVote $serversVote
+     * @param ServersRating $serversRating
      * @return int
      */
-    public function handle(ServersVote $serversVote): int
+    public function handle(ServersRating $serversRating): int
     {
-        $serversVote->updateVotes();
+        $serversRating->updateRating();
         return Command::SUCCESS;
     }
 }
