@@ -127,7 +127,7 @@
                             {{ $server->title }}
                         </div>
                         <div class="block">
-                            <img class="rounded-2" src="@if($server->banner_img == null) {{ asset("/img/deps/banner_placeholder_preview.png") }} @else {{ asset("/img/banners/{$server->banner_img}") }} @endif" width="486" height="60" alt="" id="server-banner">
+                            <img class="rounded-2" src="@if($server->banner_img == null) {{ asset("/img/deps/banner_placeholder.png") }} @else {{ asset("/img/banners/{$server->banner_img}") }} @endif" width="486" height="60" alt="" id="server-banner">
                         </div>
                     </div>
                     <div class="w-1/3 lg:w-1/12 justify-center items-center flex text-xs mdm:hidden">
