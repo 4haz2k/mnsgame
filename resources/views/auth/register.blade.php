@@ -12,7 +12,7 @@
     <div class="container max-w-lg px-4 mx-auto text-left md:max-w-none md:text-center">
         <div class="lg:grid lg:!grid-cols-2 md:grid-cols-1">
             <div id="firstColumn" class="lg:mt-[-35px] mt-[50px] px-0 text-left pt-0 lg:!pt-48 lg:!px-32">
-                <h2 class="mt-6 text-4xl font-extrabold text-gray-900 text-center lg:!text-left">Играй на хороших проетах вместе с <br>MNS Game<span class="text-indigo-500">.</span></h2>
+                <h2 class="mt-6 text-4xl font-extrabold text-gray-900 text-center lg:!text-left">Играй на хороших проектах вместе с <br>MNS Game<span class="text-indigo-500">.</span></h2>
                 <h3 class="text-xl font-normal text-gray-900 text-center lg:!text-left mt-3 mb-5" id="justify">
                     MNS Game Мониторинг - это эффективный сервис, позволяющий игрокам найти хорошие проекты для игры, а владельцам поднимать его в рейтинге. Присоединяйся!
                 </h3>
