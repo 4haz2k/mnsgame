@@ -58,8 +58,6 @@ class PromoSenderCommand extends Command
 
     private function getUsers(): Collection
     {
-        return User::whereIn('id', [1, 2])->get()->keyBy('email');
-
         $servers = Server::with('user')->get();
 
         $users = new Collection();
