@@ -228,7 +228,7 @@
 <tbody>
 <tr style="height: 84px;">
 <td style="height: 84px; width: 603px;">
-<h1 style="--tw-text-opacity: 1; font-family: 'Nunito'; color: rgb(17 24 39 / var(--tw-text-opacity)); font-weight: 900;" align="center">MNS Game<span style="color: rgb(88 80 236 / var(--tw-text-opacity));">.</span> Мониторинг</h1>
+<h1 align="center"><img src="https://mnsgame.ru/img/mnsgame_promo_mail.png" alt="" width="300" height="30" /></h1>
 </td>
 </tr>
 <tr style="height: 10px;">
@@ -266,7 +266,7 @@
 <table border="0" cellspacing="0" cellpadding="0">
 <tbody>
 <tr>
-<td style="border-radius: 0px; -moz-border-radius: 0px; -webkit-border-radius: 0px; color: #ffffff; background-color: #6875f5;"><a style="font-size: 14px; font-family: 'Nunito'; color: #ffffff; text-align: center; text-decoration: none; display: block; line-height: 100%; background-color: #6875f5; border: 2px solid #FFFFFF; padding: 10px 25px; border-radius: 5px; -moz-border-radius: 0px; -webkit-border-radius: 0px;" title="" href="../../../../" target="_blank" rel="noopener" data-linkto="http://"> Перейти на страницу конкурса </a></td>
+<td style="border-radius: 0px; -moz-border-radius: 0px; -webkit-border-radius: 0px; color: #ffffff; background-color: #6875f5;"><a style="font-size: 14px; font-family: 'Nunito'; color: #ffffff; text-align: center; text-decoration: none; display: block; line-height: 100%; background-color: #6875f5; border: 2px solid #FFFFFF; padding: 10px 25px; border-radius: 5px; -moz-border-radius: 0px; -webkit-border-radius: 0px;" title="" href="{{ $link }}" target="_blank" rel="noopener" data-linkto="{{ $link }}"> Перейти на страницу конкурса </a></td>
 </tr>
 </tbody>
 </table>

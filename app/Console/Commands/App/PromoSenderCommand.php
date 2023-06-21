@@ -13,26 +13,36 @@ use Throwable;
 
 class PromoSenderCommand extends Command
 {
-    protected $signature = 'promo:send';
+    protected $signature = 'promo:send
+                            {link : link of promo}';
+
+    protected $description = 'Promo notifications';
 
     private const SLEEP_TIME = 5;
 
     public function handle(): int
     {
+        $link = $this->argument('link');
+
+        if (! $link) {
+            $this->error('Link needed');
+            return self::FAILURE;
+        }
+
         $users = $this->getUsers();
 
         if (empty($users)) {
-            $this->warn('Список пользователей пуст!');
+            $this->warn('Users list is empty!');
             return self::SUCCESS;
         }
 
-        $this->info('Начало рассылки');
+        $this->info('Starting promo send');
         $this->output->progressStart(count($users));
 
         foreach ($users as $user) {
             try {
                 /** @var User $user */
-                $user->notify(new PromoNotification(['https://vk.cc/coVSRk', $user->login]));
+                $user->notify(new PromoNotification([$link, $user->login]));
             } catch (Throwable $exception) {
                 Log::error($exception);
             }
@@ -42,7 +52,7 @@ class PromoSenderCommand extends Command
         }
 
         $this->output->progressFinish();
-        $this->info('Рассылка завершена');
+        $this->info('Promo send finished');
         return self::SUCCESS;
     }
 
