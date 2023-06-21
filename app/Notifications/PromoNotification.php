@@ -28,7 +28,8 @@ class PromoNotification extends Notification
 
         return (new MailMessage())
             ->view('vendor.maileclipse.templates.promo', compact("link", "login"))
-            ->subject("Конкурс 12-ти пакетов на MNS Game Мониторинг!");
+            ->subject("Конкурс 12-ти пакетов на MNS Game Мониторинг!")
+            ->from(config('mail.from.address'), 'MNS Game Мониторинг');
     }
 
     public function toArray(object $notifiable): array
