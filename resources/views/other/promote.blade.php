@@ -1407,6 +1407,10 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="https://unpkg.com/flowbite@1.3.3/dist/flowbite.js"></script>
     <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            displayPromo();
+        })
+
         function selectPacket(packet){
             let packet_title;
 
@@ -1475,6 +1479,18 @@
             modal.classList.toggle('pointer-events-none')
             modal.classList.toggle('hidden')
             body.classList.toggle('modal-active')
+        }
+
+        function displayPromo() {
+            let promoKey = localStorage.getItem('promoKey');
+
+            if (! promoKey) {
+                document.getElementById("modal-body").innerHTML =
+                    '<div class="modal-content py-4 text-left px-6"><div class="items-center pb-3 text-start"><div class="text-xl text-center">Конкурс на 12 пакетов на MNS Game Мониторинг!</div><div class="mt-2">Привет! 🤙 Прямо сейчас в нашей группе <a target="_blank" href="https://vk.cc/coWOba"><strong>ВКонтакте</strong></a> проходит конкурс на пакеты для продвижения проекта!</div><div class="mt-2"><strong>Мы разыгрываем 12 пакетов, а именно:</strong></div><ul class="list-disc mt-1 pl-6"><li class="mt-2">3 пакета <strong>Emerald 🧩</strong></li><li class="mt-2">3 пакета <strong>Sapphire 💎</strong></li><li class="mt-2">6 пакетов <strong>Ruby 🔥</strong></li></ul><div class="mt-3">Начать участие в конкурсе можно всего лишь за 2 действия:</div><ul class="list-disc mt-1 pl-6"><li>Подписаться на <a target="_blank" href="https://vk.cc/coWOba" class="text-blue-500">группу</a>!</li><li>Поставить лайк на <a target="_blank" href="https://vk.cc/coWC37" class="text-blue-500">записи конкурса</a>!</li></ul><div class="mt-2">Скорее переходи и участвуй в конкурсе, ведь конкурс продлиться лишь <strong>до 14 июля</strong>!</div></div><div class="flex justify-center pt-2"><a target="_blank" href="https://vk.cc/coWC37"><button class="bg-indigo-500 hover:bg-indigo-400 text-white py-1 px-3 rounded"><span class="inline align-middle pt-[1%]">Перейти на страницу конкурса</span></button></a></div></div>';
+
+                toggleModal();
+                localStorage.setItem('promoKey', 'true');
+            }
         }
     </script>
     <script>
