@@ -32,7 +32,7 @@ class PromoSenderCommand extends Command
         foreach ($users as $user) {
             try {
                 /** @var User $user */
-                $user->notify(new PromoNotification(['link' => 'https://vk.cc/coVSRk', 'login' => $user->login]));
+                $user->notify(new PromoNotification(['https://vk.cc/coVSRk', $user->login]));
             } catch (Throwable $exception) {
                 Log::error($exception);
             }
