@@ -47,7 +47,8 @@ class GamePageController extends Controller
                 })
                 ->selectRaw("`servers`.*,(select count(*) from `server_rates` where `servers`.`id` = `server_rates`.`server_id`) * ".ServerData::coefficient." + IFNULL((select rating from `server_ratings` where `servers`.`id` = `server_ratings`.`server_id`), 0) as `rating`")
                 ->groupBy('id')
-                ->orderByDesc("rating");
+                ->orderByDesc("rating")
+                ->orderByDesc("online");
 
         switch (request("projectType")){
             case ServerData::projectType["onlyAddresses"]:
