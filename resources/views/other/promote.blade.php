@@ -1408,7 +1408,7 @@
     <script src="https://unpkg.com/flowbite@1.3.3/dist/flowbite.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            displayPromo();
+
         })
 
         function selectPacket(packet){

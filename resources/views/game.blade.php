@@ -593,8 +593,6 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            displayPromo();
-
             let url = new URL(window.location.href);
 
             let filter_list = document.querySelectorAll(".category-server");
