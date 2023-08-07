@@ -130,7 +130,16 @@ class Drawer
      */
     private function drawImage()
     {
-        $image = imagecreatefrompng($this->getImageLink());
+        $context = [
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+            ],
+        ];
+
+        $response = file_get_contents($this->getImageLink(), false, stream_context_create($context));
+
+        $image = imagecreatefromstring($response);
         $settings = $this->getSettings();
 
         imagettftext(
