@@ -89,7 +89,7 @@
                     <header class="font-extrabold text-lg mb-1">
                         <a href="{{ url("/support/faq/answer/$suggestion->id") }}" class="hover:!text-black">{{ $suggestion->title }}</a>
                     </header>
-                    <p class="text-gray-600 text-base h-[168px] lg:h-12">Душа моя озарена неземной радостью, как эти чудесные весенние утра, которыми я наслаждаюсь от всего сердца. Я совсем один и блаженствую в здешнем краю, словно созданном для таких, как я.</p>
+                    <p class="text-gray-600 text-base h-[168px] lg:h-12">{{ \Illuminate\Support\Str::limit(strip_tags($suggestion->answer ?? ''), 200) }}</p>
                     <a href="{{ url("/support/faq/answer/$suggestion->id") }}" class="mt-2 font-medium items-center inline-flex text-indigo-300 hover:text-indigo-500 hover:underline">
                         <span>Читать далее</span>
                         <svg class="shrink-0 w-3 h-3 mt-px ml-2" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"> <path class="fill-current" d="M6.602 11l-.875-.864L9.33 6.534H0v-1.25h9.33L5.727 1.693l.875-.875 5.091 5.091z"></path> </svg>
