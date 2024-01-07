@@ -19,6 +19,14 @@
             webvisor:true
         });
     </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R2VBW24X24"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-R2VBW24X24');
+    </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/89413035" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style type="text/css">
